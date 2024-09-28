@@ -4,16 +4,169 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lego Store</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+      integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <link rel="stylesheet" href="./assets/css/base.css" />
     <link rel="stylesheet" href="./assets/css/main.css" />
+    <link
+      rel="stylesheet"
+      href="./assets/fonts/fontawesome-free-6.6.0-web/css/all.min.css"
+    />
   </head>
   <body>
     <div class="app">
       <div class="header">
         <div class="grid"></div>
       </div>
-      <div class="body"></div>
+      <div class="container">
+        <div class="grid">
+          <!-- Phần Body Top -->
+          <div class="bodytop">
+            <div class="bodytop__left">
+              <div class="verticalmenu">
+                <!-- Tiêu đề Vertical Menu -->
+                 <div class="verticalmenu_title">
+                  <h3>
+                    <i class="verticalmenu_title-icon fa-solid fa-bars"></i>
+                    <span>DANH MỤC SẢN PHẨM</span>
+                  </h3>
+                 </div>
+                <!-- Chi tiết Vertical Menu -->
+                <div class="verticalmenu__detail">
+                  <ul class="verticalmenu__detail-list">
+                    <li class="verticalmenu__detail-item">
+                      <img
+                        src="./assets/img/lego-icon.jpg"
+                        alt=""
+                        class="verticalmenu__detail-icon"
+                      />
+                      <a href="" class="verticalmenu__detail-link"
+                        >Lego theo chủ đề</a
+                      >
+                    </li>
+                    <li class="verticalmenu__detail-item">
+                      <img
+                        src="./assets/img/lego-icon.jpg"
+                        alt=""
+                        class="verticalmenu__detail-icon"
+                      />
+                      <a href="" class="verticalmenu__detail-link">Lego MOC</a>
+                    </li>
+                    <li class="verticalmenu__detail-item">
+                      <img
+                        src="./assets/img/lego-icon.jpg"
+                        alt=""
+                        class="verticalmenu__detail-icon"
+                      />
+                      <a href="" class="verticalmenu__detail-link"
+                        >Lego Technic</a
+                      >
+                    </li>
+                    <li class="verticalmenu__detail-item">
+                      <img
+                        src="./assets/img/lego-icon.jpg"
+                        alt=""
+                        class="verticalmenu__detail-icon"
+                      />
+                      <a href="" class="verticalmenu__detail-link"
+                        >Phụ kiện Lego</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="bodytop__right"></div>
+          </div>
+          <!-- Phần Body Middle -->
+        </div>
+      </div>
       <div class="footer"></div>
     </div>
+
+    <!-- Modal -->
+    <!-- <div class="modal">
+      <div class="modal__overlay"></div>
+      <div class="modal__body">
+        <!-- Authen form -->
+        <div class="auth-form">
+          <div class="auth-form__container">
+            <!-- Header -->
+            <div class="auth-form__header">
+              <h3 class="auth-form__heading">Đăng ký</h3>
+              <span class="auth-form__swith-btn">Đăng nhập</span>
+            </div>
+            <!-- Body 01 -->
+            <div class="auth-form__form">
+              <div class="auth-form__group">
+                <input
+                  type="text"
+                  class="auth-form__input"
+                  placeholder="Email của bạn"
+                />
+              </div>
+
+              <div class="auth-form__group">
+                <input
+                  type="password"
+                  class="auth-form__input"
+                  placeholder="Mật khẩu của bạn"
+                />
+              </div>
+              <div class="auth-form__group">
+                <div class="auth-form__group">
+                  <input
+                    type="password"
+                    class="auth-form__input"
+                    placeholder="Nhập lại mật khẩu"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Body 02 -->
+            <div class="auth-form__aside">
+              <p class="auth-form__policy-text">
+                Bằng việc đăng kí, bạn đã đồng ý với Shop về
+                <a href="" class="auth-form__text-link">Điều khoản dịch vụ</a>
+                &
+                <a href="" class="auth-form__text-link">Chính sách bảo mật</a>
+              </p>
+            </div>
+            <!-- Footer 01 -->
+            <div class="auth-form__controls">
+              <button class="btn auth-form__controls-back btn--normal">
+                TRỞ LẠI
+              </button>
+              <button class="btn btn--primary">ĐĂNG KÝ</button>
+            </div>
+          </div>
+          <!-- Footer 02 -->
+          <div class="auth-form__socials">
+            <a
+              href=""
+              class="auth-form__socials--facebook btn btn--size-s btn--with-icon"
+              ><i
+                class="auth-form__socials-icon fa-brands fa-square-facebook"
+              ></i
+              ><span class="auth-form__socials-title"
+                >Kết nối với Facebook</span
+              ></a
+            >
+            <a
+              href=""
+              class="auth-form__socials--google btn btn--size-s btn--with-icon"
+              ><i class="auth-form__socials-icon fa-brands fa-google"></i
+              ><span class="auth-form__socials-title">Kết nối với Google</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div> -->
   </body>
 </html>

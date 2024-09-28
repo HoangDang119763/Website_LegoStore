@@ -1,0 +1,225 @@
+/* Phần Header */
+.header {
+  height: 50px;
+  background-color: red;
+  border: solid 5px black;
+  margin-bottom: 10px;
+  position: sticky;
+}
+
+/* Phần Container */
+.container {
+  height: 300px;
+  background-color: blue;
+  border: solid 5px black;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+/* Phần Body */
+/* Phần Body Top */
+.bodytop {
+  display: flex;
+}
+
+/* Phần Body Top - Left */
+.bodytop__left {
+  width: calc(20% - 5px);
+  border: solid 1px black;
+  margin: 5px 5px;
+  box-sizing: border-box;
+  padding: 5px;
+}
+
+/* Phần Vertical Menu */
+.verticalmenu {
+  border: solid 1px black;
+}
+
+.verticalmenu_title {
+  /* line-height: 50%; */
+  border: solid 1px black;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.verticalmenu_title-icon {
+}
+
+.verticalmenu__detail {
+  border: solid 1px red;
+}
+
+.verticalmenu__detail-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: solid 1px red;
+}
+
+.verticalmenu__detail-item {
+  margin: 5px 0;
+  display: flex;
+  border: solid 1px black;
+  align-items: center;
+}
+
+.verticalmenu__detail-icon {
+  width: 20px;
+  height: 20px;
+  justify-content: center;
+  size: fixed;
+  margin-right: 5px;
+}
+
+.verticalmenu__detail-link {
+  font-weight: 700;
+  color: var(--text-color);
+  text-decoration: none;
+  font-size: 1.4rem;
+}
+
+/* Phần Container - Right */
+.bodytop__right {
+  width: calc(80% - 10px);
+  height: 100px;
+  border: solid 1px black;
+  margin: 5px 5px;
+  box-sizing: border-box;
+}
+
+/* Phần Footer */
+.footer {
+  height: 100px;
+  background-color: yellow;
+  border: solid 5px black;
+}
+
+/* Phần Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+}
+
+.modal__overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal__body {
+  margin: auto;
+  z-index: 1;
+  /* padding: 5px; */
+}
+
+.auth-form {
+  width: 500px;
+  border-radius: 5px;
+  background-color: var(--white-color);
+  overflow: hidden;
+}
+
+.auth-form__container {
+  padding: 0px 32px;
+}
+
+.auth-form__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  margin-top: 15px;
+}
+
+.auth-form__heading {
+  font-size: 2.2rem;
+  font-weight: 400;
+  color: var(--text-color);
+}
+
+.auth-form__swith-btn {
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: var(--primary-color);
+  cursor: pointer;
+}
+
+.auth-form__form {
+}
+
+.auth-form__group {
+}
+
+.auth-form__input {
+  width: 100%;
+  height: 40px;
+  margin-top: 16px;
+  padding: 0 12px;
+  font-size: 1.4rem;
+  border: solid 1px var(--border-color);
+  border-radius: 2px;
+}
+
+.auth-form__input:focus {
+  border-color: #888;
+  outline: none;
+}
+
+.auth-form__aside {
+  margin-top: 18px;
+}
+
+.auth-form__policy-text {
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+  text-align: center;
+  padding: 0 5px;
+}
+
+.auth-form__text-link {
+  text-decoration: none;
+  color: var(--primary-color);
+}
+
+.auth-form__controls {
+  margin-top: 80px;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 24px;
+}
+
+.auth-form__controls-back {
+  margin-right: 8px;
+}
+
+.auth-form__socials {
+  padding: 16px 36px;
+  background-color: #f5f5f5;
+  display: flex;
+  justify-content: space-between;
+}
+
+.auth-form__socials-icon {
+  font-size: 1.8rem;
+}
+
+.auth-form__socials--facebook {
+  background-color: #3a5a98;
+  color: var(--white-color);
+}
+
+.auth-form__socials-title {
+  margin: 0 32px;
+}
+
+.auth-form__socials--google {
+  color: #666;
+  background-color: var(--white-color);
+}
