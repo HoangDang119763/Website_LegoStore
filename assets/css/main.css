@@ -1,19 +1,69 @@
 /* Phần Header */
 .header {
   height: 50px;
-  background-color: red;
   border: solid 5px black;
   margin-bottom: 10px;
-  position: sticky;
+  position: relative;
+  height: 250px;
+  width: 100%;
+  background-color: rgb(255, 102, 0);
+}
+
+.header__info {
+  position: absolute;
+  height: 30px;
+  width: 150px;
+  top: 20px;
+  left: 200px;
+  text-align: center;
+  color: azure;
+  font-size: 20px;
+}
+
+.header__input {
+  position: absolute;
+  top: 0px;
+  left: 33%;
+  display: inline-block;
+  font-size: 20px;
+}
+
+.header__item {
+  position: absolute;
+  height: 30px;
+  margin-right: 150px;
+  right: 0px;
+  top: 0px;
+}
+
+.header__item div {
+  text-align: center;
+  background-color: rgb(255, 102, 0);
+  margin-right: 10px;
+  display: inline-block;
+  font-size: 16px;
+}
+
+/* Phần Top menu */
+.top__menu {
+  width: 100%;
+  background-color: bisque;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.top__menu li {
+  display: inline-table;
+  background-color: rgb(228, 193, 119);
+  margin: 5px;
+  padding: 5px;
 }
 
 /* Phần Container */
 .container {
-  height: 300px;
-  background-color: blue;
+  background-color: bisque;
   border: solid 5px black;
-  margin-bottom: 10px;
   box-sizing: border-box;
+  width: 100%;
 }
 
 /* Phần Body */
@@ -29,6 +79,7 @@
   margin: 5px 5px;
   box-sizing: border-box;
   padding: 5px;
+  float: left;
 }
 
 /* Phần Vertical Menu */
@@ -44,7 +95,7 @@
   color: var(--text-color);
 }
 
-.verticalmenu_title-icon {
+.verticalmenu_title-icon- {
 }
 
 .verticalmenu__detail {
@@ -82,18 +133,49 @@
 
 /* Phần Container - Right */
 .bodytop__right {
-  width: calc(80% - 10px);
-  height: 100px;
+  width: calc(80% - 5px);
   border: solid 1px black;
   margin: 5px 5px;
   box-sizing: border-box;
+  display: flex; /* Thay đổi từ inline-table sang flex */
+  flex-wrap: wrap; /* Cho phép các item xuống hàng khi không đủ chỗ */
+}
+
+.item__list {
+  display: flex; /* Thêm display flex cho item__list */
+  flex-wrap: wrap; /* Cho phép các item xuống hàng */
+}
+
+.item {
+  width: calc(25% - 10px);
+  border: solid blue;
+  margin: 5px;
+}
+
+.item div {
+  width: 70%;
+  margin: 3px;
+}
+
+.item div span {
+  background-color: rgb(228, 193, 119);
+  margin: 5px;
+  margin-left: 0px;
+}
+
+.images {
+  width: 100%;
+  height: 200px;
 }
 
 /* Phần Footer */
 .footer {
-  height: 100px;
+  height: 200px;
   background-color: yellow;
   border: solid 5px black;
+  width: 100%;
+  margin-top: 10px;
+  /* display: inline-block; */
 }
 
 /* Phần Modal */
@@ -222,4 +304,27 @@
 .auth-form__socials--google {
   color: #666;
   background-color: var(--white-color);
+}
+
+/* Reponsive */
+@media only screen and (max-width: 800px) {
+  .item {
+    width: calc(33.3% - 10px);
+    height: calc(50% - 10px);
+  }
+
+  .grid {
+    margin-left: 0px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .item {
+    width: calc(50% - 10px); /* Hai item trên một hàng */
+    height: calc(30% - 10px);
+  }
+
+  .bodytop__left {
+    display: none;
+  }
 }
