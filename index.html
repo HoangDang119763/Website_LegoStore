@@ -22,186 +22,402 @@
     <div class="app">
       <div class="header">
         <div class="grid">
-          <div class="header__info">LEGO</div>
-          <div class="header__image"><img
-            src="./assets/img/lego-icon.jpg"
-            width="150"
-            height="150"
-            style="margin-top: 50px; margin-left: 200px"
-          /></div>
-          <div class="header__input"><input
-            type="text"
-            name="Search"
-            size="50%"
-            maxlength="40"
-          /></div>
-          <div class="header__item">
-            <div><a href="#" style="color: azure">Đăng nhập</a></div>
-            <div><a href="#" style="color: azure">Đăng kí</a></div>
+          <nav class="header__navbar">
+            <ul class="header__navbar-list">
+              <li
+                class="header__navbar-item header__navbar-item--has-qr header__navbar-item--separate"
+              >
+                Vào cửa hàng trên ứng dụng Lego Shop
+
+                <!-- Header QR code -->
+                <div class="header__qr">
+                  <img
+                    src="./assets/img/qr_code.png"
+                    alt="QR code"
+                    class="header__qr-img"
+                  />
+                  <div class="header__qr-apps">
+                    <a href="" class="header__qr-link"
+                      ><img
+                        src="./assets/img/appstore.png"
+                        alt="App Store"
+                        class="header__download-img appstore-img"
+                    /></a>
+                    <a href="" class="header__qr-link"
+                      ><img
+                        src="./assets/img/googleplay.png"
+                        alt="App Store"
+                        class="header__download-img googleplay-img"
+                    /></a>
+                    <a href="" class="header__qr-link">
+                      <img
+                        src="./assets/img/appgallery.png"
+                        alt="App Store"
+                        class="header__download-img appgallery-img"
+                      />
+                    </a>
+                  </div>
+                </div>
+              </li>
+              <li class="header__navbar-item">
+                <span class="header__navbar-title--no-pointer">Kết nối</span>
+                <a href="" class="header__navbar-icon-link">
+                  <i class="header__navbar-icon fa-brands fa-facebook"></i>
+                </a>
+                <a href="" class="header__navbar-icon-link">
+                  <i class="header__navbar-icon fa-brands fa-instagram"></i>
+                </a>
+              </li>
+            </ul>
+            <ul class="header__navbar-list">
+              <li class="header__navbar-item header__navbar-item--has-notify">
+                <a href="" class="header__navbar-item-link">
+                  <i class="header__navbar-icon fa-solid fa-bell"></i>Thông
+                  báo</a
+                >
+                <div class="header__notify"></div>
+              </li>
+              <li class="header__navbar-item">
+                <a href="" class="header__navbar-item-link">
+                  <i
+                    class="header__navbar-icon fa-regular fa-circle-question"
+                  ></i
+                  >Trợ giúp</a
+                >
+              </li>
+              <li
+                class="header__navbar-item header__navbar-item--strong header__navbar-item--separate"
+              >
+                Đăng ký
+              </li>
+              <li class="header__navbar-item header__navbar-item--strong">
+                Đăng nhập
+              </li>
+            </ul>
+          </nav>
+          <!-- Header with search -->
+          <div class="header-with-search">
+            <div class="header__logo">
+              <img
+                src="./assets/img/lego-icon.png"
+                alt=""
+                class="header__logo-img"
+              />
+            </div>
+
+            <div class="header__search">
+              <div class="header__search-input-wrap">
+                <input
+                  type="text"
+                  class="header__search-input"
+                  placeholder="Nhập để tìm kiếm"
+                />
+              </div>
+
+              <div class="header__search-select">
+                <span class="header__search-select-label"
+                  >Theo tên sản phẩm</span
+                >
+                <i
+                  class="header__search-select-icon fa-solid fa-chevron-down"
+                ></i>
+                <ul class="header__search-option">
+                  <li
+                    class="header__search-option-item header__search-option-item--active"
+                  >
+                    <span>Theo tên sản phẩm</span
+                    ><i class="fa-solid fa-check"></i>
+                  </li>
+                  <li class="header__search-option-item">
+                    <span>Theo mã sản phẩm</span
+                    ><i class="fa-solid fa-check"></i>
+                  </li>
+                </ul>
+              </div>
+              <button class="header__search-btn">
+                <i
+                  class="header__search-btn-icon fa-solid fa-magnifying-glass"
+                ></i>
+              </button>
+            </div>
+
+            <div class="header__cart">
+              <i class="header__cart-icon fa-solid fa-cart-shopping"></i>
+            </div>
+            <!--  -->
           </div>
+          <!--  -->
         </div>
       </div>
-      <div class = "top__menu">
-        <div class="grid"><ul></ul>
-          <li><a href="#" style="color: rgb(0, 0, 0)">aaaaaaaaaaaaaa</a></li>
-          <li><a href="#" style="color: rgb(0, 0, 0)">bbbbbbbbbbbbb</a></li>
-          <li><a href="#" style="color: rgb(0, 0, 0)">ccccccccccc</a></li>
-          <li><a href="#" style="color: rgb(0, 0, 0)">dddddddddddd</a></li>
-        </ul></div>
-        
-      </div>
-      <div class="container">
+      <!--  -->
+      <div class="top__menu">
         <div class="grid">
-          <!-- Phần Body Top -->
-          <div class="bodytop">
-            <div class="bodytop__left">
-              <div class="verticalmenu">
-                <!-- Tiêu đề Vertical Menu -->
-                <div class="verticalmenu_title">
-                  <h3>
-                    <i class="verticalmenu_title-icon fa-solid fa-bars"></i>
-                    <span>DANH MỤC SẢN PHẨM</span>
-                  </h3>
-                </div>
-                <!-- Chi tiết Vertical Menu -->
-                <div class="verticalmenu__detail">
-                  <ul class="verticalmenu__detail-list">
-                    <li class="verticalmenu__detail-item">
-                      <img
-                        src="./assets/img/lego-icon.jpg"
-                        alt=""
-                        class="verticalmenu__detail-icon"
-                      />
-                      <a href="" class="verticalmenu__detail-link"
-                        >Lego theo chủ đề</a
-                      >
-                    </li>
-                    <li class="verticalmenu__detail-item">
-                      <img
-                        src="./assets/img/lego-icon.jpg"
-                        alt=""
-                        class="verticalmenu__detail-icon"
-                      />
-                      <a href="" class="verticalmenu__detail-link">Lego MOC</a>
-                    </li>
-                    <li class="verticalmenu__detail-item">
-                      <img
-                        src="./assets/img/lego-icon.jpg"
-                        alt=""
-                        class="verticalmenu__detail-icon"
-                      />
-                      <a href="" class="verticalmenu__detail-link"
-                        >Lego Technic</a
-                      >
-                    </li>
-                    <li class="verticalmenu__detail-item">
-                      <img
-                        src="./assets/img/lego-icon.jpg"
-                        alt=""
-                        class="verticalmenu__detail-icon"
-                      />
-                      <a href="" class="verticalmenu__detail-link"
-                        >Phụ kiện Lego</a
-                      >
-                    </li>
-                  </ul>
-                </div>
+          <ul class="topmenu__list">
+            <li class="topmenu__info">
+              <a href="index.html" class="topmenu__info-link">Trang chủ</a>
+            </li>
+            <li class="topmenu__info">
+              <a href="Lego.html" class="topmenu__info-link">Giới thiệu</a>
+            </li>
+            <li class="topmenu__info">
+              <a href="legobytheme.html" class="topmenu__info-link">Sản phẩm</a>
+            </li>
+            <li class="topmenu__info">
+              <a href="Layout_huongdanSV - Flex.html" class="topmenu__info-link"
+                >Liên hệ</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="grid">
+        <!-- Phần Body Top -->
+        <div class="bodytop">
+          <div class="bodytop__left">
+            <!-- Danh mục sản phẩm -->
+            <div class="verticalmenu">
+              <!-- Tiêu đề Vertical Menu -->
+              <div class="verticalmenu_title">
+                <h3>
+                  <i class="verticalmenu_title-icon fa-solid fa-bars"></i>
+                  <span>DANH MỤC SẢN PHẨM</span>
+                </h3>
+              </div>
+              <!-- Chi tiết Vertical Menu -->
+              <div class="verticalmenu__detail">
+                <ul class="verticalmenu__detail-list">
+                  <li class="verticalmenu__detail-item">
+                    <img
+                      src="./assets/img/lego-icon-1.jpg"
+                      alt=""
+                      class="verticalmenu__detail-icon"
+                    />
+                    <a href="" class="verticalmenu__detail-link"
+                      >Lego theo chủ đề</a
+                    >
+                  </li>
+                  <li class="verticalmenu__detail-item">
+                    <img
+                      src="./assets/img/lego-icon-1.jpg"
+                      alt=""
+                      class="verticalmenu__detail-icon"
+                    />
+                    <a href="" class="verticalmenu__detail-link">Lego MOC</a>
+                  </li>
+                  <li class="verticalmenu__detail-item">
+                    <img
+                      src="./assets/img/lego-icon-1.jpg"
+                      alt=""
+                      class="verticalmenu__detail-icon"
+                    />
+                    <a href="" class="verticalmenu__detail-link"
+                      >Lego Technic</a
+                    >
+                  </li>
+                  <li class="verticalmenu__detail-item">
+                    <img
+                      src="./assets/img/lego-icon-1.jpg"
+                      alt=""
+                      class="verticalmenu__detail-icon"
+                    />
+                    <a href="" class="verticalmenu__detail-link"
+                      >Phụ kiện Lego</a
+                    >
+                  </li>
+                </ul>
               </div>
             </div>
-            <div class="bodytop__right">
-              <div class="item__list">
-                <div class="item">
-                  <img src="./assets/img/lego_awp.jpg" class="images" />
-                  <div>Tên sản phẩm:</div>
-                  <div>Mã sản phẩm:</div>
-                  <div>Giá:</div>
-                  <div>
-                    <span><a href="#">Mua</a></span>
-                    <span><a href="#">Chi tiết</a></span>
-                  </div>
-                </div>
-                <div class="item">
-                  <img src="./assets/img/lego_awp.jpg" class="images" />
-                  <div>Tên sản phẩm:</div>
-                  <div>Mã sản phẩm:</div>
-                  <div>Giá:</div>
-                  <div>
-                    <span><a href="#">Mua</a></span>
-                    <span><a href="#">Chi tiết</a></span>
-                  </div>
-                </div>
-                <div class="item">
-                  <img src="./assets/img/lego_awp.jpg" class="images" />
-                  <div>Tên sản phẩm:</div>
-                  <div>Mã sản phẩm:</div>
-                  <div>Giá:</div>
-                  <div>
-                    <span><a href="#">Mua</a></span>
-                    <span><a href="#">Chi tiết</a></span>
-                  </div>
-                </div>
-                <div class="item">
-                  <img src="./assets/img/lego_awp.jpg" class="images" />
-                  <div>Tên sản phẩm:</div>
-                  <div>Mã sản phẩm:</div>
-                  <div>Giá:</div>
-                  <div>
-                    <span><a href="#">Mua</a></span>
-                    <span><a href="#">Chi tiết</a></span>
-                  </div>
-                </div>
-                <div class="item">
-                  <img src="./assets/img/lego_awp.jpg" class="images" />
-                  <div>Tên sản phẩm:</div>
-                  <div>Mã sản phẩm:</div>
-                  <div>Giá:</div>
-                  <div>
-                    <span><a href="#">Mua</a></span>
-                    <span><a href="#">Chi tiết</a></span>
-                  </div>
-                </div>
-                <div class="item">
-                  <img src="./assets/img/lego_awp.jpg" class="images" />
-                  <div>Tên sản phẩm:</div>
-                  <div>Mã sản phẩm:</div>
-                  <div>Giá:</div>
-                  <div>
-                    <span><a href="#">Mua</a></span>
-                    <span><a href="#">Chi tiết</a></span>
-                  </div>
-                </div>
-                <div class="item">
-                  <img src="./assets/img/lego_awp.jpg" class="images" />
-                  <div>Tên sản phẩm:</div>
-                  <div>Mã sản phẩm:</div>
-                  <div>Giá:</div>
-                  <div>
-                    <span><a href="#">Mua</a></span>
-                    <span><a href="#">Chi tiết</a></span>
-                  </div>
-                </div>
-                <div class="item">
-                  <img src="./assets/img/lego_awp.jpg" class="images" />
-                  <div>Tên sản phẩm:</div>
-                  <div>Mã sản phẩm:</div>
-                  <div>Giá:</div>
-                  <div>
-                    <span><a href="#">Mua</a></span>
-                    <span><a href="#">Chi tiết</a></span>
-                  </div>
-              </div>
-              </div>
+            <!-- Sản phẩm bán chạy -->
+            <div class="verticalmenu"></div>
+            <!-- Tiêu đề Vertical Menu -->
+            <div class="verticalmenu_title">
+              <h3>
+                <i class="verticalmenu_title-icon fa-solid fa-bars"></i>
+                <span>Sản phẩm bán chạy</span>
+              </h3>
+            </div>
+            <!-- Chi tiết Vertical Menu -->
+            <div class="verticalmenu__detail">
+              <ul class="verticalmenu__detail-list">
+                <li class="verticalmenu__detail-item">
+                  <img
+                    src="./assets/img/lego-icon-1.jpg"
+                    alt=""
+                    class="verticalmenu__detail-icon"
+                  />
+                  <a href="" class="verticalmenu__detail-link"
+                    >Lego theo chủ đề</a
+                  >
+                </li>
+                <li class="verticalmenu__detail-item">
+                  <img
+                    src="./assets/img/lego-icon-1.jpg"
+                    alt=""
+                    class="verticalmenu__detail-icon"
+                  />
+                  <a href="" class="verticalmenu__detail-link">Lego MOC</a>
+                </li>
+                <li class="verticalmenu__detail-item">
+                  <img
+                    src="./assets/img/lego-icon-1.jpg"
+                    alt=""
+                    class="verticalmenu__detail-icon"
+                  />
+                  <a href="" class="verticalmenu__detail-link">Lego Technic</a>
+                </li>
+                <li class="verticalmenu__detail-item">
+                  <img
+                    src="./assets/img/lego-icon-1.jpg"
+                    alt=""
+                    class="verticalmenu__detail-icon"
+                  />
+                  <a href="" class="verticalmenu__detail-link">Phụ kiện Lego</a>
+                </li>
+              </ul>
             </div>
           </div>
+          <div class="bodytop__right">
+            <!-- Leo theo chủ đề -->
+            <div class="producttype">
+              <div class="producttype__name">
+                <h3>Lego theo chủ đề</h3>
+              </div>
+              <div class="item__list">
+                <div class="item">
+                  <div class="item__image">
+                    <img
+                      src="./assets/img/lego_house.jpg"
+                      alt="Mô tả sản phẩm"
+                      class="images"
+                    />
+                  </div>
+                  <div class="item__info">
+                    <div class="item__info-detail">
+                      <strong>Tên sản phẩm:</strong> Lego House
+                    </div>
+                    <div class="item__info-detail">
+                      <strong>Mã sản phẩm:</strong> LH12345
+                    </div>
+                    <div class="item__info-detail">
+                      <strong>Giá:</strong> 1,200,000 VNĐ
+                    </div>
+                    <div class="item__info-detailend">
+                      <a href="#" class="item__info-link">Mua</a>
+                      <a href="#" class="item__info-link">Chi tiết</a>
+                    </div>
+                  </div>
+                </div>
+                <!--  -->
+
+                <!--  -->
+
+                <!--  -->
+
+                <!--  -->
+              </div>
+            </div>
+            <!-- Lego MOC -->
+
+            <!-- Lego Technic -->
+
+            <!-- Lego phụ kiện -->
+
+            <!--  -->
+          </div>
+
           <!-- Phần Body Middle -->
         </div>
       </div>
-      </div>
-      <div class="footer">
-        <div class="grid"></div>
+      <!--  -->
+    </div>
+    <div class="footer">
+      <div class="grid"></div>
+    </div>
+    <!--  -->
+    <!-- Modal -->
+    <div class="modal">
+      <div class="modal__overlay"></div>
+      <div class="modal__body">
+        <!-- Authen form -->
+        <div class="auth-form">
+          <div class="auth-form__container">
+            <!-- Header -->
+            <div class="auth-form__header">
+              <h3 class="auth-form__heading">Đăng ký</h3>
+              <span class="auth-form__swith-btn">Đăng nhập</span>
+            </div>
+            <!-- Body 01 -->
+            <div class="auth-form__form">
+              <div class="auth-form__group">
+                <input
+                  type="text"
+                  class="auth-form__input"
+                  placeholder="Email của bạn"
+                />
+              </div>
+
+              <div class="auth-form__group">
+                <input
+                  type="password"
+                  class="auth-form__input"
+                  placeholder="Mật khẩu của bạn"
+                />
+              </div>
+              <div class="auth-form__group">
+                <div class="auth-form__group">
+                  <input
+                    type="password"
+                    class="auth-form__input"
+                    placeholder="Nhập lại mật khẩu"
+                  />
+                </div>
+              </div>
+
+              <!-- Body 02 -->
+              <div class="auth-form__aside">
+                <p class="auth-form__policy-text">
+                  Bằng việc đăng kí, bạn đã đồng ý với Shop về
+                  <a href="" class="auth-form__text-link">Điều khoản dịch vụ</a>
+                  &
+                  <a href="" class="auth-form__text-link">Chính sách bảo mật</a>
+                </p>
+              </div>
+              <!-- Footer 01 -->
+              <div class="auth-form__controls">
+                <button class="btn auth-form__controls-back btn--normal">
+                  TRỞ LẠI
+                </button>
+                <button class="btn btn--primary">ĐĂNG KÝ</button>
+              </div>
+            </div>
+            <!-- Footer 02 -->
+            <div class="auth-form__socials">
+              <a
+                href=""
+                class="auth-form__socials--facebook btn btn--size-s btn--with-icon"
+                ><i
+                  class="auth-form__socials-icon fa-brands fa-square-facebook"
+                ></i
+                ><span class="auth-form__socials-title"
+                  >Kết nối với Facebook</span
+                ></a
+              >
+              <a
+                href=""
+                class="auth-form__socials--google btn btn--size-s btn--with-icon"
+                ><i class="auth-form__socials-icon fa-brands fa-google"></i
+                ><span class="auth-form__socials-title"
+                  >Kết nối với Google</span
+                >
+              </a>
+            </div>
+            <!--  -->
+          </div>
+        </div>
       </div>
     </div>
-
-    
+    <!--  -->
   </body>
 </html>
