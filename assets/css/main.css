@@ -330,6 +330,7 @@
 .topmenu__info-option-item {
   background-color: var(--white-color);
   list-style: none;
+  position: relative;
 }
 
 /* .topmenu__info-option-item:first-child {
@@ -375,6 +376,11 @@
 .topmenu__info-option-item-1 {
   background-color: var(--white-color);
   list-style: none;
+  border-right: solid 3px var(--primary-color);
+}
+
+.topmenu__info-option-item-1:last-child {
+  border-bottom: solid 5px var(--primary-color);
 }
 
 /* .topmenu__info-option-item-1:first-child {
@@ -404,7 +410,7 @@
 /* Phần Container */
 .container {
   background-color: #f7f7f7;
-  border: solid 1px black;
+  /* border: solid 1px black; */
   box-sizing: border-box;
   width: 100%;
 }
@@ -418,7 +424,7 @@
 /* Phần Body Top - Left */
 .bodytop__left {
   width: calc(20% - 5px);
-  border: solid 1px black;
+  /* border: solid 1px black; */
   margin: 5px 5px;
   box-sizing: border-box;
   padding: 5px;
@@ -435,6 +441,7 @@
   font-size: 1.4rem;
   font-weight: 600;
   color: var(--text-color);
+  user-select: none;
 }
 
 .verticalmenu_title-icon- {
@@ -478,7 +485,7 @@
 /* Phần Container - Right */
 .bodytop__right {
   width: calc(80% - 5px);
-  border: solid 1px black;
+  /* border: solid 1px black; */
   margin: 5px 5px;
   box-sizing: border-box;
 }
@@ -490,14 +497,16 @@
 }
 
 .producttype__name {
-  font-weight: 700;
+  font-weight: 800;
   color: var(--text-color);
-  font-size: 1.6rem;
-  margin-left: 10px;
-  display: inline-block;
+  font-size: 1.5rem;
+  display: block;
+  border-bottom: solid 5px var(--border-color);
+  user-select: none;
 }
 
 .item__list {
+  margin-top: 5px;
   background-color: rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   padding: 5px;
@@ -507,7 +516,7 @@
 
 .item {
   width: calc(25% - 10px);
-  border: solid #004e64;
+  border: solid 3px var(--border-color);
   margin: 5px;
 }
 
@@ -515,17 +524,27 @@
   opacity: 0.5;
 } */
 
+.item__image {
+  height: 190px;
+}
+
 .item__image .images {
   width: 100%;
-  height: 200px;
+  height: 190px;
 }
 
 .item__info {
   line-height: 1.8rem;
-  padding: 5px;
+  padding: 5px 5px 5px 0px;
   background-color: #fec02f;
   color: var(--text-color);
-  font-size: 1.6rem;
+  font-size: 1.55rem;
+  display: inline-block;
+  width: 100%;
+  max-height: 150px;
+  min-height: 100px;
+  position: relative;
+  border-top: solid 1px var(--border-color);
 }
 
 .item__info a {
@@ -534,14 +553,18 @@
 }
 
 .item__info-detail {
-  display: inline-block;
   margin-left: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 500;
 }
 
 .item__info-detailend {
-  display: inline-block;
-  text-align: left;
   font-size: 1.6rem;
+  bottom: 5px;
+  right: 5px;
+  position: absolute;
 }
 
 .item__info-link {
@@ -549,17 +572,112 @@
   color: var(--text-color);
   font-size: 1.6rem;
   margin-left: 10px;
-  float: right;
+}
+
+/* Phần Body Middle */
+.bodymiddle {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+
+.bodymiddle__header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.bodymiddle__header h1 {
+  background-image: linear-gradient(
+    0,
+    var(--primary-color),
+    var(--primary-color-rgpa),
+    var(--primary-color)
+  );
+  color: black;
+  padding: 20px;
+  text-align: center;
+}
+
+.bodymiddle__container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 30px;
+}
+
+.bodymiddle__container-info {
+  text-align: center;
+}
+
+.bodymiddle__container-info i {
+  font-size: 40px;
+  color: var(--border-color);
+  margin-bottom: 15px;
+}
+
+.bodymiddle__container-info h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.bodymiddle__container-info p {
+  font-size: 14px;
+  color: var(--text-color);
+  line-height: 1.5;
 }
 
 /* Phần Footer */
 .footer {
-  height: 200px;
   background-color: var(--primary-color-rgpa);
-  border: solid 1px var(--border-color);
+  border-top: solid 3px var(--primary-color);
   width: 100%;
   margin-top: 10px;
   /* display: inline-block; */
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.footer-container {
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.footer-section {
+  width: 20%;
+  padding: 0 15px;
+}
+
+.footer-section-icon {
+  font-size: 1.6rem;
+  color: var(--primary-color);
+}
+
+.footer-section h3 {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.footer-section ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.footer-section li {
+  margin-bottom: 10px;
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+.footer-section li a {
+  text-decoration: none;
+  color: black;
+}
+
+.footer-section li a:hover {
+  color: var(--button-primary-color);
 }
 
 /* Phần Modal */
@@ -724,5 +842,9 @@
 
   .header__cart {
     display: none;
+  }
+
+  .bodymiddle__container {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
