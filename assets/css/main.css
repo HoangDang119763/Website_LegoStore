@@ -6,6 +6,14 @@
     var(--primary-color-rgpa),
     var(--primary-color)
   );
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1;
+}
+
+.space {
+  height: 130px;
 }
 
 .header__navbar {
@@ -536,7 +544,7 @@
 .item__info {
   line-height: 1.8rem;
   padding: 5px 5px 5px 0px;
-  background-color: #fec02f;
+  background-color: var(--primary-color-rgpa);
   color: var(--text-color);
   font-size: 1.55rem;
   display: inline-block;
@@ -576,9 +584,9 @@
 
 /* Phần Body Middle */
 .bodymiddle {
-  max-width: 1200px;
   margin: 0 auto;
-  padding: 30px 20px;
+  padding: 30px 0px;
+  width: 100%;
 }
 
 .bodymiddle__header {
@@ -586,7 +594,7 @@
   margin-bottom: 40px;
 }
 
-.bodymiddle__header h1 {
+.bodymiddle h1 {
   background-image: linear-gradient(
     0,
     var(--primary-color),
@@ -596,6 +604,8 @@
   color: black;
   padding: 20px;
   text-align: center;
+  width: calc(100% - 100px);
+  margin: 10px auto;
 }
 
 .bodymiddle__container {
@@ -656,8 +666,9 @@
 }
 
 .footer-section h3 {
-  font-size: 18px;
+  font-size: 1.6rem;
   margin-bottom: 20px;
+  line-height: 1.8rem;
 }
 
 .footer-section ul {
@@ -809,6 +820,14 @@
   .header__cart {
     width: 60px;
   }
+
+  .space {
+    height: 160px;
+  }
+
+  .bodymiddle h1 {
+    width: calc(100% - 50px);
+  }
 }
 
 @media only screen and (max-width: 600px) {
@@ -846,5 +865,13 @@
 
   .bodymiddle__container {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .space {
+    height: 205px;
+  }
+
+  .bodymiddle h1 {
+    width: calc(100% - 20px);
   }
 }
