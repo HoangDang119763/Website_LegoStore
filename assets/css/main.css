@@ -528,9 +528,9 @@
   margin: 5px;
 }
 
-/* .item:hover {
-  opacity: 0.5;
-} */
+.item:hover {
+  transform: scale(1.05);
+}
 
 .item__image {
   height: 190px;
