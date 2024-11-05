@@ -17,6 +17,7 @@
       rel="stylesheet"
       href="./assets/fonts/fontawesome-free-6.6.0-web/css/all.min.css"
     />
+    
   </head>
   <div>
     <div class="app">
@@ -37,18 +38,21 @@
                     class="header__qr-img"
                   />
                   <div class="header__qr-apps">
+                    <!--  -->
                     <a href="" class="header__qr-link"
                       ><img
                         src="./assets/img/appstore.png"
                         alt="App Store"
                         class="header__download-img appstore-img"
                     /></a>
+                    <!--  -->
                     <a href="" class="header__qr-link"
                       ><img
                         src="./assets/img/googleplay.png"
                         alt="App Store"
                         class="header__download-img googleplay-img"
                     /></a>
+                    <!--  -->
                     <a href="" class="header__qr-link">
                       <img
                         src="./assets/img/appgallery.png"
@@ -56,6 +60,7 @@
                         class="header__download-img appgallery-img"
                       />
                     </a>
+                    <!--  -->
                   </div>
                 </div>
               </li>
@@ -86,10 +91,10 @@
                 >
               </li>
               <li
-                class="header__navbar-item header__navbar-item--strong header__navbar-item--separate"
+                class="header__navbar-item header__navbar-item--strong header__navbar-item--separate registerBtn"
               >
-              <a href=""></a>
-                Đăng ký
+              <a href="#"></a>
+              Đăng ký
               </li>
               <li class="header__navbar-item header__navbar-item--strong">
                 Đăng nhập
@@ -275,585 +280,83 @@
                 </h3>
               </div>
               <!-- Chi tiết Vertical Menu -->
+              <div class="verticalmenu__detail" id = "danhMucSanPham">
+                
+              </div>
+            </div>
+            <!-- Tìm kiếm nâng cao -->
+            <div class="verticalmenu">
+              <!-- Tiêu đề Vertical Menu -->
+              <div class="verticalmenu_title">
+                <h3>
+                  <i class="verticalmenu_title-icon fa-solid fa-bars"></i>
+                  <span>Tìm kiếm nâng cao</span>
+                </h3>
+              </div>
+              <!-- Chi tiết Vertical Menu -->
               <div class="verticalmenu__detail">
-                <ul class="verticalmenu__detail-list">
-                  <li class="verticalmenu__detail-item">
-                    <img
-                      src="./assets/img/lego-icon-1.jpg"
-                      alt=""
-                      class="verticalmenu__detail-icon"
-                    />
-                    <a href="" class="verticalmenu__detail-link"
-                      >Lego Minifigure</a
-                    >
-                  </li>
-                  <li class="verticalmenu__detail-item">
-                    <img
-                      src="./assets/img/lego-icon-1.jpg"
-                      alt=""
-                      class="verticalmenu__detail-icon"
-                    />
-                    <a href="" class="verticalmenu__detail-link">Lego MOC</a>
-                  </li>
-                  <li class="verticalmenu__detail-item">
-                    <img
-                      src="./assets/img/lego-icon-1.jpg"
-                      alt=""
-                      class="verticalmenu__detail-icon"
-                    />
-                    <a href="" class="verticalmenu__detail-link"
-                      >Lego chính hãng</a
-                    >
-                  </li>
-                  <li class="verticalmenu__detail-item">
-                    <img
-                      src="./assets/img/lego-icon-1.jpg"
-                      alt=""
-                      class="verticalmenu__detail-icon"
-                    />
-                    <a href="" class="verticalmenu__detail-link"
-                      >Phụ kiện Lego</a
-                    >
-                  </li>
-                </ul>
+                <div class="verticalmenu_filter">
+                  <div class="verticalmenu__text">Tên sản phẩm</div>
+                  <input type="text" name="product-name" placeholder="Nhập tên" size="20" maxlength="50" class="verticalmenu__input">
+              
+                  <div class="verticalmenu__text">Giá tiền</div>
+                  <div class="verticalmenu__price-range">
+                    <div>
+                      <input type="checkbox" id="price-from" class="verticalmenu__checkbox">
+                      <label class="verticalmenu__text" for="price-from">Từ</label>
+                      <input type="text" placeholder="Giá" size="18" class="verticalmenu__input">
+                    </div>
+                    <div>
+                      <input type="checkbox" id="price-to" class="verticalmenu__checkbox">
+                      <label class="verticalmenu__text" for="price-to">Đến</label>
+                      <input type="text" placeholder="Giá" size="18" class="verticalmenu__input">
+                    </div>
+                  </div>
+              
+                  <div class="verticalmenu__text">Danh mục</div>
+                  <div class="filteritem">
+                    <div class="filter-option">
+                      <input type="checkbox" name="category[]" value="lego-minifigure" class="verticalmenu__checkbox">
+                      Lego Minifigure
+                    </div>
+                    <div class="filter-option">
+                      <input type="checkbox" name="category[]" value="lego-moc" class="verticalmenu__checkbox">
+                      Lego MOC
+                    </div>
+                    <div class="filter-option">
+                      <input type="checkbox" name="category[]" value="lego-official" class="verticalmenu__checkbox">
+                      Lego chính hãng
+                    </div>
+                    <div class="filter-option">
+                      <input type="checkbox" name="category[]" value="lego-parts" class="verticalmenu__checkbox">
+                      Phụ kiện lego
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-            <!-- Sản phẩm bán chạy -->
-            <div class="verticalmenu"></div>
-            <!-- Tiêu đề Vertical Menu -->
-            <div class="verticalmenu_title">
-              <h3>
-                <i class="verticalmenu_title-icon fa-solid fa-bars"></i>
-                <span>Sản phẩm bán chạy</span>
-              </h3>
-            </div>
-            <!-- Chi tiết Vertical Menu -->
-            <div class="verticalmenu__detail">
-              <ul class="verticalmenu__detail-list">
-                <li class="verticalmenu__detail-item">
-                  <img
-                    src="./assets/img/lego-icon-1.jpg"
-                    alt=""
-                    class="verticalmenu__detail-icon"
-                  />
-                  <a href="" class="verticalmenu__detail-link"
-                    >Lego Minifigure</a
-                  >
-                </li>
-                <li class="verticalmenu__detail-item">
-                  <img
-                    src="./assets/img/lego-icon-1.jpg"
-                    alt=""
-                    class="verticalmenu__detail-icon"
-                  />
-                  <a href="" class="verticalmenu__detail-link">Lego MOC</a>
-                </li>
-                <li class="verticalmenu__detail-item">
-                  <img
-                    src="./assets/img/lego-icon-1.jpg"
-                    alt=""
-                    class="verticalmenu__detail-icon"
-                  />
-                  <a href="" class="verticalmenu__detail-link">Lego chính hãng</a>
-                </li>
-                <li class="verticalmenu__detail-item">
-                  <img
-                    src="./assets/img/lego-icon-1.jpg"
-                    alt=""
-                    class="verticalmenu__detail-icon"
-                  />
-                  <a href="" class="verticalmenu__detail-link">Phụ kiện Lego</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="bodytop__right">
-            <!-- Leo Minifigure -->
-            <div class="producttype">
-              <div class="producttype__name">
-                <h3>Lego Minifigure</h3>
-              </div>
-              <div class="item__list">
-                <div class="item">
-                  <div class="item__image">
-                    <img
-                      src="./assets/img/lego-minifigure/mini-01.png"
-                      alt="Mô tả sản phẩm"
-                      class="images"
-                    />
-                  </div>
-                  <div class="item__info">
-                    <div class="item__info-detail">
-                      <strong>Tên sản phẩm:</strong> Naruto - 01
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Mã sản phẩm:</strong> LM0001
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Giá:</strong> 30,000 VNĐ
-                    </div>
-                    <div class="item__info-detailend">
-                      <button class="btn btn--primary btn--size-s">Mua</button>
-                      <!-- <a href="#" class="item__info-link">Mua</a> -->
-                      <a href="#" class="item__info-link">Chi tiết</a>
-                    </div>
-                  </div>
-                </div>
-                <!--  -->
-                <div class="item">
-                  <div class="item__image">
-                    <img
-                      src="./assets/img/lego-minifigure/mini-02.png"
-                      alt="Mô tả sản phẩm"
-                      class="images"
-                    />
-                  </div>
-                  <div class="item__info">
-                    <div class="item__info-detail">
-                      <strong>Tên sản phẩm:</strong> Naruto - 02
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Mã sản phẩm:</strong> LM0002
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Giá:</strong> 25,000 VNĐ
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Chủ đề:</strong> Naruto
-                    </div>
-                    <div class="item__info-detailend">
-                      <a href="#" class="item__info-link">Mua</a>
-                      <a href="#" class="item__info-link">Chi tiết</a>
-                    </div>
-                  </div>
-                </div>
-                <!--  -->
-                <div class="item">
-                  <div class="item__image">
-                    <img
-                      src="./assets/img/lego-minifigure/mini-03.png"
-                      alt="Mô tả sản phẩm"
-                      class="images"
-                    />
-                  </div>
-                  <div class="item__info">
-                    <div class="item__info-detail">
-                      <strong>Tên sản phẩm:</strong> Minato - 03
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Mã sản phẩm:</strong> LM0003
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Giá:</strong> 25,000 VNĐ
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Chủ đề:</strong> Naruto
-                    </div>
-                    <div class="item__info-detailend">
-                      <a href="#" class="item__info-link">Mua</a>
-                      <a href="#" class="item__info-link">Chi tiết</a>
-                    </div>
-                  </div>
-                </div>
-                <!--  -->
-                <div class="item">
-                  <div class="item__image">
-                    <img
-                      src="./assets/img/lego-minifigure/mini-04.png"
-                      alt="Mô tả sản phẩm"
-                      class="images"
-                    />
-                  </div>
-                  <div class="item__info">
-                    <div class="item__info-detail">
-                      <strong>Tên sản phẩm:</strong> Sasuke - 04
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Mã sản phẩm:</strong> LM0004
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Giá:</strong> 25,000 VNĐ
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Chủ đề:</strong> Naruto
-                    </div>
-                    <div class="item__info-detailend">
-                      <a href="#" class="item__info-link">Mua</a>
-                      <a href="#" class="item__info-link">Chi tiết</a>
-                    </div>
-                  </div>
-                </div>
-                <!--  -->
-              </div>
-            </div>
-            <!-- Lego MOC -->
-            <div class="producttype">
-              <div class="producttype__name">
-                <h3>Lego MOC</h3>
-              </div>
-              <div class="item__list">
-                <div class="item">
-                  <div class="item__image">
-                    <img
-                      src="./assets/img/lego-moc/moc-01.jpg"
-                      alt="Mô tả sản phẩm"
-                      class="images"
-                    />
-                  </div>
-                  <div class="item__info">
-                    <div class="item__info-detail">
-                      <strong>Tên sản phẩm:</strong> Awp Asiimov
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Mã sản phẩm:</strong> MO0001
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Giá:</strong> 1,899,000 VNĐ
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Chủ đề:</strong> Army
-                    </div>
-                    <div class="item__info-detailend">
-                      <a href="#" class="item__info-link">Mua</a>
-                      <a href="#" class="item__info-link">Chi tiết</a>
-                    </div>
-                  </div>
-                </div>
-                <!--  -->
-                <div class="item">
-                  <div class="item__image">
-                    <img
-                      src="./assets/img/lego-moc/moc-02.png"
-                      alt="Mô tả sản phẩm"
-                      class="images"
-                    />
-                  </div>
-                  <div class="item__info">
-                    <div class="item__info-detail">
-                      <strong>Tên sản phẩm:</strong> HK G28
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Mã sản phẩm:</strong> MO0002
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Giá:</strong> 1,699,000 VNĐ
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Chủ đề:</strong> Army
-                    </div>
-                    <div class="item__info-detailend">
-                      <a href="#" class="item__info-link">Mua</a>
-                      <a href="#" class="item__info-link">Chi tiết</a>
-                    </div>
-                  </div>
-                </div>
-                <!--  -->
-                <div class="item">
-                  <div class="item__image">
-                    <img
-                      src="./assets/img/lego-moc/moc-03.png"
-                      alt="Mô tả sản phẩm"
-                      class="images"
-                    />
-                  </div>
-                  <div class="item__info">
-                    <div class="item__info-detail">
-                      <strong>Tên sản phẩm:</strong> Scar-L Asiimov
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Mã sản phẩm:</strong> MO0003
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Giá:</strong> 1,699,000 VNĐ
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Chủ đề:</strong> Army
-                    </div>
-                    <div class="item__info-detailend">
-                      <a href="#" class="item__info-link">Mua</a>
-                      <a href="#" class="item__info-link">Chi tiết</a>
-                    </div>
-                  </div>
-                </div>
-                <!--  -->
-                <div class="item">
-                  <div class="item__image">
-                    <img
-                      src="./assets/img/lego-moc/moc-04.png"
-                      alt="Mô tả sản phẩm"
-                      class="images"
-                    />
-                  </div>
-                  <div class="item__info">
-                    <div class="item__info-detail">
-                      <strong>Tên sản phẩm:</strong> Sniper XPR-50
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Mã sản phẩm:</strong> MO0004
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Giá:</strong> 1,799,000 VNĐ
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Chủ đề:</strong> Army
-                    </div>
-                    <div class="item__info-detailend">
-                      <a href="#" class="item__info-link">Mua</a>
-                      <a href="#" class="item__info-link">Chi tiết</a>
-                    </div>
-                  </div>
-                </div>
-                <!--  -->
-              </div>
-            </div>
-            <!-- Lego chính hãng -->
-            <div class="producttype">
-              <div class="producttype__name">
-                <h3>Lego chính hãng</h3>
-              </div>
-              <div class="item__list">
-                <div class="item">
-                  <div class="item__image">
-                    <img
-                      src="./assets/img/lego-technic/technic-01.png"
-                      alt="Mô tả sản phẩm"
-                      class="images"
-                    />
-                  </div>
-                  <div class="item__info">
-                    <div class="item__info-detail">
-                      <strong>Tên sản phẩm:</strong> Siêu Xe Lamborghini Sian FKP 37
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Mã sản phẩm:</strong> TN0001
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Giá:</strong> 12,240,000 VNĐ
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Chủ đề:</strong> Technic
-                    </div>
-                    <div class="item__info-detailend">
-                      <a href="#" class="item__info-link">Mua</a>
-                      <a href="#" class="item__info-link">Chi tiết</a>
-                    </div>
-                  </div>
-                </div>
-                <!--  -->
-                <div class="item">
-                  <div class="item__image">
-                    <img
-                      src="./assets/img/lego-technic/technic-02.png"
-                      alt="Mô tả sản phẩm"
-                      class="images"
-                    />
-                  </div>
-                  <div class="item__info">
-                    <div class="item__info-detail">
-                      <strong>Tên sản phẩm:</strong> Siêu Xe Ferrari Daytona SP3
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Mã sản phẩm:</strong> TN0002
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Giá:</strong> 14,200,000 VNĐ
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Chủ đề:</strong> Technic
-                    </div>
-                    <div class="item__info-detailend">
-                      <a href="#" class="item__info-link">Mua</a>
-                      <a href="#" class="item__info-link">Chi tiết</a>
-                    </div>
-                  </div>
-                </div>  
-                <!--  -->
-                <div class="item">
-                  <div class="item__image">
-                    <img
-                      src="./assets/img/lego-technic/technic-03.png"
-                      alt="Mô tả sản phẩm"
-                      class="images"
-                    />
-                  </div>
-                  <div class="item__info">
-                    <div class="item__info-detail">
-                      <strong>Tên sản phẩm:</strong> Xe mô tô thể thao Kawasaki Ninja H2®R
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Mã sản phẩm:</strong> TN0003
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Giá:</strong> 1,984,000 VNĐ
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Chủ đề:</strong> Technic
-                    </div>
-                    <div class="item__info-detailend">
-                      <a href="#" class="item__info-link">Mua</a>
-                      <a href="#" class="item__info-link">Chi tiết</a>
-                    </div>
-                  </div>
-                </div>  
-                <!--  -->
-                <div class="item">
-                  <div class="item__image">
-                    <img
-                      src="./assets/img/lego-technic/technic-04.png"
-                      alt="Mô tả sản phẩm"
-                      class="images"
-                    />
-                  </div>
-                  <div class="item__info">
-                    <div class="item__info-detail">
-                      <strong>Tên sản phẩm:</strong> Siêu Xe Lamborghini Huracán Tecnica
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Mã sản phẩm:</strong> TN0004
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Giá:</strong> 1,393,000 VNĐ
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Chủ đề:</strong> Technic
-                    </div>
-                    <div class="item__info-detailend">
-                      <a href="#" class="item__info-link">Mua</a>
-                      <a href="#" class="item__info-link">Chi tiết</a>
-                    </div>
-                  </div>
-                </div>  
-                <!--  -->
-              </div>
-            </div>
-            <!-- Lego phụ kiện -->
-            <div class="producttype">
-              <div class="producttype__name">
-                <h3>Lego phụ kiện</h3>
-              </div>
-              <div class="item__list">
-                <div class="item">
-                  <div class="item__image">
-                    <img
-                      src="./assets/img/lego-part/part-01.png"
-                      alt="Mô tả sản phẩm"
-                      class="images"
-                    />
-                  </div>
-                  <div class="item__info">
-                    <div class="item__info-detail">
-                      <strong>Tên sản phẩm:</strong> Gạch Khớp Technic 2x2 Một Đầu Cái Bóng
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Mã sản phẩm:</strong> LP0001
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Giá:</strong> 5,000 VNĐ
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Chủ đề:</strong> Technic
-                    </div>
-                    <div class="item__info-detailend">
-                      <a href="#" class="item__info-link">Mua</a>
-                      <a href="#" class="item__info-link">Chi tiết</a>
-                    </div>
-                  </div>
-                </div>
-                <!--  -->
-                <div class="item">
-                  <div class="item__image">
-                    <img
-                      src="./assets/img/lego-part/part-02.png"
-                      alt="Mô tả sản phẩm"
-                      class="images"
-                    />
-                  </div>
-                  <div class="item__info">
-                    <div class="item__info-detail">
-                      <strong>Tên sản phẩm:</strong> Gạch Trơn Dẹt 1x1 Khuyết Góc
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Mã sản phẩm:</strong> LP0002
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Giá:</strong> 2,000 VNĐ
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Chủ đề:</strong> Technic
-                    </div>
-                    <div class="item__info-detailend">
-                      <a href="#" class="item__info-link">Mua</a>
-                      <a href="#" class="item__info-link">Chi tiết</a>
-                    </div>
-                  </div>
-                </div>
-                <!--  -->
-                <div class="item">
-                  <div class="item__image">
-                    <img
-                      src="./assets/img/lego-part/part-03.png"
-                      alt="Mô tả sản phẩm"
-                      class="images"
-                    />
-                  </div>
-                  <div class="item__info">
-                    <div class="item__info-detail">
-                      <strong>Tên sản phẩm:</strong> Thùng Nước Giải Khát Nước Ngọt
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Mã sản phẩm:</strong> LP0003
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Giá:</strong> 11,000 VNĐ
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Chủ đề:</strong> Food/Tool
-                    </div>
-                    <div class="item__info-detailend">
-                      <a href="#" class="item__info-link">Mua</a>
-                      <a href="#" class="item__info-link">Chi tiết</a>
-                    </div>
-                  </div>
-                </div>
-                <!--  -->
-                <div class="item">
-                  <div class="item__image">
-                    <img
-                      src="./assets/img/lego-part/part-04.png"
-                      alt="Mô tả sản phẩm"
-                      class="images"
-                    />
-                  </div>
-                  <div class="item__info">
-                    <div class="item__info-detail">
-                      <strong>Tên sản phẩm:</strong> COMBO 5 Vũ Khí Đẹp Sử Dụng Trong Ne-xo
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Mã sản phẩm:</strong> LP0004
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Giá:</strong> 5,000 VNĐ
-                    </div>
-                    <div class="item__info-detail">
-                      <strong>Chủ đề:</strong> Weapon
-                    </div>
-                    <div class="item__info-detailend">
-                      <a href="#" class="item__info-link">Mua</a>
-                      <a href="#" class="item__info-link">Chi tiết</a>
-                    </div>
-                  </div>
-                </div>
-                <!--  -->
-              </div>
+              <!--  -->
             </div>
             <!--  -->
           </div>
+          <div class="bodytop__right">
+            <!--  -->
+            <div class="producttype">
+              <div class="producttype__name">
+                <h3>Danh sách sản phẩm</h3>
+              </div>
+              <div class="item__list product_container">
+                
+              <!--  -->
+              </div>
+              <div class="pagenumber">
 
-          
-          
+              </div>
+              <!--  -->
+            </div>
+            <!--  -->
+          </div>
           <!--  -->
         </div>
-        
         <!--  -->
       </div>
       <!--  -->
@@ -940,39 +443,56 @@
     </div>
     <!--  -->
     <!-- Modal -->
-    <div class="modal">
+    <div class="modal" id = "myModalRegister">
       <div class="modal__overlay"></div>
       <div class="modal__body">
-        <!-- Authen form -->
+        <!-- Authen form Register-->
         <div class="auth-form">
+          <span class="closeForm"><i class="fa-solid fa-x"></i></span>
           <div class="auth-form__container">
             <!-- Header -->
             <div class="auth-form__header">
               <h3 class="auth-form__heading">Đăng ký</h3>
-              <span class="auth-form__swith-btn">Đăng nhập</span>
+              <span class="auth-form__swith-btn login-open_btn">Đăng nhập</span>
             </div>
             <!-- Body 01 -->
             <div class="auth-form__form">
+              <label for="input-username_login">Tài Khoản</label>
               <div class="auth-form__group">
                 <input
                   type="text"
                   class="auth-form__input"
+                  id="username"
+                  placeholder="Tên đăng nhập"
+                />
+              </div>
+              <!--  -->
+              <div class="auth-form__group">
+                <label for="email">Email</label>
+                <input
+                  type="text"
+                  class="auth-form__input"
+                  id="email"
                   placeholder="Email của bạn"
                 />
               </div>
-
+              <!--  -->
               <div class="auth-form__group">
+                <label for="password">Mật Khẩu</label>
                 <input
                   type="password"
                   class="auth-form__input"
+                  id="password"
                   placeholder="Mật khẩu của bạn"
                 />
               </div>
               <div class="auth-form__group">
                 <div class="auth-form__group">
+                  <label for="fillpassword">Nhập Lại Mật Khẩu</label>
                   <input
                     type="password"
                     class="auth-form__input"
+                    id="fillpassword"
                     placeholder="Nhập lại mật khẩu"
                   />
                 </div>
@@ -990,9 +510,6 @@
             </div>
             <!-- Footer 01 -->
             <div class="auth-form__controls">
-              <button class="btn auth-form__controls-back btn--normal">
-                TRỞ LẠI
-              </button>
               <button class="btn btn--primary">ĐĂNG KÝ</button>
             </div>
           </div>
@@ -1016,8 +533,98 @@
             </a>
           </div>
         </div>
+        <!--  -->
       </div>
+      <!--  -->
     </div>
     <!--  -->
+    <div class="modal" id = "myModalLogin">
+      <div class="modal__overlay"></div>
+      <div class="modal__body">
+        <!-- Authen form Login-->
+        <div class="auth-form">
+          <span class="closeForm"><i class="fa-solid fa-x"></i></span>
+          <div class="auth-form__container">
+            <!-- Header -->
+            <div class="auth-form__header">
+              <h3 class="auth-form__heading">Đăng nhập</h3>
+              <span class="auth-form__swith-btn register-open_btn">Đăng ký</span>
+            </div>
+            <!-- Body 01 -->
+            <div class="auth-form__form">
+              <label for="input-username_login">Tài Khoản</label>
+              <div class="auth-form__group">
+                <input
+                  type="text"
+                  class="auth-form__input"
+                  placeholder="Tên đăng nhập"
+                />
+              </div>
+              <!--  -->
+              <div class="auth-form__group">
+                <label for="password">Mật Khẩu</label>
+                <input
+                  type="password"
+                  class="auth-form__input"
+                  placeholder="Mật khẩu"
+                />
+              </div>
+              <!--  -->
+            </div>
+
+            <!-- Footer 01 -->
+            <div class="auth-form__controls">
+              <button class="btn btn--primary">Đăng nhập</button>
+            </div>
+          </div>
+          <!-- Footer 02 -->
+          <div class="auth-form__socials">
+            <a
+              href=""
+              class="auth-form__socials--facebook btn btn--size-s btn--with-icon"
+              ><i
+                class="auth-form__socials-icon fa-brands fa-square-facebook"
+              ></i
+              ><span class="auth-form__socials-title"
+                >Kết nối với Facebook</span
+              ></a
+            >
+            <a
+              href=""
+              class="auth-form__socials--google btn btn--size-s btn--with-icon"
+              ><i class="auth-form__socials-icon fa-brands fa-google"></i
+              ><span class="auth-form__socials-title">Kết nối với Google</span>
+            </a>
+          </div>
+        </div>
+        <!--  -->
+      </div>
+      <!--  -->
+    </div>
+    <!--  -->
+
+    <div class="modal" id="productLayout">
+      <div class="modal__overlay"></div>
+      <div class="modal__body">
+        <div class="product-content">
+          <div class="product-close">x</div>
+			    <img class="img" src="./assets/img/lego-minifigure/mini-01.png">
+			    <div class="content">
+				    <ul>
+					    <li>Tên Sản phẩm</li>
+					    <li>Giá</li>
+					    <li>Kích thước</li>
+              <li>Số lượng<input type="button" value="-" /><input type="text" size="2" width="2" value="1" /><input type="button" value = "+" /></li>
+					    <li>Thêm vào giỏ hàng</li>
+				    </ul>
+			    </div>
+        </div>
+        <!--  -->
+      </div>
+      <!--  -->
+    </div>
+
+    <!--  -->
+    <script src="./assets/javascript/main.js"></script>
   </body>
 </html>

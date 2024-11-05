@@ -6,6 +6,7 @@
   --primary-color: #217d89;
   --primary-color-rgpa: #bceff5;
   --border-color: #004e64;
+  --border-color-1: #003847;
   --button-primary-color: #50a3ac;
   --button-color: #fec02f;
 
@@ -98,30 +99,4 @@ html {
   color: #949494;
   cursor: default;
   background-color: #c3c3c3;
-}
-
-/* Modal css */
-.modal {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: none;
-}
-
-.modal__overlay {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-}
-
-.modal__body {
-  height: 500px;
-  background-color: var(--white-color);
-  margin: auto;
-  position: relative;
-  z-index: 1;
-  border-radius: 5px;
 }
