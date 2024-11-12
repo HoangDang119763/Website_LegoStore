@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #form {
+        border: black solid 2px;
+        border-radius: 5px;
+        width: 600px;
+        margin: auto;
+        padding: 20px;
+      }
+
+      #frmHeader {
+        text-align: center;
+        margin-bottom: 10px;
+        border-bottom: black solid 2px;
+      }
+
+      #frmDate {
+        
+      }
+
+      div {
+        margin: 5px 0;
+        display: block;
+      }
+      
+      span {
+        display: block;
+        font-size: 16px;
+        font-weight: bold;
+       }
+       
+       input[type="text"] {
+        width: 400px;
+        }
+
+        select[name="cboMucgia"] {
+    width: 300px;
+}
+    </style>
+  </head>
+  <body>
+    <form name="frmPhieudatphong" id="form">
+      <div id="frmHeader">Phiếu đặt phòng</div>
+      <!-- Họ tên -->
+      <div>
+        <span>Họ tên *</span>
+        <input type="text" name="txtHoten" />
+        <span class="hoTenMessage"></span>
+      </div>
+      <!-- Địa chỉ -->
+      <div>
+        <span>Địa chỉ</span>
+        <input type="text" name="txtDiachi" />
+      </div>
+      <!-- CMND -->
+      <div>
+        <span>Số chứng minh nhân dân *</span>
+        <input type="text" name="txtcmnd" />
+        <span class="cmndMessage"></span>
+      </div>
+      <!-- Mức giá -->
+      <div>
+        <span>Mức giá</span>
+        <select name="cboMucgia" id="">
+          <option value="a" selected>Loại thường</option>
+          <option value="b">Loại sang trọng</option>
+          <option value="c">Loại đặc biệt</option>
+        </select>
+      </div>
+      <!-- -->
+      <div id="frmDate">
+        <!-- Ngày thuê -->
+        <div style = "display: inline-block; margin-right: 60px;">
+          <span>Ngày thuê</span>
+          <input type="date" name="dateNgaythue" />
+        </div>
+        <!-- Ngày trả -->
+        <div style = "display: inline-block;">
+          <span>Ngày trả</span>
+          <input type="date" name="dateNgaytra" />
+          <span class="ngaytraMessage"></span>
+        </div>
+        </div>
+        <!--  -->
+        <div class="checkbox">
+          <span>Dịch vụ đi kèm</span>
+          <div>
+            <input type="checkbox" name="chkAnsang" />Ăn sáng
+          </div>
+
+          <div>
+            <input type="checkbox" name="chkGiatui" />Giặt ủi
+            <span></span>
+          </div>
+
+          <div>
+            <input type="checkbox" name="chkBaobuoisang" />Báo buổi sáng
+          </div>
+        </div>
+        <!--  -->
+        <div>
+          <span>Tiền thuê phòng</span>
+          <input type="text" name="txtTienthuephong" />VNĐ
+        </div>
+        <!--  -->
+        <div>
+          <button name="btnTinhdongia">Tính đơn giá</button>
+          <button name="subDangky">Đăng ký</button>
+        </div>
+      </div>
+    </form>
+
+    <div id="output" style="margin-top: 20px; display: none; border: 1px solid #ccc; padding: 10px;">
+      <h3>Thông tin đăng ký:</h3>
+      <p id="infoHoten"></p>
+      <p id="infoDiachi"></p>
+      <p id="infoCMND"></p>
+      <p id="infoMucgia"></p>
+      <p id="infoDichvu"></p>
+      <p id="infoTienThue"></p>
+  </div>
+  </body>
+  <script>
+    // Khai báo
+    const txtHoten = document.querySelector('[name="txtHoten"]');
+    const txtDiachi = document.querySelector('[name="txtDiachi"]');
+    const txtcmnd = document.querySelector('[name="txtcmnd"]');
+
+    const hoTenMessage = document.querySelector(".hoTenMessage");
+    const cmndMessage = document.querySelector(".cmndMessage");
+
+    const cboMucgia = document.querySelector('[name="cboMucgia"]');
+
+    const chkAnsang = document.querySelector('[name="chkAnsang"]');
+    const chkGiatui = document.querySelector('[name="chkGiatui"]');
+    const chkBaobuoisang = document.querySelector('[name="chkBaobuoisang"]');
+
+    const dateNgaythue = document.querySelector('[name="dateNgaythue"]');
+    const dateNgaytra = document.querySelector('[name="dateNgaytra"]');
+    const ngaytraMessage = document.querySelector(".ngaytraMessage");
+
+    const txtTienthuephong = document.querySelector(
+      '[name="txtTienthuephong"]'
+    );
+
+    const btnDangky = document.querySelector('[name="subDangky"]');
+    const btnTinhdongia = document.querySelector('[name="btnTinhdongia"]');
+
+    const outputDiv = document.getElementById('output');
+
+    let isValidDate = true;
+    let isValidHoten = true;
+    let isValidCMND = true;
+
+    function updateCheckboxBasedOnSelection() {
+      if (cboMucgia.value === "b" || cboMucgia.value === "c") {
+        chkAnsang.checked = true;
+      } else {
+        chkAnsang.checked = false;
+      }
+    }
+
+    cboMucgia.addEventListener("change", updateCheckboxBasedOnSelection);
+
+    function checkNgaythue() {
+      if (dateNgaytra.value) {
+        const newDateNgaythue = new Date(dateNgaythue.value);
+        const newDateNgayTra = new Date(dateNgaytra.value);
+        if (newDateNgaythue > newDateNgayTra) {
+          ngaytraMessage.innerHTML = "Ngày trả phải lớn hơn ngày thuê";
+          isValidDate = false;
+        } else {
+          ngaytraMessage.innerHTML = "";
+          isValidDate = true;
+        }
+      }
+    }
+
+    dateNgaythue.addEventListener("change", checkNgaythue);
+    dateNgaytra.addEventListener("change", checkNgaythue);
+
+    function validForm(event) {
+      event.preventDefault();
+
+      if (txtHoten.value.trim().length == 0) {
+        hoTenMessage.innerHTML = "Họ tên không được rỗng";
+        txtHoten.focus();
+        isValidHoten = false;
+      } else {
+        hoTenMessage.innerHTML = "";
+        isValidHoten = true;
+      }
+
+      const patternNumer = /^\d+$/gi;
+
+      if (isValidHoten && txtcmnd.value.trim().length == 0) {
+        cmndMessage.innerHTML = "CMND không được rỗng";
+        txtcmnd.focus();
+        isValidCMND = false;
+      } else {
+        cmndMessage.innerHTML = "";
+        isValidCMND = true;
+      }
+
+      if (isValidHoten && isValidCMND && isValidDate) {
+        
+        event.preventDefault(); // Ngăn chặn gửi biểu mẫu
+
+// Lấy thông tin từ các trường
+const dichVu = [];
+if (chkAnsang.checked) dichVu.push("Ăn sáng");
+if (chkGiatui.checked) dichVu.push("Giặt ủi");
+if (chkBaobuoisang.checked) dichVu.push("Báo buổi sáng");
+
+
+// Hiển thị thông tin
+document.getElementById('infoHoten').innerText = "Họ tên: " + txtHoten.value.trim();
+document.getElementById('infoDiachi').innerText = "Địa chỉ: " + txtDiachi.value.trim();
+document.getElementById('infoCMND').innerText = "CMND: " + txtcmnd.value.trim();
+document.getElementById('infoMucgia').innerText = "Mức giá: " + cboMucgia.options[cboMucgia.selectedIndex].text;
+document.getElementById('infoDichvu').innerText = "Dịch vụ: " + (dichVu.length ? dichVu.join(', ') : 'Không có dịch vụ nào');
+document.getElementById('infoTienThue').innerText = "Tiền thuê phòng: " + txtTienthuephong.value;
+
+// Hiển thị div thông tin
+outputDiv.style.display = 'block';
+            
+      }
+
+    }
+
+    btnDangky.addEventListener("click", validForm);
+
+    function calculatePrice(event) {
+      event.preventDefault();
+
+      let Ngay;
+
+      if (!dateNgaythue.value && !dateNgaytra.value) {
+        Ngay = 1;
+      } else if (dateNgaythue && dateNgaytra) {
+        const newDateNgaythue = new Date(dateNgaythue.value);
+        const newDateNgayTra = new Date(dateNgaytra.value);
+
+        // Nếu 2 ngày bằng nhau
+        if (newDateNgayTra.getTime() == newDateNgaythue.getTime()) {
+          Ngay = 1;
+        } else {
+          Ngay = (newDateNgayTra - newDateNgaythue) / (24 * 60 * 60 * 1000);
+        }
+      }
+
+      let soLuongCheckBox = 0;
+      const checkboxes = document.querySelectorAll(
+        '.checkbox input[type="checkbox"]'
+      );
+
+      function itemChecked(item) {
+        if (item.checked) {
+          soLuongCheckBox++;
+        }
+      }
+
+      checkboxes.forEach((item) => itemChecked(item));
+
+      let tinhTien;
+      let tienMotNgay;
+
+      if (cboMucgia.value) {
+        switch (cboMucgia.value) {
+          case "a":
+            tienMotNgay = 150000 + 150000 * (0.05 * soLuongCheckBox);
+            tinhTien = tienMotNgay * Ngay;
+            break;
+          case "b":
+            soLuongCheckBox -= 1;
+            tienMotNgay = 300000 + 300000 * (0.05 * soLuongCheckBox);
+            tinhTien = tienMotNgay * Ngay;
+            break;
+          case "c":
+            soLuongCheckBox -= 1;
+            tienMotNgay = 500000 + 500000 * (0.05 * soLuongCheckBox);
+            tinhTien = tienMotNgay * Ngay;
+            break;
+        }
+      }
+        
+        txtTienthuephong.value = tinhTien;
+      }
+
+    btnTinhdongia.addEventListener("click", calculatePrice);
+  </script>
+</html>

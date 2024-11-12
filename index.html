@@ -162,13 +162,13 @@
         <div class="grid">
           <ul class="topmenu__list">
             <li class="topmenu__info">
-              <a href="index.html" class="topmenu__info-link">Trang chủ</a>
+              <a href="index.html?tc" class="topmenu__info-link" id = "tc">Trang chủ</a>
             </li>
             <li class="topmenu__info">
-              <a href="#" class="topmenu__info-link">Giới thiệu</a>
+              <a href="index.html?gt" class="topmenu__info-link" id="gt">Giới thiệu</a>
             </li>
             <li class="topmenu__info topmenu__info-select">
-              <a href="product.html" class="topmenu__info-link">Sản phẩm</a>
+              <a href="index.html?sp" class="topmenu__info-link" id="sp">Sản phẩm</a>
               <ul class="topmenu__info-option">
                 <!--  -->
                 <li class="topmenu__info-option-item topmenu__info-option-item-select">
@@ -257,7 +257,7 @@
               </ul>
             </li>
             <li class="topmenu__info">
-              <a href="#" class="topmenu__info-link"
+              <a href="index.html?lh" class="topmenu__info-link" id="lh"
                 >Liên hệ</a
               >
             </li>
@@ -270,87 +270,14 @@
         <!-- Phần Body Top -->
         <div class="bodytop">
           <div class="bodytop__left">
-            <!-- Danh mục sản phẩm -->
-            <div class="verticalmenu">
-              <!-- Tiêu đề Vertical Menu -->
-              <div class="verticalmenu_title">
-                <h3>
-                  <i class="verticalmenu_title-icon fa-solid fa-bars"></i>
-                  <span>DANH MỤC SẢN PHẨM</span>
-                </h3>
-              </div>
-              <!-- Chi tiết Vertical Menu -->
-              <div class="verticalmenu__detail" id = "danhMucSanPham">
-                
-              </div>
-            </div>
-            <!-- Tìm kiếm nâng cao -->
-            <div class="verticalmenu">
-              <!-- Tiêu đề Vertical Menu -->
-              <div class="verticalmenu_title">
-                <h3>
-                  <i class="verticalmenu_title-icon fa-solid fa-bars"></i>
-                  <span>Tìm kiếm nâng cao</span>
-                </h3>
-              </div>
-              <!-- Chi tiết Vertical Menu -->
-              <div class="verticalmenu__detail">
-                <div class="verticalmenu_filter">
-                  <div class="verticalmenu__text">Tên sản phẩm</div>
-                  <input type="text" name="product-name" placeholder="Nhập tên" size="20" maxlength="50" class="verticalmenu__input">
-              
-                  <div class="verticalmenu__text">Giá tiền</div>
-                  <div class="verticalmenu__price-range">
-                    <div>
-                      <input type="checkbox" id="price-from" class="verticalmenu__checkbox">
-                      <label class="verticalmenu__text" for="price-from">Từ</label>
-                      <input type="text" placeholder="Giá" size="18" class="verticalmenu__input">
-                    </div>
-                    <div>
-                      <input type="checkbox" id="price-to" class="verticalmenu__checkbox">
-                      <label class="verticalmenu__text" for="price-to">Đến</label>
-                      <input type="text" placeholder="Giá" size="18" class="verticalmenu__input">
-                    </div>
-                  </div>
-              
-                  <div class="verticalmenu__text">Danh mục</div>
-                  <div class="filteritem">
-                    <div class="filter-option">
-                      <input type="checkbox" name="category[]" value="lego-minifigure" class="verticalmenu__checkbox">
-                      Lego Minifigure
-                    </div>
-                    <div class="filter-option">
-                      <input type="checkbox" name="category[]" value="lego-moc" class="verticalmenu__checkbox">
-                      Lego MOC
-                    </div>
-                    <div class="filter-option">
-                      <input type="checkbox" name="category[]" value="lego-official" class="verticalmenu__checkbox">
-                      Lego chính hãng
-                    </div>
-                    <div class="filter-option">
-                      <input type="checkbox" name="category[]" value="lego-parts" class="verticalmenu__checkbox">
-                      Phụ kiện lego
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!--  -->
-            </div>
-            <!--  -->
+            
           </div>
           <div class="bodytop__right">
             <!--  -->
             <div class="producttype">
-              <div class="producttype__name">
-                <h3>Danh sách sản phẩm</h3>
-              </div>
-              <div class="item__list product_container">
-                
-              <!--  -->
-              </div>
-              <div class="pagenumber">
-
-              </div>
+              <div class="producttype__name"></div>
+              <div class="item__list product_container"></div>
+              <div class="pagenumber"></div>
               <!--  -->
             </div>
             <!--  -->
@@ -608,7 +535,8 @@
       <div class="modal__body">
         <div class="product-content">
           <div class="product-close">x</div>
-			    <img class="img" src="./assets/img/lego-minifigure/mini-01.png">
+          <div class="product-containter"></div>
+			    <!-- <img class="img" src="./assets/img/lego-minifigure/mini-01.png">
 			    <div class="content">
 				    <ul>
 					    <li>Tên Sản phẩm</li>
@@ -617,7 +545,7 @@
               <li>Số lượng<input type="button" value="-" /><input type="text" size="2" width="2" value="1" /><input type="button" value = "+" /></li>
 					    <li>Thêm vào giỏ hàng</li>
 				    </ul>
-			    </div>
+			    </div> -->
         </div>
         <!--  -->
       </div>
