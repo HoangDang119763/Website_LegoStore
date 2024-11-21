@@ -19,7 +19,7 @@ const productContainter = document.querySelector(".product-containter");
 const verticalmenu = document.getElementsByClassName("verticalmenu");
 const producttype__name = document.querySelector(".producttype__name");
 const pageNumber = document.querySelector(".pagenumber");
-
+var userList = [];
 // Modal
 const inputUsernameSignUp = document.querySelector(".input-username_signup");
 const inputPasswordSignup = document.querySelector(".input-password_signup");
@@ -40,7 +40,6 @@ createProducts();
 createAdmin();
 displayMenu();
 var filterProductList = JSON.parse(localStorage.getItem(listProducts));
-var userList = JSON.parse(localStorage.getItem(ListUsers));
 
 // Tạo Admin
 function createAdmin() {
@@ -418,7 +417,6 @@ function createProducts() {
         topic: "Naruto",
         quantity: 100,
       },
-      ,
       {
         name: "Jiraiya - 13",
         code: "LM0013",
