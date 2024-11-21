@@ -1,23 +1,46 @@
 const ListUsers = "list-users";
 const listProducts = "list-products";
 const listProductCatogrey = "list-product-catogrey";
-var userList = [];
-const productsPerPage = 20; // Số sản phẩm trên mỗi trang
+const productsPerPage = 8; // Số sản phẩm trên mỗi trang
 let currentPage = 1; // Trang hiện tại
-var filterProductList = JSON.parse(localStorage.getItem(listProducts));
 // ----
+const registerBtn = document.querySelector(".registerBtn");
+const loginBtn = document.querySelector(".loginBtn");
+const modalRegister = document.querySelector("#myModalRegister");
+const modalLogin = document.querySelector("#myModalLogin");
+const btnOpenRegister = document.querySelector(".register-open_btn");
+const btnOpenLogin = document.querySelector(".login-open_btn");
+const closeFormBtn = document.querySelectorAll(".closeForm");
+const btnProductclose = document.querySelector(".product-close");
 const bodytop__left = document.querySelector(".bodytop__left");
 const bodytop__right = document.querySelector(".bodytop__right");
 const productContainerMain = document.querySelector(".product_container");
 const productContainter = document.querySelector(".product-containter");
 const verticalmenu = document.getElementsByClassName("verticalmenu");
 const producttype__name = document.querySelector(".producttype__name");
+const pageNumber = document.querySelector(".pagenumber");
+
+// Modal
+const inputUsernameSignUp = document.querySelector(".input-username_signup");
+const inputPasswordSignup = document.querySelector(".input-password_signup");
+const inputEmailSignUp = document.querySelector(".input-email_signup");
+const fillPassSignup = document.querySelector("#fillpassword");
 // Onload
+const currentPath = window.location.pathname; // Đường dẫn hiện tại (vd: /index.html)
+const currentQuery = window.location.search; // Query string hiện tại (vd: ?tc)
+
+// Kiểm tra nếu đang ở index.html và chưa có query string
+if (currentPath.endsWith("index.html") && currentQuery === "") {
+  const newUrl = currentPath + "?tc"; // Thêm ?tc vào URL
+  window.location.replace(newUrl); // Chuyển hướng tới index.html?tc
+}
 createProductCatogrey();
 verticalMenu();
-displayMenu();
 createProducts();
 createAdmin();
+displayMenu();
+var filterProductList = JSON.parse(localStorage.getItem(listProducts));
+var userList = JSON.parse(localStorage.getItem(ListUsers));
 
 // Tạo Admin
 function createAdmin() {
@@ -200,195 +223,60 @@ function createProducts() {
         quantity: 100,
       },
       {
-        name: "M4A1-S",
-        code: "MO0005",
-        price: 1399000,
-        imgSrc: "./assets/img/lego-moc/moc-05.png",
-        topic: "Army",
-        quantity: 100,
-      },
-      {
-        name: "AWM - 06",
-        code: "MO0006",
-        price: 1999000,
-        imgSrc: "./assets/img/lego-moc/moc-06.png",
-        topic: "Army",
-        quantity: 100,
-      },
-      {
-        name: "AWM - 07",
-        code: "MO0007",
-        price: 1929000,
-        imgSrc: "./assets/img/lego-moc/moc-07.png",
-        topic: "Army",
-        quantity: 100,
-      },
-      {
-        name: "AWM - 08",
-        code: "MO0008",
-        price: 1879000,
-        imgSrc: "./assets/img/lego-moc/moc-08.png",
-        topic: "Army",
-        quantity: 100,
-      },
-      {
-        name: "K-98",
-        code: "MO0009",
-        price: 1129000,
-        imgSrc: "./assets/img/lego-moc/moc-09.png",
-        topic: "Army",
-        quantity: 100,
-      },
-      {
-        name: "AWm - 10",
-        code: "MO0010",
-        price: 1983000,
-        imgSrc: "./assets/img/lego-moc/moc-10.png",
-        topic: "Army",
-        quantity: 100,
-      },
-      {
-        name: "M24",
-        code: "MO0011",
-        price: 1340000,
-        imgSrc: "./assets/img/lego-moc/moc-11.png",
-        topic: "Army",
-        quantity: 100,
-      },
-      {
-        name: "AWM - 12",
-        code: "MO0012",
-        price: 18940000,
-        imgSrc: "./assets/img/lego-moc/moc-12.png",
-        topic: "Army",
-        quantity: 100,
-      },
-      {
-        name: "AWM - 13",
-        code: "MO0013",
-        price: 1700000,
-        imgSrc: "./assets/img/lego-moc/moc-14.png",
-        topic: "Army",
-        quantity: 100,
-      },
-      {
-        name: "Scar",
-        code: "MO0014",
+        name: "Siêu Xe Ducati",
+        code: "LR0015",
         price: 1500000,
-        imgSrc: "./assets/img/lego-moc/moc-15.png",
-        topic: "Army",
+        imgSrc: "./assets/img/lego-technic/technic-15.png",
+        topic: "Technic",
         quantity: 100,
       },
+
       {
-        name: "Siêu Xe Lamborghini Sian FKP 37",
-        code: "LR0001",
-        price: 12240000,
-        imgSrc: "./assets/img/lego-technic/technic-01.png",
+        name: "Gạch Khớp Technic 2x2 Một Đầu Cái Bóng",
+        code: "LP0001",
+        price: 5000,
+        imgSrc: "./assets/img/lego-part/part-01.png",
         topic: "Technic",
         quantity: 100,
       },
       {
-        name: "Siêu Xe Ferrari Daytona SP3",
-        code: "LR0002",
-        price: 14200000,
-        imgSrc: "./assets/img/lego-technic/technic-02.png",
+        name: "Gạch Trơn Dẹt 1x1 Khuyết Góc",
+        code: "LP0002",
+        price: 2000,
+        imgSrc: "./assets/img/lego-part/part-02.png",
         topic: "Technic",
         quantity: 100,
       },
       {
-        name: "Xe mô tô thể thao Kawasaki Ninja H2®R",
-        code: "LR0003",
-        price: 1984000,
-        imgSrc: "./assets/img/lego-technic/technic-03.png",
-        topic: "Technic",
+        name: "Thùng Nước Giải Khát Nước Ngọt",
+        code: "LP0003",
+        price: 11000,
+        imgSrc: "./assets/img/lego-part/part-03.png",
+        topic: "Food/Tool",
         quantity: 100,
       },
       {
-        name: "Siêu Xe Lamborghini Huracán Tecnica",
-        code: "LR0004",
-        price: 1393000,
-        imgSrc: "./assets/img/lego-technic/technic-04.png",
-        topic: "Technic",
+        name: "COMBO 5 Vũ Khí Đẹp Sử Dụng Trong Ne-xo",
+        code: "LP0004",
+        price: 5000,
+        imgSrc: "./assets/img/lego-part/part-04.png",
+        topic: "Weapon",
         quantity: 100,
       },
       {
-        name: "Siêu Xe Lamborghini",
-        code: "LR0005",
-        price: 1990000,
-        imgSrc: "./assets/img/lego-technic/technic-05.png",
-        topic: "Technic",
+        name: "Đồ chơi trẻ em",
+        code: "LP0005",
+        price: 4200,
+        imgSrc: "./assets/img/lego-part/part-05.png",
+        topic: "Weapon",
         quantity: 100,
       },
       {
-        name: "Siêu Xe Juggernaut Koenigsegg",
-        code: "LR0006",
-        price: 1780000,
-        imgSrc: "./assets/img/lego-technic/technic-06.png",
-        topic: "Technic",
-        quantity: 100,
-      },
-      {
-        name: "Siêu Xe Lamborghini Urus ST-X",
-        code: "LR0007",
-        price: 1290000,
-        imgSrc: "./assets/img/lego-technic/technic-07.png",
-        topic: "Technic",
-        quantity: 100,
-      },
-      {
-        name: "Siêu Xe Thể thao",
-        code: "LR0008",
-        price: 1738000,
-        imgSrc: "./assets/img/lego-technic/technic-08.png",
-        topic: "Technic",
-        quantity: 100,
-      },
-      {
-        name: "Siêu Xe Pagani màu tím",
-        code: "LR0009",
-        price: 1900000,
-        imgSrc: "./assets/img/lego-technic/technic-09.png",
-        topic: "Technic",
-        quantity: 100,
-      },
-      {
-        name: "Siêu Xe Lamborghini Aventador",
-        code: "LR0010",
-        price: 2100000,
-        imgSrc: "./assets/img/lego-technic/technic-10.png",
-        topic: "Technic",
-        quantity: 100,
-      },
-      {
-        name: "Siêu Xe Lamborghini",
-        code: "LR0011",
-        price: 2000000,
-        imgSrc: "./assets/img/lego-technic/technic-11.png",
-        topic: "Technic",
-        quantity: 100,
-      },
-      {
-        name: "Motor H2R",
-        code: "LR0012",
-        price: 1450000,
-        imgSrc: "./assets/img/lego-technic/technic-12.png",
-        topic: "Technic",
-        quantity: 100,
-      },
-      {
-        name: "Siêu xe vượt địa hình",
-        code: "LR0013",
-        price: 900000,
-        imgSrc: "./assets/img/lego-technic/technic-13.png",
-        topic: "Technic",
-        quantity: 100,
-      },
-      {
-        name: "Siêu Xe Yamaha RIM",
-        code: "LR0014",
-        price: 1390000,
-        imgSrc: "./assets/img/lego-technic/technic-14.png",
-        topic: "Technic",
+        name: "Kiếm Lego - 06",
+        code: "LP0006",
+        price: 4500,
+        imgSrc: "./assets/img/lego-part/part-06.png",
+        topic: "Weapon",
         quantity: 100,
       },
       {
@@ -449,75 +337,135 @@ function createProducts() {
         quantity: 100,
       },
       {
-        name: "Kiếm lego - 07",
-        code: "LP0007",
-        price: 4000,
-        imgSrc: "./assets/img/lego-part/part-07.png",
-        topic: "Weapon",
+        name: "Siêu Xe Ducati",
+        code: "LR0015",
+        price: 1500000,
+        imgSrc: "./assets/img/lego-technic/technic-15.png",
+        topic: "Technic",
+        quantity: 100,
+      },
+
+      {
+        name: "Gạch Khớp Technic 2x2 Một Đầu Cái Bóng",
+        code: "LP0001",
+        price: 5000,
+        imgSrc: "./assets/img/lego-part/part-01.png",
+        topic: "Technic",
         quantity: 100,
       },
       {
-        name: "Ly uống nước",
-        code: "LP0008",
-        price: 3000,
-        imgSrc: "./assets/img/lego-part/part-08.png",
-        topic: "Weapon",
+        name: "Gạch Trơn Dẹt 1x1 Khuyết Góc",
+        code: "LP0002",
+        price: 2000,
+        imgSrc: "./assets/img/lego-part/part-02.png",
+        topic: "Technic",
         quantity: 100,
       },
       {
-        name: "Máy xúc đồ chơi",
-        code: "LP0009",
-        price: 15000,
-        imgSrc: "./assets/img/lego-part/part-09.png",
-        topic: "Weapon",
-        quantity: 100,
-      },
-      {
-        name: "Máy xúc đồ chơi - 02",
-        code: "LP0010",
+        name: "Thùng Nước Giải Khát Nước Ngọt",
+        code: "LP0003",
         price: 11000,
-        imgSrc: "./assets/img/lego-part/part-10.png",
+        imgSrc: "./assets/img/lego-part/part-03.png",
+        topic: "Food/Tool",
+        quantity: 100,
+      },
+      {
+        name: "COMBO 5 Vũ Khí Đẹp Sử Dụng Trong Ne-xo",
+        code: "LP0004",
+        price: 5000,
+        imgSrc: "./assets/img/lego-part/part-04.png",
         topic: "Weapon",
         quantity: 100,
       },
       {
-        name: "Sao biển lego",
-        code: "LP0011",
-        price: 8000,
-        imgSrc: "./assets/img/lego-part/part-11.png",
+        name: "Đồ chơi trẻ em",
+        code: "LP0005",
+        price: 4200,
+        imgSrc: "./assets/img/lego-part/part-05.png",
         topic: "Weapon",
         quantity: 100,
       },
       {
-        name: "Nhà đồ chơi",
-        code: "LP0012",
-        price: 52000,
-        imgSrc: "./assets/img/lego-part/part-12.png",
+        name: "Kiếm Lego - 06",
+        code: "LP0006",
+        price: 4500,
+        imgSrc: "./assets/img/lego-part/part-06.png",
         topic: "Weapon",
         quantity: 100,
       },
+      ,
       {
-        name: "Hoa quả",
-        code: "LP0013",
-        price: 7000,
-        imgSrc: "./assets/img/lego-part/part-13.png",
-        topic: "Weapon",
+        name: "Jiraiya - 13",
+        code: "LM0013",
+        price: 19000,
+        imgSrc: "./assets/img/lego-minifigure/mini-13.png",
+        topic: "Naruto",
         quantity: 100,
       },
       {
-        name: "Cối xay gió",
-        code: "LP0014",
-        price: 12000,
-        imgSrc: "./assets/img/lego-part/part-14.png",
-        topic: "Weapon",
+        name: "Sarada - 14",
+        code: "LM0014",
+        price: 30000,
+        imgSrc: "./assets/img/lego-minifigure/mini-14.png",
+        topic: "Naruto",
         quantity: 100,
       },
       {
-        name: "Minion",
-        code: "LP0015",
-        price: 50000,
-        imgSrc: "./assets/img/lego-part/part-15.png",
-        topic: "Weapon",
+        name: "Naruto - 15",
+        code: "LM0015",
+        price: 26000,
+        imgSrc: "./assets/img/lego-minifigure/mini-15.png",
+        topic: "Naruto",
+        quantity: 100,
+      },
+      ,
+      {
+        name: "Jiraiya - 13",
+        code: "LM0013",
+        price: 19000,
+        imgSrc: "./assets/img/lego-minifigure/mini-13.png",
+        topic: "Naruto",
+        quantity: 100,
+      },
+      {
+        name: "Sarada - 14",
+        code: "LM0014",
+        price: 30000,
+        imgSrc: "./assets/img/lego-minifigure/mini-14.png",
+        topic: "Naruto",
+        quantity: 100,
+      },
+      {
+        name: "Naruto - 15",
+        code: "LM0015",
+        price: 26000,
+        imgSrc: "./assets/img/lego-minifigure/mini-15.png",
+        topic: "Naruto",
+        quantity: 100,
+      },
+      ,
+      {
+        name: "Jiraiya - 13",
+        code: "LM0013",
+        price: 19000,
+        imgSrc: "./assets/img/lego-minifigure/mini-13.png",
+        topic: "Naruto",
+        quantity: 100,
+      },
+      {
+        name: "Sarada - 14",
+        code: "LM0014",
+        price: 30000,
+        imgSrc: "./assets/img/lego-minifigure/mini-14.png",
+        topic: "Naruto",
+        quantity: 100,
+      },
+      {
+        name: "Naruto - 15",
+        code: "LM0015",
+        price: 26000,
+        imgSrc: "./assets/img/lego-minifigure/mini-15.png",
+        topic: "Naruto",
         quantity: 100,
       },
     ];
@@ -591,7 +539,7 @@ function createProduct(product) {
         </div>
         <div class="item__info-detailend">
           <a href="#" class="item__info-link">Mua</a>
-          <a href="#" class="item__info-link detail-btn" onclick="displayProductDetail(this)" id ="${product.code}">Chi tiết</a>
+          <a href="#" class="item__info-link detail-btn" id ="${product.code}">Chi tiết</a>
         </div>
       </div>
     </div>
@@ -601,34 +549,38 @@ function createProduct(product) {
 // Tạo format html cho chi tiết sản phẩm
 function createProductDetail(product) {
   return `
-			    <img class="img" src="${product.imgSrc}">
-			    <div class="content">
-				    <ul>
-					    <li>Tên Sản phẩm: ${product.name}</li>
-					    <li>Giá: ${product.price} VNĐ</li>
-					    <li>Chủ đề:  ${product.topic}</li>
-              <li>Số lượng<input type="button" value="-" /><input type="text" size="2" width="2" value="1" /><input type="button" value = "+" /></li>
-					    <li>Thêm vào giỏ hàng</li>
-				    </ul>
-			    </div>`;
+      <img class="img"src="${product.imgSrc}" alt="" />
+      <div class="content">
+        <p class="content-detail"><strong>Tên sản phẩm:</strong> ${product.name}</p>
+        <p class="content-detail"><strong>Mã sản phẩm:</strong> ${product.code}</p>
+        <p class="content-detail"><strong>Chủ đề:</strong> ${product.topic}</p>
+        <p class="content-detail"><strong>Giá tiền:</strong> ${product.price} VNĐ</p>
+        <div class="product-quantity">
+          <button class="quantity-btn">-</button>
+          <input type="text" value="1" min="1" class="quantity-input">
+          <button class="quantity-btn">+</button>
+        </div>
+        
+        <button class="add-to-cart">Thêm Vào Giỏ</button>
+      </div>`;
 }
 
 // Hiển thị modal của chi tiết sản phẩm
-function displayProductDetail(product) {
-  alert(product.id); // Hiển thị ID của sản phẩm
+function displayProductDetail(e, product) {
+  e.preventDefault();
   let s = "";
-  let length = productArray.length;
-  for (let i = 0; i < length; i++) {
-    // Khai báo i với let
-    // Lấy 2 ký tự đầu của mã sản phẩm
-    if (productArray[i].code === product.id) {
-      s = createProductDetail(productArray[i]);
-      break;
-    }
-  }
+  let tempList = JSON.parse(localStorage.getItem(listProducts)) || [];
+  let matchedProduct = tempList.find((item) => item.code === product.id);
 
-  productContainter.innerHTML = s;
-  productLayout.style.display = "block";
+  if (matchedProduct) {
+    // Nếu tìm thấy sản phẩm, tạo nội dung chi tiết
+    s = createProductDetail(matchedProduct);
+    productContainter.innerHTML = s;
+    productLayout.style.display = "block";
+  } else {
+    // Nếu không tìm thấy sản phẩm
+    alert("Product not found");
+  }
 }
 
 // Hiển thị Menu tổng
@@ -650,7 +602,10 @@ function displayMenu() {
     case "sp":
       producttype__name.innerHTML = `<h3>Danh mục sản phẩm</h3>`;
       verticalmenu[1].style.display = "block";
-      displayProducts();
+      let tempList = JSON.parse(localStorage.getItem(listProducts));
+      displayPageProduct(tempList, tempList.length);
+      displayProducts(tempList, tempList.length);
+
       break;
     case "lh":
       producttype__name.innerHTML = `<h3>Liên hệ</h3>`;
@@ -658,6 +613,10 @@ function displayMenu() {
       break;
     case "adminwebsitelego":
       producttype__name.innerHTML = `<h3>Liên hệ</h3>`;
+      break;
+    default:
+      const newUrl = currentPath + "?tc"; // Thêm ?tc vào URL
+      window.location.replace(newUrl);
       break;
   }
 }
@@ -680,7 +639,7 @@ function verticalMenu() {
                     alt=""
                     class="verticalmenu__detail-icon"
                   />
-                  <a href="#" class="verticalmenu__detail-link" id="${listTemp[i].brandid}" onclick="displayProductsByBrand(this);">
+                  <a href="#" class="verticalmenu__detail-link vertical-btn" id="${listTemp[i].brandid}">
                     ${listTemp[i].brandname}
                   </a>
               </li>`;
@@ -699,6 +658,13 @@ function verticalMenu() {
   s0 += s + `</div>` + verticalMenu1();
   bodytop__left.innerHTML = s0; // Gán nội dung vào phần tử
   verticalmenu[1].style.display = "none";
+
+  let verticalBtn = document.querySelectorAll(".vertical-btn");
+  verticalBtn.forEach((button) => {
+    button.addEventListener("click", () => {
+      displayProductsByBrand(button);
+    });
+  });
 }
 
 function verticalMenu1() {
@@ -710,60 +676,103 @@ function verticalMenu1() {
               </div>
               <!-- Chi tiết Vertical Menu -->
               <div class="verticalmenu__detail">
-                <div class="verticalmenu_filter">
-                  <div class="verticalmenu__text">Tên sản phẩm</div>
-                  <input type="text" name="product-name" placeholder="Nhập tên" size="20" maxlength="50" class="verticalmenu__input">
-              
-                  <div class="verticalmenu__text">Giá tiền</div>
-                  <div class="verticalmenu__price-range">
-                    <div>
-                      <input type="checkbox" id="price-from" class="verticalmenu__checkbox">
-                      <label class="verticalmenu__text" for="price-from">Từ</label>
-                      <input type="text" placeholder="Giá" size="18" class="verticalmenu__input">
-                    </div>
-                    <div>
-                      <input type="checkbox" id="price-to" class="verticalmenu__checkbox">
-                      <label class="verticalmenu__text" for="price-to">Đến</label>
-                      <input type="text" placeholder="Giá" size="18" class="verticalmenu__input">
-                    </div>
-                  </div>
-              
-                  <div class="verticalmenu__text">Danh mục</div>
-                  <div class="filteritem">
-                    <div class="filter-option">
-                      <input type="checkbox" name="category[]" value="lego-minifigure" class="verticalmenu__checkbox">
-                      Lego Minifigure
-                    </div>
-                    <div class="filter-option">
-                      <input type="checkbox" name="category[]" value="lego-moc" class="verticalmenu__checkbox">
-                      Lego MOC
-                    </div>
-                    <div class="filter-option">
-                      <input type="checkbox" name="category[]" value="lego-official" class="verticalmenu__checkbox">
-                      Lego chính hãng
-                    </div>
-                    <div class="filter-option">
-                      <input type="checkbox" name="category[]" value="lego-parts" class="verticalmenu__checkbox">
-                      Phụ kiện lego
-                    </div>
-                  </div>
-                </div>
+                  <form id="advanced-search-form">
+          <!-- Tên sản phẩm -->
+          <div class="form-group">
+            <label for="search-name">Tên sản phẩm:</label>
+            <input
+              type="text"
+              id="search-name"
+              name="name"
+              placeholder="Nhập tên sản phẩm"
+            />
+          </div>
+
+          <!-- Phân loại -->
+          <div class="form-group">
+            <label for="search-category">Phân loại:</label>
+            <select id="search-category" name="category">
+              <option value="">Tất cả</option>
+              <option value="electronics">Điện tử</option>
+              <option value="fashion">Thời trang</option>
+              <option value="home">Đồ gia dụng</option>
+              <option value="other">Khác</option>
+            </select>
+          </div>
+
+          <!-- Khoảng giá -->
+          <div class="form-group">
+            <label for="search-price-min">Khoảng giá:</label>
+            <div class="price-range"> Từ
+              <input
+                type="number"
+                id="search-price-min"
+                name="price_min"
+                placeholder="Thấp nhất"
+              />
+              Đến
+              <input
+                type="number"
+                id="search-price-max"
+                name="price_max"
+                placeholder="Cao nhất"
+              />
+            </div>
+          </div>
+        </form>
               </div>
-              </div>`;
+            </div>`;
   return s1;
+}
+
+const searchNameProduct = document.getElementById("search-name");
+
+//Filter các loại
+function filterProductArrayByBrand(productArray, brandID) {
+  return productArray.filter((item) => item.code.slice(0, 2) === brandID);
+}
+
+function filterProductArrayByName(productArray, name) {
+  let lowerCaseName = name.toLowerCase(); // Chuyển tên tìm kiếm về chữ thường
+  return productArray.filter((item) =>
+    item.name.toLowerCase().includes(lowerCaseName)
+  );
+}
+
+searchNameProduct.addEventListener("keyup", () => {
+  let searchValue = searchNameProduct.value.trim(); // Lấy giá trị nhập, loại bỏ khoảng trắng
+  displayProductsByName(searchValue);
+});
+
+// Hiển thị sản phẩm theo tên
+function displayProductsByName(name) {
+  let tempList = JSON.parse(localStorage.getItem(listProducts));
+  currentPage = 1; // Trang hiện tại
+  let result = filterProductArrayByName(tempList, name);
+  if (result.length == 0) {
+    alert("Không có sản phẩm theo yêu cầu");
+    return;
+  } else {
+    producttype__name.innerHTML = `<h3>Danh mục sản phẩm theo yêu cầu</h3>`;
+    displayPageProduct(result, result.length);
+    displayProducts(result, result.length);
+  }
 }
 
 // Hiển thị sản phẩm theo danh mục
 function displayProductsByBrand(product) {
-  alert(product.id); // Hiển thị ID của sản phẩm
-  productContainerMain.innerHTML = "";
-  let book = JSON.parse(localStorage.getItem(listProducts));
-  filterProductList = book.filter(function (temp) {
-    console.log(temp.id);
-    console.log(product.id.substring(0, 2));
-    return temp.code.substring(0, 2) === product.id;
-  });
-  displayProducts();
+  let tempList = JSON.parse(localStorage.getItem(listProducts));
+  currentPage = 1; // Trang hiện tại
+  let result = filterProductArrayByBrand(tempList, product.id);
+  if (result.length == 0) {
+    alert("Không có sản phẩm theo yêu cầu");
+    return;
+  } else {
+    alert(product.id); // Hiển thị ID của sản phẩm
+    producttype__name.innerHTML = `<h3>${product.textContent}</h3>`;
+    displayPageProduct(result, result.length);
+    displayProducts(result, result.length);
+  }
 }
 
 // Hàm hiển thị trang chủ
@@ -877,38 +886,261 @@ function displayContactPage() {
   productContainerMain.innerHTML = s;
 }
 
-// Hàm hiển thị sản phẩm theo trang
-function displayProducts() {
-  const totalPages = Math.ceil(filterProductList.length / productsPerPage); // Tính tổng số trang
-  const startIndex = (currentPage - 1) * productsPerPage; // Tính chỉ số bắt đầu
-  const endIndex = startIndex + productsPerPage; // Tính chỉ số kết thúc
-  const paginatedProducts = filterProductList.slice(startIndex, endIndex); // Lấy sản phẩm cho trang hiện tại
-
-  let s = ""; // Khởi tạo chuỗi để chứa HTML sản phẩm
-  paginatedProducts.forEach((product) => {
-    s += createProduct(product); // Tạo HTML cho sản phẩm
-  });
-
-  productContainerMain.innerHTML = s; // Đặt nội dung mới vào container
-  setupPagination(totalPages); // Thiết lập phân trang
-}
-
-function setupPagination() {
-  const totalPages = Math.ceil(filterProductList.length / productsPerPage); // Tính tổng số trang
-  const paginationContainer = document.querySelector(".pagenumber"); // Lấy container phân trang
-  paginationContainer.innerHTML = ""; // Xóa nội dung cũ
-
-  for (let i = 1; i <= totalPages; i++) {
-    const pageButton = document.createElement("button"); // Tạo nút cho mỗi trang
-    pageButton.textContent = i;
-    pageButton.className = "page-button"; // Áp dụng lớp CSS cho nút
-    if (i === currentPage) {
-      pageButton.classList.add("active"); // Thêm lớp active nếu nút hiện tại
+function displayProducts(productList, length) {
+  productContainerMain.innerHTML = "";
+  // tính vị trí sách bắt đầu để hiển thị trong từng trang
+  let beginProduct = (currentPage - 1) * productsPerPage;
+  let endProduct = beginProduct + productsPerPage;
+  let pageBtn = document.querySelectorAll(".product-btn_page");
+  pageBtn.forEach((button) => {
+    if (button.textContent == currentPage) {
+      button.style.color = "#fff";
+      button.style.backgroundColor = "var(--primary-color)";
+    } else {
+      button.style.color = "var(--primary-color)";
+      button.style.backgroundColor = "#fff";
     }
-    pageButton.onclick = () => {
-      currentPage = i; // Cập nhật trang hiện tại
-      displayProducts(); // Hiển thị sản phẩm cho trang mới
-    };
-    paginationContainer.appendChild(pageButton); // Thêm nút vào container phân trang
+  });
+  for (let i = beginProduct; i < endProduct; i++) {
+    if (productList[i] && !productList[i].isDeleted) {
+      productContainerMain.innerHTML += createProduct(productList[i]);
+    }
   }
 }
+
+function displayPageProduct(productList, length) {
+  totalPages = Math.ceil(length / productsPerPage);
+  pageNumber.innerHTML = ""; // Xóa nội dung cũ
+
+  // Chỉ hiển thị nút nếu có hơn 1 trang
+  if (totalPages <= 1) return;
+
+  // Thêm nút "Prev"
+  pageNumber.innerHTML += `<button class="product-btn product-btn_prev">&lt;</button>`;
+
+  // Hiển thị nút phân trang
+  if (totalPages <= 5) {
+    // Hiển thị tất cả các nút nếu tổng số trang <= 5
+    for (let i = 1; i <= totalPages; i++) {
+      pageNumber.innerHTML += `<button class="product-btn product-btn_page" id="page-${i}">${i}</button>`;
+    }
+  } else {
+    // Hiển thị với cấu trúc: < 1 2 ... totalPages-1 totalPages >
+    pageNumber.innerHTML += `<button class="product-btn product-btn_page" id="page-1">1</button>`;
+    pageNumber.innerHTML += `<button class="product-btn product-btn_page" id="page-2">2</button>`;
+    if (currentPage > 3 && currentPage < totalPages - 2) {
+      // Hiển thị dạng: 1 2 ... currentPage ... totalPages-1 totalPages
+      pageNumber.innerHTML += `<span class="ellipsis">...</span>`;
+      pageNumber.innerHTML += `<button class="product-btn product-btn_page" id="page-${currentPage}">${currentPage}</button>`;
+      pageNumber.innerHTML += `<span class="ellipsis">...</span>`;
+    } else if (currentPage <= 3) {
+      // Nếu đang ở đầu: 1 2 3 ... totalPages-1 totalPages
+      pageNumber.innerHTML += `<button class="product-btn product-btn_page" id="page-3">3</button>`;
+      pageNumber.innerHTML += `<span class="ellipsis">...</span>`;
+    } else {
+      // Nếu đang ở cuối: 1 2 ... totalPages-2 totalPages-1 totalPages
+      pageNumber.innerHTML += `<span class="ellipsis">...</span>`;
+      pageNumber.innerHTML += `<button class="product-btn product-btn_page" id="page-${
+        totalPages - 2
+      }">${totalPages - 2}</button>`;
+    }
+    pageNumber.innerHTML += `<button class="product-btn product-btn_page" id="page-${
+      totalPages - 1
+    }">${totalPages - 1}</button>`;
+    pageNumber.innerHTML += `<button class="product-btn product-btn_page" id="page-${totalPages}">${totalPages}</button>`;
+  }
+
+  // Thêm nút "Next"
+  pageNumber.innerHTML += `<button class="product-btn product-btn_next">&gt;</button>`;
+
+  // Xử lý sự kiện
+  updatePageButtonStyles();
+  handlePageButtonEvents(productList, length);
+}
+
+function updatePageButtonStyles() {
+  let pageBtn = document.querySelectorAll(".product-btn_page");
+  pageBtn.forEach((button) => {
+    if (parseInt(button.textContent) === currentPage) {
+      button.style.color = "#fff";
+      button.style.backgroundColor = "var(--primary-color)";
+    } else {
+      button.style.color = "var(--primary-color)";
+      button.style.backgroundColor = "#fff";
+    }
+  });
+}
+
+function handlePageButtonEvents(productList, length) {
+  let pageBtn = document.querySelectorAll(".product-btn_page");
+  let prevBtn = document.querySelector(".product-btn_prev");
+  let nextBtn = document.querySelector(".product-btn_next");
+
+  // Xử lý sự kiện click cho từng nút trang
+  pageBtn.forEach((button) => {
+    button.addEventListener("click", () => {
+      currentPage = parseInt(button.textContent);
+      displayProducts(productList, length);
+      displayPageProduct(productList, length); // Cập nhật giao diện nút
+    });
+  });
+
+  // Xử lý nút "Prev"
+  prevBtn.addEventListener("click", (event) => {
+    event.preventDefault();
+    if (currentPage > 1) {
+      currentPage--;
+      displayProducts(productList, length);
+      displayPageProduct(productList, length); // Cập nhật giao diện nút
+    }
+  });
+
+  // Xử lý nút "Next"
+  nextBtn.addEventListener("click", (event) => {
+    event.preventDefault();
+    if (currentPage < totalPages) {
+      currentPage++;
+      displayProducts(productList, length);
+      displayPageProduct(productList, length); // Cập nhật giao diện nút
+    }
+  });
+}
+// Phần login / register
+registerBtn.addEventListener("click", function () {
+  modalRegister.style.display = "block";
+  modalLogin.style.display = "none";
+});
+
+btnOpenLogin.addEventListener("click", function () {
+  modalLogin.style.display = "block";
+  modalRegister.style.display = "none";
+});
+
+closeFormBtn.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    modalRegister.style.display = "none";
+    modalLogin.style.display = "none";
+  });
+});
+
+loginBtn.addEventListener("click", function () {
+  modalRegister.style.display = "none";
+  modalLogin.style.display = "block";
+});
+
+btnOpenRegister.addEventListener("click", function () {
+  modalLogin.style.display = "none";
+  modalRegister.style.display = "block";
+});
+
+// Book layout
+btnProductclose.addEventListener("click", function () {
+  productLayout.style.display = "none";
+});
+
+function validateEmail(email) {
+  let regex = /^\w+@[a-zA-Z_]+?(\.[a-zA-Z]{2,3}){1,3}$/;
+  return regex.test(email);
+}
+function validateUser(user) {
+  let regex = /^[a-zA-Z0-9._-]{3,}$/;
+  return regex.test(user);
+}
+
+function checkInputFromSignup(event) {
+  let inputElement = event.target.value.trim();
+  let errorElement = event.target.parentElement.querySelector(".form-message");
+
+  if (inputElement === "") {
+    errorElement.innerHTML = "Vui lòng nhập thông tin vào!";
+  } else if (event.target.id === "username" && !validateUser(inputElement))
+    errorElement.innerHTML =
+      "Tài khoản đăng nhập phải có ít nhất 3 kí tự trở lên, không chứa kí tự đặc biệt";
+  else if (event.target.id === "password" && inputElement.length < 6)
+    errorElement.innerHTML = "Mật khẩu phải có ít nhất 6 kí tự.";
+  else if (event.target.id === "email" && !validateEmail(inputElement))
+    errorElement.innerHTML = "Địa chỉ email không hợp lệ.";
+  else if (
+    event.target.id === "fillpassword" &&
+    inputElement != inputSignUp[2].value
+  )
+    errorElement.innerHTML = "Mật khẩu nhập lại không giống nhau";
+  else errorElement.innerHTML = "";
+}
+
+function checkSignup(event) {
+  let inputElement = event.value;
+  if (event.id === "username" && !validateUser(inputElement)) return false;
+  else if (event.id === "password" && inputElement.length < 6) return false;
+  else if (event.id === "email" && !validateEmail(inputElement)) return false;
+  return true;
+}
+
+const inputSignUp = document.getElementsByClassName("auth-form__input");
+inputSignUp[0].addEventListener("blur", checkInputFromSignup);
+inputSignUp[1].addEventListener("blur", checkInputFromSignup);
+inputSignUp[2].addEventListener("blur", checkInputFromSignup);
+inputSignUp[3].addEventListener("blur", checkInputFromSignup);
+
+document.getElementById("register-form").addEventListener("click", createUser);
+
+function createUser(event) {
+  event.preventDefault();
+  userList = JSON.parse(localStorage.getItem(ListUsers));
+  let username = inputSignUp[0].value.trim();
+  let email = inputSignUp[1].value.trim();
+  let password = inputSignUp[2].value.trim();
+  let passwordAgain = inputSignUp[3].value.trim();
+  if (!username || !email || !password || !passwordAgain) {
+    alert("Vui lòng nhập đủ thông tin đăng ký!");
+    return false;
+  }
+  if (
+    !checkSignup(inputSignUp[0]) ||
+    !checkSignup(inputSignUp[2]) ||
+    !checkSignup(inputSignUp[1])
+  ) {
+    alert("Vui lòng nhập đúng thông tin!!!");
+    return false;
+  }
+
+  if (password != passwordAgain) {
+    alert("Vui lòng nhập lại đúng mật khẩu");
+    return false;
+  }
+  let newUser = {
+    username: username,
+    password: password,
+    email: email,
+    cart: [],
+    id: userList.length + 1,
+    dateSignUp: "",
+  };
+  // kiểm tra trùng tên đăng nhập
+  for (let i = 0; i < userList.length; i++) {
+    if (newUser.username == userList[i].username) {
+      inputSignUp[0].parentElement.querySelector(".form-message").innerHTML =
+        "Tên đăng nhập đã có người sử dụng";
+      inputSignUp[0].focus();
+      return false;
+    }
+  }
+  newUser.dateSignUp = new Intl.DateTimeFormat("vi-VN", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  }).format(new Date());
+  userList.push(newUser);
+  localStorage.setItem(ListUsers, JSON.stringify(userList));
+  alert("Đã đăng ký thành công");
+  modalRegister.style.display = "none";
+  window.location.reload();
+}
+
+const detailButtons = document.querySelectorAll(".detail-btn");
+
+detailButtons.forEach((button) => {
+  button.addEventListener("click", (event) => {
+    displayProductDetail(event, button);
+  });
+});

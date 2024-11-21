@@ -85,7 +85,7 @@ function verticalmenu2() {
                 <div class="verticalmenu_filter">
                   <div class="verticalmenu__text">Tên sản phẩm</div>
                   <input type="text" name="product-name" placeholder="Nhập tên" size="20" maxlength="50" class="verticalmenu__input">
-              
+
                   <div class="verticalmenu__text">Giá tiền</div>
                   <div class="verticalmenu__price-range">
                     <div>
@@ -99,7 +99,7 @@ function verticalmenu2() {
                       <input type="text" placeholder="Giá" size="18" class="verticalmenu__input">
                     </div>
                   </div>
-              
+
                   <div class="verticalmenu__text">Danh mục</div>
                   <div class="filteritem">
                     <div class="filter-option">
@@ -790,3 +790,5 @@ btnOpenRegister.onclick = function (event) {
 btnProductclose.onclick = function (event) {
   productLayout.style.display = "none";
 };
+
+const searchNameProduct = document.getElementById("search-name");

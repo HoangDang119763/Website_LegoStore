@@ -17,88 +17,125 @@
       rel="stylesheet"
       href="./assets/fonts/fontawesome-free-6.6.0-web/css/all.min.css"
     />
+    <style>
+      .verticalmenu {
+        margin-bottom: 10px;
+      }
+
+      .verticalmenu_title {
+        /* line-height: 50%; */
+        border-bottom: var(--border-color) 5px solid;
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: var(--text-color);
+        user-select: none;
+      }
+
+      .verticalmenu_title-icon- {
+      }
+
+      .verticalmenu__detail {
+        background-color: var(--primary-color-rgpa);
+      }
+
+      .verticalmenu_title h3 {
+        margin: 15px 0;
+      }
+
+      .verticalmenu__detail-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .verticalmenu__detail-item {
+        margin: 5px 0;
+        display: flex;
+        align-items: center;
+      }
+
+      .verticalmenu__detail-icon {
+        width: 20px;
+        height: 20px;
+        justify-content: center;
+        size: fixed;
+        margin-right: 5px;
+      }
+
+      .verticalmenu__detail-link {
+        font-weight: 600;
+        color: var(--text-color);
+        text-decoration: none;
+        font-size: 1.6rem;
+      }
+
+      #advanced-search-form {
+        font-size: 1.6rem;
+      }
+
+      .form-group {
+        padding: 5px;
+      }
+    </style>
   </head>
   <body>
-    <!-- Modal -->
-    <div class="modal">
-      <div class="modal__overlay"></div>
-      <div class="modal__body">
-        <!-- Authen form -->
-        <div class="auth-form" id="signup">
-          <div class="auth-form__container">
-            <!-- Header -->
-            <div class="auth-form__header">
-              <h3 class="auth-form__heading">Đăng ký</h3>
-              <span class="auth-form__swith-btn">Đăng nhập</span>
-            </div>
-            <!-- Body 01 -->
-            <div class="auth-form__form">
-              <div class="auth-form__group">
-                <input
-                  type="text"
-                  class="auth-form__input"
-                  placeholder="Email của bạn"
-                />
-              </div>
-
-              <div class="auth-form__group">
-                <input
-                  type="password"
-                  class="auth-form__input"
-                  placeholder="Mật khẩu của bạn"
-                />
-              </div>
-              <div class="auth-form__group">
-                <div class="auth-form__group">
-                  <input
-                    type="password"
-                    class="auth-form__input"
-                    placeholder="Nhập lại mật khẩu"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <!-- Body 02 -->
-            <div class="auth-form__aside">
-              <p class="auth-form__policy-text">
-                Bằng việc đăng kí, bạn đã đồng ý với Shop về
-                <a href="" class="auth-form__text-link">Điều khoản dịch vụ</a>
-                &
-                <a href="" class="auth-form__text-link">Chính sách bảo mật</a>
-              </p>
-            </div>
-            <!-- Footer 01 -->
-            <div class="auth-form__controls">
-              <button class="btn auth-form__controls-back btn--normal">
-                TRỞ LẠI
-              </button>
-              <button class="btn btn--primary">ĐĂNG KÝ</button>
-            </div>
-          </div>
-          <!-- Footer 02 -->
-          <div class="auth-form__socials">
-            <a
-              href=""
-              class="auth-form__socials--facebook btn btn--size-s btn--with-icon"
-              ><i
-                class="auth-form__socials-icon fa-brands fa-square-facebook"
-              ></i
-              ><span class="auth-form__socials-title"
-                >Kết nối với Facebook</span
-              ></a
-            >
-            <a
-              href=""
-              class="auth-form__socials--google btn btn--size-s btn--with-icon"
-              ><i class="auth-form__socials-icon fa-brands fa-google"></i
-              ><span class="auth-form__socials-title">Kết nối với Google</span>
-            </a>
-          </div>
-        </div>
-        <!--  -->
+    <div class="verticalmenu">
+      <div class="verticalmenu_title">
+        <h3>
+          <i class="verticalmenu_title-icon fa-solid fa-bars"></i>
+          <span>TÌM KIẾM NÂNG CAO</span>
+        </h3>
       </div>
-      <!--  -->
+      <!-- Chi tiết Vertical Menu -->
+      <div class="verticalmenu__detail">
+        <form id="advanced-search-form">
+          <!-- Tên sản phẩm -->
+          <div class="form-group">
+            <label for="search-name">Tên sản phẩm:</label>
+            <input
+              type="text"
+              id="search-name"
+              name="name"
+              placeholder="Nhập tên sản phẩm"
+            />
+          </div>
+
+          <!-- Phân loại -->
+          <div class="form-group">
+            <label for="search-category">Phân loại:</label>
+            <select id="search-category" name="category">
+              <option value="">Tất cả</option>
+              <option value="electronics">Điện tử</option>
+              <option value="fashion">Thời trang</option>
+              <option value="home">Đồ gia dụng</option>
+              <option value="other">Khác</option>
+            </select>
+          </div>
+
+          <!-- Khoảng giá -->
+          <div class="form-group">
+            <label for="search-price-min">Khoảng giá:</label>
+            <div class="price-range">
+              <input
+                type="number"
+                id="search-price-min"
+                name="price_min"
+                placeholder="Thấp nhất"
+              />
+              <span>-</span>
+              <input
+                type="number"
+                id="search-price-max"
+                name="price_max"
+                placeholder="Cao nhất"
+              />
+            </div>
+          </div>
+
+          <!-- Nút tìm kiếm -->
+          <button type="submit" class="search-btn">Tìm kiếm</button>
+        </form>
+      </div>
     </div>
   </body>
 </html>
