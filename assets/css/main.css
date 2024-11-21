@@ -1110,3 +1110,19 @@
 .price-range {
   margin-top: 5px 0;
 }
+
+.accountLogin {
+  display: none;
+}
+.accountLogin:hover > button {
+  display: block;
+}
+#adminLogin:hover > button {
+  display: block;
+}
+.userLogout {
+  display: none;
+  border: none;
+  border-radius: 5px;
+  margin-left: 0px;
+}

@@ -18,6 +18,7 @@ const productContainerMain = document.querySelector(".product_container");
 const productContainter = document.querySelector(".product-containter");
 const verticalmenu = document.getElementsByClassName("verticalmenu");
 const producttype__name = document.querySelector(".producttype__name");
+const producttype = document.querySelector(".producttype");
 const pageNumber = document.querySelector(".pagenumber");
 var userList = [];
 // Modal
@@ -222,6 +223,198 @@ function createProducts() {
         quantity: 100,
       },
       {
+        name: "M4A1-S",
+        code: "MO0005",
+        price: 1399000,
+        imgSrc: "./assets/img/lego-moc/moc-05.png",
+        topic: "Army",
+        quantity: 100,
+      },
+      {
+        name: "AWM - 06",
+        code: "MO0006",
+        price: 1999000,
+        imgSrc: "./assets/img/lego-moc/moc-06.png",
+        topic: "Army",
+        quantity: 100,
+      },
+      {
+        name: "AWM - 07",
+        code: "MO0007",
+        price: 1929000,
+        imgSrc: "./assets/img/lego-moc/moc-07.png",
+        topic: "Army",
+        quantity: 100,
+      },
+      {
+        name: "AWM - 08",
+        code: "MO0008",
+        price: 1879000,
+        imgSrc: "./assets/img/lego-moc/moc-08.png",
+        topic: "Army",
+        quantity: 100,
+      },
+      {
+        name: "K-98",
+        code: "MO0009",
+        price: 1129000,
+        imgSrc: "./assets/img/lego-moc/moc-09.png",
+        topic: "Army",
+        quantity: 100,
+      },
+      {
+        name: "AWm - 10",
+        code: "MO0010",
+        price: 1983000,
+        imgSrc: "./assets/img/lego-moc/moc-10.png",
+        topic: "Army",
+        quantity: 100,
+      },
+      {
+        name: "M24",
+        code: "MO0011",
+        price: 1340000,
+        imgSrc: "./assets/img/lego-moc/moc-11.png",
+        topic: "Army",
+        quantity: 100,
+      },
+      {
+        name: "AWM - 12",
+        code: "MO0012",
+        price: 18940000,
+        imgSrc: "./assets/img/lego-moc/moc-12.png",
+        topic: "Army",
+        quantity: 100,
+      },
+      {
+        name: "AWM - 13",
+        code: "MO0013",
+        price: 1700000,
+        imgSrc: "./assets/img/lego-moc/moc-14.png",
+        topic: "Army",
+        quantity: 100,
+      },
+      {
+        name: "Scar",
+        code: "MO0014",
+        price: 1500000,
+        imgSrc: "./assets/img/lego-moc/moc-15.png",
+        topic: "Army",
+        quantity: 100,
+      },
+      {
+        name: "Siêu Xe Lamborghini Sian FKP 37",
+        code: "LR0001",
+        price: 12240000,
+        imgSrc: "./assets/img/lego-technic/technic-01.png",
+        topic: "Technic",
+        quantity: 100,
+      },
+      {
+        name: "Siêu Xe Ferrari Daytona SP3",
+        code: "LR0002",
+        price: 14200000,
+        imgSrc: "./assets/img/lego-technic/technic-02.png",
+        topic: "Technic",
+        quantity: 100,
+      },
+      {
+        name: "Xe mô tô thể thao Kawasaki Ninja H2®R",
+        code: "LR0003",
+        price: 1984000,
+        imgSrc: "./assets/img/lego-technic/technic-03.png",
+        topic: "Technic",
+        quantity: 100,
+      },
+      {
+        name: "Siêu Xe Lamborghini Huracán Tecnica",
+        code: "LR0004",
+        price: 1393000,
+        imgSrc: "./assets/img/lego-technic/technic-04.png",
+        topic: "Technic",
+        quantity: 100,
+      },
+      {
+        name: "Siêu Xe Lamborghini",
+        code: "LR0005",
+        price: 1990000,
+        imgSrc: "./assets/img/lego-technic/technic-05.png",
+        topic: "Technic",
+        quantity: 100,
+      },
+      {
+        name: "Siêu Xe Juggernaut Koenigsegg",
+        code: "LR0006",
+        price: 1780000,
+        imgSrc: "./assets/img/lego-technic/technic-06.png",
+        topic: "Technic",
+        quantity: 100,
+      },
+      {
+        name: "Siêu Xe Lamborghini Urus ST-X",
+        code: "LR0007",
+        price: 1290000,
+        imgSrc: "./assets/img/lego-technic/technic-07.png",
+        topic: "Technic",
+        quantity: 100,
+      },
+      {
+        name: "Siêu Xe Thể thao",
+        code: "LR0008",
+        price: 1738000,
+        imgSrc: "./assets/img/lego-technic/technic-08.png",
+        topic: "Technic",
+        quantity: 100,
+      },
+      {
+        name: "Siêu Xe Pagani màu tím",
+        code: "LR0009",
+        price: 1900000,
+        imgSrc: "./assets/img/lego-technic/technic-09.png",
+        topic: "Technic",
+        quantity: 100,
+      },
+      {
+        name: "Siêu Xe Lamborghini Aventador",
+        code: "LR0010",
+        price: 2100000,
+        imgSrc: "./assets/img/lego-technic/technic-10.png",
+        topic: "Technic",
+        quantity: 100,
+      },
+      {
+        name: "Siêu Xe Lamborghini",
+        code: "LR0011",
+        price: 2000000,
+        imgSrc: "./assets/img/lego-technic/technic-11.png",
+        topic: "Technic",
+        quantity: 100,
+      },
+      {
+        name: "Motor H2R",
+        code: "LR0012",
+        price: 1450000,
+        imgSrc: "./assets/img/lego-technic/technic-12.png",
+        topic: "Technic",
+        quantity: 100,
+      },
+      {
+        name: "Siêu xe vượt địa hình",
+        code: "LR0013",
+        price: 900000,
+        imgSrc: "./assets/img/lego-technic/technic-13.png",
+        topic: "Technic",
+        quantity: 100,
+      },
+      {
+        name: "Siêu Xe Yamaha RIM",
+        code: "LR0014",
+        price: 1390000,
+        imgSrc: "./assets/img/lego-technic/technic-14.png",
+        topic: "Technic",
+        quantity: 100,
+      },
+      {
         name: "Siêu Xe Ducati",
         code: "LR0015",
         price: 1500000,
@@ -229,7 +422,6 @@ function createProducts() {
         topic: "Technic",
         quantity: 100,
       },
-
       {
         name: "Gạch Khớp Technic 2x2 Một Đầu Cái Bóng",
         code: "LP0001",
@@ -279,191 +471,75 @@ function createProducts() {
         quantity: 100,
       },
       {
-        name: "Siêu Xe Ducati",
-        code: "LR0015",
-        price: 1500000,
-        imgSrc: "./assets/img/lego-technic/technic-15.png",
-        topic: "Technic",
-        quantity: 100,
-      },
-
-      {
-        name: "Gạch Khớp Technic 2x2 Một Đầu Cái Bóng",
-        code: "LP0001",
-        price: 5000,
-        imgSrc: "./assets/img/lego-part/part-01.png",
-        topic: "Technic",
+        name: "Kiếm lego - 07",
+        code: "LP0007",
+        price: 4000,
+        imgSrc: "./assets/img/lego-part/part-07.png",
+        topic: "Weapon",
         quantity: 100,
       },
       {
-        name: "Gạch Trơn Dẹt 1x1 Khuyết Góc",
-        code: "LP0002",
-        price: 2000,
-        imgSrc: "./assets/img/lego-part/part-02.png",
-        topic: "Technic",
+        name: "Ly uống nước",
+        code: "LP0008",
+        price: 3000,
+        imgSrc: "./assets/img/lego-part/part-08.png",
+        topic: "Weapon",
         quantity: 100,
       },
       {
-        name: "Thùng Nước Giải Khát Nước Ngọt",
-        code: "LP0003",
+        name: "Máy xúc đồ chơi",
+        code: "LP0009",
+        price: 15000,
+        imgSrc: "./assets/img/lego-part/part-09.png",
+        topic: "Weapon",
+        quantity: 100,
+      },
+      {
+        name: "Máy xúc đồ chơi - 02",
+        code: "LP0010",
         price: 11000,
-        imgSrc: "./assets/img/lego-part/part-03.png",
-        topic: "Food/Tool",
-        quantity: 100,
-      },
-      {
-        name: "COMBO 5 Vũ Khí Đẹp Sử Dụng Trong Ne-xo",
-        code: "LP0004",
-        price: 5000,
-        imgSrc: "./assets/img/lego-part/part-04.png",
+        imgSrc: "./assets/img/lego-part/part-10.png",
         topic: "Weapon",
         quantity: 100,
       },
       {
-        name: "Đồ chơi trẻ em",
-        code: "LP0005",
-        price: 4200,
-        imgSrc: "./assets/img/lego-part/part-05.png",
+        name: "Sao biển lego",
+        code: "LP0011",
+        price: 8000,
+        imgSrc: "./assets/img/lego-part/part-11.png",
         topic: "Weapon",
         quantity: 100,
       },
       {
-        name: "Kiếm Lego - 06",
-        code: "LP0006",
-        price: 4500,
-        imgSrc: "./assets/img/lego-part/part-06.png",
+        name: "Nhà đồ chơi",
+        code: "LP0012",
+        price: 52000,
+        imgSrc: "./assets/img/lego-part/part-12.png",
         topic: "Weapon",
         quantity: 100,
       },
       {
-        name: "Siêu Xe Ducati",
-        code: "LR0015",
-        price: 1500000,
-        imgSrc: "./assets/img/lego-technic/technic-15.png",
-        topic: "Technic",
-        quantity: 100,
-      },
-
-      {
-        name: "Gạch Khớp Technic 2x2 Một Đầu Cái Bóng",
-        code: "LP0001",
-        price: 5000,
-        imgSrc: "./assets/img/lego-part/part-01.png",
-        topic: "Technic",
-        quantity: 100,
-      },
-      {
-        name: "Gạch Trơn Dẹt 1x1 Khuyết Góc",
-        code: "LP0002",
-        price: 2000,
-        imgSrc: "./assets/img/lego-part/part-02.png",
-        topic: "Technic",
-        quantity: 100,
-      },
-      {
-        name: "Thùng Nước Giải Khát Nước Ngọt",
-        code: "LP0003",
-        price: 11000,
-        imgSrc: "./assets/img/lego-part/part-03.png",
-        topic: "Food/Tool",
-        quantity: 100,
-      },
-      {
-        name: "COMBO 5 Vũ Khí Đẹp Sử Dụng Trong Ne-xo",
-        code: "LP0004",
-        price: 5000,
-        imgSrc: "./assets/img/lego-part/part-04.png",
+        name: "Hoa quả",
+        code: "LP0013",
+        price: 7000,
+        imgSrc: "./assets/img/lego-part/part-13.png",
         topic: "Weapon",
         quantity: 100,
       },
       {
-        name: "Đồ chơi trẻ em",
-        code: "LP0005",
-        price: 4200,
-        imgSrc: "./assets/img/lego-part/part-05.png",
+        name: "Cối xay gió",
+        code: "LP0014",
+        price: 12000,
+        imgSrc: "./assets/img/lego-part/part-14.png",
         topic: "Weapon",
         quantity: 100,
       },
       {
-        name: "Kiếm Lego - 06",
-        code: "LP0006",
-        price: 4500,
-        imgSrc: "./assets/img/lego-part/part-06.png",
+        name: "Minion",
+        code: "LP0015",
+        price: 50000,
+        imgSrc: "./assets/img/lego-part/part-15.png",
         topic: "Weapon",
-        quantity: 100,
-      },
-      ,
-      {
-        name: "Jiraiya - 13",
-        code: "LM0013",
-        price: 19000,
-        imgSrc: "./assets/img/lego-minifigure/mini-13.png",
-        topic: "Naruto",
-        quantity: 100,
-      },
-      {
-        name: "Sarada - 14",
-        code: "LM0014",
-        price: 30000,
-        imgSrc: "./assets/img/lego-minifigure/mini-14.png",
-        topic: "Naruto",
-        quantity: 100,
-      },
-      {
-        name: "Naruto - 15",
-        code: "LM0015",
-        price: 26000,
-        imgSrc: "./assets/img/lego-minifigure/mini-15.png",
-        topic: "Naruto",
-        quantity: 100,
-      },
-      {
-        name: "Jiraiya - 13",
-        code: "LM0013",
-        price: 19000,
-        imgSrc: "./assets/img/lego-minifigure/mini-13.png",
-        topic: "Naruto",
-        quantity: 100,
-      },
-      {
-        name: "Sarada - 14",
-        code: "LM0014",
-        price: 30000,
-        imgSrc: "./assets/img/lego-minifigure/mini-14.png",
-        topic: "Naruto",
-        quantity: 100,
-      },
-      {
-        name: "Naruto - 15",
-        code: "LM0015",
-        price: 26000,
-        imgSrc: "./assets/img/lego-minifigure/mini-15.png",
-        topic: "Naruto",
-        quantity: 100,
-      },
-      ,
-      {
-        name: "Jiraiya - 13",
-        code: "LM0013",
-        price: 19000,
-        imgSrc: "./assets/img/lego-minifigure/mini-13.png",
-        topic: "Naruto",
-        quantity: 100,
-      },
-      {
-        name: "Sarada - 14",
-        code: "LM0014",
-        price: 30000,
-        imgSrc: "./assets/img/lego-minifigure/mini-14.png",
-        topic: "Naruto",
-        quantity: 100,
-      },
-      {
-        name: "Naruto - 15",
-        code: "LM0015",
-        price: 26000,
-        imgSrc: "./assets/img/lego-minifigure/mini-15.png",
-        topic: "Naruto",
         quantity: 100,
       },
     ];
@@ -567,7 +643,7 @@ function createProductDetail(product) {
 function displayProductDetail(e, product) {
   e.preventDefault();
   let s = "";
-  let tempList = JSON.parse(localStorage.getItem(listProducts)) || [];
+  let tempList = JSON.parse(localStorage.getItem(listProducts));
   let matchedProduct = tempList.find((item) => item.code === product.id);
 
   if (matchedProduct) {
@@ -724,23 +800,74 @@ function verticalMenu1() {
 }
 
 const searchNameProduct = document.getElementById("search-name");
-
+const searchMinPriceProduct = document.getElementById("search-price-min");
+const searchMaxPriceProduct = document.getElementById("search-price-max");
 //Filter các loại
 function filterProductArrayByBrand(productArray, brandID) {
   return productArray.filter((item) => item.code.slice(0, 2) === brandID);
 }
 
-function filterProductArrayByName(productArray, name) {
-  let lowerCaseName = name.toLowerCase(); // Chuyển tên tìm kiếm về chữ thường
+function filterProductArrayByName(productArray, namex) {
+  let lowerCaseName = namex.toLowerCase(); // Chuyển tên tìm kiếm về chữ thường
   return productArray.filter((item) =>
     item.name.toLowerCase().includes(lowerCaseName)
   );
 }
 
-searchNameProduct.addEventListener("keyup", () => {
-  let searchValue = searchNameProduct.value.trim(); // Lấy giá trị nhập, loại bỏ khoảng trắng
-  displayProductsByName(searchValue);
-});
+function filterProductArrayByMinPrice(productArray, min) {
+  let minPrice = min;
+  return productArray.filter((item) => item.price >= minPrice);
+}
+
+function filterProductArrayByMaxPrice(productArray, max) {
+  let maxPrice = max;
+  return productArray.filter((item) => item.price <= maxPrice);
+}
+
+function filterProducts() {
+  let nameValue = searchNameProduct.value.trim(); // Giá trị tìm kiếm theo tên
+  let minPriceValue = parseFloat(searchMinPriceProduct.value) || 0; // Giá trị tìm kiếm giá tối thiểu
+  let maxPriceValue = parseFloat(searchMaxPriceProduct.value) || Infinity; // Giá trị tìm kiếm giá tối đa
+  let tempList = JSON.parse(localStorage.getItem(listProducts));
+  // Lọc sản phẩm dựa trên các điều kiện
+
+  let filteredProducts = tempList.filter((product) => {
+    // Điều kiện tên sản phẩm
+    let matchesName =
+      nameValue === "" ||
+      product.name.toLowerCase().includes(nameValue.toLowerCase());
+    // Điều kiện giá tối thiểu
+    let matchesMinPrice = product.price >= minPriceValue;
+    // Điều kiện giá tối đa
+    let matchesMaxPrice = product.price <= maxPriceValue;
+    // Điều kiện phân loại
+
+    return matchesName && matchesMinPrice && matchesMaxPrice;
+  });
+  let length = filteredProducts.length;
+  currentPage = 1;
+  if (length > 0) {
+    producttype__name.innerHTML = `<h3>Danh mục sản phẩm theo yêu cầu</h3>`;
+    productContainerMain.style.display = "flex";
+    pageNumber.style.display = "block";
+    displayPageProduct(filteredProducts, length);
+    displayProducts(filteredProducts, length);
+  } else {
+    producttype__name.innerHTML = `<h3>Không có sản phẩm theo yêu cầu`;
+    productContainerMain.style.display = "none";
+    pageNumber.style.display = "none";
+  }
+}
+
+searchNameProduct.addEventListener("input", filterProducts);
+searchMinPriceProduct.addEventListener("input", filterProducts);
+searchMaxPriceProduct.addEventListener("input", filterProducts);
+
+function clearSearchAdvance() {
+  searchNameProduct.value = null;
+  searchMinPriceProduct.value = null;
+  searchMaxPriceProduct.value = null;
+}
 
 // Hiển thị sản phẩm theo tên
 function displayProductsByName(name) {
@@ -748,8 +875,9 @@ function displayProductsByName(name) {
   currentPage = 1; // Trang hiện tại
   let result = filterProductArrayByName(tempList, name);
   if (result.length == 0) {
-    alert("Không có sản phẩm theo yêu cầu");
-    return;
+    producttype__name.innerHTML = `<h3>Không có sản phẩm theo yêu cầu`;
+    productContainerMain.style.display = "none";
+    pageNumber.style.display = "none";
   } else {
     producttype__name.innerHTML = `<h3>Danh mục sản phẩm theo yêu cầu</h3>`;
     displayPageProduct(result, result.length);
@@ -757,20 +885,62 @@ function displayProductsByName(name) {
   }
 }
 
+// Hiển thị sản phẩm theo giá lớn hơn min
+function displayProductsByMinPrice(min) {
+  let tempList = JSON.parse(localStorage.getItem(listProducts));
+  currentPage = 1; // Trang hiện tại
+  let result = filterProductArrayByMinPrice(tempList, min);
+  if (result.length == 0) {
+    producttype__name.innerHTML = `<h3>Không có sản phẩm theo yêu cầu`;
+    productContainerMain.style.display = "none";
+    pageNumber.style.display = "none";
+  } else {
+    producttype__name.innerHTML = `<h3>Danh mục sản phẩm theo yêu cầu</h3>`;
+    productContainerMain.style.display = "flex";
+    pageNumber.style.display = "block";
+    displayPageProduct(result, result.length);
+    displayProducts(result, result.length);
+  }
+}
+
+// Hiển thị sản phẩm theo giá nhỏ hơn max
+function displayProductsByMaxPrice(max) {
+  let tempList = JSON.parse(localStorage.getItem(listProducts));
+  currentPage = 1; // Trang hiện tại
+  let result = filterProductArrayByMaxPrice(tempList, max);
+  if (result.length == 0) {
+    producttype__name.innerHTML = `<h3>Không có sản phẩm theo yêu cầu`;
+    productContainerMain.style.display = "none";
+    pageNumber.style.display = "none";
+  } else {
+    producttype__name.innerHTML = `<h3>Danh mục sản phẩm theo yêu cầu</h3>`;
+    productContainerMain.style.display = "flex";
+    pageNumber.style.display = "block";
+    displayPageProduct(result, result.length);
+    displayProducts(result, result.length);
+  }
+}
+
 // Hiển thị sản phẩm theo danh mục
 function displayProductsByBrand(product) {
+  if (window.location.href.indexOf("?sp") === -1) {
+    window.location.href = "./index.html?sp";
+  }
   let tempList = JSON.parse(localStorage.getItem(listProducts));
   currentPage = 1; // Trang hiện tại
   let result = filterProductArrayByBrand(tempList, product.id);
   if (result.length == 0) {
-    alert("Không có sản phẩm theo yêu cầu");
+    console.log("Không có sản phẩm theo yêu cầu");
     return;
   } else {
     alert(product.id); // Hiển thị ID của sản phẩm
     producttype__name.innerHTML = `<h3>${product.textContent}</h3>`;
+    productContainerMain.style.display = "flex";
+    pageNumber.style.display = "block";
     displayPageProduct(result, result.length);
     displayProducts(result, result.length);
   }
+  clearSearchAdvance();
 }
 
 // Hàm hiển thị trang chủ
@@ -904,6 +1074,12 @@ function displayProducts(productList, length) {
       productContainerMain.innerHTML += createProduct(productList[i]);
     }
   }
+  let detailButtons = document.querySelectorAll(".detail-btn");
+  detailButtons.forEach((button) => {
+    button.addEventListener("click", (event) => {
+      displayProductDetail(event, button);
+    });
+  });
 }
 
 function displayPageProduct(productList, length) {
@@ -1081,6 +1257,7 @@ inputSignUp[2].addEventListener("blur", checkInputFromSignup);
 inputSignUp[3].addEventListener("blur", checkInputFromSignup);
 
 document.getElementById("register-form").addEventListener("click", createUser);
+document.getElementById("login-form").addEventListener("click", login);
 
 function createUser(event) {
   event.preventDefault();
@@ -1135,10 +1312,90 @@ function createUser(event) {
   window.location.reload();
 }
 
-const detailButtons = document.querySelectorAll(".detail-btn");
+let userLogin = inputSignUp[4];
+let passLogin = inputSignUp[5];
 
-detailButtons.forEach((button) => {
-  button.addEventListener("click", (event) => {
-    displayProductDetail(event, button);
+function checklogin() {
+  /*if (localStorage.getItem("userLogin")) {
+    let user = JSON.parse(localStorage.getItem("userLogin"));
+
+    if (user.isDeleted == true) {
+      alert("Tài khoản đã bị vô hiệu hóa !!!");
+    } else {
+      let headerUser = document.querySelectorAll(".header-user");
+      headerUser.forEach((item) => {
+        item.style.display = "block";
+      });
+      let userName = document.querySelectorAll(".user-name");
+      userName.forEach((item) => {
+        item.innerHTML = user.username;
+      });
+      let headerAccount = document.querySelectorAll(".header__navbar-item--strong");
+      headerAccount.forEach((item) => {
+        item.style.display = "none";
+      });
+      if (user.username == "admin" && user.password == "admin")
+        document.querySelector(".adminControl").style.display = "block";*/
+  if (localStorage.getItem("userLogin")) {
+    let user = JSON.parse(localStorage.getItem("userLogin"));
+    if (user.username == "admin" && user.password == "admin") {
+      // window.location.href = "index.html?adminwebsitelego";
+    } else {
+      let headerAccount = document.querySelectorAll(
+        ".header__navbar-item--strong"
+      );
+      headerAccount.forEach((item) => {
+        item.style.display = "none";
+      });
+      const temp = document.querySelectorAll(".accountLogin");
+      temp.forEach((item) => {
+        item.style.display = "inline-block";
+        const t = document.getElementById("accountLoginName");
+        t.innerHTML = `${user.username}`;
+      });
+    }
+  }
+}
+const userLogout = document.querySelectorAll(".userLogout");
+userLogout.forEach((item) => {
+  item.addEventListener("click", () => {
+    //let userLogin = JSON.parse(localStorage.getItem("userLogin"));
+    //let cartCurrent = JSON.parse(localStorage.getItem("cartCustomer"));
+    //let userCurrent = JSON.parse(localStorage.getItem("user"));
+    //console.log(cartCurrent);
+    /*for (let i = 0; i < userCurrent.length; i++) {
+      if (
+        userCurrent[i].username == userLogin.username &&
+        userCurrent[i].password == userLogin.password
+      ) {
+        userCurrent[i].cart = cartCurrent;
+      }
+    }*/
+    //localStorage.setItem("user", JSON.stringify(userCurrent));
+    localStorage.removeItem("userLogin");
+    //localStorage.removeItem("cartCustomer");
+    location.href = "index.html";
   });
 });
+
+function login(event) {
+  event.preventDefault();
+  userList = JSON.parse(localStorage.getItem(ListUsers));
+  if (!userLogin.value || !passLogin) {
+    alert("Vui lòng nhập thông tin đăng nhập");
+  }
+  for (let i = 0; i < userList.length; i++) {
+    if (
+      userLogin.value == userList[i].username &&
+      passLogin.value == userList[i].password
+    ) {
+      localStorage.setItem("userLogin", JSON.stringify(userList[i]));
+
+      alert("Đăng nhập thành công");
+      window.location.reload();
+      return true;
+    }
+  }
+  alert("Tên đăng nhập hoặc mật khẩu không chính xác");
+}
+checklogin();
