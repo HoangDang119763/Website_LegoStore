@@ -1,1206 +1,1214 @@
 const ListUsers = "list-users";
 const listProducts = "list-products";
 const listProductCatogrey = "list-product-catogrey";
-const productsPerPage = 8; // Số sản phẩm trên mỗi trang
-let currentPage = 1; // Trang hiện tại
-// ----
-const registerBtn = document.querySelector(".registerBtn");
-const loginBtn = document.querySelector(".loginBtn");
-const modalRegister = document.querySelector("#myModalRegister");
-const modalLogin = document.querySelector("#myModalLogin");
-const btnOpenRegister = document.querySelector(".register-open_btn");
-const btnOpenLogin = document.querySelector(".login-open_btn");
-const closeFormBtn = document.querySelectorAll(".closeForm");
-const btnProductclose = document.querySelector(".product-close");
-const bodytop__left = document.querySelector(".bodytop__left");
-const bodytop__right = document.querySelector(".bodytop__right");
-const bodyTop = document.querySelector(".bodytop");
-const productContainerMain = document.querySelector(".product_container");
-const productContainter = document.querySelector(".product-containter");
-const verticalmenu = document.getElementsByClassName("verticalmenu");
-const producttype__name = document.querySelector(".producttype__name");
-const producttype = document.querySelector(".producttype");
-const pageNumber = document.querySelector(".pagenumber");
-const header__cart = document.querySelector(".header__cart-icon");
-const removeAllCart = document.querySelector(".removeAllCart");
-// Modal
-const inputUsernameSignUp = document.querySelector(".input-username_signup");
-const inputPasswordSignup = document.querySelector(".input-password_signup");
-const inputEmailSignUp = document.querySelector(".input-email_signup");
-const fillPassSignup = document.querySelector("#fillpassword");
-// Address
-const locations = [
-  {
-    city: "Hà Nội",
-    districts: [
-      {
-        district: "Quận Ba Đình",
-        wards: [
-          "Cống Vị",
-          "Điện Biên",
-          "Đội Cấn",
-          "Giảng Võ",
-          "Kim Mã",
-          "Liễu Giai",
-          "Ngọc Hà",
-          "Ngọc Khánh",
-          "Nguyễn Trung Trực",
-          "Phúc Xá",
-          "Quán Thánh",
-          "Thành Công",
-          "Trúc Bạch",
-          "Vĩnh Phúc",
-        ],
-      },
-      {
-        district: "Quận Hoàn Kiếm",
-        wards: [
-          "Chương Dương Độ",
-          "Cửa Đông",
-          "Cửa Nam",
-          "Đồng Xuân",
-          "Hàng Bạc",
-          "Hàng Bài",
-          "Hàng Bồ",
-          "Hàng Bông",
-          "Hàng Buồm",
-          "Hàng Đào",
-          "Hàng Gai",
-          "Hàng Mã",
-          "Hàng Trống",
-          "Lý Thái Tổ",
-          "Phan Chu Trinh",
-          "Phúc Tân",
-          "Tràng Tiền",
-          "Trần Hưng Đạo",
-        ],
-      },
-      {
-        district: "Quận Đống Đa",
-        wards: [
-          "Cát Linh",
-          "Giảng Võ",
-          "Hàng Bột",
-          "Khâm Thiên",
-          "Khương Thượng",
-          "Kim Liên",
-          "Láng Hạ",
-          "Láng Thượng",
-          "Nam Đồng",
-          "Ngã Tư Sở",
-          "Ô Chợ Dừa",
-          "Phương Liên",
-          "Phương Mai",
-          "Quang Trung",
-          "Quốc Tử Giám",
-          "Thịnh Quang",
-          "Thổ Quan",
-          "Trung Liệt",
-          "Trung Phụng",
-          "Trung Tự",
-          "Văn Chương",
-          "Văn Miếu",
-        ],
-      },
-      {
-        district: "Quận Hai Bà Trưng",
-        wards: [
-          "Bạch Đằng",
-          "Bách Khoa",
-          "Bạch Mai",
-          "Cầu Dền",
-          "Đống Mác",
-          "Đồng Nhân",
-          "Đồng Tâm",
-          "Đồng Xuân",
-          "Lê Đại Hành",
-          "Minh Khai",
-          "Nguyễn Du",
-          "Phạm Đình Hổ",
-          "Phố Huế",
-          "Quỳnh Lôi",
-          "Quỳnh Mai",
-          "Thanh Lương",
-          "Thanh Nhàn",
-          "Trương Định",
-          "Vĩnh Tuy",
-        ],
-      },
-      {
-        district: "Quận Thanh Xuân",
-        wards: [
-          "Hạ Đình",
-          "Khương Đình",
-          "Khương Mai",
-          "Khương Trung",
-          "Nhân Chính",
-          "Phương Liệt",
-          "Thanh Xuân Bắc",
-          "Thanh Xuân Nam",
-          "Thanh Xuân Trung",
-          "Thượng Đình",
-        ],
-      },
-      {
-        district: "Quận Tây Hồ",
-        wards: [
-          "Bưởi",
-          "Nhật Tân",
-          "Phú Thượng",
-          "Quảng An",
-          "Thụy Khuê",
-          "Tứ Liên",
-          "Xuân La",
-          "Yên Phụ",
-        ],
-      },
-      {
-        district: "Quận Cầu Giấy",
-        wards: [
-          "Dịch Vọng",
-          "Dịch Vọng Hậu",
-          "Mai Dịch",
-          "Nghĩa Đô",
-          "Nghĩa Tân",
-          "Quan Hoa",
-          "Trung Hòa",
-          "Yên Hòa",
-        ],
-      },
-      {
-        district: "Quận Hoàng Mai",
-        wards: [
-          "Đại Kim",
-          "Định Công",
-          "Giáp Bát",
-          "Hoàng Liệt",
-          "Hoàng Văn Thụ",
-          "Lĩnh Nam",
-          "Mai Động",
-          "Tân Mai",
-          "Thanh Trì",
-          "Thịnh Liệt",
-          "Trần Phú",
-          "Tương Mai",
-          "Vĩnh Hưng",
-          "Yên Sở",
-        ],
-      },
-      {
-        district: "Quận Long Biên",
-        wards: [
-          "Bồ Đề",
-          "Cự Khối",
-          "Đức Giang",
-          "Gia Thụy",
-          "Giang Biên",
-          "Long Biên",
-          "Ngọc Lâm",
-          "Ngọc Thụy",
-          "Phúc Đồng",
-          "Phúc Lợi",
-          "Sài Đồng",
-          "Thạch Bàn",
-          "Thượng Thanh",
-          "Việt Hưng",
-        ],
-      },
-      {
-        district: "Quận Nam Từ Liêm",
-        wards: [
-          "Cầu Diễn",
-          "Đại Mỗ",
-          "Mễ Trì",
-          "Mỹ Đình 1",
-          "Mỹ Đình 2",
-          "Phú Đô",
-          "Phương Canh",
-          "Tây Mỗ",
-          "Trung Văn",
-          "Xuân Phương",
-        ],
-      },
-      {
-        district: "Quận Bắc Từ Liêm",
-        wards: [
-          "Cổ Nhuế 1",
-          "Cổ Nhuế 2",
-          "Đông Ngạc",
-          "Đức Thắng",
-          "Liên Mạc",
-          "Minh Khai",
-          "Phú Diễn",
-          "Phúc Diễn",
-          "Tây Tựu",
-          "Thượng Cát",
-          "Thụy Phương",
-          "Xuân Đỉnh",
-          "Xuân Tảo",
-        ],
-      },
-      {
-        district: "Huyện Gia Lâm",
-        wards: [
-          "Cát Quế",
-          "Đặng Xá",
-          "Đa Tốn",
-          "Đình Xuyên",
-          "Dương Hà",
-          "Dương Quang",
-          "Dương Xá",
-          "Kim Lan",
-          "Kim Sơn",
-          "Lệ Chi",
-          "Ninh Hiệp",
-          "Phù Đổng",
-          "Phú Thị",
-          "Trâu Quỳ",
-          "Yên Thường",
-          "Yên Viên",
-        ],
-      },
-      {
-        district: "Huyện Đông Anh",
-        wards: [
-          "Bắc Hồng",
-          "Cổ Loa",
-          "Dục Tú",
-          "Đại Mạch",
-          "Đông Hội",
-          "Hải Bối",
-          "Kim Chung",
-          "Kim Nỗ",
-          "Liên Hà",
-          "Mai Lâm",
-          "Nguyên Khê",
-          "Tàm Xá",
-          "Thụy Lâm",
-          "Tiên Dương",
-          "Uy Nỗ",
-          "Vân Hà",
-          "Vân Nội",
-          "Việt Hùng",
-          "Vĩnh Ngọc",
-          "Võng La",
-          "Xuân Canh",
-          "Xuân Nộn",
-        ],
-      },
-      {
-        district: "Huyện Sóc Sơn",
-        wards: [
-          "Bắc Sơn",
-          "Đông Xuân",
-          "Hiền Ninh",
-          "Hồng Kỳ",
-          "Kim Lũ",
-          "Mai Đình",
-          "Minh Phú",
-          "Minh Trí",
-          "Nam Sơn",
-          "Phù Linh",
-          "Phú Cường",
-          "Phú Minh",
-          "Phủ Lỗ",
-          "Quang Tiến",
-          "Tân Dân",
-          "Tân Hưng",
-          "Thụy Hương",
-          "Tiên Dược",
-          "Trung Giã",
-          "Việt Long",
-          "Xuân Giang",
-          "Xuân Thu",
-        ],
-      },
-      {
-        district: "Huyện Thanh Trì",
-        wards: [
-          "Đại Áng",
-          "Đông Mỹ",
-          "Duyên Hà",
-          "Hữu Hòa",
-          "Liên Ninh",
-          "Ngọc Hồi",
-          "Tả Thanh Oai",
-          "Tam Hiệp",
-          "Tân Triều",
-          "Thanh Liệt",
-          "Tứ Hiệp",
-          "Vạn Phúc",
-          "Vĩnh Quỳnh",
-          "Yên Mỹ",
-        ],
-      },
-      {
-        district: "Huyện Thường Tín",
-        wards: [
-          "Dũng Tiến",
-          "Hà Hồi",
-          "Hiền Giang",
-          "Hòa Bình",
-          "Hồng Vân",
-          "Khánh Hà",
-          "Liên Phương",
-          "Minh Cường",
-          "Nghiêm Xuyên",
-          "Nguyễn Trãi",
-          "Nhị Khê",
-          "Ninh Sở",
-          "Quất Động",
-          "Thắng Lợi",
-          "Thống Nhất",
-          "Thư Phú",
-          "Tô Hiệu",
-          "Tự Nhiên",
-          "Vạn Điểm",
-          "Vân Tảo",
-          "Văn Bình",
-          "Văn Phú",
-          "Văn Tự",
-          "Vân Tử",
-          "Vũ Lăng",
-          "Xà Cầu",
-          "Duyên Thái",
-        ],
-      },
-    ],
-  },
-  {
-    city: "Hồ Chí Minh",
-    districts: [
-      {
-        district: "Quận 1",
-        wards: [
-          "Bến Nghé",
-          "Bến Thành",
-          "Cầu Kho",
-          "Cầu Ông Lãnh",
-          "Cô Giang",
-          "Nguyễn Thái Bình",
-          "Phạm Ngũ Lão",
-        ],
-      },
-      {
-        district: "Quận 2",
-        wards: [
-          "Thảo Điền",
-          "An Phú",
-          "An Khánh",
-          "Bình An",
-          "Bình Trưng Đông",
-          "Bình Trưng Tây",
-          "Cát Lái",
-          "Thạnh Mỹ Lợi",
-        ],
-      },
-      {
-        district: "Quận 3",
-        wards: [
-          "Phường 1",
-          "Phường 2",
-          "Phường 3",
-          "Phường 4",
-          "Phường 5",
-          "Phường 6",
-          "Phường 7",
-          "Phường 8",
-          "Phường 9",
-          "Phường 10",
-        ],
-      },
-      {
-        district: "Quận 4",
-        wards: [
-          "Phường 1",
-          "Phường 2",
-          "Phường 3",
-          "Phường 4",
-          "Phường 5",
-          "Phường 6",
-          "Phường 8",
-          "Phường 9",
-        ],
-      },
-      {
-        district: "Quận 5",
-        wards: [
-          "Phường 1",
-          "Phường 2",
-          "Phường 3",
-          "Phường 4",
-          "Phường 5",
-          "Phường 6",
-          "Phường 7",
-          "Phường 8",
-        ],
-      },
-      {
-        district: "Quận 6",
-        wards: [
-          "Phường 1",
-          "Phường 2",
-          "Phường 3",
-          "Phường 4",
-          "Phường 5",
-          "Phường 6",
-          "Phường 7",
-          "Phường 8",
-        ],
-      },
-      {
-        district: "Quận 7",
-        wards: [
-          "Tân Thuận Đông",
-          "Tân Thuận Tây",
-          "Tân Kiểng",
-          "Tân Hưng",
-          "Bình Thuận",
-          "Phú Mỹ",
-          "Tân Phong",
-          "Tân Quy",
-        ],
-      },
-      {
-        district: "Quận 8",
-        wards: [
-          "Phường 1",
-          "Phường 2",
-          "Phường 3",
-          "Phường 4",
-          "Phường 5",
-          "Phường 6",
-          "Phường 7",
-          "Phường 8",
-        ],
-      },
-      {
-        district: "Quận 9",
-        wards: [
-          "Long Bình",
-          "Long Phước",
-          "Long Thạnh Mỹ",
-          "Long Trường",
-          "Phước Bình",
-          "Phước Long A",
-          "Phước Long B",
-        ],
-      },
-      {
-        district: "Quận 10",
-        wards: [
-          "Phường 1",
-          "Phường 2",
-          "Phường 3",
-          "Phường 4",
-          "Phường 5",
-          "Phường 6",
-          "Phường 7",
-          "Phường 8",
-        ],
-      },
-      {
-        district: "Quận 11",
-        wards: [
-          "Phường 1",
-          "Phường 2",
-          "Phường 3",
-          "Phường 4",
-          "Phường 5",
-          "Phường 6",
-          "Phường 7",
-          "Phường 8",
-        ],
-      },
-      {
-        district: "Quận 12",
-        wards: [
-          "Thạnh Xuân",
-          "Thạnh Lộc",
-          "Thới An",
-          "Tân Chánh Hiệp",
-          "An Phú Đông",
-          "Tân Thới Hiệp",
-          "Tân Hưng Thuận",
-        ],
-      },
-      {
-        district: "Tân Bình",
-        wards: [
-          "Phường 1",
-          "Phường 2",
-          "Phường 3",
-          "Phường 4",
-          "Phường 5",
-          "Phường 6",
-          "Phường 7",
-          "Phường 8",
-        ],
-      },
-      {
-        district: "Tân Phú",
-        wards: [
-          "Hiệp Tân",
-          "Hòa Thạnh",
-          "Phú Thọ Hòa",
-          "Phú Thạnh",
-          "Phú Trung",
-          "Sơn Kỳ",
-          "Tân Qúy",
-          "Tân Sơn Nhì",
-        ],
-      },
-      {
-        district: "Bình Thạnh",
-        wards: [
-          "Phường 1",
-          "Phường 2",
-          "Phường 3",
-          "Phường 4",
-          "Phường 5",
-          "Phường 6",
-          "Phường 7",
-          "Phường 8",
-        ],
-      },
-      {
-        district: "Gò Vấp",
-        wards: [
-          "Phường 1",
-          "Phường 2",
-          "Phường 3",
-          "Phường 4",
-          "Phường 5",
-          "Phường 6",
-          "Phường 7",
-          "Phường 8",
-        ],
-      },
-      {
-        district: "Phú Nhuận",
-        wards: [
-          "Phường 1",
-          "Phường 2",
-          "Phường 3",
-          "Phường 4",
-          "Phường 5",
-          "Phường 6",
-          "Phường 7",
-          "Phường 8",
-        ],
-      },
-      {
-        district: "Thủ Đức",
-        wards: [
-          "Bình Chiểu",
-          "Bình Thọ",
-          "Hiệp Bình Chánh",
-          "Hiệp Bình Phước",
-          "Linh Chiểu",
-          "Linh Đông",
-          "Linh Tây",
-          "Linh Trung",
-        ],
-      },
-    ],
-  },
-];
+if (window.location.pathname !== "/manage.html") {
+  const productsPerPage = 8; // Số sản phẩm trên mỗi trang
+  let currentPage = 1; // Trang hiện tại
+  // ----
+  const registerBtn = document.querySelector(".registerBtn");
+  const loginBtn = document.querySelector(".loginBtn");
+  const modalRegister = document.querySelector("#myModalRegister");
+  const modalLogin = document.querySelector("#myModalLogin");
+  const btnOpenRegister = document.querySelector(".register-open_btn");
+  const btnOpenLogin = document.querySelector(".login-open_btn");
+  const closeFormBtn = document.querySelectorAll(".closeForm");
+  const btnProductclose = document.querySelector(".product-close");
+  const bodytop__left = document.querySelector(".bodytop__left");
+  const bodytop__right = document.querySelector(".bodytop__right");
+  const bodyTop = document.querySelector(".bodytop");
+  const productContainerMain = document.querySelector(".product_container");
+  const productContainter = document.querySelector(".product-containter");
+  const verticalmenu = document.getElementsByClassName("verticalmenu");
+  const producttype__name = document.querySelector(".producttype__name");
+  const producttype = document.querySelector(".producttype");
+  const pageNumber = document.querySelector(".pagenumber");
+  const header__cart = document.querySelector(".header__cart-icon");
+  const removeAllCart = document.querySelector(".removeAllCart");
+  // Modal
+  const inputUsernameSignUp = document.querySelector(".input-username_signup");
+  const inputPasswordSignup = document.querySelector(".input-password_signup");
+  const inputEmailSignUp = document.querySelector(".input-email_signup");
+  const fillPassSignup = document.querySelector("#fillpassword");
+  // Address
+  const locations = [
+    {
+      city: "Hà Nội",
+      districts: [
+        {
+          district: "Quận Ba Đình",
+          wards: [
+            "Cống Vị",
+            "Điện Biên",
+            "Đội Cấn",
+            "Giảng Võ",
+            "Kim Mã",
+            "Liễu Giai",
+            "Ngọc Hà",
+            "Ngọc Khánh",
+            "Nguyễn Trung Trực",
+            "Phúc Xá",
+            "Quán Thánh",
+            "Thành Công",
+            "Trúc Bạch",
+            "Vĩnh Phúc",
+          ],
+        },
+        {
+          district: "Quận Hoàn Kiếm",
+          wards: [
+            "Chương Dương Độ",
+            "Cửa Đông",
+            "Cửa Nam",
+            "Đồng Xuân",
+            "Hàng Bạc",
+            "Hàng Bài",
+            "Hàng Bồ",
+            "Hàng Bông",
+            "Hàng Buồm",
+            "Hàng Đào",
+            "Hàng Gai",
+            "Hàng Mã",
+            "Hàng Trống",
+            "Lý Thái Tổ",
+            "Phan Chu Trinh",
+            "Phúc Tân",
+            "Tràng Tiền",
+            "Trần Hưng Đạo",
+          ],
+        },
+        {
+          district: "Quận Đống Đa",
+          wards: [
+            "Cát Linh",
+            "Giảng Võ",
+            "Hàng Bột",
+            "Khâm Thiên",
+            "Khương Thượng",
+            "Kim Liên",
+            "Láng Hạ",
+            "Láng Thượng",
+            "Nam Đồng",
+            "Ngã Tư Sở",
+            "Ô Chợ Dừa",
+            "Phương Liên",
+            "Phương Mai",
+            "Quang Trung",
+            "Quốc Tử Giám",
+            "Thịnh Quang",
+            "Thổ Quan",
+            "Trung Liệt",
+            "Trung Phụng",
+            "Trung Tự",
+            "Văn Chương",
+            "Văn Miếu",
+          ],
+        },
+        {
+          district: "Quận Hai Bà Trưng",
+          wards: [
+            "Bạch Đằng",
+            "Bách Khoa",
+            "Bạch Mai",
+            "Cầu Dền",
+            "Đống Mác",
+            "Đồng Nhân",
+            "Đồng Tâm",
+            "Đồng Xuân",
+            "Lê Đại Hành",
+            "Minh Khai",
+            "Nguyễn Du",
+            "Phạm Đình Hổ",
+            "Phố Huế",
+            "Quỳnh Lôi",
+            "Quỳnh Mai",
+            "Thanh Lương",
+            "Thanh Nhàn",
+            "Trương Định",
+            "Vĩnh Tuy",
+          ],
+        },
+        {
+          district: "Quận Thanh Xuân",
+          wards: [
+            "Hạ Đình",
+            "Khương Đình",
+            "Khương Mai",
+            "Khương Trung",
+            "Nhân Chính",
+            "Phương Liệt",
+            "Thanh Xuân Bắc",
+            "Thanh Xuân Nam",
+            "Thanh Xuân Trung",
+            "Thượng Đình",
+          ],
+        },
+        {
+          district: "Quận Tây Hồ",
+          wards: [
+            "Bưởi",
+            "Nhật Tân",
+            "Phú Thượng",
+            "Quảng An",
+            "Thụy Khuê",
+            "Tứ Liên",
+            "Xuân La",
+            "Yên Phụ",
+          ],
+        },
+        {
+          district: "Quận Cầu Giấy",
+          wards: [
+            "Dịch Vọng",
+            "Dịch Vọng Hậu",
+            "Mai Dịch",
+            "Nghĩa Đô",
+            "Nghĩa Tân",
+            "Quan Hoa",
+            "Trung Hòa",
+            "Yên Hòa",
+          ],
+        },
+        {
+          district: "Quận Hoàng Mai",
+          wards: [
+            "Đại Kim",
+            "Định Công",
+            "Giáp Bát",
+            "Hoàng Liệt",
+            "Hoàng Văn Thụ",
+            "Lĩnh Nam",
+            "Mai Động",
+            "Tân Mai",
+            "Thanh Trì",
+            "Thịnh Liệt",
+            "Trần Phú",
+            "Tương Mai",
+            "Vĩnh Hưng",
+            "Yên Sở",
+          ],
+        },
+        {
+          district: "Quận Long Biên",
+          wards: [
+            "Bồ Đề",
+            "Cự Khối",
+            "Đức Giang",
+            "Gia Thụy",
+            "Giang Biên",
+            "Long Biên",
+            "Ngọc Lâm",
+            "Ngọc Thụy",
+            "Phúc Đồng",
+            "Phúc Lợi",
+            "Sài Đồng",
+            "Thạch Bàn",
+            "Thượng Thanh",
+            "Việt Hưng",
+          ],
+        },
+        {
+          district: "Quận Nam Từ Liêm",
+          wards: [
+            "Cầu Diễn",
+            "Đại Mỗ",
+            "Mễ Trì",
+            "Mỹ Đình 1",
+            "Mỹ Đình 2",
+            "Phú Đô",
+            "Phương Canh",
+            "Tây Mỗ",
+            "Trung Văn",
+            "Xuân Phương",
+          ],
+        },
+        {
+          district: "Quận Bắc Từ Liêm",
+          wards: [
+            "Cổ Nhuế 1",
+            "Cổ Nhuế 2",
+            "Đông Ngạc",
+            "Đức Thắng",
+            "Liên Mạc",
+            "Minh Khai",
+            "Phú Diễn",
+            "Phúc Diễn",
+            "Tây Tựu",
+            "Thượng Cát",
+            "Thụy Phương",
+            "Xuân Đỉnh",
+            "Xuân Tảo",
+          ],
+        },
+        {
+          district: "Huyện Gia Lâm",
+          wards: [
+            "Cát Quế",
+            "Đặng Xá",
+            "Đa Tốn",
+            "Đình Xuyên",
+            "Dương Hà",
+            "Dương Quang",
+            "Dương Xá",
+            "Kim Lan",
+            "Kim Sơn",
+            "Lệ Chi",
+            "Ninh Hiệp",
+            "Phù Đổng",
+            "Phú Thị",
+            "Trâu Quỳ",
+            "Yên Thường",
+            "Yên Viên",
+          ],
+        },
+        {
+          district: "Huyện Đông Anh",
+          wards: [
+            "Bắc Hồng",
+            "Cổ Loa",
+            "Dục Tú",
+            "Đại Mạch",
+            "Đông Hội",
+            "Hải Bối",
+            "Kim Chung",
+            "Kim Nỗ",
+            "Liên Hà",
+            "Mai Lâm",
+            "Nguyên Khê",
+            "Tàm Xá",
+            "Thụy Lâm",
+            "Tiên Dương",
+            "Uy Nỗ",
+            "Vân Hà",
+            "Vân Nội",
+            "Việt Hùng",
+            "Vĩnh Ngọc",
+            "Võng La",
+            "Xuân Canh",
+            "Xuân Nộn",
+          ],
+        },
+        {
+          district: "Huyện Sóc Sơn",
+          wards: [
+            "Bắc Sơn",
+            "Đông Xuân",
+            "Hiền Ninh",
+            "Hồng Kỳ",
+            "Kim Lũ",
+            "Mai Đình",
+            "Minh Phú",
+            "Minh Trí",
+            "Nam Sơn",
+            "Phù Linh",
+            "Phú Cường",
+            "Phú Minh",
+            "Phủ Lỗ",
+            "Quang Tiến",
+            "Tân Dân",
+            "Tân Hưng",
+            "Thụy Hương",
+            "Tiên Dược",
+            "Trung Giã",
+            "Việt Long",
+            "Xuân Giang",
+            "Xuân Thu",
+          ],
+        },
+        {
+          district: "Huyện Thanh Trì",
+          wards: [
+            "Đại Áng",
+            "Đông Mỹ",
+            "Duyên Hà",
+            "Hữu Hòa",
+            "Liên Ninh",
+            "Ngọc Hồi",
+            "Tả Thanh Oai",
+            "Tam Hiệp",
+            "Tân Triều",
+            "Thanh Liệt",
+            "Tứ Hiệp",
+            "Vạn Phúc",
+            "Vĩnh Quỳnh",
+            "Yên Mỹ",
+          ],
+        },
+        {
+          district: "Huyện Thường Tín",
+          wards: [
+            "Dũng Tiến",
+            "Hà Hồi",
+            "Hiền Giang",
+            "Hòa Bình",
+            "Hồng Vân",
+            "Khánh Hà",
+            "Liên Phương",
+            "Minh Cường",
+            "Nghiêm Xuyên",
+            "Nguyễn Trãi",
+            "Nhị Khê",
+            "Ninh Sở",
+            "Quất Động",
+            "Thắng Lợi",
+            "Thống Nhất",
+            "Thư Phú",
+            "Tô Hiệu",
+            "Tự Nhiên",
+            "Vạn Điểm",
+            "Vân Tảo",
+            "Văn Bình",
+            "Văn Phú",
+            "Văn Tự",
+            "Vân Tử",
+            "Vũ Lăng",
+            "Xà Cầu",
+            "Duyên Thái",
+          ],
+        },
+      ],
+    },
+    {
+      city: "Hồ Chí Minh",
+      districts: [
+        {
+          district: "Quận 1",
+          wards: [
+            "Bến Nghé",
+            "Bến Thành",
+            "Cầu Kho",
+            "Cầu Ông Lãnh",
+            "Cô Giang",
+            "Nguyễn Thái Bình",
+            "Phạm Ngũ Lão",
+          ],
+        },
+        {
+          district: "Quận 2",
+          wards: [
+            "Thảo Điền",
+            "An Phú",
+            "An Khánh",
+            "Bình An",
+            "Bình Trưng Đông",
+            "Bình Trưng Tây",
+            "Cát Lái",
+            "Thạnh Mỹ Lợi",
+          ],
+        },
+        {
+          district: "Quận 3",
+          wards: [
+            "Phường 1",
+            "Phường 2",
+            "Phường 3",
+            "Phường 4",
+            "Phường 5",
+            "Phường 6",
+            "Phường 7",
+            "Phường 8",
+            "Phường 9",
+            "Phường 10",
+          ],
+        },
+        {
+          district: "Quận 4",
+          wards: [
+            "Phường 1",
+            "Phường 2",
+            "Phường 3",
+            "Phường 4",
+            "Phường 5",
+            "Phường 6",
+            "Phường 8",
+            "Phường 9",
+          ],
+        },
+        {
+          district: "Quận 5",
+          wards: [
+            "Phường 1",
+            "Phường 2",
+            "Phường 3",
+            "Phường 4",
+            "Phường 5",
+            "Phường 6",
+            "Phường 7",
+            "Phường 8",
+          ],
+        },
+        {
+          district: "Quận 6",
+          wards: [
+            "Phường 1",
+            "Phường 2",
+            "Phường 3",
+            "Phường 4",
+            "Phường 5",
+            "Phường 6",
+            "Phường 7",
+            "Phường 8",
+          ],
+        },
+        {
+          district: "Quận 7",
+          wards: [
+            "Tân Thuận Đông",
+            "Tân Thuận Tây",
+            "Tân Kiểng",
+            "Tân Hưng",
+            "Bình Thuận",
+            "Phú Mỹ",
+            "Tân Phong",
+            "Tân Quy",
+          ],
+        },
+        {
+          district: "Quận 8",
+          wards: [
+            "Phường 1",
+            "Phường 2",
+            "Phường 3",
+            "Phường 4",
+            "Phường 5",
+            "Phường 6",
+            "Phường 7",
+            "Phường 8",
+          ],
+        },
+        {
+          district: "Quận 9",
+          wards: [
+            "Long Bình",
+            "Long Phước",
+            "Long Thạnh Mỹ",
+            "Long Trường",
+            "Phước Bình",
+            "Phước Long A",
+            "Phước Long B",
+          ],
+        },
+        {
+          district: "Quận 10",
+          wards: [
+            "Phường 1",
+            "Phường 2",
+            "Phường 3",
+            "Phường 4",
+            "Phường 5",
+            "Phường 6",
+            "Phường 7",
+            "Phường 8",
+          ],
+        },
+        {
+          district: "Quận 11",
+          wards: [
+            "Phường 1",
+            "Phường 2",
+            "Phường 3",
+            "Phường 4",
+            "Phường 5",
+            "Phường 6",
+            "Phường 7",
+            "Phường 8",
+          ],
+        },
+        {
+          district: "Quận 12",
+          wards: [
+            "Thạnh Xuân",
+            "Thạnh Lộc",
+            "Thới An",
+            "Tân Chánh Hiệp",
+            "An Phú Đông",
+            "Tân Thới Hiệp",
+            "Tân Hưng Thuận",
+          ],
+        },
+        {
+          district: "Tân Bình",
+          wards: [
+            "Phường 1",
+            "Phường 2",
+            "Phường 3",
+            "Phường 4",
+            "Phường 5",
+            "Phường 6",
+            "Phường 7",
+            "Phường 8",
+          ],
+        },
+        {
+          district: "Tân Phú",
+          wards: [
+            "Hiệp Tân",
+            "Hòa Thạnh",
+            "Phú Thọ Hòa",
+            "Phú Thạnh",
+            "Phú Trung",
+            "Sơn Kỳ",
+            "Tân Qúy",
+            "Tân Sơn Nhì",
+          ],
+        },
+        {
+          district: "Bình Thạnh",
+          wards: [
+            "Phường 1",
+            "Phường 2",
+            "Phường 3",
+            "Phường 4",
+            "Phường 5",
+            "Phường 6",
+            "Phường 7",
+            "Phường 8",
+          ],
+        },
+        {
+          district: "Gò Vấp",
+          wards: [
+            "Phường 1",
+            "Phường 2",
+            "Phường 3",
+            "Phường 4",
+            "Phường 5",
+            "Phường 6",
+            "Phường 7",
+            "Phường 8",
+          ],
+        },
+        {
+          district: "Phú Nhuận",
+          wards: [
+            "Phường 1",
+            "Phường 2",
+            "Phường 3",
+            "Phường 4",
+            "Phường 5",
+            "Phường 6",
+            "Phường 7",
+            "Phường 8",
+          ],
+        },
+        {
+          district: "Thủ Đức",
+          wards: [
+            "Bình Chiểu",
+            "Bình Thọ",
+            "Hiệp Bình Chánh",
+            "Hiệp Bình Phước",
+            "Linh Chiểu",
+            "Linh Đông",
+            "Linh Tây",
+            "Linh Trung",
+          ],
+        },
+      ],
+    },
+  ];
 
-// Onload
-const currentPath = window.location.pathname; // Đường dẫn hiện tại (vd: /index.html)
-const currentQuery = window.location.search; // Query string hiện tại (vd: ?tc)
+  // Onload
+  const currentPath = window.location.pathname; // Đường dẫn hiện tại (vd: /index.html)
+  const currentQuery = window.location.search; // Query string hiện tại (vd: ?tc)
 
-// Kiểm tra nếu đang ở index.html và chưa có query string
-if (currentPath.endsWith("index.html") && currentQuery === "") {
-  const newUrl = currentPath + "?tc"; // Thêm ?tc vào URL
-  window.location.replace(newUrl); // Chuyển hướng tới index.html?tc
-}
-createProductCatogrey();
-verticalMenu();
-createProducts();
-createUsers();
-displayMenu();
-
-var filterProductList = JSON.parse(localStorage.getItem(listProducts));
-
-// Tạo Admin
-function createUsers() {
-  if (localStorage.getItem(ListUsers) === null) {
-    let users = [
-      {
-        id: 0,
-        username: "admin",
-        email: "admin@gmail.com",
-        address: [],
-        password: "admin",
-        cart: [],
-        dateSignUp: "18/11/2024",
-        status: 1,
-        role: 0,
-      },
-      {
-        id: 1,
-        username: "hoang123",
-        email: "admin@gmail.com",
-        address: [],
-        password: "admin",
-        cart: [],
-        dateSignUp: "18/11/2024",
-        status: 1,
-        role: 1,
-      },
-      {
-        id: 2,
-        username: "hien123",
-        email: "admin@gmail.com",
-        address: [],
-        password: "admin",
-        cart: [],
-        dateSignUp: "18/11/2024",
-        status: 1,
-        role: 1,
-      },
-    ];
-    localStorage.setItem(ListUsers, JSON.stringify(users));
+  // Kiểm tra nếu đang ở index.html và chưa có query string
+  if (currentPath.endsWith("index.html") && currentQuery === "") {
+    const newUrl = currentPath + "?tc"; // Thêm ?tc vào URL
+    window.location.replace(newUrl); // Chuyển hướng tới index.html?tc
   }
-}
 
-// Tạo danh sách sản phẩm
-function createProducts() {
-  if (localStorage.getItem(listProducts) === null) {
-    var productArray = [
-      {
-        name: "Naruto - 01",
-        code: "LM0001",
-        price: 30000,
-        imgSrc: "./assets/img/lego-minifigure/mini-01.png",
-        topic: "Naruto",
-        quantity: 100,
-      },
-      {
-        name: "Naruto - 02",
-        code: "LM0002",
-        price: 25000,
-        imgSrc: "./assets/img/lego-minifigure/mini-02.png",
-        topic: "Naruto",
-        quantity: 100,
-      },
-      {
-        name: "Minato - 03",
-        code: "LM0003",
-        price: 29500,
-        imgSrc: "./assets/img/lego-minifigure/mini-03.png",
-        topic: "Naruto",
-        quantity: 100,
-      },
-      {
-        name: "Sasuke - 04",
-        code: "LM0004",
-        price: 23500,
-        imgSrc: "./assets/img/lego-minifigure/mini-04.png",
-        topic: "Naruto",
-        quantity: 100,
-      },
-      {
-        name: "Boruto - 05",
-        code: "LM0005",
-        price: 25500,
-        imgSrc: "./assets/img/lego-minifigure/mini-05.png",
-        topic: "Naruto",
-        quantity: 100,
-      },
-      {
-        name: "Itachi - 06",
-        code: "LM0006",
-        price: 29900,
-        imgSrc: "./assets/img/lego-minifigure/mini-06.png",
-        topic: "Naruto",
-        quantity: 100,
-      },
-      {
-        name: "Obito - 07",
-        code: "LM0007",
-        price: 31000,
-        imgSrc: "./assets/img/lego-minifigure/mini-07.png",
-        topic: "Naruto",
-        quantity: 100,
-      },
-      {
-        name: "Kakashi - 08",
-        code: "LM0008",
-        price: 21000,
-        imgSrc: "./assets/img/lego-minifigure/mini-08.png",
-        topic: "Naruto",
-        quantity: 100,
-      },
-      {
-        name: "Sasori - 09",
-        code: "LM0009",
-        price: 18000,
-        imgSrc: "./assets/img/lego-minifigure/mini-09.png",
-        topic: "Naruto",
-        quantity: 100,
-      },
-      {
-        name: "Sasuke - 10",
-        code: "LM0010",
-        price: 16000,
-        imgSrc: "./assets/img/lego-minifigure/mini-10.png",
-        topic: "Naruto",
-        quantity: 100,
-      },
-      {
-        name: "Naruto - 11",
-        code: "LM0011",
-        price: 15000,
-        imgSrc: "./assets/img/lego-minifigure/mini-11.png",
-        topic: "Naruto",
-        quantity: 100,
-      },
-      {
-        name: "Naruto - 12",
-        code: "LM0012",
-        price: 20000,
-        imgSrc: "./assets/img/lego-minifigure/mini-12.png",
-        topic: "Naruto",
-        quantity: 100,
-      },
-      {
-        name: "Jiraiya - 13",
-        code: "LM0013",
-        price: 19000,
-        imgSrc: "./assets/img/lego-minifigure/mini-13.png",
-        topic: "Naruto",
-        quantity: 100,
-      },
-      {
-        name: "Sarada - 14",
-        code: "LM0014",
-        price: 30000,
-        imgSrc: "./assets/img/lego-minifigure/mini-14.png",
-        topic: "Naruto",
-        quantity: 100,
-      },
-      {
-        name: "Naruto - 15",
-        code: "LM0015",
-        price: 26000,
-        imgSrc: "./assets/img/lego-minifigure/mini-15.png",
-        topic: "Naruto",
-        quantity: 100,
-      },
-      {
-        name: "Naruto - 16",
-        code: "LM0016",
-        price: 23000,
-        imgSrc: "./assets/img/lego-minifigure/mini-16.png",
-        topic: "Naruto",
-        quantity: 100,
-      },
-      {
-        name: "Awp Asiimov",
-        code: "MO0001",
-        price: 1899000,
-        imgSrc: "./assets/img/lego-moc/moc-01.jpg",
-        topic: "Army",
-        quantity: 100,
-      },
-      {
-        name: "HK G28",
-        code: "MO0002",
-        price: 1699000,
-        imgSrc: "./assets/img/lego-moc/moc-02.png",
-        topic: "Army",
-        quantity: 100,
-      },
-      {
-        name: "Scar-L Asiimov",
-        code: "MO0003",
-        price: 1698000,
-        imgSrc: "./assets/img/lego-moc/moc-03.png",
-        topic: "Army",
-        quantity: 100,
-      },
-      {
-        name: "Sniper XPR-50",
-        code: "MO0004",
-        price: 1689000,
-        imgSrc: "./assets/img/lego-moc/moc-04.png",
-        topic: "Army",
-        quantity: 100,
-      },
-      {
-        name: "M4A1-S",
-        code: "MO0005",
-        price: 1399000,
-        imgSrc: "./assets/img/lego-moc/moc-05.png",
-        topic: "Army",
-        quantity: 100,
-      },
-      {
-        name: "AWM - 06",
-        code: "MO0006",
-        price: 1999000,
-        imgSrc: "./assets/img/lego-moc/moc-06.png",
-        topic: "Army",
-        quantity: 100,
-      },
-      {
-        name: "AWM - 07",
-        code: "MO0007",
-        price: 1929000,
-        imgSrc: "./assets/img/lego-moc/moc-07.png",
-        topic: "Army",
-        quantity: 100,
-      },
-      {
-        name: "AWM - 08",
-        code: "MO0008",
-        price: 1879000,
-        imgSrc: "./assets/img/lego-moc/moc-08.png",
-        topic: "Army",
-        quantity: 100,
-      },
-      {
-        name: "K-98",
-        code: "MO0009",
-        price: 1129000,
-        imgSrc: "./assets/img/lego-moc/moc-09.png",
-        topic: "Army",
-        quantity: 100,
-      },
-      {
-        name: "AWm - 10",
-        code: "MO0010",
-        price: 1983000,
-        imgSrc: "./assets/img/lego-moc/moc-10.png",
-        topic: "Army",
-        quantity: 100,
-      },
-      {
-        name: "M24",
-        code: "MO0011",
-        price: 1340000,
-        imgSrc: "./assets/img/lego-moc/moc-11.png",
-        topic: "Army",
-        quantity: 100,
-      },
-      {
-        name: "AWM - 12",
-        code: "MO0012",
-        price: 18940000,
-        imgSrc: "./assets/img/lego-moc/moc-12.png",
-        topic: "Army",
-        quantity: 100,
-      },
-      {
-        name: "AWM - 13",
-        code: "MO0013",
-        price: 1700000,
-        imgSrc: "./assets/img/lego-moc/moc-14.png",
-        topic: "Army",
-        quantity: 100,
-      },
-      {
-        name: "Scar",
-        code: "MO0014",
-        price: 1500000,
-        imgSrc: "./assets/img/lego-moc/moc-15.png",
-        topic: "Army",
-        quantity: 100,
-      },
-      {
-        name: "Siêu Xe Lamborghini Sian FKP 37",
-        code: "LR0001",
-        price: 12240000,
-        imgSrc: "./assets/img/lego-technic/technic-01.png",
-        topic: "Technic",
-        quantity: 100,
-      },
-      {
-        name: "Siêu Xe Ferrari Daytona SP3",
-        code: "LR0002",
-        price: 14200000,
-        imgSrc: "./assets/img/lego-technic/technic-02.png",
-        topic: "Technic",
-        quantity: 100,
-      },
-      {
-        name: "Xe mô tô thể thao Kawasaki Ninja H2®R",
-        code: "LR0003",
-        price: 1984000,
-        imgSrc: "./assets/img/lego-technic/technic-03.png",
-        topic: "Technic",
-        quantity: 100,
-      },
-      {
-        name: "Siêu Xe Lamborghini Huracán Tecnica",
-        code: "LR0004",
-        price: 1393000,
-        imgSrc: "./assets/img/lego-technic/technic-04.png",
-        topic: "Technic",
-        quantity: 100,
-      },
-      {
-        name: "Siêu Xe Lamborghini",
-        code: "LR0005",
-        price: 1990000,
-        imgSrc: "./assets/img/lego-technic/technic-05.png",
-        topic: "Technic",
-        quantity: 100,
-      },
-      {
-        name: "Siêu Xe Juggernaut Koenigsegg",
-        code: "LR0006",
-        price: 1780000,
-        imgSrc: "./assets/img/lego-technic/technic-06.png",
-        topic: "Technic",
-        quantity: 100,
-      },
-      {
-        name: "Siêu Xe Lamborghini Urus ST-X",
-        code: "LR0007",
-        price: 1290000,
-        imgSrc: "./assets/img/lego-technic/technic-07.png",
-        topic: "Technic",
-        quantity: 100,
-      },
-      {
-        name: "Siêu Xe Thể thao",
-        code: "LR0008",
-        price: 1738000,
-        imgSrc: "./assets/img/lego-technic/technic-08.png",
-        topic: "Technic",
-        quantity: 100,
-      },
-      {
-        name: "Siêu Xe Pagani màu tím",
-        code: "LR0009",
-        price: 1900000,
-        imgSrc: "./assets/img/lego-technic/technic-09.png",
-        topic: "Technic",
-        quantity: 100,
-      },
-      {
-        name: "Siêu Xe Lamborghini Aventador",
-        code: "LR0010",
-        price: 2100000,
-        imgSrc: "./assets/img/lego-technic/technic-10.png",
-        topic: "Technic",
-        quantity: 100,
-      },
-      {
-        name: "Siêu Xe Lamborghini",
-        code: "LR0011",
-        price: 2000000,
-        imgSrc: "./assets/img/lego-technic/technic-11.png",
-        topic: "Technic",
-        quantity: 100,
-      },
-      {
-        name: "Motor H2R",
-        code: "LR0012",
-        price: 1450000,
-        imgSrc: "./assets/img/lego-technic/technic-12.png",
-        topic: "Technic",
-        quantity: 100,
-      },
-      {
-        name: "Siêu xe vượt địa hình",
-        code: "LR0013",
-        price: 900000,
-        imgSrc: "./assets/img/lego-technic/technic-13.png",
-        topic: "Technic",
-        quantity: 100,
-      },
-      {
-        name: "Siêu Xe Yamaha RIM",
-        code: "LR0014",
-        price: 1390000,
-        imgSrc: "./assets/img/lego-technic/technic-14.png",
-        topic: "Technic",
-        quantity: 100,
-      },
-      {
-        name: "Siêu Xe Ducati",
-        code: "LR0015",
-        price: 1500000,
-        imgSrc: "./assets/img/lego-technic/technic-15.png",
-        topic: "Technic",
-        quantity: 100,
-      },
-      {
-        name: "Gạch Khớp Technic 2x2 Một Đầu Cái Bóng",
-        code: "LP0001",
-        price: 5000,
-        imgSrc: "./assets/img/lego-part/part-01.png",
-        topic: "Technic",
-        quantity: 100,
-      },
-      {
-        name: "Gạch Trơn Dẹt 1x1 Khuyết Góc",
-        code: "LP0002",
-        price: 2000,
-        imgSrc: "./assets/img/lego-part/part-02.png",
-        topic: "Technic",
-        quantity: 100,
-      },
-      {
-        name: "Thùng Nước Giải Khát Nước Ngọt",
-        code: "LP0003",
-        price: 11000,
-        imgSrc: "./assets/img/lego-part/part-03.png",
-        topic: "Food/Tool",
-        quantity: 100,
-      },
-      {
-        name: "COMBO 5 Vũ Khí Đẹp Sử Dụng Trong Ne-xo",
-        code: "LP0004",
-        price: 5000,
-        imgSrc: "./assets/img/lego-part/part-04.png",
-        topic: "Weapon",
-        quantity: 100,
-      },
-      {
-        name: "Đồ chơi trẻ em",
-        code: "LP0005",
-        price: 4200,
-        imgSrc: "./assets/img/lego-part/part-05.png",
-        topic: "Weapon",
-        quantity: 100,
-      },
-      {
-        name: "Kiếm Lego - 06",
-        code: "LP0006",
-        price: 4500,
-        imgSrc: "./assets/img/lego-part/part-06.png",
-        topic: "Weapon",
-        quantity: 100,
-      },
-      {
-        name: "Kiếm lego - 07",
-        code: "LP0007",
-        price: 4000,
-        imgSrc: "./assets/img/lego-part/part-07.png",
-        topic: "Weapon",
-        quantity: 100,
-      },
-      {
-        name: "Ly uống nước",
-        code: "LP0008",
-        price: 3000,
-        imgSrc: "./assets/img/lego-part/part-08.png",
-        topic: "Weapon",
-        quantity: 100,
-      },
-      {
-        name: "Máy xúc đồ chơi",
-        code: "LP0009",
-        price: 15000,
-        imgSrc: "./assets/img/lego-part/part-09.png",
-        topic: "Weapon",
-        quantity: 100,
-      },
-      {
-        name: "Máy xúc đồ chơi - 02",
-        code: "LP0010",
-        price: 11000,
-        imgSrc: "./assets/img/lego-part/part-10.png",
-        topic: "Weapon",
-        quantity: 100,
-      },
-      {
-        name: "Sao biển lego",
-        code: "LP0011",
-        price: 8000,
-        imgSrc: "./assets/img/lego-part/part-11.png",
-        topic: "Weapon",
-        quantity: 100,
-      },
-      {
-        name: "Nhà đồ chơi",
-        code: "LP0012",
-        price: 52000,
-        imgSrc: "./assets/img/lego-part/part-12.png",
-        topic: "Weapon",
-        quantity: 100,
-      },
-      {
-        name: "Hoa quả",
-        code: "LP0013",
-        price: 7000,
-        imgSrc: "./assets/img/lego-part/part-13.png",
-        topic: "Weapon",
-        quantity: 100,
-      },
-      {
-        name: "Cối xay gió",
-        code: "LP0014",
-        price: 12000,
-        imgSrc: "./assets/img/lego-part/part-14.png",
-        topic: "Weapon",
-        quantity: 100,
-      },
-      {
-        name: "Minion",
-        code: "LP0015",
-        price: 50000,
-        imgSrc: "./assets/img/lego-part/part-15.png",
-        topic: "Weapon",
-        quantity: 100,
-      },
-    ];
-    localStorage.setItem(listProducts, JSON.stringify(productArray));
+  // Tạo Admin
+  function createUsers() {
+    if (localStorage.getItem(ListUsers) === null) {
+      let users = [
+        {
+          id: 0,
+          username: "admin",
+          email: "admin@gmail.com",
+          address: [],
+          password: "admin",
+          cart: [],
+          dateSignUp: "18/11/2024",
+          status: 1,
+          role: 0,
+        },
+        {
+          id: 1,
+          username: "hoang123",
+          email: "admin@gmail.com",
+          address: [],
+          password: "admin",
+          cart: [],
+          dateSignUp: "18/11/2024",
+          status: 1,
+          role: 1,
+        },
+        {
+          id: 2,
+          username: "hien123",
+          email: "admin@gmail.com",
+          address: [],
+          password: "admin",
+          cart: [],
+          dateSignUp: "18/11/2024",
+          status: 1,
+          role: 1,
+        },
+        {
+          id: 3,
+          username: "hien1234",
+          email: "admin@gmail.com",
+          address: [],
+          password: "admin",
+          cart: [],
+          dateSignUp: "18/11/2024",
+          status: 0,
+          role: 1,
+        },
+      ];
+      localStorage.setItem(ListUsers, JSON.stringify(users));
+    }
   }
-}
 
-// Tạo danh sách danh mục
-// Mảng chi tiết danh mục
-function createProductCatogrey() {
-  if (localStorage.getItem(listProductCatogrey) === null) {
-    const productCatogrey = [
-      {
-        brandid: "LM",
-        brandname: "Lego Minifigure",
-        subcategories: [
-          { id: "1", name: "Naruto" },
-          { id: "2", name: "Dragon Ball" },
-          { id: "3", name: "Kimetsu No Yaiba" },
-          { id: "4", name: "Marvel" },
-        ],
-      },
-      {
-        brandid: "MO",
-        brandname: "Lego MOC",
-        subcategories: [
-          { id: "1", name: "Army" },
-          { id: "2", name: "Technic" },
-        ],
-      },
-      {
-        brandid: "LR",
-        brandname: "Lego chính hãng",
-        subcategories: [
-          { id: "1", name: "Technic" },
-          { id: "2", name: "Ninjago" },
-        ],
-      },
-      {
-        brandid: "LP",
-        brandname: "Phụ kiện Lego",
-        subcategories: [
-          { id: "1", name: "Weap" },
-          { id: "2", name: "Food/Tool" },
-        ],
-      },
-    ];
-    localStorage.setItem(listProductCatogrey, JSON.stringify(productCatogrey));
+  // Tạo danh sách sản phẩm
+  function createProducts() {
+    if (localStorage.getItem(listProducts) === null) {
+      var productArray = [
+        {
+          name: "Naruto - 01",
+          code: "LM0001",
+          price: 30000,
+          imgSrc: "./assets/img/lego-minifigure/mini-01.png",
+          topic: "Naruto",
+          quantity: 100,
+        },
+        {
+          name: "Naruto - 02",
+          code: "LM0002",
+          price: 25000,
+          imgSrc: "./assets/img/lego-minifigure/mini-02.png",
+          topic: "Naruto",
+          quantity: 100,
+        },
+        {
+          name: "Minato - 03",
+          code: "LM0003",
+          price: 29500,
+          imgSrc: "./assets/img/lego-minifigure/mini-03.png",
+          topic: "Naruto",
+          quantity: 100,
+        },
+        {
+          name: "Sasuke - 04",
+          code: "LM0004",
+          price: 23500,
+          imgSrc: "./assets/img/lego-minifigure/mini-04.png",
+          topic: "Naruto",
+          quantity: 100,
+        },
+        {
+          name: "Boruto - 05",
+          code: "LM0005",
+          price: 25500,
+          imgSrc: "./assets/img/lego-minifigure/mini-05.png",
+          topic: "Naruto",
+          quantity: 100,
+        },
+        {
+          name: "Itachi - 06",
+          code: "LM0006",
+          price: 29900,
+          imgSrc: "./assets/img/lego-minifigure/mini-06.png",
+          topic: "Naruto",
+          quantity: 100,
+        },
+        {
+          name: "Obito - 07",
+          code: "LM0007",
+          price: 31000,
+          imgSrc: "./assets/img/lego-minifigure/mini-07.png",
+          topic: "Naruto",
+          quantity: 100,
+        },
+        {
+          name: "Kakashi - 08",
+          code: "LM0008",
+          price: 21000,
+          imgSrc: "./assets/img/lego-minifigure/mini-08.png",
+          topic: "Naruto",
+          quantity: 100,
+        },
+        {
+          name: "Sasori - 09",
+          code: "LM0009",
+          price: 18000,
+          imgSrc: "./assets/img/lego-minifigure/mini-09.png",
+          topic: "Naruto",
+          quantity: 100,
+        },
+        {
+          name: "Sasuke - 10",
+          code: "LM0010",
+          price: 16000,
+          imgSrc: "./assets/img/lego-minifigure/mini-10.png",
+          topic: "Naruto",
+          quantity: 100,
+        },
+        {
+          name: "Naruto - 11",
+          code: "LM0011",
+          price: 15000,
+          imgSrc: "./assets/img/lego-minifigure/mini-11.png",
+          topic: "Naruto",
+          quantity: 100,
+        },
+        {
+          name: "Naruto - 12",
+          code: "LM0012",
+          price: 20000,
+          imgSrc: "./assets/img/lego-minifigure/mini-12.png",
+          topic: "Naruto",
+          quantity: 100,
+        },
+        {
+          name: "Jiraiya - 13",
+          code: "LM0013",
+          price: 19000,
+          imgSrc: "./assets/img/lego-minifigure/mini-13.png",
+          topic: "Naruto",
+          quantity: 100,
+        },
+        {
+          name: "Sarada - 14",
+          code: "LM0014",
+          price: 30000,
+          imgSrc: "./assets/img/lego-minifigure/mini-14.png",
+          topic: "Naruto",
+          quantity: 100,
+        },
+        {
+          name: "Naruto - 15",
+          code: "LM0015",
+          price: 26000,
+          imgSrc: "./assets/img/lego-minifigure/mini-15.png",
+          topic: "Naruto",
+          quantity: 100,
+        },
+        {
+          name: "Naruto - 16",
+          code: "LM0016",
+          price: 23000,
+          imgSrc: "./assets/img/lego-minifigure/mini-16.png",
+          topic: "Naruto",
+          quantity: 100,
+        },
+        {
+          name: "Awp Asiimov",
+          code: "MO0001",
+          price: 1899000,
+          imgSrc: "./assets/img/lego-moc/moc-01.jpg",
+          topic: "Army",
+          quantity: 100,
+        },
+        {
+          name: "HK G28",
+          code: "MO0002",
+          price: 1699000,
+          imgSrc: "./assets/img/lego-moc/moc-02.png",
+          topic: "Army",
+          quantity: 100,
+        },
+        {
+          name: "Scar-L Asiimov",
+          code: "MO0003",
+          price: 1698000,
+          imgSrc: "./assets/img/lego-moc/moc-03.png",
+          topic: "Army",
+          quantity: 100,
+        },
+        {
+          name: "Sniper XPR-50",
+          code: "MO0004",
+          price: 1689000,
+          imgSrc: "./assets/img/lego-moc/moc-04.png",
+          topic: "Army",
+          quantity: 100,
+        },
+        {
+          name: "M4A1-S",
+          code: "MO0005",
+          price: 1399000,
+          imgSrc: "./assets/img/lego-moc/moc-05.png",
+          topic: "Army",
+          quantity: 100,
+        },
+        {
+          name: "AWM - 06",
+          code: "MO0006",
+          price: 1999000,
+          imgSrc: "./assets/img/lego-moc/moc-06.png",
+          topic: "Army",
+          quantity: 100,
+        },
+        {
+          name: "AWM - 07",
+          code: "MO0007",
+          price: 1929000,
+          imgSrc: "./assets/img/lego-moc/moc-07.png",
+          topic: "Army",
+          quantity: 100,
+        },
+        {
+          name: "AWM - 08",
+          code: "MO0008",
+          price: 1879000,
+          imgSrc: "./assets/img/lego-moc/moc-08.png",
+          topic: "Army",
+          quantity: 100,
+        },
+        {
+          name: "K-98",
+          code: "MO0009",
+          price: 1129000,
+          imgSrc: "./assets/img/lego-moc/moc-09.png",
+          topic: "Army",
+          quantity: 100,
+        },
+        {
+          name: "AWm - 10",
+          code: "MO0010",
+          price: 1983000,
+          imgSrc: "./assets/img/lego-moc/moc-10.png",
+          topic: "Army",
+          quantity: 100,
+        },
+        {
+          name: "M24",
+          code: "MO0011",
+          price: 1340000,
+          imgSrc: "./assets/img/lego-moc/moc-11.png",
+          topic: "Army",
+          quantity: 100,
+        },
+        {
+          name: "AWM - 12",
+          code: "MO0012",
+          price: 18940000,
+          imgSrc: "./assets/img/lego-moc/moc-12.png",
+          topic: "Army",
+          quantity: 100,
+        },
+        {
+          name: "AWM - 13",
+          code: "MO0013",
+          price: 1700000,
+          imgSrc: "./assets/img/lego-moc/moc-14.png",
+          topic: "Army",
+          quantity: 100,
+        },
+        {
+          name: "Scar",
+          code: "MO0014",
+          price: 1500000,
+          imgSrc: "./assets/img/lego-moc/moc-15.png",
+          topic: "Army",
+          quantity: 100,
+        },
+        {
+          name: "Siêu Xe Lamborghini Sian FKP 37",
+          code: "LR0001",
+          price: 12240000,
+          imgSrc: "./assets/img/lego-technic/technic-01.png",
+          topic: "Technic",
+          quantity: 100,
+        },
+        {
+          name: "Siêu Xe Ferrari Daytona SP3",
+          code: "LR0002",
+          price: 14200000,
+          imgSrc: "./assets/img/lego-technic/technic-02.png",
+          topic: "Technic",
+          quantity: 100,
+        },
+        {
+          name: "Xe mô tô thể thao Kawasaki Ninja H2®R",
+          code: "LR0003",
+          price: 1984000,
+          imgSrc: "./assets/img/lego-technic/technic-03.png",
+          topic: "Technic",
+          quantity: 100,
+        },
+        {
+          name: "Siêu Xe Lamborghini Huracán Tecnica",
+          code: "LR0004",
+          price: 1393000,
+          imgSrc: "./assets/img/lego-technic/technic-04.png",
+          topic: "Technic",
+          quantity: 100,
+        },
+        {
+          name: "Siêu Xe Lamborghini",
+          code: "LR0005",
+          price: 1990000,
+          imgSrc: "./assets/img/lego-technic/technic-05.png",
+          topic: "Technic",
+          quantity: 100,
+        },
+        {
+          name: "Siêu Xe Juggernaut Koenigsegg",
+          code: "LR0006",
+          price: 1780000,
+          imgSrc: "./assets/img/lego-technic/technic-06.png",
+          topic: "Technic",
+          quantity: 100,
+        },
+        {
+          name: "Siêu Xe Lamborghini Urus ST-X",
+          code: "LR0007",
+          price: 1290000,
+          imgSrc: "./assets/img/lego-technic/technic-07.png",
+          topic: "Technic",
+          quantity: 100,
+        },
+        {
+          name: "Siêu Xe Thể thao",
+          code: "LR0008",
+          price: 1738000,
+          imgSrc: "./assets/img/lego-technic/technic-08.png",
+          topic: "Technic",
+          quantity: 100,
+        },
+        {
+          name: "Siêu Xe Pagani màu tím",
+          code: "LR0009",
+          price: 1900000,
+          imgSrc: "./assets/img/lego-technic/technic-09.png",
+          topic: "Technic",
+          quantity: 100,
+        },
+        {
+          name: "Siêu Xe Lamborghini Aventador",
+          code: "LR0010",
+          price: 2100000,
+          imgSrc: "./assets/img/lego-technic/technic-10.png",
+          topic: "Technic",
+          quantity: 100,
+        },
+        {
+          name: "Siêu Xe Lamborghini",
+          code: "LR0011",
+          price: 2000000,
+          imgSrc: "./assets/img/lego-technic/technic-11.png",
+          topic: "Technic",
+          quantity: 100,
+        },
+        {
+          name: "Motor H2R",
+          code: "LR0012",
+          price: 1450000,
+          imgSrc: "./assets/img/lego-technic/technic-12.png",
+          topic: "Technic",
+          quantity: 100,
+        },
+        {
+          name: "Siêu xe vượt địa hình",
+          code: "LR0013",
+          price: 900000,
+          imgSrc: "./assets/img/lego-technic/technic-13.png",
+          topic: "Technic",
+          quantity: 100,
+        },
+        {
+          name: "Siêu Xe Yamaha RIM",
+          code: "LR0014",
+          price: 1390000,
+          imgSrc: "./assets/img/lego-technic/technic-14.png",
+          topic: "Technic",
+          quantity: 100,
+        },
+        {
+          name: "Siêu Xe Ducati",
+          code: "LR0015",
+          price: 1500000,
+          imgSrc: "./assets/img/lego-technic/technic-15.png",
+          topic: "Technic",
+          quantity: 100,
+        },
+        {
+          name: "Gạch Khớp Technic 2x2 Một Đầu Cái Bóng",
+          code: "LP0001",
+          price: 5000,
+          imgSrc: "./assets/img/lego-part/part-01.png",
+          topic: "Technic",
+          quantity: 100,
+        },
+        {
+          name: "Gạch Trơn Dẹt 1x1 Khuyết Góc",
+          code: "LP0002",
+          price: 2000,
+          imgSrc: "./assets/img/lego-part/part-02.png",
+          topic: "Technic",
+          quantity: 100,
+        },
+        {
+          name: "Thùng Nước Giải Khát Nước Ngọt",
+          code: "LP0003",
+          price: 11000,
+          imgSrc: "./assets/img/lego-part/part-03.png",
+          topic: "Food/Tool",
+          quantity: 100,
+        },
+        {
+          name: "COMBO 5 Vũ Khí Đẹp Sử Dụng Trong Ne-xo",
+          code: "LP0004",
+          price: 5000,
+          imgSrc: "./assets/img/lego-part/part-04.png",
+          topic: "Weapon",
+          quantity: 100,
+        },
+        {
+          name: "Đồ chơi trẻ em",
+          code: "LP0005",
+          price: 4200,
+          imgSrc: "./assets/img/lego-part/part-05.png",
+          topic: "Weapon",
+          quantity: 100,
+        },
+        {
+          name: "Kiếm Lego - 06",
+          code: "LP0006",
+          price: 4500,
+          imgSrc: "./assets/img/lego-part/part-06.png",
+          topic: "Weapon",
+          quantity: 100,
+        },
+        {
+          name: "Kiếm lego - 07",
+          code: "LP0007",
+          price: 4000,
+          imgSrc: "./assets/img/lego-part/part-07.png",
+          topic: "Weapon",
+          quantity: 100,
+        },
+        {
+          name: "Ly uống nước",
+          code: "LP0008",
+          price: 3000,
+          imgSrc: "./assets/img/lego-part/part-08.png",
+          topic: "Weapon",
+          quantity: 100,
+        },
+        {
+          name: "Máy xúc đồ chơi",
+          code: "LP0009",
+          price: 15000,
+          imgSrc: "./assets/img/lego-part/part-09.png",
+          topic: "Weapon",
+          quantity: 100,
+        },
+        {
+          name: "Máy xúc đồ chơi - 02",
+          code: "LP0010",
+          price: 11000,
+          imgSrc: "./assets/img/lego-part/part-10.png",
+          topic: "Weapon",
+          quantity: 100,
+        },
+        {
+          name: "Sao biển lego",
+          code: "LP0011",
+          price: 8000,
+          imgSrc: "./assets/img/lego-part/part-11.png",
+          topic: "Weapon",
+          quantity: 100,
+        },
+        {
+          name: "Nhà đồ chơi",
+          code: "LP0012",
+          price: 52000,
+          imgSrc: "./assets/img/lego-part/part-12.png",
+          topic: "Weapon",
+          quantity: 100,
+        },
+        {
+          name: "Hoa quả",
+          code: "LP0013",
+          price: 7000,
+          imgSrc: "./assets/img/lego-part/part-13.png",
+          topic: "Weapon",
+          quantity: 100,
+        },
+        {
+          name: "Cối xay gió",
+          code: "LP0014",
+          price: 12000,
+          imgSrc: "./assets/img/lego-part/part-14.png",
+          topic: "Weapon",
+          quantity: 100,
+        },
+        {
+          name: "Minion",
+          code: "LP0015",
+          price: 50000,
+          imgSrc: "./assets/img/lego-part/part-15.png",
+          topic: "Weapon",
+          quantity: 100,
+        },
+      ];
+      localStorage.setItem(listProducts, JSON.stringify(productArray));
+    }
   }
-}
 
-// Tạo format html cho sản phẩm
-function createProduct(product) {
-  return `
+  // Tạo danh sách danh mục
+  // Mảng chi tiết danh mục
+  function createProductCatogrey() {
+    if (localStorage.getItem(listProductCatogrey) === null) {
+      const productCatogrey = [
+        {
+          brandid: "LM",
+          brandname: "Lego Minifigure",
+          subcategories: [
+            { id: "1", name: "Naruto" },
+            { id: "2", name: "Dragon Ball" },
+            { id: "3", name: "Kimetsu No Yaiba" },
+            { id: "4", name: "Marvel" },
+          ],
+        },
+        {
+          brandid: "MO",
+          brandname: "Lego MOC",
+          subcategories: [
+            { id: "1", name: "Army" },
+            { id: "2", name: "Technic" },
+          ],
+        },
+        {
+          brandid: "LR",
+          brandname: "Lego chính hãng",
+          subcategories: [
+            { id: "1", name: "Technic" },
+            { id: "2", name: "Ninjago" },
+          ],
+        },
+        {
+          brandid: "LP",
+          brandname: "Phụ kiện Lego",
+          subcategories: [
+            { id: "1", name: "Weap" },
+            { id: "2", name: "Food/Tool" },
+          ],
+        },
+      ];
+      localStorage.setItem(
+        listProductCatogrey,
+        JSON.stringify(productCatogrey)
+      );
+    }
+  }
+
+  // Tạo format html cho sản phẩm
+  function createProduct(product) {
+    return `
     <div class="item">
       <div class="item__image">
         <img src="${product.imgSrc}" alt="${product.name}" class="images"/>
@@ -1219,17 +1227,17 @@ function createProduct(product) {
           <strong>Chủ đề:</strong> ${product.topic}
         </div>
         <div class="item__info-detailend">
-          <a href="#" class="item__info-link">Mua</a>
+          <a href="#" class="item__info-link buy-btn" id ="${product.code}">Mua</a>
           <a href="#" class="item__info-link detail-btn" id ="${product.code}">Chi tiết</a>
         </div>
       </div>
     </div>
   `;
-}
+  }
 
-// Tạo format html cho chi tiết sản phẩm
-function createProductDetail(product) {
-  return `
+  // Tạo format html cho chi tiết sản phẩm
+  function createProductDetail(product) {
+    return `
       <img class="img"src="${product.imgSrc}" alt="" />
       <div class="content">
         <p class="content-detail"><strong>Tên sản phẩm:</strong> ${product.name}</p>
@@ -1244,95 +1252,130 @@ function createProductDetail(product) {
         
         <button class="add-to-cart">Thêm Vào Giỏ</button>
       </div>`;
-}
-
-// Hiển thị modal của chi tiết sản phẩm
-function displayProductDetail(e, product) {
-  e.preventDefault();
-  let s = "";
-  let tempList = JSON.parse(localStorage.getItem(listProducts));
-  let matchedProduct = tempList.find((item) => item.code === product.id);
-
-  if (matchedProduct) {
-    // Nếu tìm thấy sản phẩm, tạo nội dung chi tiết
-    s = createProductDetail(matchedProduct);
-    productContainter.innerHTML = s;
-    productLayout.style.display = "block";
-
-    // Lâm
-    let quantity = document.querySelector("#quantity-input");
-    document.querySelector(".btn-des").addEventListener("click", () => {
-      if (quantity.value > 1) quantity.value--;
-    });
-    document.querySelector(".btn-ins").addEventListener("click", () => {
-      quantity.value++;
-    });
-    quantity.addEventListener("input", () => {
-      if (parseInt(quantity.value) < 1 || isNaN(quantity.value)) {
-        quantity.value = 1; // Gán lại giá trị hợp lệ
-      }
-    });
-    document
-      .querySelector(".add-to-cart")
-      .addEventListener("click", () =>
-        addProductToCart1(product.id, quantity.value)
-      );
-  } else {
-    // Nếu không tìm thấy sản phẩm
-    alert("Product not found");
   }
-}
 
-// Hiển thị Menu tổng
-function displayMenu() {
-  var url = window.location.href;
-  var bien = url.split("?");
-  console.log(bien);
-  alert(bien[1]);
+  // Hiển thị modal của chi tiết sản phẩm
+  function displayProductDetail(e, product) {
+    e.preventDefault();
+    let s = "";
+    let tempList = JSON.parse(localStorage.getItem(listProducts));
+    let matchedProduct = tempList.find((item) => item.code === product.id);
 
-  switch (bien[1]) {
-    case "tc":
-      producttype__name.innerHTML = `<h3>Trang chủ</h3>`;
-      displayMainPage();
-      break;
-    case "gt":
-      producttype__name.innerHTML = `<h3>Giới thiệu</h3>`;
-      displayAboutPage();
-      break;
-    case "sp":
-      producttype__name.innerHTML = `<h3>Danh mục sản phẩm</h3>`;
-      verticalmenu[1].style.display = "block";
-      let tempList = JSON.parse(localStorage.getItem(listProducts));
-      displayPageProduct(tempList, tempList.length);
-      displayProducts(tempList, tempList.length);
+    if (matchedProduct) {
+      // Nếu tìm thấy sản phẩm, tạo nội dung chi tiết
+      s = createProductDetail(matchedProduct);
+      productContainter.innerHTML = s;
+      productLayout.style.display = "block";
 
-      break;
-    case "lh":
-      producttype__name.innerHTML = `<h3>Liên hệ</h3>`;
-      displayContactPage();
-      break;
-    case "adminwebsitelego":
-      producttype__name.innerHTML = `<h3>Liên hệ</h3>`;
-      break;
-    default:
-      const newUrl = currentPath + "?tc"; // Thêm ?tc vào URL
-      window.location.replace(newUrl);
-      break;
+      // Lâm
+      let quantity = document.querySelector("#quantity-input");
+      document.querySelector(".btn-des").addEventListener("click", () => {
+        if (quantity.value > 1) quantity.value--;
+      });
+      document.querySelector(".btn-ins").addEventListener("click", () => {
+        quantity.value++;
+      });
+      quantity.addEventListener("input", () => {
+        if (parseInt(quantity.value) < 1 || isNaN(quantity.value)) {
+          quantity.value = 1; // Gán lại giá trị hợp lệ
+        }
+      });
+      document
+        .querySelector(".add-to-cart")
+        .addEventListener("click", () =>
+          addProductToCart1(product.id, quantity.value)
+        );
+    } else {
+      // Nếu không tìm thấy sản phẩm
+      alert("Product not found");
+    }
   }
-}
 
-// Vertical Menu
-function verticalMenu() {
-  let s = "";
-  let listTemp = JSON.parse(localStorage.getItem(listProductCatogrey));
-  const length = listTemp.length;
+  // Hiển thị Menu tổng
+  function displayMenu() {
+    var url = window.location.href;
+    var bien = url.split("?");
 
-  if (length === 0) {
-    s = "<li>Không có danh mục sản phẩm nào.</li>"; // Thông báo nếu không có sản phẩm
-  } else {
-    for (let i = 0; i < length; i++) {
-      // Khai báo i với let
-      s += `
+    switch (bien[1]) {
+      case "tc":
+        producttype__name.innerHTML = `<h3>Trang chủ</h3>`;
+        displayMainPage();
+        break;
+      case "gt":
+        producttype__name.innerHTML = `<h3>Giới thiệu</h3>`;
+        displayAboutPage();
+        break;
+      case "sp":
+        producttype__name.innerHTML = `<h3>Danh mục sản phẩm</h3>`;
+        verticalmenu[1].style.display = "block";
+        let tempList = JSON.parse(localStorage.getItem(listProducts));
+        displayPageProduct(tempList, tempList.length);
+        displayProducts(tempList, tempList.length);
+
+        break;
+      case "lh":
+        producttype__name.innerHTML = `<h3>Liên hệ</h3>`;
+        displayContactPage();
+        break;
+      case "adminwebsitelego///admin":
+        let page = document.querySelector(".page");
+        page.innerHTML = `<div class="header">
+      <h1>Admin Dashboard</h1>
+      <p>Logged in as: John Doe</p>
+    </div>
+
+    <div class="sidebar">
+      <a href="#">User Management</a>
+      <a href="#">Product Management</a>
+      <a href="#">Order Management</a>
+      <a href="#">Business Statistics</a>
+    </div>
+
+    <div class="content">
+      <h2>Welcome to the Admin Dashboard</h2>
+      <p>Here, you can manage the various aspects of your online store.</p>
+
+      <!-- Add content for specific functionality here -->
+      <div id="user-management">
+        <h3>User Management</h3>
+        <!-- Add code for user management functionality -->
+      </div>
+
+      <div id="product-management">
+        <h3>Product Management</h3>
+        <!-- Add code for product management functionality -->
+      </div>
+
+      <div id="order-management">
+        <h3>Order Management</h3>
+        <!-- Add code for order management functionality -->
+      </div>
+
+      <div id="business-statistics">
+        <h3>Business Statistics</h3>
+        <!-- Add code for business statistics functionality -->
+      </div>
+    </div>`;
+        break;
+      default:
+        const newUrl = currentPath + "?tc"; // Thêm ?tc vào URL
+        window.location.replace(newUrl);
+        break;
+    }
+  }
+
+  // Vertical Menu
+  function verticalMenu() {
+    let s = "";
+    let listTemp = JSON.parse(localStorage.getItem(listProductCatogrey));
+    const length = listTemp.length;
+
+    if (length === 0) {
+      s = "<li>Không có danh mục sản phẩm nào.</li>"; // Thông báo nếu không có sản phẩm
+    } else {
+      for (let i = 0; i < length; i++) {
+        // Khai báo i với let
+        s += `
               <li class="verticalmenu__detail-item">
                   <img
                     src="./assets/img/lego-icon-1.jpg"
@@ -1343,38 +1386,40 @@ function verticalMenu() {
                     ${listTemp[i].brandname}
                   </a>
               </li>`;
+      }
     }
-  }
 
-  // Gộp lại thành danh sách
-  s = `<div class="verticalmenu__detail"><ul class="verticalmenu__detail-list">${s}</ul></div>`;
-  let s0 = `<div class="verticalmenu"> <div class="verticalmenu_title">
+    // Gộp lại thành danh sách
+    s = `<div class="verticalmenu__detail"><ul class="verticalmenu__detail-list">${s}</ul></div>`;
+    let s0 = `<div class="verticalmenu"> <div class="verticalmenu_title">
                 <h3>
                   <i class="verticalmenu_title-icon fa-solid fa-bars"></i>
                   <span>DANH MỤC SẢN PHẨM</span>
                 </h3>
               </div>`;
 
-  s0 += s + `</div>` + verticalMenu1();
-  bodytop__left.innerHTML = s0; // Gán nội dung vào phần tử
-  verticalmenu[1].style.display = "none";
+    s0 += s + `</div>` + verticalMenu1();
+    bodytop__left.innerHTML = s0; // Gán nội dung vào phần tử
+    verticalmenu[1].style.display = "none";
 
-  let verticalBtn = document.querySelectorAll(".vertical-btn");
-  verticalBtn.forEach((button) => {
-    button.addEventListener("click", () => {
-      displayProductsByBrand(button);
+    let verticalBtn = document.querySelectorAll(".vertical-btn");
+    verticalBtn.forEach((button) => {
+      button.addEventListener("click", () => {
+        displayProductsByBrand(button);
+      });
     });
-  });
-}
+  }
 
-function verticalMenu1() {
-  let tempCatogreyList = JSON.parse(localStorage.getItem(listProductCatogrey));
-  let s1 = "";
-  tempCatogreyList.forEach((item) => {
-    s1 += `<option value="${item.brandid}">${item.brandname}</option>`;
-  });
-  let s2 =
-    `<div class="verticalmenu"> <div class="verticalmenu_title">
+  function verticalMenu1() {
+    let tempCatogreyList = JSON.parse(
+      localStorage.getItem(listProductCatogrey)
+    );
+    let s1 = "";
+    tempCatogreyList.forEach((item) => {
+      s1 += `<option value="${item.brandid}">${item.brandname}</option>`;
+    });
+    let s2 =
+      `<div class="verticalmenu"> <div class="verticalmenu_title">
                 <h3>
                   <i class="verticalmenu_title-icon fa-solid fa-bars"></i>
                   <span>TÌM KIẾM NÂNG CAO</span>
@@ -1399,8 +1444,8 @@ function verticalMenu1() {
             <label for="search-category">Phân loại:</label>
             <select id="search-category" name="category">
               <option value="">Tất cả</option>` +
-    s1 +
-    ` 
+      s1 +
+      ` 
             </select>
           </div>
 
@@ -1426,165 +1471,174 @@ function verticalMenu1() {
         </form>
               </div>
             </div>`;
-  return s2;
-}
-
-const searchNameProduct = document.getElementById("search-name");
-const searchMinPriceProduct = document.getElementById("search-price-min");
-const searchMaxPriceProduct = document.getElementById("search-price-max");
-const selectedCategory = document.getElementById("search-category");
-//Filter các loại
-function filterProductArrayByBrand(productArray, brandID) {
-  return productArray.filter((item) => item.code.slice(0, 2) === brandID);
-}
-
-function filterProductArrayByName(productArray, namex) {
-  let lowerCaseName = namex.toLowerCase(); // Chuyển tên tìm kiếm về chữ thường
-  return productArray.filter((item) =>
-    item.name.toLowerCase().includes(lowerCaseName)
-  );
-}
-
-function filterProductArrayByMinPrice(productArray, min) {
-  let minPrice = min;
-  return productArray.filter((item) => item.price >= minPrice);
-}
-
-function filterProductArrayByMaxPrice(productArray, max) {
-  let maxPrice = max;
-  return productArray.filter((item) => item.price <= maxPrice);
-}
-
-function filterProducts() {
-  let nameValue = searchNameProduct.value.trim(); // Giá trị tìm kiếm theo tên
-  let minPriceValue = parseFloat(searchMinPriceProduct.value) || 0; // Giá trị tìm kiếm giá tối thiểu
-  let maxPriceValue = parseFloat(searchMaxPriceProduct.value) || Infinity; // Giá trị tìm kiếm giá tối đa
-  let selectedCategoryValue = selectedCategory.value; // Lấy giá trị được chọn từ dropdown category
-  let tempList = JSON.parse(localStorage.getItem(listProducts));
-
-  // Lọc sản phẩm dựa trên các điều kiện
-
-  let filteredProducts = tempList.filter((product) => {
-    // Điều kiện tên sản phẩm
-    let matchesName =
-      nameValue === "" ||
-      product.name.toLowerCase().includes(nameValue.toLowerCase());
-    // Điều kiện giá tối thiểu
-    let matchesMinPrice = product.price >= minPriceValue;
-    // Điều kiện giá tối đa
-    let matchesMaxPrice = product.price <= maxPriceValue;
-    // Điều kiện phân loại
-    let matchesCategory =
-      selectedCategoryValue === "" || // Nếu chọn "Tất cả", không lọc theo category
-      product.code.substring(0, 2) === selectedCategoryValue; // Khớp category với giá trị được chọn
-
-    return matchesName && matchesMinPrice && matchesMaxPrice && matchesCategory;
-  });
-
-  let length = filteredProducts.length;
-  currentPage = 1;
-  if (length > 0) {
-    producttype__name.innerHTML = `<h3>Danh mục sản phẩm theo yêu cầu</h3>`;
-    productContainerMain.style.display = "flex";
-    pageNumber.style.display = "block";
-    displayPageProduct(filteredProducts, length);
-    displayProducts(filteredProducts, length);
-  } else {
-    producttype__name.innerHTML = `<h3>Không có sản phẩm theo yêu cầu`;
-    productContainerMain.style.display = "none";
-    pageNumber.style.display = "none";
+    return s2;
   }
-}
 
-searchNameProduct.addEventListener("input", filterProducts);
-searchMinPriceProduct.addEventListener("input", filterProducts);
-searchMaxPriceProduct.addEventListener("input", filterProducts);
-selectedCategory.addEventListener("change", filterProducts);
-
-function clearSearchAdvance() {
-  searchNameProduct.value = null;
-  searchMinPriceProduct.value = null;
-  searchMaxPriceProduct.value = null;
-  selectedCategory.value = "";
-}
-
-// Hiển thị sản phẩm theo tên
-function displayProductsByName(name) {
-  let tempList = JSON.parse(localStorage.getItem(listProducts));
-  currentPage = 1; // Trang hiện tại
-  let result = filterProductArrayByName(tempList, name);
-  if (result.length == 0) {
-    producttype__name.innerHTML = `<h3>Không có sản phẩm theo yêu cầu`;
-    productContainerMain.style.display = "none";
-    pageNumber.style.display = "none";
-  } else {
-    producttype__name.innerHTML = `<h3>Danh mục sản phẩm theo yêu cầu</h3>`;
-    displayPageProduct(result, result.length);
-    displayProducts(result, result.length);
+  //Filter các loại
+  function filterProductArrayByBrand(productArray, brandID) {
+    return productArray.filter((item) => item.code.slice(0, 2) === brandID);
   }
-}
 
-// Hiển thị sản phẩm theo giá lớn hơn min
-function displayProductsByMinPrice(min) {
-  let tempList = JSON.parse(localStorage.getItem(listProducts));
-  currentPage = 1; // Trang hiện tại
-  let result = filterProductArrayByMinPrice(tempList, min);
-  if (result.length == 0) {
-    producttype__name.innerHTML = `<h3>Không có sản phẩm theo yêu cầu`;
-    productContainerMain.style.display = "none";
-    pageNumber.style.display = "none";
-  } else {
-    producttype__name.innerHTML = `<h3>Danh mục sản phẩm theo yêu cầu</h3>`;
-    productContainerMain.style.display = "flex";
-    pageNumber.style.display = "block";
-    displayPageProduct(result, result.length);
-    displayProducts(result, result.length);
+  function filterProductArrayByName(productArray, namex) {
+    let lowerCaseName = namex.toLowerCase(); // Chuyển tên tìm kiếm về chữ thường
+    return productArray.filter((item) =>
+      item.name.toLowerCase().includes(lowerCaseName)
+    );
   }
-}
 
-// Hiển thị sản phẩm theo giá nhỏ hơn max
-function displayProductsByMaxPrice(max) {
-  let tempList = JSON.parse(localStorage.getItem(listProducts));
-  currentPage = 1; // Trang hiện tại
-  let result = filterProductArrayByMaxPrice(tempList, max);
-  if (result.length == 0) {
-    producttype__name.innerHTML = `<h3>Không có sản phẩm theo yêu cầu`;
-    productContainerMain.style.display = "none";
-    pageNumber.style.display = "none";
-  } else {
-    producttype__name.innerHTML = `<h3>Danh mục sản phẩm theo yêu cầu</h3>`;
-    productContainerMain.style.display = "flex";
-    pageNumber.style.display = "block";
-    displayPageProduct(result, result.length);
-    displayProducts(result, result.length);
+  function filterProductArrayByMinPrice(productArray, min) {
+    let minPrice = min;
+    return productArray.filter((item) => item.price >= minPrice);
   }
-}
 
-// Hiển thị sản phẩm theo danh mục
-function displayProductsByBrand(product) {
-  if (window.location.href.indexOf("?sp") === -1) {
-    window.location.href = "./index.html?sp";
+  function filterProductArrayByMaxPrice(productArray, max) {
+    let maxPrice = max;
+    return productArray.filter((item) => item.price <= maxPrice);
   }
-  let tempList = JSON.parse(localStorage.getItem(listProducts));
-  currentPage = 1; // Trang hiện tại
-  let result = filterProductArrayByBrand(tempList, product.id);
-  if (result.length == 0) {
-    console.log("Không có sản phẩm theo yêu cầu");
-    return;
-  } else {
-    alert(product.id); // Hiển thị ID của sản phẩm
-    producttype__name.innerHTML = `<h3>${product.textContent}</h3>`;
-    productContainerMain.style.display = "flex";
-    pageNumber.style.display = "block";
-    displayPageProduct(result, result.length);
-    displayProducts(result, result.length);
-  }
-  clearSearchAdvance();
-}
 
-// Hàm hiển thị trang chủ
-function displayMainPage() {
-  let s = `
+  function filterProducts() {
+    let nameValue = searchNameProduct.value.trim(); // Giá trị tìm kiếm theo tên
+    let minPriceValue = parseFloat(searchMinPriceProduct.value) || 0; // Giá trị tìm kiếm giá tối thiểu
+    let maxPriceValue = parseFloat(searchMaxPriceProduct.value) || Infinity; // Giá trị tìm kiếm giá tối đa
+    let selectedCategoryValue = selectedCategory.value; // Lấy giá trị được chọn từ dropdown category
+    let tempList = JSON.parse(localStorage.getItem(listProducts));
+
+    // Lọc sản phẩm dựa trên các điều kiện
+
+    let filteredProducts = tempList.filter((product) => {
+      // Điều kiện tên sản phẩm
+      let matchesName =
+        nameValue === "" ||
+        product.name.toLowerCase().includes(nameValue.toLowerCase());
+      // Điều kiện giá tối thiểu
+      let matchesMinPrice = product.price >= minPriceValue;
+      // Điều kiện giá tối đa
+      let matchesMaxPrice = product.price <= maxPriceValue;
+      // Điều kiện phân loại
+      let matchesCategory =
+        selectedCategoryValue === "" || // Nếu chọn "Tất cả", không lọc theo category
+        product.code.substring(0, 2) === selectedCategoryValue; // Khớp category với giá trị được chọn
+
+      return (
+        matchesName && matchesMinPrice && matchesMaxPrice && matchesCategory
+      );
+    });
+
+    let length = filteredProducts.length;
+    currentPage = 1;
+    if (length > 0) {
+      producttype__name.innerHTML = `<h3>Danh mục sản phẩm theo yêu cầu</h3>`;
+      productContainerMain.style.display = "flex";
+      pageNumber.style.display = "block";
+      displayPageProduct(filteredProducts, length);
+      displayProducts(filteredProducts, length);
+    } else {
+      producttype__name.innerHTML = `<h3>Không có sản phẩm theo yêu cầu`;
+      productContainerMain.style.display = "none";
+      pageNumber.style.display = "none";
+    }
+  }
+
+  createProductCatogrey();
+  verticalMenu();
+  createProducts();
+  createUsers();
+  displayMenu();
+
+  const searchNameProduct = document.getElementById("search-name");
+  const searchMinPriceProduct = document.getElementById("search-price-min");
+  const searchMaxPriceProduct = document.getElementById("search-price-max");
+  const selectedCategory = document.getElementById("search-category");
+
+  searchNameProduct.addEventListener("input", filterProducts);
+  searchMinPriceProduct.addEventListener("input", filterProducts);
+  searchMaxPriceProduct.addEventListener("input", filterProducts);
+  selectedCategory.addEventListener("change", filterProducts);
+
+  function clearSearchAdvance() {
+    searchNameProduct.value = null;
+    searchMinPriceProduct.value = null;
+    searchMaxPriceProduct.value = null;
+    selectedCategory.value = "";
+  }
+
+  // Hiển thị sản phẩm theo tên
+  function displayProductsByName(name) {
+    let tempList = JSON.parse(localStorage.getItem(listProducts));
+    currentPage = 1; // Trang hiện tại
+    let result = filterProductArrayByName(tempList, name);
+    if (result.length == 0) {
+      producttype__name.innerHTML = `<h3>Không có sản phẩm theo yêu cầu`;
+      productContainerMain.style.display = "none";
+      pageNumber.style.display = "none";
+    } else {
+      producttype__name.innerHTML = `<h3>Danh mục sản phẩm theo yêu cầu</h3>`;
+      displayPageProduct(result, result.length);
+      displayProducts(result, result.length);
+    }
+  }
+
+  // Hiển thị sản phẩm theo giá lớn hơn min
+  function displayProductsByMinPrice(min) {
+    let tempList = JSON.parse(localStorage.getItem(listProducts));
+    currentPage = 1; // Trang hiện tại
+    let result = filterProductArrayByMinPrice(tempList, min);
+    if (result.length == 0) {
+      producttype__name.innerHTML = `<h3>Không có sản phẩm theo yêu cầu`;
+      productContainerMain.style.display = "none";
+      pageNumber.style.display = "none";
+    } else {
+      producttype__name.innerHTML = `<h3>Danh mục sản phẩm theo yêu cầu</h3>`;
+      productContainerMain.style.display = "flex";
+      pageNumber.style.display = "block";
+      displayPageProduct(result, result.length);
+      displayProducts(result, result.length);
+    }
+  }
+
+  // Hiển thị sản phẩm theo giá nhỏ hơn max
+  function displayProductsByMaxPrice(max) {
+    let tempList = JSON.parse(localStorage.getItem(listProducts));
+    currentPage = 1; // Trang hiện tại
+    let result = filterProductArrayByMaxPrice(tempList, max);
+    if (result.length == 0) {
+      producttype__name.innerHTML = `<h3>Không có sản phẩm theo yêu cầu`;
+      productContainerMain.style.display = "none";
+      pageNumber.style.display = "none";
+    } else {
+      producttype__name.innerHTML = `<h3>Danh mục sản phẩm theo yêu cầu</h3>`;
+      productContainerMain.style.display = "flex";
+      pageNumber.style.display = "block";
+      displayPageProduct(result, result.length);
+      displayProducts(result, result.length);
+    }
+  }
+
+  // Hiển thị sản phẩm theo danh mục
+  function displayProductsByBrand(product) {
+    if (window.location.href.indexOf("?sp") === -1) {
+      window.location.href = "./index.html?sp";
+    }
+    let tempList = JSON.parse(localStorage.getItem(listProducts));
+    currentPage = 1; // Trang hiện tại
+    let result = filterProductArrayByBrand(tempList, product.id);
+    if (result.length == 0) {
+      console.log("Không có sản phẩm theo yêu cầu");
+      return;
+    } else {
+      alert(product.id); // Hiển thị ID của sản phẩm
+      producttype__name.innerHTML = `<h3>${product.textContent}</h3>`;
+      productContainerMain.style.display = "flex";
+      pageNumber.style.display = "block";
+      displayPageProduct(result, result.length);
+      displayProducts(result, result.length);
+    }
+    clearSearchAdvance();
+  }
+
+  // Hàm hiển thị trang chủ
+  function displayMainPage() {
+    let s = `
     <div style="border: 2px solid var(--primary-color); border-radius: 10px; padding: 20px; background-color: #ffffff; width: 100%; text-align: center;">
       <h1 style="line-height: 30px;color: var(--border-color); font-size: 28px; margin-bottom: 10px; ">Chào mừng bạn đến với cửa hàng LEGO của chúng tôi!</h1>
       <p style="font-size: 16px; color: #333; margin-bottom: 20px;">
@@ -1626,12 +1680,12 @@ function displayMainPage() {
       </ul>
     </div>
   `;
-  productContainerMain.innerHTML = s;
-}
+    productContainerMain.innerHTML = s;
+  }
 
-// Hàm hiển thị giới thiệu
-function displayAboutPage() {
-  let s = `
+  // Hàm hiển thị giới thiệu
+  function displayAboutPage() {
+    let s = `
     <div style="border: 2px solid var(--primary-color); border-radius: 10px; padding: 20px; background-color: #ffffff; width: 100%; text-align: center;">
       <h1 style="line-height: 30px;color: var(--border-color); font-size: 28px; margin-bottom: 10px;">Giới thiệu về cửa hàng LEGO của chúng tôi</h1>
       
@@ -1659,12 +1713,12 @@ function displayAboutPage() {
       </p>
     </div>
   `;
-  productContainerMain.innerHTML = s;
-}
+    productContainerMain.innerHTML = s;
+  }
 
-// Hàm hiển thị trang liên hệ
-function displayContactPage() {
-  let s = `
+  // Hàm hiển thị trang liên hệ
+  function displayContactPage() {
+    let s = `
     <div style="border: 2px solid var(--primary-color); border-radius: 10px; padding: 20px; background-color: #ffffff; width: 100%; margin: 0 auto; text-align: left;">
       <h1 style="text-align: center; color: var(--border-color); font-size: 24px; margin-bottom: 20px;">Liên hệ với chúng tôi</h1>
 
@@ -1690,664 +1744,665 @@ function displayContactPage() {
       </div>
     </div>
   `;
-  productContainerMain.innerHTML = s;
-}
-
-function displayProducts(productList, length) {
-  productContainerMain.innerHTML = "";
-  // tính vị trí sách bắt đầu để hiển thị trong từng trang
-  let beginProduct = (currentPage - 1) * productsPerPage;
-  let endProduct = beginProduct + productsPerPage;
-  let pageBtn = document.querySelectorAll(".product-btn_page");
-  pageBtn.forEach((button) => {
-    if (button.textContent == currentPage) {
-      button.style.color = "#fff";
-      button.style.backgroundColor = "var(--primary-color)";
-    } else {
-      button.style.color = "var(--primary-color)";
-      button.style.backgroundColor = "#fff";
-    }
-  });
-  for (let i = beginProduct; i < endProduct; i++) {
-    if (productList[i] && !productList[i].isDeleted) {
-      productContainerMain.innerHTML += createProduct(productList[i]);
-    }
+    productContainerMain.innerHTML = s;
   }
-  let detailButtons = document.querySelectorAll(".detail-btn");
-  detailButtons.forEach((button) => {
-    button.addEventListener("click", (event) => {
-      displayProductDetail(event, button);
+
+  function displayProducts(productList, length) {
+    productContainerMain.innerHTML = "";
+    // tính vị trí sách bắt đầu để hiển thị trong từng trang
+    let beginProduct = (currentPage - 1) * productsPerPage;
+    let endProduct = beginProduct + productsPerPage;
+    let pageBtn = document.querySelectorAll(".product-btn_page");
+    pageBtn.forEach((button) => {
+      if (button.textContent == currentPage) {
+        button.style.color = "#fff";
+        button.style.backgroundColor = "var(--primary-color)";
+      } else {
+        button.style.color = "var(--primary-color)";
+        button.style.backgroundColor = "#fff";
+      }
     });
-  });
-}
-
-function displayPageProduct(productList, length) {
-  totalPages = Math.ceil(length / productsPerPage);
-  pageNumber.innerHTML = ""; // Xóa nội dung cũ
-
-  // Chỉ hiển thị nút nếu có hơn 1 trang
-  if (totalPages <= 1) return;
-
-  // Thêm nút "Prev"
-  pageNumber.innerHTML += `<button class="product-btn product-btn_prev">&lt;</button>`;
-
-  // Hiển thị nút phân trang
-  if (totalPages <= 5) {
-    // Hiển thị tất cả các nút nếu tổng số trang <= 5
-    for (let i = 1; i <= totalPages; i++) {
-      pageNumber.innerHTML += `<button class="product-btn product-btn_page" id="page-${i}">${i}</button>`;
+    for (let i = beginProduct; i < endProduct; i++) {
+      if (productList[i] && !productList[i].isDeleted) {
+        productContainerMain.innerHTML += createProduct(productList[i]);
+      }
     }
-  } else {
-    // Hiển thị với cấu trúc: < 1 2 ... totalPages-1 totalPages >
-    pageNumber.innerHTML += `<button class="product-btn product-btn_page" id="page-1">1</button>`;
-    pageNumber.innerHTML += `<button class="product-btn product-btn_page" id="page-2">2</button>`;
-    if (currentPage > 3 && currentPage < totalPages - 2) {
-      // Hiển thị dạng: 1 2 ... currentPage ... totalPages-1 totalPages
-      pageNumber.innerHTML += `<span class="ellipsis">...</span>`;
-      pageNumber.innerHTML += `<button class="product-btn product-btn_page" id="page-${currentPage}">${currentPage}</button>`;
-      pageNumber.innerHTML += `<span class="ellipsis">...</span>`;
-    } else if (currentPage <= 3) {
-      // Nếu đang ở đầu: 1 2 3 ... totalPages-1 totalPages
-      pageNumber.innerHTML += `<button class="product-btn product-btn_page" id="page-3">3</button>`;
-      pageNumber.innerHTML += `<span class="ellipsis">...</span>`;
+    let detailButtons = document.querySelectorAll(".detail-btn");
+    detailButtons.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        displayProductDetail(event, button);
+      });
+    });
+
+    let buyButtons = document.querySelectorAll(".buy-btn");
+    buyButtons.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        addProductToCart1(button.id, 1);
+      });
+    });
+  }
+
+  function displayPageProduct(productList, length) {
+    totalPages = Math.ceil(length / productsPerPage);
+    pageNumber.innerHTML = ""; // Xóa nội dung cũ
+
+    // Chỉ hiển thị nút nếu có hơn 1 trang
+    if (totalPages <= 1) return;
+
+    // Thêm nút "Prev"
+    pageNumber.innerHTML += `<button class="product-btn product-btn_prev">&lt;</button>`;
+
+    // Hiển thị nút phân trang
+    if (totalPages <= 5) {
+      // Hiển thị tất cả các nút nếu tổng số trang <= 5
+      for (let i = 1; i <= totalPages; i++) {
+        pageNumber.innerHTML += `<button class="product-btn product-btn_page" id="page-${i}">${i}</button>`;
+      }
     } else {
-      // Nếu đang ở cuối: 1 2 ... totalPages-2 totalPages-1 totalPages
-      pageNumber.innerHTML += `<span class="ellipsis">...</span>`;
+      // Hiển thị với cấu trúc: < 1 2 ... totalPages-1 totalPages >
+      pageNumber.innerHTML += `<button class="product-btn product-btn_page" id="page-1">1</button>`;
+      pageNumber.innerHTML += `<button class="product-btn product-btn_page" id="page-2">2</button>`;
+      if (currentPage > 3 && currentPage < totalPages - 2) {
+        // Hiển thị dạng: 1 2 ... currentPage ... totalPages-1 totalPages
+        pageNumber.innerHTML += `<span class="ellipsis">...</span>`;
+        pageNumber.innerHTML += `<button class="product-btn product-btn_page" id="page-${currentPage}">${currentPage}</button>`;
+        pageNumber.innerHTML += `<span class="ellipsis">...</span>`;
+      } else if (currentPage <= 3) {
+        // Nếu đang ở đầu: 1 2 3 ... totalPages-1 totalPages
+        pageNumber.innerHTML += `<button class="product-btn product-btn_page" id="page-3">3</button>`;
+        pageNumber.innerHTML += `<span class="ellipsis">...</span>`;
+      } else {
+        // Nếu đang ở cuối: 1 2 ... totalPages-2 totalPages-1 totalPages
+        pageNumber.innerHTML += `<span class="ellipsis">...</span>`;
+        pageNumber.innerHTML += `<button class="product-btn product-btn_page" id="page-${
+          totalPages - 2
+        }">${totalPages - 2}</button>`;
+      }
       pageNumber.innerHTML += `<button class="product-btn product-btn_page" id="page-${
-        totalPages - 2
-      }">${totalPages - 2}</button>`;
+        totalPages - 1
+      }">${totalPages - 1}</button>`;
+      pageNumber.innerHTML += `<button class="product-btn product-btn_page" id="page-${totalPages}">${totalPages}</button>`;
     }
-    pageNumber.innerHTML += `<button class="product-btn product-btn_page" id="page-${
-      totalPages - 1
-    }">${totalPages - 1}</button>`;
-    pageNumber.innerHTML += `<button class="product-btn product-btn_page" id="page-${totalPages}">${totalPages}</button>`;
+
+    // Thêm nút "Next"
+    pageNumber.innerHTML += `<button class="product-btn product-btn_next">&gt;</button>`;
+
+    // Xử lý sự kiện
+    updatePageButtonStyles();
+    handlePageButtonEvents(productList, length);
   }
 
-  // Thêm nút "Next"
-  pageNumber.innerHTML += `<button class="product-btn product-btn_next">&gt;</button>`;
-
-  // Xử lý sự kiện
-  updatePageButtonStyles();
-  handlePageButtonEvents(productList, length);
-}
-
-function updatePageButtonStyles() {
-  let pageBtn = document.querySelectorAll(".product-btn_page");
-  pageBtn.forEach((button) => {
-    if (parseInt(button.textContent) === currentPage) {
-      button.style.color = "#fff";
-      button.style.backgroundColor = "var(--primary-color)";
-    } else {
-      button.style.color = "var(--primary-color)";
-      button.style.backgroundColor = "#fff";
-    }
-  });
-}
-
-function handlePageButtonEvents(productList, length) {
-  let pageBtn = document.querySelectorAll(".product-btn_page");
-  let prevBtn = document.querySelector(".product-btn_prev");
-  let nextBtn = document.querySelector(".product-btn_next");
-
-  // Xử lý sự kiện click cho từng nút trang
-  pageBtn.forEach((button) => {
-    button.addEventListener("click", () => {
-      currentPage = parseInt(button.textContent);
-      displayProducts(productList, length);
-      displayPageProduct(productList, length); // Cập nhật giao diện nút
+  function updatePageButtonStyles() {
+    let pageBtn = document.querySelectorAll(".product-btn_page");
+    pageBtn.forEach((button) => {
+      if (parseInt(button.textContent) === currentPage) {
+        button.style.color = "#fff";
+        button.style.backgroundColor = "var(--primary-color)";
+      } else {
+        button.style.color = "var(--primary-color)";
+        button.style.backgroundColor = "#fff";
+      }
     });
-  });
+  }
 
-  // Xử lý nút "Prev"
-  prevBtn.addEventListener("click", (event) => {
-    event.preventDefault();
-    if (currentPage > 1) {
-      currentPage--;
-      displayProducts(productList, length);
-      displayPageProduct(productList, length); // Cập nhật giao diện nút
-    }
-  });
+  function handlePageButtonEvents(productList, length) {
+    let pageBtn = document.querySelectorAll(".product-btn_page");
+    let prevBtn = document.querySelector(".product-btn_prev");
+    let nextBtn = document.querySelector(".product-btn_next");
 
-  // Xử lý nút "Next"
-  nextBtn.addEventListener("click", (event) => {
-    event.preventDefault();
-    if (currentPage < totalPages) {
-      currentPage++;
-      displayProducts(productList, length);
-      displayPageProduct(productList, length); // Cập nhật giao diện nút
-    }
-  });
-}
-// Phần login / register
-registerBtn.addEventListener("click", function () {
-  modalRegister.style.display = "block";
-  modalLogin.style.display = "none";
-});
+    // Xử lý sự kiện click cho từng nút trang
+    pageBtn.forEach((button) => {
+      button.addEventListener("click", () => {
+        currentPage = parseInt(button.textContent);
+        displayProducts(productList, length);
+        displayPageProduct(productList, length); // Cập nhật giao diện nút
+      });
+    });
 
-btnOpenLogin.addEventListener("click", function () {
-  modalLogin.style.display = "block";
-  modalRegister.style.display = "none";
-});
+    // Xử lý nút "Prev"
+    prevBtn.addEventListener("click", (event) => {
+      event.preventDefault();
+      if (currentPage > 1) {
+        currentPage--;
+        displayProducts(productList, length);
+        displayPageProduct(productList, length); // Cập nhật giao diện nút
+      }
+    });
 
-closeFormBtn.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    modalRegister.style.display = "none";
+    // Xử lý nút "Next"
+    nextBtn.addEventListener("click", (event) => {
+      event.preventDefault();
+      if (currentPage < totalPages) {
+        currentPage++;
+        displayProducts(productList, length);
+        displayPageProduct(productList, length); // Cập nhật giao diện nút
+      }
+    });
+  }
+  // Phần login / register
+  registerBtn.addEventListener("click", function () {
+    modalRegister.style.display = "block";
     modalLogin.style.display = "none";
   });
-});
 
-loginBtn.addEventListener("click", function () {
-  modalRegister.style.display = "none";
-  modalLogin.style.display = "block";
-});
+  btnOpenLogin.addEventListener("click", function () {
+    modalLogin.style.display = "block";
+    modalRegister.style.display = "none";
+  });
 
-btnOpenRegister.addEventListener("click", function () {
-  modalLogin.style.display = "none";
-  modalRegister.style.display = "block";
-});
+  closeFormBtn.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      modalRegister.style.display = "none";
+      modalLogin.style.display = "none";
+    });
+  });
 
-// Book layout
-btnProductclose.addEventListener("click", function () {
-  productLayout.style.display = "none";
-});
+  loginBtn.addEventListener("click", function () {
+    modalRegister.style.display = "none";
+    modalLogin.style.display = "block";
+  });
 
-function validateEmail(email) {
-  let regex = /^\w+@[a-zA-Z_]+?(\.[a-zA-Z]{2,3}){1,3}$/;
-  return regex.test(email);
-}
-function validateUser(user) {
-  let regex = /^[a-zA-Z0-9._-]{3,}$/;
-  return regex.test(user);
-}
+  btnOpenRegister.addEventListener("click", function () {
+    modalLogin.style.display = "none";
+    modalRegister.style.display = "block";
+  });
 
-function checkInputFromSignup(event) {
-  let inputElement = event.target.value.trim();
-  let errorElement = event.target.parentElement.querySelector(".form-message");
+  // Book layout
+  btnProductclose.addEventListener("click", function () {
+    productLayout.style.display = "none";
+  });
 
-  if (inputElement === "") {
-    errorElement.innerHTML = "Vui lòng nhập thông tin vào!";
-  } else if (event.target.id === "username" && !validateUser(inputElement))
-    errorElement.innerHTML =
-      "Tài khoản đăng nhập phải có ít nhất 3 kí tự trở lên, không chứa kí tự đặc biệt";
-  else if (event.target.id === "password" && inputElement.length < 6)
-    errorElement.innerHTML = "Mật khẩu phải có ít nhất 6 kí tự.";
-  else if (event.target.id === "email" && !validateEmail(inputElement))
-    errorElement.innerHTML = "Địa chỉ email không hợp lệ.";
-  else if (
-    event.target.id === "fillpassword" &&
-    inputElement != inputSignUp[2].value
-  )
-    errorElement.innerHTML = "Mật khẩu nhập lại không giống nhau";
-  else errorElement.innerHTML = "";
-}
-
-function checkSignup(event) {
-  let inputElement = event.value;
-  if (event.id === "username" && !validateUser(inputElement)) return false;
-  else if (event.id === "password" && inputElement.length < 6) return false;
-  else if (event.id === "email" && !validateEmail(inputElement)) return false;
-  return true;
-}
-
-const inputSignUp = document.getElementsByClassName("auth-form__input");
-inputSignUp[0].addEventListener("blur", checkInputFromSignup);
-inputSignUp[1].addEventListener("blur", checkInputFromSignup);
-inputSignUp[2].addEventListener("blur", checkInputFromSignup);
-inputSignUp[3].addEventListener("blur", checkInputFromSignup);
-
-document.getElementById("register-form").addEventListener("click", createUser);
-document.getElementById("login-form").addEventListener("click", login);
-
-function createUser(event) {
-  event.preventDefault();
-  userList = JSON.parse(localStorage.getItem(ListUsers));
-  let username = inputSignUp[0].value.trim();
-  let email = inputSignUp[1].value.trim();
-  let password = inputSignUp[2].value.trim();
-  let passwordAgain = inputSignUp[3].value.trim();
-  let id = userList.length;
-  if (!username || !email || !password || !passwordAgain) {
-    alert("Vui lòng nhập đủ thông tin đăng ký!");
-    return false;
+  function validateEmail(email) {
+    let regex = /^\w+@[a-zA-Z_]+?(\.[a-zA-Z]{2,3}){1,3}$/;
+    return regex.test(email);
   }
-  if (
-    !checkSignup(inputSignUp[0]) ||
-    !checkSignup(inputSignUp[2]) ||
-    !checkSignup(inputSignUp[1])
-  ) {
-    alert("Vui lòng nhập đúng thông tin!!!");
-    return false;
+  function validateUser(user) {
+    let regex = /^[a-zA-Z0-9._-]{3,}$/;
+    return regex.test(user);
   }
 
-  if (password != passwordAgain) {
-    alert("Vui lòng nhập lại đúng mật khẩu");
-    return false;
+  function checkInputFromSignup(event) {
+    let inputElement = event.target.value.trim();
+    let errorElement =
+      event.target.parentElement.querySelector(".form-message");
+
+    if (inputElement === "") {
+      errorElement.innerHTML = "Vui lòng nhập thông tin vào!";
+    } else if (event.target.id === "username" && !validateUser(inputElement))
+      errorElement.innerHTML =
+        "Tài khoản đăng nhập phải có ít nhất 3 kí tự trở lên, không chứa kí tự đặc biệt";
+    else if (event.target.id === "password" && inputElement.length < 6)
+      errorElement.innerHTML = "Mật khẩu phải có ít nhất 6 kí tự.";
+    else if (event.target.id === "email" && !validateEmail(inputElement))
+      errorElement.innerHTML = "Địa chỉ email không hợp lệ.";
+    else if (
+      event.target.id === "fillpassword" &&
+      inputElement != inputSignUp[2].value
+    )
+      errorElement.innerHTML = "Mật khẩu nhập lại không giống nhau";
+    else errorElement.innerHTML = "";
   }
-  let newUser = {
-    id: id,
-    username: username,
-    email: email,
-    address: [],
-    password: password,
-    cart: [],
-    dateSignUp: "",
-  };
-  // kiểm tra trùng tên đăng nhập
-  for (let i = 0; i < userList.length; i++) {
-    if (newUser.username == userList[i].username) {
-      inputSignUp[0].parentElement.querySelector(".form-message").innerHTML =
-        "Tên đăng nhập đã có người sử dụng";
-      inputSignUp[0].focus();
+
+  function checkSignup(event) {
+    let inputElement = event.value;
+    if (event.id === "username" && !validateUser(inputElement)) return false;
+    else if (event.id === "password" && inputElement.length < 6) return false;
+    else if (event.id === "email" && !validateEmail(inputElement)) return false;
+    return true;
+  }
+
+  const inputSignUp = document.getElementsByClassName("auth-form__input");
+  inputSignUp[0].addEventListener("blur", checkInputFromSignup);
+  inputSignUp[1].addEventListener("blur", checkInputFromSignup);
+  inputSignUp[2].addEventListener("blur", checkInputFromSignup);
+  inputSignUp[3].addEventListener("blur", checkInputFromSignup);
+
+  document
+    .getElementById("register-form")
+    .addEventListener("click", createUser);
+  document.getElementById("login-form").addEventListener("click", login);
+
+  function createUser(event) {
+    event.preventDefault();
+    userList = JSON.parse(localStorage.getItem(ListUsers));
+    let username = inputSignUp[0].value.trim();
+    let email = inputSignUp[1].value.trim();
+    let password = inputSignUp[2].value.trim();
+    let passwordAgain = inputSignUp[3].value.trim();
+    let id = userList.length;
+    if (!username || !email || !password || !passwordAgain) {
+      alert("Vui lòng nhập đủ thông tin đăng ký!");
       return false;
     }
+    if (
+      !checkSignup(inputSignUp[0]) ||
+      !checkSignup(inputSignUp[2]) ||
+      !checkSignup(inputSignUp[1])
+    ) {
+      alert("Vui lòng nhập đúng thông tin!!!");
+      return false;
+    }
+
+    if (password != passwordAgain) {
+      alert("Vui lòng nhập lại đúng mật khẩu");
+      return false;
+    }
+    let newUser = {
+      id: id,
+      username: username,
+      email: email,
+      address: [],
+      password: password,
+      cart: [],
+      dateSignUp: "",
+      status: 1,
+      role: 0,
+    };
+    // kiểm tra trùng tên đăng nhập
+    for (let i = 0; i < userList.length; i++) {
+      if (newUser.username == userList[i].username) {
+        inputSignUp[0].parentElement.querySelector(".form-message").innerHTML =
+          "Tên đăng nhập đã có người sử dụng";
+        inputSignUp[0].focus();
+        return false;
+      }
+    }
+    newUser.dateSignUp = new Intl.DateTimeFormat("vi-VN", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    }).format(new Date());
+    userList.push(newUser);
+    localStorage.setItem(ListUsers, JSON.stringify(userList));
+    alert("Đã đăng ký thành công");
+    modalRegister.style.display = "none";
+    window.location.reload();
   }
-  newUser.dateSignUp = new Intl.DateTimeFormat("vi-VN", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-  }).format(new Date());
-  userList.push(newUser);
-  localStorage.setItem(ListUsers, JSON.stringify(userList));
-  alert("Đã đăng ký thành công");
-  modalRegister.style.display = "none";
-  window.location.reload();
-}
 
-let userLogin = inputSignUp[4];
-let passLogin = inputSignUp[5];
+  let userLogin = inputSignUp[4];
+  let passLogin = inputSignUp[5];
 
-function checklogin() {
-  /*if (localStorage.getItem("userLogin")) {
-    let user = JSON.parse(localStorage.getItem("userLogin"));
+  function checklogin() {
+    const userLoginData = localStorage.getItem("userLogin");
 
-    if (user.isDeleted == true) {
-      alert("Tài khoản đã bị vô hiệu hóa !!!");
-    } else {
-      let headerUser = document.querySelectorAll(".header-user");
-      headerUser.forEach((item) => {
-        item.style.display = "block";
-      });
-      let userName = document.querySelectorAll(".user-name");
-      userName.forEach((item) => {
-        item.innerHTML = user.username;
-      });
-      let headerAccount = document.querySelectorAll(".header__navbar-item--strong");
-      headerAccount.forEach((item) => {
-        item.style.display = "none";
-      });
-      if (user.username == "admin" && user.password == "admin")
-        document.querySelector(".adminControl").style.display = "block";*/
-  if (localStorage.getItem("userLogin")) {
-    let user = JSON.parse(localStorage.getItem("userLogin"));
-    if (user.username == "admin" && user.password == "admin") {
-      // window.location.href = "index.html?adminwebsitelego";
-    } else {
-      let headerAccount = document.querySelectorAll(
+    if (userLoginData) {
+      const user = JSON.parse(userLoginData);
+
+      // Kiểm tra trạng thái tài khoản
+      if (user.status === 0) {
+        alert("Tài khoản đã bị vô hiệu hóa !!!");
+        // Có thể thêm điều hướng đến trang đăng nhập ở đây
+        return;
+      }
+
+      // Cập nhật giao diện người dùng
+      const headerAccount = document.querySelectorAll(
         ".header__navbar-item--strong"
       );
       headerAccount.forEach((item) => {
-        item.style.display = "none";
+        item.style.display = "none"; // Ẩn các mục không cần thiết
       });
 
-      let temp1 = document.querySelector(".loginStatus");
-      // temp.forEach((item) => {
-      //   item.style.display = "inline-block";
-      //   const t = document.getElementById("accountLoginName");
-      //   t.innerHTML = `${user.username}`;
-      // });
-      temp1.innerHTML = `
-                <li 
-                  class="header__navbar-item header__navbar-item--strong header__navbar-item--separate accountLogin">${user.username}
-                </li>
-                <li class="header__navbar-item header__navbar-item--strong userLogout">
-                  Đăng xuất
-                </li>`;
-      const temp = document.querySelectorAll(".accountLogin");
+      const loginStatusElement = document.querySelector(".loginStatus");
+      loginStatusElement.innerHTML = `
+      <li class="header__navbar-item2 header__navbar-item--strong accountLogin"> |${user.username}| </li>
+      <li class="header__navbar-item header__navbar-item--strong userLogout">Đăng xuất</li>
+    `;
+
       const userLogout = document.querySelector(".userLogout");
-      // temp.style.display = "block";
       userLogout.addEventListener("click", () => {
-        // let userLogin = JSON.parse(localStorage.getItem("userLogin"));
-        // let cartCurrent = JSON.parse(localStorage.getItem("cartCustomer"));
-        // let userCurrent = JSON.parse(localStorage.getItem("user"));
-
-        // // Find the current user in the userCurrent array and update their cart
-        // const currentUserIndex = userCurrent.findIndex(
-        //   (user) =>
-        //     user.username === userLogin.username &&
-        //     user.password === userLogin.password
-        // );
-        // if (currentUserIndex !== -1) {
-        //   userCurrent[currentUserIndex].cart = cartCurrent;
-        //   localStorage.setItem("user", JSON.stringify(userCurrent));
-        // }
-
-        // Remove the userLogin data from localStorage
         localStorage.removeItem("userLogin");
-
-        // Remove the cartCustomer data from localStorage (if needed)
-        localStorage.removeItem("cartCustomer");
-
-        // Redirect the user to the index.html page
-        window.location.href = "index.html";
+        alert("Đăng xuất thành công!");
+        location.href = "index.html?tc"; // Điều hướng đến trang chính
       });
     }
   }
-}
 
-function login(event) {
-  event.preventDefault();
-  userList = JSON.parse(localStorage.getItem(ListUsers));
-  if (!userLogin.value || !passLogin) {
-    alert("Vui lòng nhập thông tin đăng nhập");
-  }
-  for (let i = 0; i < userList.length; i++) {
-    if (
-      userLogin.value == userList[i].username &&
-      passLogin.value == userList[i].password
-    ) {
-      // value Login
-      localStorage.setItem("userLogin", JSON.stringify(userList[i]));
+  function login(event) {
+    event.preventDefault();
 
+    const userLoginValue = userLogin.value.trim();
+    const passLoginValue = passLogin.value.trim();
+    const userList = JSON.parse(localStorage.getItem(ListUsers)) || [];
+
+    // Kiểm tra thông tin đăng nhập
+    if (!userLoginValue || !passLoginValue) {
+      alert("Vui lòng nhập tên đăng nhập và mật khẩu.");
+      return false;
+    }
+
+    // Tìm kiếm người dùng
+    const user = userList.find((user) => user.username === userLoginValue);
+
+    if (!user) {
+      alert("Tên đăng nhập hoặc mật khẩu không chính xác.");
+      return false;
+    }
+
+    // Kiểm tra mật khẩu
+    if (user.password !== passLoginValue) {
+      alert("Tên đăng nhập hoặc mật khẩu không chính xác.");
+      return false;
+    }
+
+    // Kiểm tra trạng thái tài khoản
+    if (user.status === 0) {
+      alert("Tài khoản đã bị vô hiệu hóa !!!");
+      return false;
+    }
+
+    // Đăng nhập thành công
+    localStorage.setItem("userLogin", JSON.stringify(user));
+
+    if (user.role === 0) {
+      alert("Truy cập trang quản trị!");
+      window.location.href = "manage.html";
+    } else {
       alert("Đăng nhập thành công");
       window.location.reload();
-      return true;
+    }
+
+    return true;
+  }
+  checklogin();
+  const USERLOGIN = JSON.parse(localStorage.getItem("userLogin")) ?? [];
+  cartList();
+
+  var filterProductList = JSON.parse(localStorage.getItem(listProducts));
+
+  function updateCartUserInList(id, cartUser) {
+    // Lấy danh sách người dùng từ localStorage
+    let tempUserList = JSON.parse(localStorage.getItem(ListUsers));
+
+    // Tìm chỉ số của người dùng cần cập nhật
+    let index = tempUserList.findIndex((user) => user.id === id);
+
+    // Kiểm tra xem người dùng có tồn tại không
+    if (index !== -1) {
+      // Cập nhật giỏ hàng của người dùng
+      tempUserList[index].cart = cartUser;
+
+      // Lưu lại danh sách người dùng đã cập nhật vào localStorage
+      localStorage.setItem(ListUsers, JSON.stringify(tempUserList));
     }
   }
-  alert("Tên đăng nhập hoặc mật khẩu không chính xác");
-}
-checklogin();
-const USERLOGIN = JSON.parse(localStorage.getItem("userLogin")) ?? [];
-function updateCartUserInList(id, cartUser) {
-  // Lấy danh sách người dùng từ localStorage
-  let tempUserList = JSON.parse(localStorage.getItem(ListUsers));
 
-  // Tìm chỉ số của người dùng cần cập nhật
-  let index = tempUserList.findIndex((user) => user.id === id);
+  function getCartUserInList(id) {
+    // Lấy danh sách người dùng từ localStorage
+    let tempUserList = JSON.parse(localStorage.getItem(ListUsers));
 
-  // Kiểm tra xem người dùng có tồn tại không
-  if (index !== -1) {
-    // Cập nhật giỏ hàng của người dùng
-    tempUserList[index].cart = cartUser;
-
-    // Lưu lại danh sách người dùng đã cập nhật vào localStorage
-    localStorage.setItem(ListUsers, JSON.stringify(tempUserList));
-  }
-}
-
-function getCartUserInList(id) {
-  // Lấy danh sách người dùng từ localStorage
-  let tempUserList = JSON.parse(localStorage.getItem(ListUsers));
-
-  // Tìm chỉ số của người dùng cần cập nhật
-  let index = tempUserList.findIndex((user) => user.id === id);
-  let cart;
-  // Kiểm tra xem người dùng có tồn tại không
-  if (index !== -1) {
-    // Cập nhật giỏ hàng của người dùng
-    cart = tempUserList[index].cart;
-  } else {
-    cart = [];
-  }
-  return cart;
-}
-
-function updateAddressUserInList(id, address) {
-  // Lấy danh sách người dùng từ localStorage
-  let tempUserList = JSON.parse(localStorage.getItem(ListUsers));
-
-  // Tìm chỉ số của người dùng cần cập nhật
-  let index = tempUserList.findIndex((user) => user.id === id);
-
-  // Kiểm tra xem người dùng có tồn tại không
-  if (index !== -1) {
-    // Cập nhật giỏ hàng của người dùng
-    tempUserList[index].address = address;
-
-    // Lưu lại danh sách người dùng đã cập nhật vào localStorage
-    localStorage.setItem(ListUsers, JSON.stringify(tempUserList));
-  } else {
-    console.error("User not found");
-  }
-}
-
-function getAddressUserInList(id) {
-  // Lấy danh sách người dùng từ localStorage
-  let tempUserList = JSON.parse(localStorage.getItem(ListUsers));
-
-  // Tìm chỉ số của người dùng cần cập nhật
-  let index = tempUserList.findIndex((user) => user.id === id);
-  let address;
-  // Kiểm tra xem người dùng có tồn tại không
-  if (index !== -1) {
-    // Cập nhật giỏ hàng của người dùng
-    address = tempUserList[index].address;
-  } else {
-    console.error("User not found");
-    address = [];
-  }
-  return address;
-}
-
-function deleteAddress(index) {
-  const addresses = getAddressUserInList(USERLOGIN.id);
-
-  // Sử dụng splice để xóa địa chỉ tại vị trí index
-  addresses.splice(index, 1);
-
-  // Cập nhật lại danh sách địa chỉ
-  updateAddressUserInList(USERLOGIN.id, addresses);
-
-  // Thông báo cho người dùng
-  alert("Đã xóa địa chỉ khỏi danh sách!");
-  displayCartPage();
-}
-
-// Phần cart
-function addProductToCart1(productID, quantity) {
-  if (!localStorage.getItem("userLogin")) {
-    alert("Vui lòng đăng nhập để thêm sản phẩm !!!!");
-    productLayout.style.display = "none";
-    return;
-  }
-  let cartArray = getCartUserInList(USERLOGIN.id);
-  let tempList = JSON.parse(localStorage.getItem(listProducts));
-  let productItem = tempList.find((product) => product.code === productID);
-
-  if (!productItem) {
-    alert("Sản phẩm không tồn tại");
-    return;
-  }
-
-  // Kiểm tra số lượng sản phẩm muốn thêm vào giỏ hàng
-  let availableQuantity = productItem.quantity;
-  let totalQuantityInCart =
-    cartArray.find((item) => item.code === productItem.code)?.quantity || 0;
-  let totalQuantity = totalQuantityInCart + parseInt(quantity);
-
-  if (totalQuantity <= availableQuantity) {
-    let existProduct = cartArray.findIndex(
-      (item) => item.code === productItem.code
-    );
-
-    if (existProduct !== -1) {
-      // Cập nhật số lượng nếu sản phẩm đã có trong giỏ
-      cartArray[existProduct].quantity += parseInt(quantity);
+    // Tìm chỉ số của người dùng cần cập nhật
+    let index = tempUserList.findIndex((user) => user.id === id);
+    let cart;
+    // Kiểm tra xem người dùng có tồn tại không
+    if (index !== -1) {
+      // Cập nhật giỏ hàng của người dùng
+      cart = tempUserList[index].cart;
     } else {
-      // Thêm sản phẩm mới vào giỏ
-      cartArray.push({
-        name: productItem.name,
-        code: productItem.code,
-        price: productItem.price,
-        imgSrc: productItem.imgSrc,
-        topic: productItem.topic,
-        quantity: parseInt(quantity),
-      });
+      cart = [];
+    }
+    return cart;
+  }
+
+  function updateAddressUserInList(id, address) {
+    // Lấy danh sách người dùng từ localStorage
+    let tempUserList = JSON.parse(localStorage.getItem(ListUsers));
+
+    // Tìm chỉ số của người dùng cần cập nhật
+    let index = tempUserList.findIndex((user) => user.id === id);
+
+    // Kiểm tra xem người dùng có tồn tại không
+    if (index !== -1) {
+      // Cập nhật giỏ hàng của người dùng
+      tempUserList[index].address = address;
+
+      // Lưu lại danh sách người dùng đã cập nhật vào localStorage
+      localStorage.setItem(ListUsers, JSON.stringify(tempUserList));
+    } else {
+      console.error("User not found");
+    }
+  }
+
+  function getAddressUserInList(id) {
+    // Lấy danh sách người dùng từ localStorage
+    let tempUserList = JSON.parse(localStorage.getItem(ListUsers));
+
+    // Tìm chỉ số của người dùng cần cập nhật
+    let index = tempUserList.findIndex((user) => user.id === id);
+    let address;
+    // Kiểm tra xem người dùng có tồn tại không
+    if (index !== -1) {
+      // Cập nhật giỏ hàng của người dùng
+      address = tempUserList[index].address;
+    } else {
+      console.error("User not found");
+      address = [];
+    }
+    return address;
+  }
+
+  function deleteAddress(index) {
+    const addresses = getAddressUserInList(USERLOGIN.id);
+
+    // Sử dụng splice để xóa địa chỉ tại vị trí index
+    addresses.splice(index, 1);
+
+    // Cập nhật lại danh sách địa chỉ
+    updateAddressUserInList(USERLOGIN.id, addresses);
+
+    // Thông báo cho người dùng
+    alert("Đã xóa địa chỉ khỏi danh sách!");
+    displayCartPage();
+  }
+
+  // Phần cart
+  function addProductToCart1(productID, quantity) {
+    if (!localStorage.getItem("userLogin")) {
+      alert("Vui lòng đăng nhập để thêm sản phẩm !!!!");
+      productLayout.style.display = "none";
+      return;
+    }
+    let cartArray = getCartUserInList(USERLOGIN.id);
+    let tempList = JSON.parse(localStorage.getItem(listProducts));
+    let productItem = tempList.find((product) => product.code === productID);
+
+    if (!productItem) {
+      alert("Sản phẩm không tồn tại");
+      return;
     }
 
-    // Cập nhật giỏ hàng của người dùng trong localStorage
-    updateCartUserInList(USERLOGIN.id, cartArray); // Truyền vào giỏ hàng đã cập nhật
+    // Kiểm tra số lượng sản phẩm muốn thêm vào giỏ hàng
+    let availableQuantity = productItem.quantity;
+    let totalQuantityInCart =
+      cartArray.find((item) => item.code === productItem.code)?.quantity || 0;
+    let totalQuantity = totalQuantityInCart + parseInt(quantity);
 
-    alert("Thêm sản phẩm thành công");
-    cartList();
-    productLayout.style.display = "none";
-  } else {
-    alert(
-      `Không thể thêm sản phẩm. Số lượng tối đa có thể thêm là ${
-        availableQuantity - totalQuantityInCart
-      }.`
+    if (totalQuantity <= availableQuantity) {
+      let existProduct = cartArray.findIndex(
+        (item) => item.code === productItem.code
+      );
+
+      if (existProduct !== -1) {
+        // Cập nhật số lượng nếu sản phẩm đã có trong giỏ
+        cartArray[existProduct].quantity += parseInt(quantity);
+      } else {
+        // Thêm sản phẩm mới vào giỏ
+        cartArray.push({
+          name: productItem.name,
+          code: productItem.code,
+          price: productItem.price,
+          imgSrc: productItem.imgSrc,
+          topic: productItem.topic,
+          quantity: parseInt(quantity),
+        });
+      }
+
+      // Cập nhật giỏ hàng của người dùng trong localStorage
+      updateCartUserInList(USERLOGIN.id, cartArray); // Truyền vào giỏ hàng đã cập nhật
+
+      alert("Thêm sản phẩm thành công");
+      cartList();
+      productLayout.style.display = "none";
+    } else {
+      alert(
+        `Không thể thêm sản phẩm. Số lượng tối đa có thể thêm là ${
+          availableQuantity - totalQuantityInCart
+        }.`
+      );
+    }
+  }
+
+  function removeFromCart(code) {
+    updateCartUserInList(
+      USERLOGIN.id,
+      getCartUserInList(USERLOGIN.id).filter((item) => item.code !== code)
     );
-  }
-}
-
-function removeFromCart(code) {
-  updateCartUserInList(
-    USERLOGIN.id,
-    getCartUserInList(USERLOGIN.id).filter((item) => item.code !== code)
-  );
-  alert("Sản phẩm đã được xóa khỏi giỏ hàng");
-  cartList();
-}
-
-function deleteAllFromCart() {
-  let cartArray = getCartUserInList(USERLOGIN.id);
-  let length = cartArray.length;
-  if (length == 0) {
-    alert("Giỏ hàng đang trống");
-    return;
-  }
-  updateCartUserInList(USERLOGIN.id, []);
-  alert("Toàn bộ Sản phẩm đã được xóa khỏi giỏ hàng");
-  cartList();
-}
-
-removeAllCart.addEventListener("click", deleteAllFromCart);
-
-function cartList() {
-  let cartList_ = document.querySelector(".header__cart-list");
-  let cartArray = getCartUserInList(USERLOGIN.id);
-  let length = cartArray.length;
-  cartList_.innerHTML = `<div class="cartTittle"><h5>Sản phẩm thêm vào</h5></div>`;
-
-  let header__cartquantity = document.querySelector(".header__cart-quantity");
-  header__cartquantity.textContent = cartArray.length;
-
-  if (length == 0) {
-    cartList_.innerHTML = `<div class="cartTittle"><h5>Giỏ hàng của bạn trống</h5></div>`;
-    return;
+    alert("Sản phẩm đã được xóa khỏi giỏ hàng");
+    cartList();
+    displayCartPage();
   }
 
-  cartArray.forEach((product) => {
-    cartList_.innerHTML += `<div class="cartItem">
+  function deleteAllFromCart() {
+    let cartArray = getCartUserInList(USERLOGIN.id);
+    let length = cartArray.length;
+    if (length == 0) {
+      alert("Giỏ hàng đang trống");
+      return;
+    }
+    updateCartUserInList(USERLOGIN.id, []);
+    alert("Toàn bộ Sản phẩm đã được xóa khỏi giỏ hàng");
+    cartList();
+    displayCartPage();
+  }
+
+  removeAllCart.addEventListener("click", deleteAllFromCart);
+
+  function cartList() {
+    let cartList_ = document.querySelector(".header__cart-list");
+    let cartArray = getCartUserInList(USERLOGIN.id);
+    let length = cartArray.length;
+    cartList_.innerHTML = `<div class="cartTittle"><h5>Sản phẩm thêm vào</h5></div>`;
+
+    let header__cartquantity = document.querySelector(".header__cart-quantity");
+    header__cartquantity.textContent = cartArray.length;
+
+    if (length == 0) {
+      cartList_.innerHTML = `<div class="cartTittle"><h5>Giỏ hàng của bạn trống</h5></div>`;
+      return;
+    }
+
+    cartArray.forEach((product) => {
+      cartList_.innerHTML += `<div class="cartItem">
                           <div class="cart-item-img"><img src="${product.imgSrc}" alt="${product.name}"></div>
                           <div class="cart-item-name"><strong>Tên:</strong> ${product.name}</div>
                           <div class="cart-item-price"><strong>Giá:</strong> ${product.price} VNĐ</div>
                           <div class="cart-item-quantity"><strong>SL:</strong> ${product.quantity}</div>
                           <i class="cart-item-remove fa-solid fa-x header__cart-remove" data="${product.code}"></i>
                         </div>`;
-  });
-
-  document.querySelectorAll(".header__cart-remove").forEach((button) => {
-    button.addEventListener("click", function () {
-      let productCode = this.getAttribute("data");
-      removeFromCart(productCode);
     });
-  });
 
-  // document
-  //   .querySelector(".header__cart-pay")
-  //   .addEventListener("click", function () {
-  //     alert("Thanh toán thành công");
-  //     cart = [];
-  //     localStorage.setItem("cart", JSON.stringify(cart));
-  //     cartList();
+    document.querySelectorAll(".header__cart-remove").forEach((button) => {
+      button.addEventListener("click", function () {
+        let productCode = this.getAttribute("data");
+        removeFromCart(productCode);
+      });
+    });
 
-  //     // TODO: Thêm đơn hàng vào danh sách đơn hàng
+    // document
+    //   .querySelector(".header__cart-pay")
+    //   .addEventListener("click", function () {
+    //     alert("Thanh toán thành công");
+    //     cart = [];
+    //     localStorage.setItem("cart", JSON.stringify(cart));
+    //     cartList();
 
-  //     let orderArray = JSON.parse(localStorage.getItem("orderCustomer")) || [];
-  //     let userLogin = JSON.parse(localStorage.getItem("userLogin"));
+    //     // TODO: Thêm đơn hàng vào danh sách đơn hàng
 
-  //     let order = {
-  //       id: orderArray.length + 1,
-  //       user: userLogin,
-  //       orderBook: cartArray
-  //         .map((item) => {
-  //           let product = JSON.parse(localStorage.getItem(listProducts)).find(
-  //             (product) => product.code === item.idproduct
-  //           );
-  //           return `${product.name} x ${item.quantity}`;
-  //         })
-  //         .join(";"),
-  //       dateOrder: new Intl.DateTimeFormat("vi-VN", {
-  //         day: "2-digit",
-  //         month: "2-digit",
-  //         year: "numeric",
-  //       }).format(new Date()),
-  //       totalPrice: totalPrice,
-  //       status: 0,
-  //     };
-  //     orderArray.push(order);
-  //     localStorage.setItem("orderCustomer", JSON.stringify(orderArray));
-  //   });
-}
+    //     let orderArray = JSON.parse(localStorage.getItem("orderCustomer")) || [];
+    //     let userLogin = JSON.parse(localStorage.getItem("userLogin"));
 
-cartList();
-
-function updateQuantity() {
-  let quantityInputs = document.querySelectorAll(".inputQuantityCart");
-  let tempList = JSON.parse(localStorage.getItem(listProducts));
-  let cartArray = getCartUserInList(USERLOGIN.id);
-
-  // Lặp qua các ô nhập số lượng
-  quantityInputs.forEach((input, index) => {
-    let productCode = cartArray[index].code;
-    let productItem = tempList.find((product) => product.code === productCode);
-    let availableQuantity = productItem.quantity;
-
-    // Kiểm tra giá trị nhập
-    let value = parseInt(input.value);
-    if (isNaN(value) || value < 1) {
-      alert(
-        `Số lượng sản phẩm "${productItem.name}" phải lớn hơn hoặc bằng 1.`
-      );
-      input.value = 1;
-      input.focus();
-      return;
-    }
-
-    // Cập nhật số lượng trong giỏ hàng
-    if (value <= availableQuantity) {
-      cartArray[index].quantity = value;
-    } else {
-      alert(
-        `Không thể cập nhật sản phẩm "${productItem.name}". Số lượng tối đa có thể thêm là ${availableQuantity}.`
-      );
-    }
-  });
-
-  // Cập nhật giỏ hàng trong localStorage
-  updateCartUserInList(USERLOGIN.id, cartArray);
-
-  displayCartPage(); // Hiển thị lại trang giỏ hàng
-  cartList();
-}
-function deleteItem(code) {
-  updateCartUserInList(
-    USERLOGIN.id,
-    getCartUserInList(USERLOGIN.id).filter((item) => item.code !== code)
-  );
-  alert("Xóa sản phẩm thành công");
-  displayCartPage();
-  cartList();
-}
-
-function displayPaymentPage() {
-  const userLogin = JSON.parse(localStorage.getItem("userLogin"));
-  if (userLogin.cart.length <= 0) {
-    alert("Vui lòng thêm sản phẩm vào giỏ hàng!");
-    window.location.href = "./index.html?sp";
+    //     let order = {
+    //       id: orderArray.length + 1,
+    //       user: userLogin,
+    //       orderBook: cartArray
+    //         .map((item) => {
+    //           let product = JSON.parse(localStorage.getItem(listProducts)).find(
+    //             (product) => product.code === item.idproduct
+    //           );
+    //           return `${product.name} x ${item.quantity}`;
+    //         })
+    //         .join(";"),
+    //       dateOrder: new Intl.DateTimeFormat("vi-VN", {
+    //         day: "2-digit",
+    //         month: "2-digit",
+    //         year: "numeric",
+    //       }).format(new Date()),
+    //       totalPrice: totalPrice,
+    //       status: 0,
+    //     };
+    //     orderArray.push(order);
+    //     localStorage.setItem("orderCustomer", JSON.stringify(orderArray));
+    //   });
   }
-  const order = JSON.parse(localStorage.getItem("order"));
-  let s = `
+
+  function updateQuantity() {
+    let quantityInputs = document.querySelectorAll(".inputQuantityCart");
+    let tempList = JSON.parse(localStorage.getItem(listProducts));
+    let cartArray = getCartUserInList(USERLOGIN.id);
+
+    // Lặp qua các ô nhập số lượng
+    quantityInputs.forEach((input, index) => {
+      let productCode = cartArray[index].code;
+      let productItem = tempList.find(
+        (product) => product.code === productCode
+      );
+      let availableQuantity = productItem.quantity;
+
+      // Kiểm tra giá trị nhập
+      let value = parseInt(input.value);
+      if (isNaN(value) || value < 1) {
+        alert(
+          `Số lượng sản phẩm "${productItem.name}" phải lớn hơn hoặc bằng 1.`
+        );
+        input.value = 1;
+        input.focus();
+        return;
+      }
+
+      // Cập nhật số lượng trong giỏ hàng
+      if (value <= availableQuantity) {
+        cartArray[index].quantity = value;
+      } else {
+        alert(
+          `Không thể cập nhật sản phẩm "${productItem.name}". Số lượng tối đa có thể thêm là ${availableQuantity}.`
+        );
+      }
+    });
+
+    // Cập nhật giỏ hàng trong localStorage
+    updateCartUserInList(USERLOGIN.id, cartArray);
+
+    displayCartPage(); // Hiển thị lại trang giỏ hàng
+    cartList();
+  }
+  function deleteItem(code) {
+    updateCartUserInList(
+      USERLOGIN.id,
+      getCartUserInList(USERLOGIN.id).filter((item) => item.code !== code)
+    );
+    alert("Xóa sản phẩm thành công");
+    displayCartPage();
+    cartList();
+  }
+
+  function displayPaymentPage() {
+    const userLogin = JSON.parse(localStorage.getItem("userLogin"));
+    if (userLogin.cart.length <= 0) {
+      alert("Vui lòng thêm sản phẩm vào giỏ hàng!");
+      window.location.href = "./index.html?sp";
+    }
+    const order = JSON.parse(localStorage.getItem("order"));
+    let s = `
     <div class="auth-form" style="width:100%;">
   <div class="auth-form__container">
     <div class="auth-form__header" style="justify-content: center;">
@@ -2387,41 +2442,41 @@ function displayPaymentPage() {
 </div>
 
   `;
-  productContainerMain.innerHTML = s;
-}
-const bankList = [
-  "Ngân hàng Vietcombank",
-  "Ngân hàng BIDV",
-  "Ngân hàng VietinBank",
-  "Ngân hàng ACB",
-  "Ngân hàng Techcombank",
-  "Ngân hàng Sacombank",
-  "Ngân hàng MB Bank",
-  "Ngân hàng Agribank",
-];
-function submitPayment() {
-  const order = JSON.parse(localStorage.getItem("order"));
-  order.status = "đã thanh toán";
-  localStorage.setItem("order", JSON.stringify(order));
-  const userLogin = JSON.parse(localStorage.getItem("userLogin"));
-  userLogin.cart = [];
-  localStorage.setItem("userLogin", JSON.stringify(userLogin));
-  alert("Đã thanh toán thành công");
-  displayPaymentPage();
-}
-
-function displayCartPage() {
-  if (!localStorage.getItem("userLogin")) {
-    alert("Vui lòng đăng nhập để xem giỏ hàng !!!!");
-    productLayout.style.display = "none";
-    return;
+    productContainerMain.innerHTML = s;
   }
-  applyResponsiveStyles();
-  window.addEventListener("resize", applyResponsiveStyles);
-  pageNumber.style.display = "none";
-  let cart = getCartUserInList(USERLOGIN.id);
-  let totalPrice = 0;
-  let s = `
+  const bankList = [
+    "Ngân hàng Vietcombank",
+    "Ngân hàng BIDV",
+    "Ngân hàng VietinBank",
+    "Ngân hàng ACB",
+    "Ngân hàng Techcombank",
+    "Ngân hàng Sacombank",
+    "Ngân hàng MB Bank",
+    "Ngân hàng Agribank",
+  ];
+  function submitPayment() {
+    const order = JSON.parse(localStorage.getItem("order"));
+    order.status = "đã thanh toán";
+    localStorage.setItem("order", JSON.stringify(order));
+    const userLogin = JSON.parse(localStorage.getItem("userLogin"));
+    userLogin.cart = [];
+    localStorage.setItem("userLogin", JSON.stringify(userLogin));
+    alert("Đã thanh toán thành công");
+    displayPaymentPage();
+  }
+
+  function displayCartPage() {
+    if (!localStorage.getItem("userLogin")) {
+      alert("Vui lòng đăng nhập để xem giỏ hàng !!!!");
+      productLayout.style.display = "none";
+      return;
+    }
+    applyResponsiveStyles();
+    window.addEventListener("resize", applyResponsiveStyles);
+    pageNumber.style.display = "none";
+    let cart = getCartUserInList(USERLOGIN.id);
+    let totalPrice = 0;
+    let s = `
     <style>
     table {
         border-collapse: collapse;
@@ -2489,17 +2544,17 @@ function displayCartPage() {
         <th>Hành động</th>
     </tr>`;
 
-  // Duyệt qua mảng cart để thêm các dòng vào bảng
-  cart.forEach((item, index) => {
-    const itemTotalPrice = item.price * item.quantity; // Tính giá cho từng sản phẩm
-    totalPrice += itemTotalPrice;
-    s += `
+    // Duyệt qua mảng cart để thêm các dòng vào bảng
+    cart.forEach((item, index) => {
+      const itemTotalPrice = item.price * item.quantity; // Tính giá cho từng sản phẩm
+      totalPrice += itemTotalPrice;
+      s += `
     <tr>
         <td>
             <div>
                 <img src="${item.imgSrc}" alt="${
-      item.name
-    }" style="width: 100px; height: 100px;">
+        item.name
+      }" style="width: 100px; height: 100px;">
             </div>
         </td>
         <td>
@@ -2517,8 +2572,8 @@ function displayCartPage() {
                 <input type="number" value="${
                   item.quantity
                 }" class = "inputQuantityCart" onchange="updateQuantity('${
-      item.code
-    }')" min="1" style="text-align: center; max-width: 50px;">
+        item.code
+      }')" min="1" style="text-align: center; max-width: 50px;">
     <button class="quantity-btn btn-ins" onclick="insQuanitityIncart('${
       item.code
     }')">+</button>
@@ -2540,35 +2595,35 @@ function displayCartPage() {
             </div>
         </td>
     </tr>`;
-  });
+    });
 
-  s += `
+    s += `
 </table>
 </div>
 
   `;
 
-  let addresses = getAddressUserInList(USERLOGIN.id);
-  let addressHTML = "";
-  if (addresses.length > 0) {
-    addresses.forEach(function (address, index) {
-      addressHTML += `
+    let addresses = getAddressUserInList(USERLOGIN.id);
+    let addressHTML = "";
+    if (addresses.length > 0) {
+      addresses.forEach(function (address, index) {
+        addressHTML += `
     <p style="margin-top:5px;margin-bottom:0;">Địa chỉ ${index + 1}:</p>
     <div style="display: flex; align-items: center; gap: 5px;">
         <input style="cursor: pointer" type="radio" name="address-buy-product" value="${
           address.houseNumber
         }, ${address.ward}, ${address.district}, ${address.city}">
         <label>${address.houseNumber}, ${address.ward}, ${address.district}, ${
-        address.city
-      }</label>
+          address.city
+        }</label>
         <button onclick="deleteAddress(${index})" style="margin-left: 10px; cursor: pointer; color: red; background: none; border: 1px solid red; font-size: 12px;">Xóa</button>
     </div>`;
-    });
-  } else {
-    addressHTML += `<p style="text-align: center">Không có địa chỉ có sẵn</p>`;
-  }
+      });
+    } else {
+      addressHTML += `<p style="text-align: center">Không có địa chỉ có sẵn</p>`;
+    }
 
-  let s1 = `
+    let s1 = `
     <style>
       #btnBuy{
           background-color: var(--primary-color-rgpa);
@@ -2615,16 +2670,16 @@ function displayCartPage() {
     </div>
     `;
 
-  const newOrder = {
-    userId: userLogin.id,
-    totalPrice: totalPrice,
-    address: "",
-    status: "Chờ xác nhận",
-    orderDate: new Date().toISOString().slice(0, 10),
-    items: cart,
-  };
-  localStorage.setItem("order", JSON.stringify(newOrder));
-  let s2 = `
+    const newOrder = {
+      userId: userLogin.id,
+      totalPrice: totalPrice,
+      address: "",
+      status: "Chờ xác nhận",
+      orderDate: new Date().toISOString().slice(0, 10),
+      items: cart,
+    };
+    localStorage.setItem("order", JSON.stringify(newOrder));
+    let s2 = `
         <div class="auth-form" style="width:100%;">
           <div class="auth-form__container">
             <div class="auth-form__header" style="justify-content: center">
@@ -2677,264 +2732,1175 @@ function displayCartPage() {
         </div>
   `;
 
-  bodytop__left.innerHTML = s1;
-  productContainerMain.innerHTML = s;
+    bodytop__left.innerHTML = s1;
+    productContainerMain.innerHTML = s;
 
-  // Chức năng thêm địa chỉ
-  let addAddress = document.querySelectorAll(".addAddress-btn");
-  addAddress.forEach((button) => {
-    button.addEventListener("click", (e) => {
-      e.preventDefault();
-      productLayout.style.display = "block";
-      productContainter.innerHTML = s2;
-      let citySelector = document.getElementById("city");
-      let districtSelector = document.getElementById("district");
-      let wardSelector = document.getElementById("ward");
-      let houseNumber = document.getElementById("address");
-      let saveAddresss = document.getElementById("save-Address");
-      //
-      locations.forEach((location) => {
-        const option = document.createElement("option");
-        option.value = location.city;
-        option.textContent = location.city;
-        citySelector.appendChild(option);
-      });
-      //
-      citySelector.addEventListener("change", () => {
-        districtSelector.innerHTML = '<option value="">Chọn Quận</option>'; // Xóa quận cũ
-        wardSelector.innerHTML =
-          '<option value="">Chọn Phường / Huyện</option>'; // Xóa phường cũ
+    // Chức năng thêm địa chỉ
+    let addAddress = document.querySelectorAll(".addAddress-btn");
+    addAddress.forEach((button) => {
+      button.addEventListener("click", (e) => {
+        e.preventDefault();
+        productLayout.style.display = "block";
+        productContainter.innerHTML = s2;
+        let citySelector = document.getElementById("city");
+        let districtSelector = document.getElementById("district");
+        let wardSelector = document.getElementById("ward");
+        let houseNumber = document.getElementById("address");
+        let saveAddresss = document.getElementById("save-Address");
+        //
+        locations.forEach((location) => {
+          const option = document.createElement("option");
+          option.value = location.city;
+          option.textContent = location.city;
+          citySelector.appendChild(option);
+        });
+        //
+        citySelector.addEventListener("change", () => {
+          districtSelector.innerHTML = '<option value="">Chọn Quận</option>'; // Xóa quận cũ
+          wardSelector.innerHTML =
+            '<option value="">Chọn Phường / Huyện</option>'; // Xóa phường cũ
 
-        const selectedCity = locations.find(
-          (location) => location.city === citySelector.value
-        );
+          const selectedCity = locations.find(
+            (location) => location.city === citySelector.value
+          );
 
-        if (selectedCity && selectedCity.districts) {
-          selectedCity.districts.forEach((district) => {
-            const option = document.createElement("option");
-            option.value = district.district;
-            option.textContent = district.district;
-            districtSelector.appendChild(option);
-          });
+          if (selectedCity && selectedCity.districts) {
+            selectedCity.districts.forEach((district) => {
+              const option = document.createElement("option");
+              option.value = district.district;
+              option.textContent = district.district;
+              districtSelector.appendChild(option);
+            });
+          }
+        });
+
+        // Cập nhật Phường khi chọn Quận
+        districtSelector.addEventListener("change", () => {
+          wardSelector.innerHTML =
+            '<option value="">Chọn Phường / Huyện</option>'; // Xóa phường cũ
+
+          const selectedCity = locations.find(
+            (location) => location.city === citySelector.value
+          );
+          const selectedDistrict = selectedCity
+            ? selectedCity.districts.find(
+                (district) => district.district === districtSelector.value
+              )
+            : null;
+
+          if (selectedDistrict && selectedDistrict.wards) {
+            selectedDistrict.wards.forEach((ward) => {
+              const option = document.createElement("option");
+              option.value = ward;
+              option.textContent = ward;
+              wardSelector.appendChild(option);
+            });
+          }
+        });
+
+        function validateField(field, fieldName, alertElement) {
+          if (!field.value || field.value.trim() === "") {
+            alertElement.textContent = `${fieldName} không được để trống!`;
+            alertElement.classList.add("alert");
+          } else {
+            alertElement.textContent = "";
+            alertElement.classList.remove("alert");
+          }
         }
-      });
 
-      // Cập nhật Phường khi chọn Quận
-      districtSelector.addEventListener("change", () => {
-        wardSelector.innerHTML =
-          '<option value="">Chọn Phường / Huyện</option>'; // Xóa phường cũ
+        // Thêm sự kiện "blur" cho các trường input và select
+        citySelector.addEventListener("blur", function () {
+          validateField(
+            this,
+            "Thành Phố",
+            document.getElementById("city-alert")
+          );
+        });
 
-        const selectedCity = locations.find(
-          (location) => location.city === citySelector.value
-        );
-        const selectedDistrict = selectedCity
-          ? selectedCity.districts.find(
-              (district) => district.district === districtSelector.value
-            )
-          : null;
+        districtSelector.addEventListener("blur", function () {
+          validateField(
+            this,
+            "Quận",
+            document.getElementById("district-alert")
+          );
+        });
 
-        if (selectedDistrict && selectedDistrict.wards) {
-          selectedDistrict.wards.forEach((ward) => {
-            const option = document.createElement("option");
-            option.value = ward;
-            option.textContent = ward;
-            wardSelector.appendChild(option);
+        wardSelector.addEventListener("blur", function () {
+          validateField(
+            this,
+            "Phường / Huyện",
+            document.getElementById("ward-alert")
+          );
+        });
+        document
+          .getElementById("address")
+          .addEventListener("blur", function () {
+            validateField(
+              this,
+              "Số Nhà",
+              document.getElementById("houseNumber-alert")
+            );
           });
-        }
-      });
+        document
+          .getElementById("save-Address")
+          .addEventListener("click", () => {
+            let selectedCity = citySelector.value;
+            let selectedDistrict = districtSelector.value;
+            let houseNumber = document.getElementById("address").value;
+            let wardName = document.getElementById("ward").value;
+            let addressTemp = getAddressUserInList(USERLOGIN.id) || [];
+            alert(addressTemp.length);
+            if (addressTemp.length >= 3) {
+              alert("Đã đạt tối đa 3 địa chỉ!");
+              return;
+            }
+            // Kiểm tra nếu tất cả các trường đều có giá trị
+            if (selectedCity && selectedDistrict && houseNumber && wardName) {
+              // Cấu trúc lại địa chỉ theo cú pháp "số nhà, tên đường, quận/huyện, thành phố"
+              addressTemp.push({
+                houseNumber: houseNumber,
+                ward: wardName,
+                district: selectedDistrict,
+                city: selectedCity,
+              });
 
-      function validateField(field, fieldName, alertElement) {
-        if (!field.value || field.value.trim() === "") {
-          alertElement.textContent = `${fieldName} không được để trống!`;
-          alertElement.classList.add("alert");
-        } else {
-          alertElement.textContent = "";
-          alertElement.classList.remove("alert");
+              // Lưu vào localStorage (giả sử có ID người dùng)
+              updateAddressUserInList(USERLOGIN.id, addressTemp);
+              alert("Đã thêm địa chỉ giao hàng");
+              productLayout.style.display = "none";
+              displayCartPage();
+            } else {
+              alert("Vui lòng điền đầy đủ thông tin.");
+            }
+          });
+      });
+    });
+  }
+
+  function desQuanitityIncart(code) {
+    let cartArray = getCartUserInList(USERLOGIN.id);
+    let index = cartArray.findIndex((item) => item.code === code);
+    if (index !== -1) {
+      if (cartArray[index].quantity > 1) {
+        cartArray[index].quantity--;
+        updateCartUserInList(USERLOGIN.id, cartArray);
+        displayCartPage();
+        cartList();
+      }
+    }
+  }
+
+  function insQuanitityIncart(code) {
+    let cartArray = getCartUserInList(USERLOGIN.id);
+    let index = cartArray.findIndex((item) => item.code === code);
+
+    if (index !== -1) {
+      let tempList = JSON.parse(localStorage.getItem(listProducts));
+      let productItem = tempList.find((product) => product.code === code);
+      let availableQuantity = productItem.quantity;
+
+      if (cartArray[index].quantity + 1 <= availableQuantity) {
+        cartArray[index].quantity++;
+        updateCartUserInList(USERLOGIN.id, cartArray);
+        displayCartPage();
+        cartList();
+      } else {
+        alert(
+          `Không thể cập nhật sản phẩm "${productItem.name}". Số lượng tối đa có thể thêm là ${availableQuantity}.`
+        );
+      }
+    }
+  }
+
+  // Hàm gợi ý ngân hàng
+  function suggestBanks() {
+    let input = document.getElementById("bankName");
+    let suggestionsList = document.getElementById("bank-suggestions");
+    let query = input.value.toLowerCase();
+    suggestionsList.innerHTML = "";
+
+    if (query.length > 0) {
+      const filteredBanks = bankList.filter((bank) =>
+        bank.toLowerCase().includes(query)
+      );
+
+      filteredBanks.forEach((bank) => {
+        const li = document.createElement("li");
+        li.style.cursor = "pointer";
+        li.textContent = bank;
+        li.onclick = function () {
+          input.value = bank;
+          suggestionsList.innerHTML = "";
+        };
+        suggestionsList.appendChild(li);
+      });
+    }
+  }
+  header__cart.addEventListener("click", displayCartPage);
+
+  function applyResponsiveStyles() {
+    const mediaQuery = window.matchMedia("(max-width: 1200px)");
+    if (mediaQuery.matches) {
+      bodyTop.style.flexDirection = "column-reverse";
+      bodytop__left.style.width = "100%";
+      bodytop__right.style.width = "100%";
+      bodytop__left.style.display = "block";
+    } else {
+      bodyTop.style.flexDirection = "row-reverse";
+      bodytop__left.style.width = "calc(20% - 5px)";
+      bodytop__right.style.width = "calc(80% - 5px)";
+    }
+  }
+
+  function choiceMethod() {
+    let methodOffline = document.getElementById("method-offline");
+    let methodOnline = document.getElementById("method-online");
+    let btnBuy = document.getElementById("btnBuy");
+    if (methodOnline.checked) {
+      btnBuy.textContent = "Thanh toán online";
+    } else if (methodOffline.checked) {
+      btnBuy.textContent = "Đặt hàng";
+    }
+  }
+
+  // Xử lý thanh toán
+  function handleSubmitBuy() {
+    let methodOffline = document.getElementById("method-offline");
+    let methodOnline = document.getElementById("method-online");
+    let addressRadios = document.querySelectorAll(
+      'input[name="address-buy-product"]'
+    );
+    let order = JSON.parse(localStorage.getItem("order")) || {};
+    console.log("order", order.address);
+    const selectedAddress = Array.from(addressRadios).find(
+      (radio) => radio.checked
+    )?.value;
+    let numProducts = getCartUserInList(USERLOGIN.id).length;
+    if (numProducts == 0) {
+      alert("Hãy thêm sản phẩm vào giỏ trước nhé!");
+      return;
+    }
+    if (selectedAddress) {
+      order.address = selectedAddress;
+    } else {
+      alert("Chưa chọn địa chỉ");
+      return;
+    }
+
+    if (!methodOffline.checked && !methodOnline.checked) {
+      alert("Vui lòng chọn phương thức thanh toán!");
+      return;
+    } else {
+      if (methodOffline.checked) {
+        localStorage.setItem("order", JSON.stringify(order));
+        const userLogin = JSON.parse(localStorage.getItem("userLogin"));
+        userLogin.cart = [];
+        localStorage.setItem("userLogin", JSON.stringify(userLogin));
+        alert("Đặt hàng thành công!");
+        displayCartPage();
+      }
+      if (methodOnline.checked) {
+        localStorage.setItem("order", JSON.stringify(order));
+        window.location.href = "./index.html?payment";
+      }
+    }
+  }
+  // Phần ADMIN
+} else {
+  // Status = 0 thì chưa đi qua, 1 là đã đi qua và 2 là cuối cùng
+  const listStatus = [
+    { idStatus: 1, nameStatus: "Chờ xác nhận", dateUpdated: "", status: 0 },
+    { idStatus: 2, nameStatus: "Đã xác nhận", dateUpdated: "", status: 0 },
+    { idStatus: 3, nameStatus: "Đã giao", dateUpdated: "", status: 0 },
+    { idStatus: 4, nameStatus: "Đã hủy", dateUpdated: "", status: 0 },
+  ];
+
+  let Order = [];
+
+  Order.push({
+    UserID: 1,
+    OrderID: 1,
+    OrderDate: "2024-10-01",
+    Address: [],
+    Bill: [],
+    TotalMoney: 10000,
+    listStatus: [
+      { idStatus: 1, nameStatus: "Chờ xác nhận", dateUpdated: "", status: 0 },
+      { idStatus: 2, nameStatus: "Đã xác nhận", dateUpdated: "", status: 0 },
+      { idStatus: 3, nameStatus: "Đã giao", dateUpdated: "", status: 0 },
+      { idStatus: 4, nameStatus: "Đã hủy", dateUpdated: "", status: 0 },
+    ],
+  });
+  Order.push({
+    UserID: 1,
+    OrderID: 2,
+    OrderDate: "2024-10-05",
+    Address: [],
+    Bill: [],
+    TotalMoney: 20000,
+    listStatus: [
+      { idStatus: 1, nameStatus: "Chờ xác nhận", dateUpdated: "", status: 0 },
+      { idStatus: 2, nameStatus: "Đã xác nhận", dateUpdated: "", status: 0 },
+      { idStatus: 3, nameStatus: "Đã giao", dateUpdated: "", status: 0 },
+      { idStatus: 4, nameStatus: "Đã hủy", dateUpdated: "", status: 0 },
+    ],
+  });
+  Order.push({
+    UserID: 1,
+    OrderID: 3,
+    OrderDate: "2024-10-07",
+    Address: 1,
+    Bill: [],
+    TotalMoney: 30000,
+    listStatus: [
+      { idStatus: 1, nameStatus: "Chờ xác nhận", dateUpdated: "", status: 0 },
+      { idStatus: 2, nameStatus: "Đã xác nhận", dateUpdated: "", status: 0 },
+      { idStatus: 3, nameStatus: "Đã giao", dateUpdated: "", status: 0 },
+      { idStatus: 4, nameStatus: "Đã hủy", dateUpdated: "", status: 0 },
+    ],
+  });
+  const jsonData_sell = `
+[
+    {
+        "LegoID": "1",
+        "LegoName": "1",
+        "Type": "1",
+        "QuantinySold": 1
+    },
+    {
+        "LegoID": "2",
+        "LegoName": "2",
+        "Type": "2",
+        "QuantinySold": 2
+    },
+    {
+        "LegoID": "3",
+        "LegoName": "3",
+        "Type": "3",
+        "QuantinySold": 4
+    }
+]`;
+  const sells = JSON.parse(jsonData_sell);
+  //////////////////Phần order
+
+  //lấy biến ngày tháng năm để in ra dạng dd/mm/yyyy
+  let orderdate, day, month, year;
+
+  //hàm xuất đơn hàng
+  function order_output(container, i) {
+    //lấy ngày tháng năm để xuất ngày dạng date/month/year
+    orderdate = new Date(Order[i].OrderDate);
+    day = orderdate.getDate();
+    month = orderdate.getMonth() + 1;
+    year = orderdate.getFullYear();
+    //
+    //hiển thị order
+    const ordTr = document.createElement("tr");
+    ordTr.className = "order-data";
+    ordTr.id = "ord-" + i;
+    ordTr.innerHTML = `
+            <td>${Order[i].UserID}</td>
+            <td>${Order[i].OrderID}</td>
+            <td>${day}/${month}/${year}</td>
+            <td>${Order[i].Address}</td>
+            <td>${Order[i].TotalMoney}</td>
+            <td>${Order[i].Status}</td>
+        `;
+    container.appendChild(ordTr);
+    //tạo chi tiết order
+    create_order_detail(i);
+  }
+  let id_order = [0, 1, 2];
+  //hàm lọc theo ngày và tình trạng đơn hàng
+  function filter() {
+    id_order = [];
+    const start = document.getElementById("start");
+    const end = document.getElementById("end");
+    const container = document.getElementById("order");
+    const status = document.getElementById("status");
+    const temp = document.getElementsByClassName("order-data");
+    const count = temp.length;
+    //nếu người dùng bỏ trống phần start/end,
+    //nghĩa là điều kiện bắt đầu/ kết thúc sẽ ko xét,
+    //ta đặt start/end là ngày nhỏ nhất/lớn nhất
+    if (start.value == "") {
+      start.value = "2000-01-01";
+    }
+    if (end.value == "") {
+      end.value = "2100-01-01";
+    }
+    //
+    for (let i = 0; i < count; i++) {
+      container.removeChild(temp[0]);
+    }
+    for (let i = 0; i < Order.length; i++) {
+      if (
+        Order[i].OrderDate >= start.value &&
+        Order[i].OrderDate <= end.value
+      ) {
+        if (status.value == Order[i].Status || status.value == "Trạng thái") {
+          order_output(container, i);
+          id_order.push(i);
         }
       }
-
-      // Thêm sự kiện "blur" cho các trường input và select
-      citySelector.addEventListener("blur", function () {
-        validateField(this, "Thành Phố", document.getElementById("city-alert"));
-      });
-
-      districtSelector.addEventListener("blur", function () {
-        validateField(this, "Quận", document.getElementById("district-alert"));
-      });
-
-      wardSelector.addEventListener("blur", function () {
-        validateField(
-          this,
-          "Phường / Huyện",
-          document.getElementById("ward-alert")
-        );
-      });
-      document.getElementById("address").addEventListener("blur", function () {
-        validateField(
-          this,
-          "Số Nhà",
-          document.getElementById("houseNumber-alert")
-        );
-      });
-      document.getElementById("save-Address").addEventListener("click", () => {
-        let selectedCity = citySelector.value;
-        let selectedDistrict = districtSelector.value;
-        let houseNumber = document.getElementById("address").value;
-        let wardName = document.getElementById("ward").value;
-        let addressTemp = getAddressUserInList(USERLOGIN.id) || [];
-        alert(addressTemp.length);
-        if (addressTemp.length >= 3) {
-          alert("Đã đạt tối đa 3 địa chỉ!");
-          return;
-        }
-        // Kiểm tra nếu tất cả các trường đều có giá trị
-        if (selectedCity && selectedDistrict && houseNumber && wardName) {
-          // Cấu trúc lại địa chỉ theo cú pháp "số nhà, tên đường, quận/huyện, thành phố"
-          addressTemp.push({
-            houseNumber: houseNumber,
-            ward: wardName,
-            district: selectedDistrict,
-            city: selectedCity,
-          });
-
-          // Lưu vào localStorage (giả sử có ID người dùng)
-          updateAddressUserInList(USERLOGIN.id, addressTemp);
-          alert("Đã thêm địa chỉ giao hàng");
-          productLayout.style.display = "none";
-          displayCartPage();
-        } else {
-          alert("Vui lòng điền đầy đủ thông tin.");
-        }
-      });
-    });
-  });
-}
-
-function desQuanitityIncart(code) {
-  let cartArray = getCartUserInList(USERLOGIN.id);
-  let index = cartArray.findIndex((item) => item.code === code);
-  if (index !== -1) {
-    if (cartArray[index].quantity > 1) {
-      cartArray[index].quantity--;
-      updateCartUserInList(USERLOGIN.id, cartArray);
-      displayCartPage();
-      cartList();
+    }
+    //hoàn trả lại giá trị rỗng cho start, end nếu người dùng ko nhập
+    if (start.value == "2000-01-01") {
+      start.value = "";
+    }
+    if (end.value == "2100-01-01") {
+      end.value = "";
     }
   }
-}
 
-function insQuanitityIncart(code) {
-  let cartArray = getCartUserInList(USERLOGIN.id);
-  let index = cartArray.findIndex((item) => item.code === code);
+  //hàm sắp xếp đơn theo địa chỉ
+  function order_sort_address() {
+    const sort = document.getElementById("sort");
+    const container = document.getElementById("order");
+    const temp = document.getElementsByClassName("order-data");
+    const status = document.getElementById("status");
+    const count = temp.length;
+    ///
 
-  if (index !== -1) {
-    let tempList = JSON.parse(localStorage.getItem(listProducts));
-    let productItem = tempList.find((product) => product.code === code);
-    let availableQuantity = productItem.quantity;
-
-    if (cartArray[index].quantity + 1 <= availableQuantity) {
-      cartArray[index].quantity++;
-      updateCartUserInList(USERLOGIN.id, cartArray);
-      displayCartPage();
-      cartList();
+    ////////
+    if (sort.value == "Địa chỉ") {
+      for (let i = 0; i < count; i++) {
+        container.removeChild(temp[0]);
+      }
+      /////
+      for (let i = 0; i < id_order.length - 1; i++) {
+        for (let j = i + 1; j < id_order.length; j++) {
+          if (Order[id_order[i]].Address > Order[id_order[j]].Address) {
+            let k = id_order[i];
+            id_order[i] = id_order[j];
+            id_order[j] = k;
+          }
+        }
+      }
+      //////
+      id_order.forEach((id) => {
+        order_output(container, id);
+      });
     } else {
-      alert(
-        `Không thể cập nhật sản phẩm "${productItem.name}". Số lượng tối đa có thể thêm là ${availableQuantity}.`
-      );
+      filter();
     }
   }
-}
 
-// Hàm gợi ý ngân hàng
-function suggestBanks() {
-  let input = document.getElementById("bankName");
-  let suggestionsList = document.getElementById("bank-suggestions");
-  let query = input.value.toLowerCase();
-  suggestionsList.innerHTML = "";
-
-  if (query.length > 0) {
-    const filteredBanks = bankList.filter((bank) =>
-      bank.toLowerCase().includes(query)
-    );
-
-    filteredBanks.forEach((bank) => {
-      const li = document.createElement("li");
-      li.style.cursor = "pointer";
-      li.textContent = bank;
-      li.onclick = function () {
-        input.value = bank;
-        suggestionsList.innerHTML = "";
-      };
-      suggestionsList.appendChild(li);
+  //tạo chi tiết order
+  function create_order_detail(i) {
+    document.getElementById("ord-" + i).addEventListener("click", () => {
+      const orderdate = new Date(Order[i].OrderDate);
+      const day = orderdate.getDate();
+      const month = orderdate.getMonth() + 1;
+      const year = orderdate.getFullYear();
+      //mở chi tiết order
+      const ordDiv = document.createElement("div");
+      ordDiv.className = "screen-bright";
+      ordDiv.innerHTML = `
+            <div id="order-detail">
+                <button id="exit0" style="font-size: 16px; position: absolute; top: 0px; right: 0px; border: none; border-radius: 0px 18px 0px 0px; padding: 10px;">
+                    <i class="fa-regular fa-x"></i>
+                </button>
+                <p><b>Chi tiết đơn hàng</b></p><br>
+                <b>UserID</b>
+                <div class="data">${Order[i].UserID}</div>
+                <b>OrderID</b>
+                <div class="data">${Order[i].OrderID}</div>
+                <b>Date</b>
+                <div class="data">${day}/${month}/${year}</div>
+                <b>Address</b>
+                <div class="data">${Order[i].Address}</div>
+                <b>Infor</b>
+                <div class="data">${Order[i].Bill}</div>
+                <b>Total Money</b>
+                <div class="data">${Order[i].TotalMoney}</div>
+                <b>Status</b>
+                <div class="data">${Order[i].Status}</div>
+            </div<
+            `;
+      document.body.appendChild(ordDiv);
+      const screenBright = document.querySelector(".screen-bright");
+      //
+      //đóng chi tiết order
+      document.getElementById("exit0").addEventListener("click", () => {
+        screenBright.remove();
+      });
+      //Tự động đóng modal khi click ngoài order-detail
+      window.addEventListener("click", (event) => {
+        if (event.target === screenBright) {
+          screenBright.remove();
+        }
+      });
     });
   }
-}
-header__cart.addEventListener("click", displayCartPage);
+  //xuất thông tin
+  // document.getElementById("order-button").addEventListener("click", () => {
+  //   document.getElementById("content").remove();
+  //   ////thêm phần head của order table
+  //   const section = document.createElement("section");
+  //   section.id = "content";
+  //   section.innerHTML = `
+  //       <div id="order-filter">
+  //           <section id="search_date">
+  //               <div>Lọc theo ngày:</div>
+  //               <input type="date" id="start" onchange="filter()">
+  //               <div>-</div>
+  //               <input type="date" id="end" onchange="filter()">
+  //           </section>
+  //           <select name="choose_status" id="status" onchange="filter()">
+  //               <option value="Trạng thái">Trạng thái</option>
+  //               <option value="Đã xác nhận">Đã xác nhận</option>
+  //               <option value="Chưa xử lí">Chưa xử lí</option>
+  //               <option value="Đơn bị từ chối">Đơn bị từ chối</option>
+  //           </select>
+  //           <select name="sort_address" id="sort" onchange="order_sort_address()">
+  //               <option value="Sắp xếp">Sắp xếp</option>
+  //               <option value="Địa chỉ">Địa chỉ</option>
+  //           </select>
+  //       </div>
+  //       <table class="manage_data">
+  //           <thead>
+  //               <tr>
+  //                   <td>User ID</td>
+  //                   <td>Order ID</td>
+  //                   <td>Order Date</td>
+  //                   <td>Address</td>
+  //                   <td>Total Money</td>
+  //                   <td>Status</td>
+  //               </tr>
+  //           </thead>
+  //           <tbody id="order"></tbody>
+  //       </table>
+  //   `;
+  //   document.getElementById("main").appendChild(section);
+  //   //
+  //   //thêm phần body của table
+  //   const container = document.getElementById("order");
+  //   for (let i = 0; i < Order.length; i++) {
+  //     order_output(container, i);
+  //   }
+  // });
+  /////////////////////////////////////
 
-function applyResponsiveStyles() {
-  const mediaQuery = window.matchMedia("(max-width: 1200px)");
-  if (mediaQuery.matches) {
-    bodyTop.style.flexDirection = "column-reverse";
-    bodytop__left.style.width = "100%";
-    bodytop__right.style.width = "100%";
-    bodytop__left.style.display = "block";
-  } else {
-    bodyTop.style.flexDirection = "row-reverse";
-    bodytop__left.style.width = "calc(20% - 5px)";
-    bodytop__right.style.width = "calc(80% - 5px)";
-  }
-}
+  /////////////phần sản phẩm(product)
 
-function choiceMethod() {
-  let methodOffline = document.getElementById("method-offline");
-  let methodOnline = document.getElementById("method-online");
-  let btnBuy = document.getElementById("btnBuy");
-  if (methodOnline.checked) {
-    btnBuy.textContent = "Thanh toán online";
-  } else if (methodOffline.checked) {
-    btnBuy.textContent = "Đặt hàng";
-  }
-}
-
-// Xử lý thanh toán
-function handleSubmitBuy() {
-  let methodOffline = document.getElementById("method-offline");
-  let methodOnline = document.getElementById("method-online");
-  let addressRadios = document.querySelectorAll(
-    'input[name="address-buy-product"]'
-  );
-  let order = JSON.parse(localStorage.getItem("order")) || {};
-  console.log("order", order.address);
-  const selectedAddress = Array.from(addressRadios).find(
-    (radio) => radio.checked
-  )?.value;
-  let numProducts = getCartUserInList(USERLOGIN.id).length;
-  if (numProducts == 0) {
-    alert("Hãy thêm sản phẩm vào giỏ trước nhé!");
-    return;
-  }
-  if (selectedAddress) {
-    order.address = selectedAddress;
-  } else {
-    alert("Chưa chọn địa chỉ");
-    return;
-  }
-
-  if (!methodOffline.checked && !methodOnline.checked) {
-    alert("Vui lòng chọn phương thức thanh toán!");
-    return;
-  } else {
-    if (methodOffline.checked) {
-      localStorage.setItem("order", JSON.stringify(order));
-      const userLogin = JSON.parse(localStorage.getItem("userLogin"));
-      userLogin.cart = [];
-      localStorage.setItem("userLogin", JSON.stringify(userLogin));
-      alert("Đặt hàng thành công!");
-      displayCartPage();
+  //hàm lấy link ảnh
+  function imglink(img, imageInput) {
+    let file = imageInput.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
     }
-    if (methodOnline.checked) {
-      localStorage.setItem("order", JSON.stringify(order));
-      window.location.href = "./index.html?payment";
-    }
+    return img.src;
   }
+
+  ///kiểm tra tên nhập vào có hợp lệ khônng
+  function checkname(s) {
+    for (let j = 0; j < Product.length; j++) {
+      if (s == Product[j].name) return 0;
+    }
+    return 1;
+  }
+
+  //kiểm tra giá tiền nhập vào có phải số không
+  function checkprice(s) {
+    let temp = new String(s);
+    for (let j = 0; j < s.length; j++) {
+      if (temp[j] < "0" || temp[j] > "9") return 0;
+    }
+    return 1;
+  }
+
+  //tạo chi tiết sản phẩm
+  function create_product_detail(temp) {
+    document.getElementById("product-" + temp).addEventListener("click", () => {
+      const productDIV = document.createElement("div");
+      productDIV.className = "screen-bright";
+      productDIV.innerHTML = `
+        <div id="product-detail">
+            <button id="exit1" style="font-size: 16px; position: absolute; top: 0px; right: 0px; border: none; border-radius: 0px 18px 0px 0px; padding: 10px;">
+                <i class="fa-regular fa-x"></i>
+            </button>
+            <div>
+                <form name="changes" id="thaydoi">
+                    
+                    <img src="${productArray[temp].imgSrc}" alt="Mô tả sản phẩm" id="thayanh"> 
+                    <button class="remove-img"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
+                    <input type="file" accept="image/*" id="canh" value="Chọn ảnh">
+                    <label>
+                        Tên sản phẩm:
+                        <input type="text" name="cten" placeholder="${productArray[temp].name}">
+                    </label> 
+
+                    <label>
+                        Mã sản phẩm: 
+                        <input type="text" name="cma" placeholder="${productArray[temp].code}">
+                    </label>
+
+                    <label>
+                        Danh mục: 
+                        <input type="text" name="cdanhmuc" placeholder="${productArray[temp].quantiny}">
+                    </label> 
+
+                    <label>
+                        Chủ đề: 
+                        <input type="text" name="cchude" placeholder="${productArray[temp].topic}">
+                    </label>
+                    <label>
+                        Giá tiền: 
+                        <input type="text" name="cgia" placeholder="${productArray[temp].price}">
+                    </label>
+                    <input type="submit" value="Thay đổi thông tin" id="change-infor">
+                    <button id="delete">Xóa sản phẩm</button>
+                </form>    
+                <div id="confirmModal">
+                    <div class="modal-content">
+                        <p>Xác nhận xóa sản phẩm</p>
+                        <button id="confirmBtn">Ok</button>
+                        <button id="cancelBtn">Hủy</button>
+                    </div> 
+                </div>         
+            </div>
+        `;
+      document.body.appendChild(productDIV);
+      document.getElementById("change-infor").style.width = "300px";
+      const screenBright = document.querySelectorAll(".screen-bright");
+      //đóng chi tiết sản phẩm
+      document.getElementById("exit1").addEventListener("click", () => {
+        screenBright.forEach((item) => {
+          item.remove();
+        });
+      });
+      // Tự động đóng modal khi click ngoài modal
+      window.addEventListener("click", (event) => {
+        screenBright.forEach((item) => {
+          if (event.target === item) {
+            item.remove();
+          }
+        });
+      });
+
+      //thay ảnh
+      const cimageInput = document.getElementById("canh");
+      let cimg = document.createElement("img");
+      document
+        .getElementById("canh")
+        .addEventListener("change", function (event) {
+          const file = event.target.files[0]; // Lấy file ảnh đầu tiên mà người dùng chọn
+          if (file) {
+            const reader = new FileReader();
+
+            // Khi FileReader đã đọc xong ảnh
+            reader.onload = function (e) {
+              // Đặt link ảnh vào thẻ img để hiển thị
+              document.getElementById("thayanh").src = e.target.result;
+              cimg.src = e.target.result;
+            };
+
+            // Đọc file ảnh dưới dạng data URL (base64)
+            reader.readAsDataURL(file);
+          }
+        });
+
+      //xóa ảnh
+      const imgdelete = document.querySelectorAll(".remove-img");
+      imgdelete.forEach((item) => {
+        item.addEventListener("click", (e) => {
+          e.preventDefault();
+          document.getElementById("thayanh").src = "./assets/img/blank_img.png";
+        });
+      });
+
+      ////thay đổi thông tin
+      document.getElementById("thaydoi").addEventListener("submit", (event) => {
+        event.preventDefault();
+        if (cimg.src != "") productArray[temp].imgSrc = cimg.src;
+        if (document.changes.cten.value != "")
+          productArray[temp].name = document.changes.cten.value;
+        if (document.changes.cma.value != "")
+          productArray[temp].code = document.changes.cma.value;
+        if (document.changes.cdanhmuc.value != "")
+          productArray[temp].quantiny = document.changes.cdanhmuc.value;
+        if (document.changes.cchude.value != "")
+          productArray[temp].topic = document.changes.cchude.value;
+        if (document.changes.cgia.value != "") {
+          if (checkprice(document.changes.cgia.value) == 1) {
+            productArray[temp].price = document.changes.cgia.value;
+            alert("thay đổi thành công");
+            document.getElementById("product-" + temp).innerHTML = `
+                        <p><img src="${productArray[temp].imgSrc}" alt="Mô tả sản phẩm"></p>
+                        <div class ="product-info">
+                            <div class="product-info-detail">
+                                <strong>Tên sản phẩm:</strong> ${productArray[temp].name}
+                            </div>
+                            <div class="product-info-detail">
+                                <strong>Mã sản phẩm:</strong> ${productArray[temp].code}
+                            </div>
+                            <div class="product-info-detail">
+                                <strong>Chủ đề:</strong> ${productArray[temp].topic}
+                            </div>
+                        </div>
+                    `;
+            screenBright.forEach((item) => {
+              item.remove();
+            });
+            localStorage.setItem("inventory", JSON.stringify(Product));
+          } else {
+            alert("Giá tiền phải là số");
+            document.changes.cgia.focus();
+          }
+        }
+      });
+      //
+      ///xóa sản phẩm
+      document.getElementById("delete").addEventListener("click", (event) => {
+        event.preventDefault();
+        document.getElementById("confirmModal").style.display = "block";
+      });
+      document.getElementById("confirmBtn").addEventListener("click", () => {
+        alert("Xóa thành công");
+        for (let j = temp; j < productArray.length - 1; j++) {
+          [productArray[j], productArray[j + 1]] = [
+            productArray[j + 1],
+            productArray[j],
+          ];
+          document.getElementById("product-" + j).innerHTML = `
+                <p><img src="${productArray[j].imgSrc}" alt="Mô tả sản phẩm"></p>
+                    <div class ="product-info">
+                        <div class="product-info-detail">
+                            <strong>Tên sản phẩm:</strong> ${productArray[j].name}
+                        </div>
+                        <div class="product-info-detail">
+                            <strong>Mã sản phẩm:</strong> ${productArray[j].code}
+                        </div>
+                        <div class="product-info-detail">
+                            <strong>Chủ đề:</strong> ${productArray[j].topic}
+                        </div>
+                    </div>
+            `;
+        }
+        let delete_element = productArray.length - 1;
+        document.getElementById("product-" + delete_element).remove();
+        document.getElementById("confirmModal").style.display = "none";
+        document.getElementById("product-detail").remove();
+        document.getElementById("addProduct").style.pointerEvents = "all";
+        productArray.splice(delete_element, 1);
+        localStorage.setItem("inventory", JSON.stringify(Product));
+
+        const screenBright = document.querySelectorAll(".screen-bright");
+        screenBright.forEach((item) => {
+          item.remove();
+        });
+      });
+      document.getElementById("cancelBtn").addEventListener("click", () => {
+        document.getElementById("confirmModal").style.display = "none";
+      });
+    });
+  }
+
+  // //xuất sản phẩm
+  // document.getElementById("product-button").addEventListener("click", () => {
+  //   document.getElementById("content").remove();
+  //   const section = document.createElement("section");
+  //   section.id = "content";
+  //   section.innerHTML = `
+  //       <div class="product-grid">
+  //           <div id ="product">
+  //           </div>
+  //       </div>
+  //   `;
+  //   document.getElementById("main").appendChild(section);
+  //   const container = document.getElementById("product");
+  //   const quantiny = productArray.length;
+  //   for (let i = 0; i < quantiny; i++) {
+  //     const productDiv = document.createElement("div");
+  //     productDiv.className = "product-data";
+  //     productDiv.id = "product-" + i;
+  //     productDiv.innerHTML = `
+  //           <p><img src="${productArray[i].imgSrc}" alt="Mô tả sản phẩm"></p>
+  //           <div class ="product-info">
+  //               <div class="product-info-detail">
+  //                   <strong>Tên sản phẩm:</strong> ${productArray[i].name}
+  //               </div>
+  //               <div class="product-info-detail">
+  //                   <strong>Mã sản phẩm:</strong> ${productArray[i].code}
+  //               </div>
+  //               <div class="product-info-detail">
+  //                   <strong>Chủ đề:</strong> ${productArray[i].topic}
+  //               </div>
+  //           </div>
+  //       `;
+  //     container.appendChild(productDiv);
+  //     create_product_detail(i);
+  //   }
+  //   const add_button = document.createElement("div");
+  //   add_button.id = "addProduct";
+  //   add_button.innerHTML = `<i class="fa-solid fa-plus"></i>`;
+  //   section.appendChild(add_button);
+  //   document
+  //     .getElementById("addProduct")
+  //     .addEventListener("click", choose_addProduct);
+  // });
+
+  //thêm, xóa, chỉnh sửa sản phẩm
+  function choose_addProduct() {
+    //mở thẻ thêm sản phẩm
+    const ADD = document.createElement("div");
+    ADD.className = "screen-bright";
+    ADD.innerHTML = `
+    <div id="add-product-input">
+        <form name="addInput"  id= "adp">
+            <button id="exita" style="font-size: 16px; position: absolute; top: 0px; right: 0px; border: none; border-radius: 0px 18px 0px 0px; padding: 10px;">
+                <i class="fa-regular fa-x"></i>
+            </button>
+            <div><b>Thêm sản phẩm</b></div>
+            <label>
+                Tên sản phẩm
+                <input type="text" placeholder="Tên sản phẩm" name="ten" id="idten">            
+            </label>
+            
+            <label>
+                Mã
+                <input type="text" placeholder="Mã" name="ma" id="idma">
+            </label>
+
+            <label>
+                Giá
+                <input type="text" placeholder="Giá" name="gia" id="idgia">
+            </label>
+
+            <label>
+                Danh mục
+                <select placeholder="Danh mục" name="danhmuc" id="iddanhmuc">
+                    <option value="a" selected>Lego Minifigure</option>
+                    <option value="b">Lego MOC</option>
+                    <option value="c">Lego chính hãng</option>
+                    <option value="d">Phụ kiện Lego</option>
+                </select>
+            </label>
+            
+            <label>
+                Chủ đề
+                <select placeholder="Chủ đề" name="chude" id="idchude">
+                    <option value="e" selected>Naruto</option>
+                    <option value="f">Dragon Ball</option>
+                    <option value="g">Kimetsu No Yaiba</option>
+                    <option value="h">Marvel</option>
+                </select>
+            </label>
+            
+            <label>
+                Chọn ảnh
+                <input type="file" accept="image/*" id="anh">
+            </label>
+            
+            <input type="submit" value="Thêm sản phẩm" id="add-infor">
+        </form>
+    </div>
+    `;
+    document.body.appendChild(ADD);
+    document.getElementById("add-infor").style.width = "300px";
+    const screenBrighta = document.querySelectorAll(".screen-bright");
+    //đóng thẻ thêm sản phẩm
+    document.getElementById("exita").addEventListener("click", (e) => {
+      e.preventDefault();
+      screenBrighta.forEach((item) => {
+        item.remove();
+      });
+    });
+    // Tự động đóng modal khi click ngoài modal
+    window.addEventListener("click", (event) => {
+      screenBrighta.forEach((item) => {
+        if (event.target === item) {
+          item.remove();
+        }
+      });
+    });
+    //thêm lựa chọn cho chủ đề sau khi chọn danh mục
+    document.getElementById("iddanhmuc").addEventListener("change", () => {
+      let addchude = ``;
+      switch (iddanhmuc.value) {
+        case "a": {
+          addchude = `
+                    <option value="e">Naruto</option>
+                    <option value="f">Dragon Ball</option>
+                    <option value="g">Kimetsu No Yaiba</option>
+                    <option value="h">Marvel</option>
+                `;
+          break;
+        }
+        case "b": {
+          addchude = `
+                    <option value="m">Army</option>
+                    <option value="n">Technic</option>
+                `;
+          break;
+        }
+        case "c": {
+          addchude = `
+                    <option value="x">Technic</option>
+                    <option value="y">Ninjago</option>
+                `;
+          break;
+        }
+        default: {
+          break;
+        }
+      }
+      document.getElementById("idchude").innerHTML = addchude;
+    });
+    //
+
+    //
+    //lấy đường link của ảnh
+    const imageInput = document.getElementById("anh");
+    let img = document.createElement("img");
+    imageInput.addEventListener("change", () => {
+      img.src = imglink(img, imageInput);
+    });
+    //
+    //bắt đầu thêm sản phẩm khi người dùng submit
+    document.getElementById("adp").addEventListener("submit", (e) => {
+      e.preventDefault();
+      ///////////////////////////
+      if (img.src == "") {
+        alert("Bạn chưa chọn ảnh");
+        document.getElementById("anh").focus();
+      } else if (document.addInput.ten.value == "") {
+        alert("Bạn chưa nhập tên");
+        document.getElementById("idten").focus();
+      } else if (document.addInput.ma.value == "") {
+        alert("Bạn chưa nhập mã");
+        document.getElementById("idma").focus();
+      } else if (document.addInput.gia.value == "") {
+        alert("Bạn chưa nhập giá");
+        document.getElementById("idgia").focus();
+      } else {
+        if (checkname(document.addInput.ten.value) == 0) {
+          alert("Tên bạn nhập đã tồn tại");
+          document.getElementById("idten").focus();
+        } else {
+          if (checkprice(document.addInput.gia.value) == 0) {
+            alert("Giá tiền phải là số");
+            document.getElementById("idgia").focus();
+          } else {
+            const temp_product = {
+              name: document.addInput.ten.value,
+              code: document.addInput.ma.value,
+              price: document.addInput.gia.value,
+              imgSrc: img.src,
+              topic: idchude.value,
+            };
+            productArray.push(temp_product);
+            localStorage.setItem("inventory", JSON.stringify(Product));
+            let temp = Product.length - 1;
+            ///////////////////////////
+            alert("thêm thành công");
+            //
+            let container = document.getElementById("product");
+            let productDiv = document.createElement("div");
+            productDiv.className = "product-data";
+            productDiv.id = "product-" + temp;
+            productDiv.innerHTML = `
+                        <p><img src="${productArray[temp].imgSrc}" alt="Mô tả sản phẩm"></p>
+                        <div class ="product-info">
+                            <div class="product-info-detail">
+                                <strong>Tên sản phẩm:</strong> ${productArray[temp].name}
+                            </div>
+                            <div class="product-info-detail">
+                                <strong>Mã sản phẩm:</strong> ${productArray[temp].code}
+                            </div>
+                            <div class="product-info-detail">
+                                <strong>Chủ đề:</strong> ${productArray[temp].topic}
+                            </div>
+                        </div>
+                    `;
+            container.appendChild(productDiv);
+            //mở chi tiết sản phẩm
+            create_product_detail(temp);
+            //
+            screenBrighta.forEach((item) => {
+              item.remove();
+            });
+          }
+        }
+      }
+    });
+  }
+  /////////////////////phan account
+  function create_detail_account(i, userList) {
+    document.getElementById("user-" + i).addEventListener("click", () => {
+      const userDiv = document.createElement("div");
+      userDiv.className = "screen-bright";
+      userDiv.innerHTML = `
+            <div id="account-detail">
+                <p id="ade" style="display: inline-block; float: right; margin-top:0%">
+                    <button style="border: none; border-radius: 0px 18px 0px 0px; font-size: 16px; padding: 10px;">
+                        <i class="fa-regular fa-x"></i>
+                    </button>
+                </p>
+                <h2 style="padding-top:40px">Tài khoản</h2>
+                <section>
+                    <form name="account-form" id="account-edit" class="form-detail">
+                        <div class="form-detail-content">
+                            <div>ID</div>
+                            <input type="text" name="aID" placeholder="${userList[i].id}">
+                        </div>
+
+                        <div class="form-detail-content">
+                            <div>Tên đăng nhập</div>
+                            <input type="text" name="aUsername" placeholder="${userList[i].username}">
+                        </div>
+
+                        <div class="form-detail-content">
+                            <div>Mật khẩu</div>
+                            <input type="text" name="aPassword" placeholder="${userList[i].password}">
+                        </div>
+
+                        <div class="form-detail-content">
+                            <div>Email</div>
+                            <input type="text" name="aEmail" placeholder="${userList[i].email}">
+                        </div>
+
+                        <div class="form-detail-content">
+                            Trạng thái: 
+                            <select id="aLock">
+                                <option value="1">Kích hoạt</option>
+                                <option value="0">Tạm khóa</option>
+                            </select>
+                        </div>
+
+                        <div class="form-detail-content">
+                            <div style="margin:10px 0px">Ngày tạo: ${userList[i].dateSignUp}</div>
+                        </div>
+
+                        <div class="form-detail-content">
+                            <input type="submit" value="Thay đổi">
+                        </div>
+                
+                    </form>
+                </section>
+            </div>
+        `;
+      document.body.appendChild(userDiv);
+      ///đóng account form
+      const screenBright = document.querySelectorAll(".screen-bright");
+      document.getElementById("ade").addEventListener("click", () => {
+        screenBright.forEach((item) => {
+          item.remove();
+        });
+      });
+
+      window.addEventListener("click", (event) => {
+        screenBright.forEach((item) => {
+          if (event.target === item) {
+            item.remove();
+          }
+        });
+      });
+      ////
+      /////thay đổi thông tin account
+      let form = document.getElementById("account-edit");
+      document
+        .getElementById("account-edit")
+        .addEventListener("submit", (e) => {
+          e.preventDefault();
+          edit_account(form, i);
+        });
+    });
+  }
+  function edit_account(form, i) {
+    if (form.aID.value == "") {
+      form.aID.value = userList[i].id;
+    }
+
+    if (form.aUsername.value == "") {
+      form.aUsername.value = userList[i].username;
+    }
+
+    if (form.aPassword.value == "") {
+      form.aPassword.value = userList[i].password;
+    }
+
+    if (form.aEmail.value == "") {
+      form.aEmail.value = userList[i].email;
+    }
+
+    userList[i].ban = form.aLock.value;
+    alert("Thay đổi thành công");
+  }
+
+  document.getElementById("account-button").addEventListener("click", () => {
+    const section = document.getElementById("content");
+    section.id = "content";
+    section.innerHTML = `
+        <table class="manage_data">
+            <thead>
+                <tr>
+                    <td>User ID</td>
+                    <td>User Name</td>
+                    <td>Total Spent</td>
+                    <td>Join Date</td>
+                </tr>
+            </thead>
+        </table>
+    `;
+    //
+    let tempUserList = JSON.parse(localStorage.getItem(ListUsers));
+    let length = tempUserList.length;
+    for (i = 0; i < length; i++) {
+      const tbody = document.createElement("tbody");
+      tbody.id = "user-" + i;
+      tbody.innerHTML = `
+            <tr>
+                <td>${tempUserList[i].id}</td>
+                <td>${tempUserList[i].username}</td>
+                <td>0</td>
+                <td>${tempUserList[i].dateSignUp}</td>
+            </tr>
+        `;
+      document.querySelector(".manage_data").appendChild(tbody);
+      create_detail_account(i, tempUserList);
+    }
+  });
+  //   document.getElementById("sell-button").addEventListener("click", () => {
+  //     document.getElementById("content").remove();
+  //     const section = document.createElement("section");
+  //     section.id = "content";
+  //     section.innerHTML = `
+  //         <table class="manage_data">
+  //             <thead>
+  //                 <td>Lego ID</td>
+  //                 <td>Lego Name</td>
+  //                 <td>Type</td>
+  //                 <td>Quantiny Sold</td>
+  //             </thead>
+  //             <tbody id="sell"></tbody>
+  //         </table>
+  //     `;
+  //     document.getElementById("main").appendChild(section);
+  //     const container = document.getElementById("sell");
+  //     let total = 0;
+  //     //in doanh thu bán hàng
+  //     for (let i = 0; i < sells.length; i++) {
+  //       total += sells[i].QuantinySold;
+  //       const sellTr = document.createElement("tr");
+  //       sellTr.innerHTML = `
+  //             <td>${sells[i].LegoID}</td>
+  //             <td>${sells[i].LegoName}</td>
+  //             <td>${sells[i].Type}</td>
+  //             <td>${sells[i].QuantinySold}</td>
+  //         `;
+  //       container.appendChild(sellTr);
+  //     }
+  //     const contain = document.getElementById("content");
+  //     const totalDiv = document.createElement("div");
+  //     totalDiv.innerHTML = `
+  //         <b>Tổng sản phẩm đã bán: ${total}</b>
+  //     `;
+  //     contain.appendChild(totalDiv);
+  //   });
 }

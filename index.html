@@ -17,290 +17,307 @@
       rel="stylesheet"
       href="./assets/fonts/fontawesome-free-6.6.0-web/css/all.min.css"
     />
-    
   </head>
-  <div>
-    <div class="app">
-      <div class="header">
-        <div class="grid">
-          <nav class="header__navbar">
-            <ul class="header__navbar-list">
-              <li
-                class="header__navbar-item header__navbar-item--has-qr header__navbar-item--separate"
-              >
-                Vào cửa hàng trên ứng dụng Lego Shop
+  <body>
+    <div class="page">
+      <div class="app">
+        <div class="header">
+          <div class="grid">
+            <nav class="header__navbar">
+              <ul class="header__navbar-list">
+                <li
+                  class="header__navbar-item header__navbar-item--has-qr header__navbar-item--separate"
+                >
+                  Vào cửa hàng trên ứng dụng Lego Shop
 
-                <!-- Header QR code -->
-                <div class="header__qr">
-                  <img
-                    src="./assets/img/qr_code.png"
-                    alt="QR code"
-                    class="header__qr-img"
-                  />
-                  <div class="header__qr-apps">
-                    <!--  -->
-                    <a href="" class="header__qr-link"
-                      ><img
-                        src="./assets/img/appstore.png"
-                        alt="App Store"
-                        class="header__download-img appstore-img"
-                    /></a>
-                    <!--  -->
-                    <a href="" class="header__qr-link"
-                      ><img
-                        src="./assets/img/googleplay.png"
-                        alt="App Store"
-                        class="header__download-img googleplay-img"
-                    /></a>
-                    <!--  -->
-                    <a href="" class="header__qr-link">
-                      <img
-                        src="./assets/img/appgallery.png"
-                        alt="App Store"
-                        class="header__download-img appgallery-img"
-                      />
-                    </a>
-                    <!--  -->
+                  <!-- Header QR code -->
+                  <div class="header__qr">
+                    <img
+                      src="./assets/img/qr_code.png"
+                      alt="QR code"
+                      class="header__qr-img"
+                    />
+                    <div class="header__qr-apps">
+                      <!--  -->
+                      <a href="" class="header__qr-link"
+                        ><img
+                          src="./assets/img/appstore.png"
+                          alt="App Store"
+                          class="header__download-img appstore-img"
+                      /></a>
+                      <!--  -->
+                      <a href="" class="header__qr-link"
+                        ><img
+                          src="./assets/img/googleplay.png"
+                          alt="App Store"
+                          class="header__download-img googleplay-img"
+                      /></a>
+                      <!--  -->
+                      <a href="" class="header__qr-link">
+                        <img
+                          src="./assets/img/appgallery.png"
+                          alt="App Store"
+                          class="header__download-img appgallery-img"
+                        />
+                      </a>
+                      <!--  -->
+                    </div>
                   </div>
+                </li>
+                <li class="header__navbar-item">
+                  <span class="header__navbar-title--no-pointer">Kết nối</span>
+                  <a href="" class="header__navbar-icon-link">
+                    <i class="header__navbar-icon fa-brands fa-facebook"></i>
+                  </a>
+                  <a href="" class="header__navbar-icon-link">
+                    <i class="header__navbar-icon fa-brands fa-instagram"></i>
+                  </a>
+                </li>
+              </ul>
+              <ul class="header__navbar-list">
+                <li class="header__navbar-item header__navbar-item--has-notify">
+                  <a href="" class="header__navbar-item-link">
+                    <i class="header__navbar-icon fa-solid fa-bell"></i>Thông
+                    báo</a
+                  >
+                  <div class="header__notify"></div>
+                </li>
+                <li class="header__navbar-item">
+                  <a href="" class="header__navbar-item-link">
+                    <i
+                      class="header__navbar-icon fa-regular fa-circle-question"
+                    ></i
+                    >Trợ giúp</a
+                  >
+                </li>
+                <div class="loginStatus">
+                  <li
+                    class="header__navbar-item header__navbar-item--strong header__navbar-item--separate registerBtn"
+                  >
+                    Đăng ký
+                  </li>
+                  <li
+                    class="header__navbar-item header__navbar-item--strong loginBtn"
+                  >
+                    Đăng nhập
+                  </li>
                 </div>
-              </li>
-              <li class="header__navbar-item">
-                <span class="header__navbar-title--no-pointer">Kết nối</span>
-                <a href="" class="header__navbar-icon-link">
-                  <i class="header__navbar-icon fa-brands fa-facebook"></i>
-                </a>
-                <a href="" class="header__navbar-icon-link">
-                  <i class="header__navbar-icon fa-brands fa-instagram"></i>
-                </a>
-              </li>
-            </ul>
-            <ul class="header__navbar-list">
-              <li class="header__navbar-item header__navbar-item--has-notify">
-                <a href="" class="header__navbar-item-link">
-                  <i class="header__navbar-icon fa-solid fa-bell"></i>Thông
-                  báo</a
-                >
-                <div class="header__notify"></div>
-              </li>
-              <li class="header__navbar-item">
-                <a href="" class="header__navbar-item-link">
-                  <i
-                    class="header__navbar-icon fa-regular fa-circle-question"
-                  ></i
-                  >Trợ giúp</a
-                >
-              </li>
-              <div class="loginStatus">
-                  <li 
-                  class="header__navbar-item header__navbar-item--strong header__navbar-item--separate registerBtn"
-                >
-        
-                Đăng ký
-                </li>
-                <li class="header__navbar-item header__navbar-item--strong loginBtn">
-                  Đăng nhập
-                </li>
-              </div>
-          
-              
-              <!-- <li class="accountLogin header__navbar-item header__navbar-item--strong">
+
+                <!-- <li class="accountLogin header__navbar-item header__navbar-item--strong">
                 <div id="accountLoginName"></div>
                 <button class="userLogout">Đăng xuất</button>
             </li> -->
-            </ul>
-          </nav>
-          <!-- Header with search -->
-          <div class="header-with-search">
-            <div class="header__logo">
-              <img
-                src="./assets/img/lego-icon.png"
-                alt=""
-                class="header__logo-img"
-              />
-            </div>
-
-            <div class="header__search">
-              <div class="header__search-input-wrap">
-                <input
-                  type="text"
-                  class="header__search-input"
-                  placeholder="Nhập để tìm kiếm"
+              </ul>
+            </nav>
+            <!-- Header with search -->
+            <div class="header-with-search">
+              <div class="header__logo">
+                <img
+                  src="./assets/img/lego-icon.png"
+                  alt=""
+                  class="header__logo-img"
                 />
               </div>
 
-              <div class="header__search-select">
-                <span class="header__search-select-label"
-                  >Theo tên sản phẩm</span
-                >
-                <i
-                  class="header__search-select-icon fa-solid fa-chevron-down"
-                ></i>
-                <ul class="header__search-option">
-                  <li
-                    class="header__search-option-item header__search-option-item--active"
-                  >
-                    <span>Theo tên sản phẩm</span
-                    ><i class="fa-solid fa-check"></i>
-                  </li>
-                  <li class="header__search-option-item">
-                    <span>Theo mã sản phẩm</span
-                    ><i class="fa-solid fa-check"></i>
-                  </li>
-                </ul>
-              </div>
-              <button class="header__search-btn">
-                <i
-                  class="header__search-btn-icon fa-solid fa-magnifying-glass"
-                ></i>
-              </button>
-            </div>
+              <div class="header__search">
+                <div class="header__search-input-wrap">
+                  <input
+                    type="text"
+                    class="header__search-input"
+                    placeholder="Nhập để tìm kiếm"
+                  />
+                </div>
 
-            <div class="header__cart">
-              
-              <div class="header__cart-wrap">
-                <div class="header__cart-target">
-                  <i class="header__cart-icon fa-solid fa-cart-shopping"></i>
-                  <div class="header__cart-detail" id ="showcart">
-                    <div class="header__cart-list">
-                      <div class="cartTittle"><h5>Sản phẩm thêm vào</h5></div>
-                        
-                    </div>
-                    <div class="header__cart-action">
-                      <button class="removeAllCart">Xóa Tất Cả</button>
+                <div class="header__search-select">
+                  <span class="header__search-select-label"
+                    >Theo tên sản phẩm</span
+                  >
+                  <i
+                    class="header__search-select-icon fa-solid fa-chevron-down"
+                  ></i>
+                  <ul class="header__search-option">
+                    <li
+                      class="header__search-option-item header__search-option-item--active"
+                    >
+                      <span>Theo tên sản phẩm</span
+                      ><i class="fa-solid fa-check"></i>
+                    </li>
+                    <li class="header__search-option-item">
+                      <span>Theo mã sản phẩm</span
+                      ><i class="fa-solid fa-check"></i>
+                    </li>
+                  </ul>
+                </div>
+                <button class="header__search-btn">
+                  <i
+                    class="header__search-btn-icon fa-solid fa-magnifying-glass"
+                  ></i>
+                </button>
+              </div>
+
+              <div class="header__cart">
+                <div class="header__cart-wrap">
+                  <div class="header__cart-target">
+                    <i class="header__cart-icon fa-solid fa-cart-shopping"></i>
+                    <div class="header__cart-detail" id="showcart">
+                      <div class="header__cart-list">
+                        <div class="cartTittle"><h5>Sản phẩm thêm vào</h5></div>
+                      </div>
+                      <div class="header__cart-action">
+                        <button class="removeAllCart">Xóa Tất Cả</button>
+                      </div>
                     </div>
                   </div>
+                  <span class="header__cart-quantity"></span>
                 </div>
-                <span class="header__cart-quantity"></span>
               </div>
-          
+              <!--  -->
             </div>
             <!--  -->
           </div>
-          <!--  -->
         </div>
-      </div>
-      <!--  -->
-      <!--  -->
-      <div class="top__menu">
-        <div class="grid">
-          <ul class="topmenu__list">
-            <li class="topmenu__info">
-              <a href="index.html?tc" class="topmenu__info-link" id = "tc">Trang chủ</a>
-            </li>
-            <li class="topmenu__info">
-              <a href="index.html?gt" class="topmenu__info-link" id="gt">Giới thiệu</a>
-            </li>
-            <li class="topmenu__info topmenu__info-select">
-              <a href="index.html?sp" class="topmenu__info-link" id="sp">Sản phẩm</a>
-              <ul class="topmenu__info-option">
-                <!--  -->
-                <li class="topmenu__info-option-item topmenu__info-option-item-select">
-                  <a href="" class="topmenu__info-option-item-link"
-                    >Lego Minifigure
-                    <i class="fa-solid fa-chevron-right"></i>
-                  </a>
-                  <ul class="topmenu__info-option-1">
-                    <li class="topmenu__info-option-item-1">
-                      <a href="" class="topmenu__info-option-item-link-1"
-                        >Naruto</a>
-                    </li>
-                    <!--  -->
-                    <li class="topmenu__info-option-item-1">
-                      <a href="" class="topmenu__info-option-item-link-1"
-                        >Dragon Ball</a>
-                    </li>
-                    <!--  -->
-                    <li class="topmenu__info-option-item-1">
-                      <a href="" class="topmenu__info-option-item-link-1"
-                        >Kimetsu No Yaiba</a>
-                    </li>
-                    <!--  -->
-                    <li class="topmenu__info-option-item-1">
-                      <a href="" class="topmenu__info-option-item-link-1"
-                        >Marvel</a>
-                    </li>  
-                    <!--  -->
-                  </ul>
-                </li>
-                <!--  -->
-                <li class="topmenu__info-option-item topmenu__info-option-item-select">
-                  <a href="" class="topmenu__info-option-item-link"
-                    >Lego Moc
-                    <i class="fa-solid fa-chevron-right"></i>
-                  </a>
-                  <ul class="topmenu__info-option-1">
-                    <li class="topmenu__info-option-item-1">
-                      <a href="" class="topmenu__info-option-item-link-1"
-                        >Army</a>
-                    </li>
-                    <!--  -->
-                    <li class="topmenu__info-option-item-1">
-                      <a href="" class="topmenu__info-option-item-link-1"
-                        >Technic</a>
-                    </li>
-                    <!--  -->
-                    
-                    <!--  -->
-                    
-                    <!--  -->
-                  </ul>
-                </li>
-                <!--  -->
-                <li class="topmenu__info-option-item topmenu__info-option-item-select">
-                  <a href="" class="topmenu__info-option-item-link"
-                    >Lego chính hãng <i class="fa-solid fa-chevron-right"></i
-                  ></a>
+        <!--  -->
+        <!--  -->
+        <div class="top__menu">
+          <div class="grid">
+            <ul class="topmenu__list">
+              <li class="topmenu__info">
+                <a href="index.html?tc" class="topmenu__info-link" id="tc"
+                  >Trang chủ</a
+                >
+              </li>
+              <li class="topmenu__info">
+                <a href="index.html?gt" class="topmenu__info-link" id="gt"
+                  >Giới thiệu</a
+                >
+              </li>
+              <li class="topmenu__info topmenu__info-select">
+                <a href="index.html?sp" class="topmenu__info-link" id="sp"
+                  >Sản phẩm</a
+                >
+                <ul class="topmenu__info-option">
                   <!--  -->
-                  <ul class="topmenu__info-option-1">
-                    <!--  -->
-                    <li class="topmenu__info-option-item-1">
-                      <a href="" class="topmenu__info-option-item-link-1"
-                        >Technic</a>
-                    </li>
-                    <!--  -->
-                    <li class="topmenu__info-option-item-1">
-                      <a href="" class="topmenu__info-option-item-link-1"
-                        >Ninjago</a>
-                    </li>
-                    <!--  -->
-                    
-                    <!--  -->
-                    
-                    <!--  -->
-                  </ul>
+                  <li
+                    class="topmenu__info-option-item topmenu__info-option-item-select"
+                  >
+                    <a href="" class="topmenu__info-option-item-link"
+                      >Lego Minifigure
+                      <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    <ul class="topmenu__info-option-1">
+                      <li class="topmenu__info-option-item-1">
+                        <a href="" class="topmenu__info-option-item-link-1"
+                          >Naruto</a
+                        >
+                      </li>
+                      <!--  -->
+                      <li class="topmenu__info-option-item-1">
+                        <a href="" class="topmenu__info-option-item-link-1"
+                          >Dragon Ball</a
+                        >
+                      </li>
+                      <!--  -->
+                      <li class="topmenu__info-option-item-1">
+                        <a href="" class="topmenu__info-option-item-link-1"
+                          >Kimetsu No Yaiba</a
+                        >
+                      </li>
+                      <!--  -->
+                      <li class="topmenu__info-option-item-1">
+                        <a href="" class="topmenu__info-option-item-link-1"
+                          >Marvel</a
+                        >
+                      </li>
+                      <!--  -->
+                    </ul>
+                  </li>
                   <!--  -->
-                </li>
-                <!--  -->
-                <li class="topmenu__info-option-item">
-                  <a href="" class="topmenu__info-option-item-link"
-                    >Phụ kiện Lego <il class="fa-solid fa-chevron-right"></il
-                  ></a>
-                </li>
-                <!--  -->
-              </ul>
-            </li>
-            <li class="topmenu__info">
-              <a href="index.html?lh" class="topmenu__info-link" id="lh"
-                >Liên hệ</a
-              >
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="container">
-      <div class="grid">
-        <!-- Phần Body Top -->
-        <div class="bodytop">
-          <div class="bodytop__left">
-            
+                  <li
+                    class="topmenu__info-option-item topmenu__info-option-item-select"
+                  >
+                    <a href="" class="topmenu__info-option-item-link"
+                      >Lego Moc
+                      <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    <ul class="topmenu__info-option-1">
+                      <li class="topmenu__info-option-item-1">
+                        <a href="" class="topmenu__info-option-item-link-1"
+                          >Army</a
+                        >
+                      </li>
+                      <!--  -->
+                      <li class="topmenu__info-option-item-1">
+                        <a href="" class="topmenu__info-option-item-link-1"
+                          >Technic</a
+                        >
+                      </li>
+                      <!--  -->
+
+                      <!--  -->
+
+                      <!--  -->
+                    </ul>
+                  </li>
+                  <!--  -->
+                  <li
+                    class="topmenu__info-option-item topmenu__info-option-item-select"
+                  >
+                    <a href="" class="topmenu__info-option-item-link"
+                      >Lego chính hãng <i class="fa-solid fa-chevron-right"></i
+                    ></a>
+                    <!--  -->
+                    <ul class="topmenu__info-option-1">
+                      <!--  -->
+                      <li class="topmenu__info-option-item-1">
+                        <a href="" class="topmenu__info-option-item-link-1"
+                          >Technic</a
+                        >
+                      </li>
+                      <!--  -->
+                      <li class="topmenu__info-option-item-1">
+                        <a href="" class="topmenu__info-option-item-link-1"
+                          >Ninjago</a
+                        >
+                      </li>
+                      <!--  -->
+
+                      <!--  -->
+
+                      <!--  -->
+                    </ul>
+                    <!--  -->
+                  </li>
+                  <!--  -->
+                  <li class="topmenu__info-option-item">
+                    <a href="" class="topmenu__info-option-item-link"
+                      >Phụ kiện Lego <il class="fa-solid fa-chevron-right"></il
+                    ></a>
+                  </li>
+                  <!--  -->
+                </ul>
+              </li>
+              <li class="topmenu__info">
+                <a href="index.html?lh" class="topmenu__info-link" id="lh"
+                  >Liên hệ</a
+                >
+              </li>
+            </ul>
           </div>
-          <div class="bodytop__right">
-            <!--  -->
-            <div class="producttype">
-              <div class="producttype__name"></div>
-              <div class="item__list product_container"></div>
-              <div class="pagenumber"></div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="grid">
+          <!-- Phần Body Top -->
+          <div class="bodytop">
+            <div class="bodytop__left"></div>
+            <div class="bodytop__right">
+              <!--  -->
+              <div class="producttype">
+                <div class="producttype__name"></div>
+                <div class="item__list product_container"></div>
+                <div class="pagenumber"></div>
+                <!--  -->
+              </div>
               <!--  -->
             </div>
             <!--  -->
@@ -309,267 +326,400 @@
         </div>
         <!--  -->
       </div>
+      <!-- Phần Body Middle -->
+      <div class="bodymiddle">
+        <h1>Tại sao nên chọn chúng tôi?</h1>
+        <div class="bodymiddle__header">
+          <div class="bodymiddle__container">
+            <div class="bodymiddle__container-info">
+              <i class="fa-solid fa-truck-fast"></i>
+              <h3>Vận chuyển</h3>
+              <p>
+                Dịch vụ vận chuyển hàng hóa chuyên nghiệp của chúng tôi cam kết
+                đảm bảo an toàn và độ tin cậy cho mọi lô hàng của bạn
+              </p>
+            </div>
+            <div class="bodymiddle__container-info">
+              <i class="fa-solid fa-rotate-right"></i>
+              <h3>Đổi - trả</h3>
+              <p>
+                Sản phẩm có thể được đổi hoặc trả trong khoảng thời gian quy
+                định với điều kiện cụ thể
+              </p>
+            </div>
+            <div class="bodymiddle__container-info">
+              <i class="fa-solid fa-building-columns"></i>
+              <h3>Thanh toán</h3>
+              <p>
+                Nhiều phương thức thanh toán linh hoạt: thanh toán khi nhận
+                hàng, qua tất cả ngân hàng
+              </p>
+            </div>
+            <div class="bodymiddle__container-info">
+              <i class="fa-solid fa-screwdriver-wrench"></i>
+              <h3>Bảo hành</h3>
+              <p>
+                Luôn sẵn sàng bảo hành cho dù mọi tình huống, để đảm bảo khách
+                hàng luôn có trải nghiệm tốt nhất
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
       <!--  -->
-    </div>
-    <!-- Phần Body Middle -->
-    <div class="bodymiddle">
-      <h1>Tại sao nên chọn chúng tôi?</h1>
-      <div class="bodymiddle__header">
-        
-        <div class="bodymiddle__container">
-          <div class="bodymiddle__container-info">
-            <i class="fa-solid fa-truck-fast"></i>
-            <h3>Vận chuyển</h3>
-            <p>
-              Dịch vụ vận chuyển hàng hóa chuyên nghiệp của chúng tôi cam kết đảm bảo an toàn và độ tin cậy cho mọi lô
-              hàng của bạn
-            </p>
-          </div>
-          <div class="bodymiddle__container-info">
-            <i class="fa-solid fa-rotate-right"></i>
-            <h3>Đổi - trả</h3>
-            <p>Sản phẩm có thể được đổi hoặc trả trong khoảng thời gian quy định với điều kiện cụ thể</p>
-          </div>
-          <div class="bodymiddle__container-info">
-            <i class="fa-solid fa-building-columns"></i>
-            <h3>Thanh toán</h3>
-            <p>Nhiều phương thức thanh toán linh hoạt: thanh toán khi nhận hàng, qua tất cả ngân hàng</p>
-          </div>
-          <div class="bodymiddle__container-info">
-            <i class="fa-solid fa-screwdriver-wrench"></i>
-            <h3>Bảo hành</h3>
-            <p>Luôn sẵn sàng bảo hành cho dù mọi tình huống, để đảm bảo khách hàng luôn có trải nghiệm tốt nhất</p>
+      <div class="footer">
+        <div class="grid">
+          <div class="footer-container">
+            <div class="footer-section">
+              <h3>LIÊN HỆ VỚI CHÚNG TÔI</h3>
+              <p>
+                <i class="footer-section-icon fa-solid fa-location-dot"></i> Số
+                30, ngõ 218/27/22 Lạc Long Quân, Tây Hồ, Hà Nội
+              </p>
+              <p>
+                <i class="footer-section-icon fa-solid fa-phone"></i> 0949 854
+                380
+              </p>
+              <p>
+                <i class="footer-section-icon fa-solid fa-clock"></i> Trực 8h00
+                - 18h00 các ngày trong tuần (trừ ngày lễ tết)
+              </p>
+            </div>
+            <div class="footer-section">
+              <h3>THÔNG TIN</h3>
+              <ul>
+                <li>
+                  <a href="#"
+                    ><i
+                      class="footer-section-icon fa-solid fa-chevron-right"
+                    ></i>
+                    Trang chủ</a
+                  >
+                </li>
+                <li>
+                  <a href="#"
+                    ><i
+                      class="footer-section-icon fa-solid fa-chevron-right"
+                    ></i>
+                    Giới thiệu</a
+                  >
+                </li>
+                <li>
+                  <a href="#"
+                    ><i
+                      class="footer-section-icon fa-solid fa-chevron-right"
+                    ></i>
+                    Sản phẩm</a
+                  >
+                </li>
+                <li>
+                  <a href="#"
+                    ><i
+                      class="footer-section-icon fa-solid fa-chevron-right"
+                    ></i>
+                    Liên thệ</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <div class="footer-section">
+              <h3>HỖ TRỢ</h3>
+              <ul>
+                <li>
+                  <a href="#"
+                    ><i
+                      class="footer-section-icon fa-solid fa-chevron-right"
+                    ></i>
+                    Tìm kiếm</a
+                  >
+                </li>
+                <li>
+                  <a href="#"
+                    ><i
+                      class="footer-section-icon fa-solid fa-chevron-right"
+                    ></i>
+                    Đăng nhập</a
+                  >
+                </li>
+                <li>
+                  <a href="#"
+                    ><i
+                      class="footer-section-icon fa-solid fa-chevron-right"
+                    ></i>
+                    Đăng ký</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <div class="footer-section">
+              <h3>CHÍNH SÁCH</h3>
+              <ul>
+                <li>
+                  <a href="#"
+                    ><i
+                      class="footer-section-icon fa-solid fa-chevron-right"
+                    ></i>
+                    Chính sách bảo mật</a
+                  >
+                </li>
+                <li>
+                  <a href="#"
+                    ><i
+                      class="footer-section-icon fa-solid fa-chevron-right"
+                    ></i>
+                    Chính sách vận chuyển</a
+                  >
+                </li>
+                <li>
+                  <a href="#"
+                    ><i
+                      class="footer-section-icon fa-solid fa-chevron-right"
+                    ></i>
+                    Chính sách đổi trả</a
+                  >
+                </li>
+                <li>
+                  <a href="#"
+                    ><i
+                      class="footer-section-icon fa-solid fa-chevron-right"
+                    ></i>
+                    Quy định sử dụng</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <div class="footer-section">
+              <h3>HƯỚNG DẪN</h3>
+              <ul>
+                <li>
+                  <a href="#"
+                    ><i
+                      class="footer-section-icon fa-solid fa-chevron-right"
+                    ></i>
+                    Hướng dẫn mua hàng</a
+                  >
+                </li>
+                <li>
+                  <a href="#"
+                    ><i
+                      class="footer-section-icon fa-solid fa-chevron-right"
+                    ></i>
+                    Hướng dẫn thanh toán</a
+                  >
+                </li>
+                <li>
+                  <a href="#"
+                    ><i
+                      class="footer-section-icon fa-solid fa-chevron-right"
+                    ></i>
+                    Hướng dẫn giao nhận</a
+                  >
+                </li>
+                <li>
+                  <a href="#"
+                    ><i
+                      class="footer-section-icon fa-solid fa-chevron-right"
+                    ></i>
+                    Điều khoản dịch vụ</a
+                  >
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
-    </div> 
-    <!--  -->
-    <div class="footer">
-      <div class="grid">
-        <div class="footer-container">
-          <div class="footer-section">
-            <h3>LIÊN HỆ VỚI CHÚNG TÔI</h3>
-            <p><i class="footer-section-icon fa-solid fa-location-dot"></i> Số 30, ngõ 218/27/22 Lạc Long Quân, Tây Hồ, Hà Nội</p>
-            <p><i class="footer-section-icon fa-solid fa-phone"></i> 0949 854 380</p>
-            <p><i class="footer-section-icon fa-solid fa-clock"></i> Trực 8h00 - 18h00 các ngày trong tuần (trừ ngày lễ tết)</p>
-          </div>
-          <div class="footer-section">
-            <h3>THÔNG TIN</h3>
-            <ul>
-            <li><a href="#"><i class="footer-section-icon fa-solid fa-chevron-right"></i> Trang chủ</a></li>
-            <li><a href="#"><i class="footer-section-icon fa-solid fa-chevron-right"></i> Giới thiệu</a></li>
-            <li><a href="#"><i class="footer-section-icon fa-solid fa-chevron-right"></i> Sản phẩm</a></li>
-            <li><a href="#"><i class="footer-section-icon fa-solid fa-chevron-right"></i> Liên thệ</a></li>
-            </ul>
-            </div>
-            <div class="footer-section">
-            <h3>HỖ TRỢ</h3>
-            <ul>
-            <li><a href="#"><i class="footer-section-icon fa-solid fa-chevron-right"></i> Tìm kiếm</a></li>
-            <li><a href="#"><i class="footer-section-icon fa-solid fa-chevron-right"></i> Đăng nhập</a></li>
-            <li><a href="#"><i class="footer-section-icon fa-solid fa-chevron-right"></i> Đăng ký</a></li>
-            </ul>
-            </div>
-            <div class="footer-section">
-            <h3>CHÍNH SÁCH</h3>
-            <ul>
-            <li><a href="#"><i class="footer-section-icon fa-solid fa-chevron-right"></i> Chính sách bảo mật</a></li>
-            <li><a href="#"><i class="footer-section-icon fa-solid fa-chevron-right"></i> Chính sách vận chuyển</a></li>
-            <li><a href="#"><i class="footer-section-icon fa-solid fa-chevron-right"></i> Chính sách đổi trả</a></li>
-            <li><a href="#"><i class="footer-section-icon fa-solid fa-chevron-right"></i> Quy định sử dụng</a></li>
-            </ul>
-            </div>
-            <div class="footer-section">
-            <h3>HƯỚNG DẪN</h3>
-            <ul>
-            <li><a href="#"><i class="footer-section-icon fa-solid fa-chevron-right"></i> Hướng dẫn mua hàng</a></li>
-            <li><a href="#"><i class="footer-section-icon fa-solid fa-chevron-right"></i> Hướng dẫn thanh toán</a></li>
-            <li><a href="#"><i class="footer-section-icon fa-solid fa-chevron-right"></i> Hướng dẫn giao nhận</a></li>
-            <li><a href="#"><i class="footer-section-icon fa-solid fa-chevron-right"></i> Điều khoản dịch vụ</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!--  -->
-    <!-- Modal -->
-    <div class="modal" id = "myModalRegister">
-      <div class="modal__overlay"></div>
-      <div class="modal__body">
-        <!-- Authen form Register-->
-        <div class="auth-form">
-          <span class="closeForm"><i class="fa-solid fa-x"></i></span>
-          <div class="auth-form__container">
-            <!-- Header -->
-            <div class="auth-form__header">
-              <h3 class="auth-form__heading">Đăng ký</h3>
-              <span class="auth-form__swith-btn login-open_btn">Đăng nhập</span>
-            </div>
-            <!-- Body 01 -->
-            <div class="auth-form__form">
-              <label for="input-username_login">Tài Khoản</label>
-              <div class="auth-form__group">
-                <input
-                  type="text"
-                  class="auth-form__input"
-                  id="username"
-                  placeholder="Tên đăng nhập"
-                />
-                <span class="form-message"></span>
+      <!--  -->
+      <!-- Modal -->
+      <div class="modal" id="myModalRegister">
+        <div class="modal__overlay"></div>
+        <div class="modal__body">
+          <!-- Authen form Register-->
+          <div class="auth-form">
+            <span class="closeForm"><i class="fa-solid fa-x"></i></span>
+            <div class="auth-form__container">
+              <!-- Header -->
+              <div class="auth-form__header">
+                <h3 class="auth-form__heading">Đăng ký</h3>
+                <span class="auth-form__swith-btn login-open_btn"
+                  >Đăng nhập</span
+                >
               </div>
-              <!--  -->
-              <div class="auth-form__group">
-                <label for="email">Email</label>
-                <input
-                  type="text"
-                  class="auth-form__input"
-                  id="email"
-                  placeholder="Email của bạn"
-                />
-                <span class="form-message"></span>
-              </div>
-              <!--  -->
-              <div class="auth-form__group">
-                <label for="password">Mật Khẩu</label>
-                <input
-                  type="password"
-                  class="auth-form__input"
-                  id="password"
-                  placeholder="Mật khẩu của bạn"
-                />
-                <span class="form-message"></span>
-              </div>
-              <div class="auth-form__group">
+              <!-- Body 01 -->
+              <div class="auth-form__form">
+                <label for="input-username_login">Tài Khoản</label>
                 <div class="auth-form__group">
-                  <label for="fillpassword">Nhập Lại Mật Khẩu</label>
                   <input
-                    type="password"
+                    type="text"
                     class="auth-form__input"
-                    id="fillpassword"
-                    placeholder="Nhập lại mật khẩu"
+                    id="username"
+                    placeholder="Tên đăng nhập"
                   />
                   <span class="form-message"></span>
                 </div>
+                <!--  -->
+                <div class="auth-form__group">
+                  <label for="email">Email</label>
+                  <input
+                    type="text"
+                    class="auth-form__input"
+                    id="email"
+                    placeholder="Email của bạn"
+                  />
+                  <span class="form-message"></span>
+                </div>
+                <!--  -->
+                <div class="auth-form__group">
+                  <label for="password">Mật Khẩu</label>
+                  <input
+                    type="password"
+                    class="auth-form__input"
+                    id="password"
+                    placeholder="Mật khẩu của bạn"
+                  />
+                  <span class="form-message"></span>
+                </div>
+                <div class="auth-form__group">
+                  <div class="auth-form__group">
+                    <label for="fillpassword">Nhập Lại Mật Khẩu</label>
+                    <input
+                      type="password"
+                      class="auth-form__input"
+                      id="fillpassword"
+                      placeholder="Nhập lại mật khẩu"
+                    />
+                    <span class="form-message"></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Body 02 -->
+              <div class="auth-form__aside">
+                <p class="auth-form__policy-text">
+                  Bằng việc đăng kí, bạn đã đồng ý với Shop về
+                  <a href="" class="auth-form__text-link">Điều khoản dịch vụ</a>
+                  &
+                  <a href="" class="auth-form__text-link">Chính sách bảo mật</a>
+                </p>
+              </div>
+              <!-- Footer 01 -->
+              <div class="auth-form__controls">
+                <button class="btn btn--primary" id="register-form">
+                  ĐĂNG KÝ
+                </button>
               </div>
             </div>
-
-            <!-- Body 02 -->
-            <div class="auth-form__aside">
-              <p class="auth-form__policy-text">
-                Bằng việc đăng kí, bạn đã đồng ý với Shop về
-                <a href="" class="auth-form__text-link">Điều khoản dịch vụ</a>
-                &
-                <a href="" class="auth-form__text-link">Chính sách bảo mật</a>
-              </p>
-            </div>
-            <!-- Footer 01 -->
-            <div class="auth-form__controls">
-              <button class="btn btn--primary" id="register-form">ĐĂNG KÝ</button>
+            <!-- Footer 02 -->
+            <div class="auth-form__socials">
+              <a
+                href=""
+                class="auth-form__socials--facebook btn btn--size-s btn--with-icon"
+                ><i
+                  class="auth-form__socials-icon fa-brands fa-square-facebook"
+                ></i
+                ><span class="auth-form__socials-title"
+                  >Kết nối với Facebook</span
+                ></a
+              >
+              <a
+                href=""
+                class="auth-form__socials--google btn btn--size-s btn--with-icon"
+                ><i class="auth-form__socials-icon fa-brands fa-google"></i
+                ><span class="auth-form__socials-title"
+                  >Kết nối với Google</span
+                >
+              </a>
             </div>
           </div>
-          <!-- Footer 02 -->
-          <div class="auth-form__socials">
-            <a
-              href=""
-              class="auth-form__socials--facebook btn btn--size-s btn--with-icon"
-              ><i
-                class="auth-form__socials-icon fa-brands fa-square-facebook"
-              ></i
-              ><span class="auth-form__socials-title"
-                >Kết nối với Facebook</span
-              ></a
-            >
-            <a
-              href=""
-              class="auth-form__socials--google btn btn--size-s btn--with-icon"
-              ><i class="auth-form__socials-icon fa-brands fa-google"></i
-              ><span class="auth-form__socials-title">Kết nối với Google</span>
-            </a>
-          </div>
+          <!--  -->
         </div>
         <!--  -->
       </div>
       <!--  -->
-    </div>
-    <!--  -->
-    <div class="modal" id = "myModalLogin">
-      <div class="modal__overlay"></div>
-      <div class="modal__body">
-        <!-- Authen form Login-->
-        <div class="auth-form">
-          <span class="closeForm"><i class="fa-solid fa-x"></i></span>
-          <div class="auth-form__container">
-            <!-- Header -->
-            <div class="auth-form__header">
-              <h3 class="auth-form__heading">Đăng nhập</h3>
-              <span class="auth-form__swith-btn register-open_btn">Đăng ký</span>
-            </div>
-            <!-- Body 01 -->
-            <div class="auth-form__form">
-              <label for="input-username_login">Tài Khoản</label>
-              <div class="auth-form__group">
-                <input
-                  type="text"
-                  class="auth-form__input"
-                  placeholder="Tên đăng nhập"
-                />
+      <div class="modal" id="myModalLogin">
+        <div class="modal__overlay"></div>
+        <div class="modal__body">
+          <!-- Authen form Login-->
+          <div class="auth-form">
+            <span class="closeForm"><i class="fa-solid fa-x"></i></span>
+            <div class="auth-form__container">
+              <!-- Header -->
+              <div class="auth-form__header">
+                <h3 class="auth-form__heading">Đăng nhập</h3>
+                <span class="auth-form__swith-btn register-open_btn"
+                  >Đăng ký</span
+                >
               </div>
-              <!--  -->
-              <div class="auth-form__group">
-                <label for="password">Mật Khẩu</label>
-                <input
-                  type="password"
-                  class="auth-form__input"
-                  placeholder="Mật khẩu"
-                />
+              <!-- Body 01 -->
+              <div class="auth-form__form">
+                <label for="input-username_login">Tài Khoản</label>
+                <div class="auth-form__group">
+                  <input
+                    type="text"
+                    class="auth-form__input"
+                    placeholder="Tên đăng nhập"
+                  />
+                </div>
+                <!--  -->
+                <div class="auth-form__group">
+                  <label for="password">Mật Khẩu</label>
+                  <input
+                    type="password"
+                    class="auth-form__input"
+                    placeholder="Mật khẩu"
+                  />
+                </div>
+                <!--  -->
               </div>
-              <!--  -->
-            </div>
 
-            <!-- Footer 01 -->
-            <div class="auth-form__controls">
-              <button class="btn btn--primary" id="login-form">Đăng nhập</button>
+              <!-- Footer 01 -->
+              <div class="auth-form__controls">
+                <button class="btn btn--primary" id="login-form">
+                  Đăng nhập
+                </button>
+              </div>
+            </div>
+            <!-- Footer 02 -->
+            <div class="auth-form__socials">
+              <a
+                href=""
+                class="auth-form__socials--facebook btn btn--size-s btn--with-icon"
+                ><i
+                  class="auth-form__socials-icon fa-brands fa-square-facebook"
+                ></i
+                ><span class="auth-form__socials-title"
+                  >Kết nối với Facebook</span
+                ></a
+              >
+              <a
+                href=""
+                class="auth-form__socials--google btn btn--size-s btn--with-icon"
+                ><i class="auth-form__socials-icon fa-brands fa-google"></i
+                ><span class="auth-form__socials-title"
+                  >Kết nối với Google</span
+                >
+              </a>
             </div>
           </div>
-          <!-- Footer 02 -->
-          <div class="auth-form__socials">
-            <a
-              href=""
-              class="auth-form__socials--facebook btn btn--size-s btn--with-icon"
-              ><i
-                class="auth-form__socials-icon fa-brands fa-square-facebook"
-              ></i
-              ><span class="auth-form__socials-title"
-                >Kết nối với Facebook</span
-              ></a
-            >
-            <a
-              href=""
-              class="auth-form__socials--google btn btn--size-s btn--with-icon"
-              ><i class="auth-form__socials-icon fa-brands fa-google"></i
-              ><span class="auth-form__socials-title">Kết nối với Google</span>
-            </a>
-          </div>
+          <!--  -->
         </div>
         <!--  -->
       </div>
       <!--  -->
-    </div>
-    <!--  -->
 
-    <div class="modal" id="productLayout">
-      <div class="modal__overlay"></div>
-      <div class="modal__body">
-        <div class="product-content">
-          <div class="product-close">x</div>
-          <div class="product-containter"></div>
+      <div class="modal" id="productLayout">
+        <div class="modal__overlay"></div>
+        <div class="modal__body">
+          <div class="product-content">
+            <div class="product-close">x</div>
+            <div class="product-containter"></div>
+          </div>
+          <!--  -->
         </div>
         <!--  -->
       </div>
-      <!--  -->
-    </div>
 
-    <!--  -->
-    <script src="./assets/javascript/main.js"></script>
+      <!--  -->
+      <script src="./assets/javascript/main.js"></script>
+    </div>
   </body>
 </html>
