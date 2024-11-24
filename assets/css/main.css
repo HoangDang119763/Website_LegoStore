@@ -33,7 +33,7 @@
 
 .header__navbar-item {
   margin: 0 8px;
-  position: relative;
+
   min-height: 26px;
   justify-items: center;
 }
@@ -270,6 +270,104 @@
   justify-content: center;
 }
 
+.header__cart:hover .header__cart-detail {
+  display: block;
+}
+
+.header__cart-detail {
+  position: absolute;
+  width: 400px;
+  background-color: #f8f8f8;
+  border: 1px solid #f3f3f3;
+  border-radius: 10px;
+  padding-top: 4px;
+  padding-left: 10px;
+  z-index: 1;
+  margin-top: 1px;
+  transform: translateX(-70%);
+  display: none;
+}
+
+.header__cart-list {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.cartTittle {
+  color: rgba(0, 0, 0, 0.5);
+  text-align: start;
+  font-size: 1.8rem;
+}
+.cartTittle h5 {
+  margin: 0;
+}
+
+.cartItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 4px;
+  font-size: 1.2rem;
+}
+.cartItem:hover {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.cart-item-img {
+  width: 40%;
+  height: 80px;
+  display: inline-block;
+}
+.cart-item-name {
+  width: 40%;
+  display: inline-block;
+}
+.cart-item-price {
+  width: 30%;
+  display: inline-block;
+}
+
+.cart-item-quantity {
+  width: 20%;
+  display: inline-block;
+}
+
+.cart-item-img img {
+  width: 100px;
+  height: 100%;
+  object-fit: contain;
+}
+.cart-item-remove {
+  margin-right: 10px;
+  font-size: 1.2rem;
+  border: none;
+}
+.cart-item-remove:hover {
+  cursor: pointer;
+  color: red;
+}
+
+.header__cart-wrap {
+  display: flex;
+  position: relative;
+}
+.header__cart-quantity {
+  position: absolute;
+  z-index: 1;
+  background-color: var(--border-color);
+  color: white;
+  top: -10px;
+  right: -10px;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  opacity: 0.9;
+  text-align: center;
+  font-size: 1.4rem;
+}
+
 .header__cart-icon {
   font-size: 2.4rem;
   color: var(--white-color);
@@ -278,6 +376,24 @@
 .header__cart-icon:hover {
   cursor: pointer;
   color: var(--border-color);
+}
+
+.header__cart-action {
+  display: flex;
+  justify-content: flex-end;
+  margin: 5px;
+}
+
+.removeAllCart {
+  color: var(--border-color);
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #999;
+}
+.removeAllCart:hover,
+.cart-pay:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 }
 
 /* Phần Top menu */
@@ -851,6 +967,57 @@
   background-color: var(--white-color);
 }
 
+.selected-form__group {
+  margin-top: 10px;
+  display: flex;
+  font-size: 1.4rem;
+  align-items: center;
+}
+
+.selected-city,
+.selected-district,
+.selected-ward {
+  flex: 1; /* Mỗi select box chiếm 1/3 chiều rộng của container */
+  margin-right: 10px; /* Khoảng cách giữa các select box */
+}
+
+.selected-city select,
+.selected-district select,
+.selected-ward select {
+  width: 100%; /* Đảm bảo select box chiếm toàn bộ chiều rộng của container */
+  padding: 8px 12px; /* Thêm khoảng cách vào bên trong select box */
+  font-size: 1.4rem; /* Đặt kích thước font chữ */
+}
+
+.selected-form__group {
+  margin-top: 10px;
+  display: flex;
+  font-size: 1.4rem;
+  align-items: center;
+}
+
+.selected-city,
+.selected-district,
+.selected-ward {
+  flex: 1;
+  margin-right: 10px;
+  position: relative;
+}
+
+.selected-city #city-alert,
+.selected-district #district-alert,
+.selected-ward #ward-alert {
+  position: absolute;
+  left: 0;
+  font-size: 1.2rem;
+  color: red;
+}
+#houseNumber-alert {
+  position: absolute;
+  font-size: 1.2rem;
+  color: red;
+}
+
 /* Prodcut detail */
 #productLayout {
   /* display: block; */
@@ -908,10 +1075,17 @@
   cursor: pointer;
 }
 
-.quantity-input {
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none; /* Loại bỏ mũi tên */
+  margin: 0; /* Đảm bảo không gian không bị lệch */
+}
+
+#quantity-input {
   width: 50px;
   font-size: 1.6rem;
   text-align: center;
+  border: 1px solid #000;
 }
 
 .add-to-cart {
@@ -1111,9 +1285,6 @@
   margin-top: 5px 0;
 }
 
-.accountLogin {
-  display: none;
-}
 .accountLogin:hover > button {
   display: block;
 }
@@ -1121,8 +1292,26 @@
   display: block;
 }
 .userLogout {
-  display: none;
+  /* display: none; */
   border: none;
   border-radius: 5px;
   margin-left: 0px;
+}
+
+.loginStatus {
+  display: inline-block;
+}
+
+.auth-form__input--address {
+  width: 100%;
+  height: 40px;
+  margin-top: 3px;
+  padding: 0 12px;
+  font-size: 1.4rem;
+  border: solid 1px var(--border-color);
+  border-radius: 2px;
+  &:focus {
+    border-color: #888;
+    outline: none;
+  }
 }

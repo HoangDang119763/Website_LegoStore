@@ -14,18 +14,598 @@ const closeFormBtn = document.querySelectorAll(".closeForm");
 const btnProductclose = document.querySelector(".product-close");
 const bodytop__left = document.querySelector(".bodytop__left");
 const bodytop__right = document.querySelector(".bodytop__right");
+const bodyTop = document.querySelector(".bodytop");
 const productContainerMain = document.querySelector(".product_container");
 const productContainter = document.querySelector(".product-containter");
 const verticalmenu = document.getElementsByClassName("verticalmenu");
 const producttype__name = document.querySelector(".producttype__name");
 const producttype = document.querySelector(".producttype");
 const pageNumber = document.querySelector(".pagenumber");
-var userList = [];
+const header__cart = document.querySelector(".header__cart-icon");
+const removeAllCart = document.querySelector(".removeAllCart");
 // Modal
 const inputUsernameSignUp = document.querySelector(".input-username_signup");
 const inputPasswordSignup = document.querySelector(".input-password_signup");
 const inputEmailSignUp = document.querySelector(".input-email_signup");
 const fillPassSignup = document.querySelector("#fillpassword");
+// Address
+const locations = [
+  {
+    city: "Hà Nội",
+    districts: [
+      {
+        district: "Quận Ba Đình",
+        wards: [
+          "Cống Vị",
+          "Điện Biên",
+          "Đội Cấn",
+          "Giảng Võ",
+          "Kim Mã",
+          "Liễu Giai",
+          "Ngọc Hà",
+          "Ngọc Khánh",
+          "Nguyễn Trung Trực",
+          "Phúc Xá",
+          "Quán Thánh",
+          "Thành Công",
+          "Trúc Bạch",
+          "Vĩnh Phúc",
+        ],
+      },
+      {
+        district: "Quận Hoàn Kiếm",
+        wards: [
+          "Chương Dương Độ",
+          "Cửa Đông",
+          "Cửa Nam",
+          "Đồng Xuân",
+          "Hàng Bạc",
+          "Hàng Bài",
+          "Hàng Bồ",
+          "Hàng Bông",
+          "Hàng Buồm",
+          "Hàng Đào",
+          "Hàng Gai",
+          "Hàng Mã",
+          "Hàng Trống",
+          "Lý Thái Tổ",
+          "Phan Chu Trinh",
+          "Phúc Tân",
+          "Tràng Tiền",
+          "Trần Hưng Đạo",
+        ],
+      },
+      {
+        district: "Quận Đống Đa",
+        wards: [
+          "Cát Linh",
+          "Giảng Võ",
+          "Hàng Bột",
+          "Khâm Thiên",
+          "Khương Thượng",
+          "Kim Liên",
+          "Láng Hạ",
+          "Láng Thượng",
+          "Nam Đồng",
+          "Ngã Tư Sở",
+          "Ô Chợ Dừa",
+          "Phương Liên",
+          "Phương Mai",
+          "Quang Trung",
+          "Quốc Tử Giám",
+          "Thịnh Quang",
+          "Thổ Quan",
+          "Trung Liệt",
+          "Trung Phụng",
+          "Trung Tự",
+          "Văn Chương",
+          "Văn Miếu",
+        ],
+      },
+      {
+        district: "Quận Hai Bà Trưng",
+        wards: [
+          "Bạch Đằng",
+          "Bách Khoa",
+          "Bạch Mai",
+          "Cầu Dền",
+          "Đống Mác",
+          "Đồng Nhân",
+          "Đồng Tâm",
+          "Đồng Xuân",
+          "Lê Đại Hành",
+          "Minh Khai",
+          "Nguyễn Du",
+          "Phạm Đình Hổ",
+          "Phố Huế",
+          "Quỳnh Lôi",
+          "Quỳnh Mai",
+          "Thanh Lương",
+          "Thanh Nhàn",
+          "Trương Định",
+          "Vĩnh Tuy",
+        ],
+      },
+      {
+        district: "Quận Thanh Xuân",
+        wards: [
+          "Hạ Đình",
+          "Khương Đình",
+          "Khương Mai",
+          "Khương Trung",
+          "Nhân Chính",
+          "Phương Liệt",
+          "Thanh Xuân Bắc",
+          "Thanh Xuân Nam",
+          "Thanh Xuân Trung",
+          "Thượng Đình",
+        ],
+      },
+      {
+        district: "Quận Tây Hồ",
+        wards: [
+          "Bưởi",
+          "Nhật Tân",
+          "Phú Thượng",
+          "Quảng An",
+          "Thụy Khuê",
+          "Tứ Liên",
+          "Xuân La",
+          "Yên Phụ",
+        ],
+      },
+      {
+        district: "Quận Cầu Giấy",
+        wards: [
+          "Dịch Vọng",
+          "Dịch Vọng Hậu",
+          "Mai Dịch",
+          "Nghĩa Đô",
+          "Nghĩa Tân",
+          "Quan Hoa",
+          "Trung Hòa",
+          "Yên Hòa",
+        ],
+      },
+      {
+        district: "Quận Hoàng Mai",
+        wards: [
+          "Đại Kim",
+          "Định Công",
+          "Giáp Bát",
+          "Hoàng Liệt",
+          "Hoàng Văn Thụ",
+          "Lĩnh Nam",
+          "Mai Động",
+          "Tân Mai",
+          "Thanh Trì",
+          "Thịnh Liệt",
+          "Trần Phú",
+          "Tương Mai",
+          "Vĩnh Hưng",
+          "Yên Sở",
+        ],
+      },
+      {
+        district: "Quận Long Biên",
+        wards: [
+          "Bồ Đề",
+          "Cự Khối",
+          "Đức Giang",
+          "Gia Thụy",
+          "Giang Biên",
+          "Long Biên",
+          "Ngọc Lâm",
+          "Ngọc Thụy",
+          "Phúc Đồng",
+          "Phúc Lợi",
+          "Sài Đồng",
+          "Thạch Bàn",
+          "Thượng Thanh",
+          "Việt Hưng",
+        ],
+      },
+      {
+        district: "Quận Nam Từ Liêm",
+        wards: [
+          "Cầu Diễn",
+          "Đại Mỗ",
+          "Mễ Trì",
+          "Mỹ Đình 1",
+          "Mỹ Đình 2",
+          "Phú Đô",
+          "Phương Canh",
+          "Tây Mỗ",
+          "Trung Văn",
+          "Xuân Phương",
+        ],
+      },
+      {
+        district: "Quận Bắc Từ Liêm",
+        wards: [
+          "Cổ Nhuế 1",
+          "Cổ Nhuế 2",
+          "Đông Ngạc",
+          "Đức Thắng",
+          "Liên Mạc",
+          "Minh Khai",
+          "Phú Diễn",
+          "Phúc Diễn",
+          "Tây Tựu",
+          "Thượng Cát",
+          "Thụy Phương",
+          "Xuân Đỉnh",
+          "Xuân Tảo",
+        ],
+      },
+      {
+        district: "Huyện Gia Lâm",
+        wards: [
+          "Cát Quế",
+          "Đặng Xá",
+          "Đa Tốn",
+          "Đình Xuyên",
+          "Dương Hà",
+          "Dương Quang",
+          "Dương Xá",
+          "Kim Lan",
+          "Kim Sơn",
+          "Lệ Chi",
+          "Ninh Hiệp",
+          "Phù Đổng",
+          "Phú Thị",
+          "Trâu Quỳ",
+          "Yên Thường",
+          "Yên Viên",
+        ],
+      },
+      {
+        district: "Huyện Đông Anh",
+        wards: [
+          "Bắc Hồng",
+          "Cổ Loa",
+          "Dục Tú",
+          "Đại Mạch",
+          "Đông Hội",
+          "Hải Bối",
+          "Kim Chung",
+          "Kim Nỗ",
+          "Liên Hà",
+          "Mai Lâm",
+          "Nguyên Khê",
+          "Tàm Xá",
+          "Thụy Lâm",
+          "Tiên Dương",
+          "Uy Nỗ",
+          "Vân Hà",
+          "Vân Nội",
+          "Việt Hùng",
+          "Vĩnh Ngọc",
+          "Võng La",
+          "Xuân Canh",
+          "Xuân Nộn",
+        ],
+      },
+      {
+        district: "Huyện Sóc Sơn",
+        wards: [
+          "Bắc Sơn",
+          "Đông Xuân",
+          "Hiền Ninh",
+          "Hồng Kỳ",
+          "Kim Lũ",
+          "Mai Đình",
+          "Minh Phú",
+          "Minh Trí",
+          "Nam Sơn",
+          "Phù Linh",
+          "Phú Cường",
+          "Phú Minh",
+          "Phủ Lỗ",
+          "Quang Tiến",
+          "Tân Dân",
+          "Tân Hưng",
+          "Thụy Hương",
+          "Tiên Dược",
+          "Trung Giã",
+          "Việt Long",
+          "Xuân Giang",
+          "Xuân Thu",
+        ],
+      },
+      {
+        district: "Huyện Thanh Trì",
+        wards: [
+          "Đại Áng",
+          "Đông Mỹ",
+          "Duyên Hà",
+          "Hữu Hòa",
+          "Liên Ninh",
+          "Ngọc Hồi",
+          "Tả Thanh Oai",
+          "Tam Hiệp",
+          "Tân Triều",
+          "Thanh Liệt",
+          "Tứ Hiệp",
+          "Vạn Phúc",
+          "Vĩnh Quỳnh",
+          "Yên Mỹ",
+        ],
+      },
+      {
+        district: "Huyện Thường Tín",
+        wards: [
+          "Dũng Tiến",
+          "Hà Hồi",
+          "Hiền Giang",
+          "Hòa Bình",
+          "Hồng Vân",
+          "Khánh Hà",
+          "Liên Phương",
+          "Minh Cường",
+          "Nghiêm Xuyên",
+          "Nguyễn Trãi",
+          "Nhị Khê",
+          "Ninh Sở",
+          "Quất Động",
+          "Thắng Lợi",
+          "Thống Nhất",
+          "Thư Phú",
+          "Tô Hiệu",
+          "Tự Nhiên",
+          "Vạn Điểm",
+          "Vân Tảo",
+          "Văn Bình",
+          "Văn Phú",
+          "Văn Tự",
+          "Vân Tử",
+          "Vũ Lăng",
+          "Xà Cầu",
+          "Duyên Thái",
+        ],
+      },
+    ],
+  },
+  {
+    city: "Hồ Chí Minh",
+    districts: [
+      {
+        district: "Quận 1",
+        wards: [
+          "Bến Nghé",
+          "Bến Thành",
+          "Cầu Kho",
+          "Cầu Ông Lãnh",
+          "Cô Giang",
+          "Nguyễn Thái Bình",
+          "Phạm Ngũ Lão",
+        ],
+      },
+      {
+        district: "Quận 2",
+        wards: [
+          "Thảo Điền",
+          "An Phú",
+          "An Khánh",
+          "Bình An",
+          "Bình Trưng Đông",
+          "Bình Trưng Tây",
+          "Cát Lái",
+          "Thạnh Mỹ Lợi",
+        ],
+      },
+      {
+        district: "Quận 3",
+        wards: [
+          "Phường 1",
+          "Phường 2",
+          "Phường 3",
+          "Phường 4",
+          "Phường 5",
+          "Phường 6",
+          "Phường 7",
+          "Phường 8",
+          "Phường 9",
+          "Phường 10",
+        ],
+      },
+      {
+        district: "Quận 4",
+        wards: [
+          "Phường 1",
+          "Phường 2",
+          "Phường 3",
+          "Phường 4",
+          "Phường 5",
+          "Phường 6",
+          "Phường 8",
+          "Phường 9",
+        ],
+      },
+      {
+        district: "Quận 5",
+        wards: [
+          "Phường 1",
+          "Phường 2",
+          "Phường 3",
+          "Phường 4",
+          "Phường 5",
+          "Phường 6",
+          "Phường 7",
+          "Phường 8",
+        ],
+      },
+      {
+        district: "Quận 6",
+        wards: [
+          "Phường 1",
+          "Phường 2",
+          "Phường 3",
+          "Phường 4",
+          "Phường 5",
+          "Phường 6",
+          "Phường 7",
+          "Phường 8",
+        ],
+      },
+      {
+        district: "Quận 7",
+        wards: [
+          "Tân Thuận Đông",
+          "Tân Thuận Tây",
+          "Tân Kiểng",
+          "Tân Hưng",
+          "Bình Thuận",
+          "Phú Mỹ",
+          "Tân Phong",
+          "Tân Quy",
+        ],
+      },
+      {
+        district: "Quận 8",
+        wards: [
+          "Phường 1",
+          "Phường 2",
+          "Phường 3",
+          "Phường 4",
+          "Phường 5",
+          "Phường 6",
+          "Phường 7",
+          "Phường 8",
+        ],
+      },
+      {
+        district: "Quận 9",
+        wards: [
+          "Long Bình",
+          "Long Phước",
+          "Long Thạnh Mỹ",
+          "Long Trường",
+          "Phước Bình",
+          "Phước Long A",
+          "Phước Long B",
+        ],
+      },
+      {
+        district: "Quận 10",
+        wards: [
+          "Phường 1",
+          "Phường 2",
+          "Phường 3",
+          "Phường 4",
+          "Phường 5",
+          "Phường 6",
+          "Phường 7",
+          "Phường 8",
+        ],
+      },
+      {
+        district: "Quận 11",
+        wards: [
+          "Phường 1",
+          "Phường 2",
+          "Phường 3",
+          "Phường 4",
+          "Phường 5",
+          "Phường 6",
+          "Phường 7",
+          "Phường 8",
+        ],
+      },
+      {
+        district: "Quận 12",
+        wards: [
+          "Thạnh Xuân",
+          "Thạnh Lộc",
+          "Thới An",
+          "Tân Chánh Hiệp",
+          "An Phú Đông",
+          "Tân Thới Hiệp",
+          "Tân Hưng Thuận",
+        ],
+      },
+      {
+        district: "Tân Bình",
+        wards: [
+          "Phường 1",
+          "Phường 2",
+          "Phường 3",
+          "Phường 4",
+          "Phường 5",
+          "Phường 6",
+          "Phường 7",
+          "Phường 8",
+        ],
+      },
+      {
+        district: "Tân Phú",
+        wards: [
+          "Hiệp Tân",
+          "Hòa Thạnh",
+          "Phú Thọ Hòa",
+          "Phú Thạnh",
+          "Phú Trung",
+          "Sơn Kỳ",
+          "Tân Qúy",
+          "Tân Sơn Nhì",
+        ],
+      },
+      {
+        district: "Bình Thạnh",
+        wards: [
+          "Phường 1",
+          "Phường 2",
+          "Phường 3",
+          "Phường 4",
+          "Phường 5",
+          "Phường 6",
+          "Phường 7",
+          "Phường 8",
+        ],
+      },
+      {
+        district: "Gò Vấp",
+        wards: [
+          "Phường 1",
+          "Phường 2",
+          "Phường 3",
+          "Phường 4",
+          "Phường 5",
+          "Phường 6",
+          "Phường 7",
+          "Phường 8",
+        ],
+      },
+      {
+        district: "Phú Nhuận",
+        wards: [
+          "Phường 1",
+          "Phường 2",
+          "Phường 3",
+          "Phường 4",
+          "Phường 5",
+          "Phường 6",
+          "Phường 7",
+          "Phường 8",
+        ],
+      },
+      {
+        district: "Thủ Đức",
+        wards: [
+          "Bình Chiểu",
+          "Bình Thọ",
+          "Hiệp Bình Chánh",
+          "Hiệp Bình Phước",
+          "Linh Chiểu",
+          "Linh Đông",
+          "Linh Tây",
+          "Linh Trung",
+        ],
+      },
+    ],
+  },
+];
+
 // Onload
 const currentPath = window.location.pathname; // Đường dẫn hiện tại (vd: /index.html)
 const currentQuery = window.location.search; // Query string hiện tại (vd: ?tc)
@@ -38,23 +618,50 @@ if (currentPath.endsWith("index.html") && currentQuery === "") {
 createProductCatogrey();
 verticalMenu();
 createProducts();
-createAdmin();
+createUsers();
 displayMenu();
+
 var filterProductList = JSON.parse(localStorage.getItem(listProducts));
 
 // Tạo Admin
-function createAdmin() {
+function createUsers() {
   if (localStorage.getItem(ListUsers) === null) {
-    let user = {
-      username: "admin",
-      email: "admin@gmail.com",
-      password: "admin",
-      id: 1,
-      cart: [],
-      dateSignUp: "18/11/2024",
-    };
-    userList.push(user);
-    localStorage.setItem(ListUsers, JSON.stringify(userList));
+    let users = [
+      {
+        id: 0,
+        username: "admin",
+        email: "admin@gmail.com",
+        address: [],
+        password: "admin",
+        cart: [],
+        dateSignUp: "18/11/2024",
+        status: 1,
+        role: 0,
+      },
+      {
+        id: 1,
+        username: "hoang123",
+        email: "admin@gmail.com",
+        address: [],
+        password: "admin",
+        cart: [],
+        dateSignUp: "18/11/2024",
+        status: 1,
+        role: 1,
+      },
+      {
+        id: 2,
+        username: "hien123",
+        email: "admin@gmail.com",
+        address: [],
+        password: "admin",
+        cart: [],
+        dateSignUp: "18/11/2024",
+        status: 1,
+        role: 1,
+      },
+    ];
+    localStorage.setItem(ListUsers, JSON.stringify(users));
   }
 }
 
@@ -630,9 +1237,9 @@ function createProductDetail(product) {
         <p class="content-detail"><strong>Chủ đề:</strong> ${product.topic}</p>
         <p class="content-detail"><strong>Giá tiền:</strong> ${product.price} VNĐ</p>
         <div class="product-quantity">
-          <button class="quantity-btn">-</button>
-          <input type="text" value="1" min="1" class="quantity-input">
-          <button class="quantity-btn">+</button>
+          <button class="quantity-btn btn-des">-</button>
+          <input type="number" value="1" id="quantity-input" min="1">
+          <button class="quantity-btn btn-ins">+</button>
         </div>
         
         <button class="add-to-cart">Thêm Vào Giỏ</button>
@@ -651,6 +1258,25 @@ function displayProductDetail(e, product) {
     s = createProductDetail(matchedProduct);
     productContainter.innerHTML = s;
     productLayout.style.display = "block";
+
+    // Lâm
+    let quantity = document.querySelector("#quantity-input");
+    document.querySelector(".btn-des").addEventListener("click", () => {
+      if (quantity.value > 1) quantity.value--;
+    });
+    document.querySelector(".btn-ins").addEventListener("click", () => {
+      quantity.value++;
+    });
+    quantity.addEventListener("input", () => {
+      if (parseInt(quantity.value) < 1 || isNaN(quantity.value)) {
+        quantity.value = 1; // Gán lại giá trị hợp lệ
+      }
+    });
+    document
+      .querySelector(".add-to-cart")
+      .addEventListener("click", () =>
+        addProductToCart1(product.id, quantity.value)
+      );
   } else {
     // Nếu không tìm thấy sản phẩm
     alert("Product not found");
@@ -742,7 +1368,13 @@ function verticalMenu() {
 }
 
 function verticalMenu1() {
-  let s1 = `<div class="verticalmenu"> <div class="verticalmenu_title">
+  let tempCatogreyList = JSON.parse(localStorage.getItem(listProductCatogrey));
+  let s1 = "";
+  tempCatogreyList.forEach((item) => {
+    s1 += `<option value="${item.brandid}">${item.brandname}</option>`;
+  });
+  let s2 =
+    `<div class="verticalmenu"> <div class="verticalmenu_title">
                 <h3>
                   <i class="verticalmenu_title-icon fa-solid fa-bars"></i>
                   <span>TÌM KIẾM NÂNG CAO</span>
@@ -766,11 +1398,9 @@ function verticalMenu1() {
           <div class="form-group">
             <label for="search-category">Phân loại:</label>
             <select id="search-category" name="category">
-              <option value="">Tất cả</option>
-              <option value="electronics">Điện tử</option>
-              <option value="fashion">Thời trang</option>
-              <option value="home">Đồ gia dụng</option>
-              <option value="other">Khác</option>
+              <option value="">Tất cả</option>` +
+    s1 +
+    ` 
             </select>
           </div>
 
@@ -796,12 +1426,13 @@ function verticalMenu1() {
         </form>
               </div>
             </div>`;
-  return s1;
+  return s2;
 }
 
 const searchNameProduct = document.getElementById("search-name");
 const searchMinPriceProduct = document.getElementById("search-price-min");
 const searchMaxPriceProduct = document.getElementById("search-price-max");
+const selectedCategory = document.getElementById("search-category");
 //Filter các loại
 function filterProductArrayByBrand(productArray, brandID) {
   return productArray.filter((item) => item.code.slice(0, 2) === brandID);
@@ -828,7 +1459,9 @@ function filterProducts() {
   let nameValue = searchNameProduct.value.trim(); // Giá trị tìm kiếm theo tên
   let minPriceValue = parseFloat(searchMinPriceProduct.value) || 0; // Giá trị tìm kiếm giá tối thiểu
   let maxPriceValue = parseFloat(searchMaxPriceProduct.value) || Infinity; // Giá trị tìm kiếm giá tối đa
+  let selectedCategoryValue = selectedCategory.value; // Lấy giá trị được chọn từ dropdown category
   let tempList = JSON.parse(localStorage.getItem(listProducts));
+
   // Lọc sản phẩm dựa trên các điều kiện
 
   let filteredProducts = tempList.filter((product) => {
@@ -841,9 +1474,13 @@ function filterProducts() {
     // Điều kiện giá tối đa
     let matchesMaxPrice = product.price <= maxPriceValue;
     // Điều kiện phân loại
+    let matchesCategory =
+      selectedCategoryValue === "" || // Nếu chọn "Tất cả", không lọc theo category
+      product.code.substring(0, 2) === selectedCategoryValue; // Khớp category với giá trị được chọn
 
-    return matchesName && matchesMinPrice && matchesMaxPrice;
+    return matchesName && matchesMinPrice && matchesMaxPrice && matchesCategory;
   });
+
   let length = filteredProducts.length;
   currentPage = 1;
   if (length > 0) {
@@ -862,11 +1499,13 @@ function filterProducts() {
 searchNameProduct.addEventListener("input", filterProducts);
 searchMinPriceProduct.addEventListener("input", filterProducts);
 searchMaxPriceProduct.addEventListener("input", filterProducts);
+selectedCategory.addEventListener("change", filterProducts);
 
 function clearSearchAdvance() {
   searchNameProduct.value = null;
   searchMinPriceProduct.value = null;
   searchMaxPriceProduct.value = null;
+  selectedCategory.value = "";
 }
 
 // Hiển thị sản phẩm theo tên
@@ -947,7 +1586,7 @@ function displayProductsByBrand(product) {
 function displayMainPage() {
   let s = `
     <div style="border: 2px solid var(--primary-color); border-radius: 10px; padding: 20px; background-color: #ffffff; width: 100%; text-align: center;">
-      <h1 style="color: var(--border-color); font-size: 28px; margin-bottom: 10px;">Chào mừng bạn đến với cửa hàng LEGO của chúng tôi!</h1>
+      <h1 style="line-height: 30px;color: var(--border-color); font-size: 28px; margin-bottom: 10px; ">Chào mừng bạn đến với cửa hàng LEGO của chúng tôi!</h1>
       <p style="font-size: 16px; color: #333; margin-bottom: 20px;">
         Chúng tôi chuyên cung cấp các sản phẩm LEGO chính hãng, từ những mẫu Minifigure độc đáo, đến các bộ MOC sáng tạo dành cho người chơi đam mê!
       </p>
@@ -994,7 +1633,7 @@ function displayMainPage() {
 function displayAboutPage() {
   let s = `
     <div style="border: 2px solid var(--primary-color); border-radius: 10px; padding: 20px; background-color: #ffffff; width: 100%; text-align: center;">
-      <h1 style="color: var(--border-color); font-size: 28px; margin-bottom: 10px;">Giới thiệu về cửa hàng LEGO của chúng tôi</h1>
+      <h1 style="line-height: 30px;color: var(--border-color); font-size: 28px; margin-bottom: 10px;">Giới thiệu về cửa hàng LEGO của chúng tôi</h1>
       
       <p style="font-size: 16px; color: #333; margin-bottom: 20px; line-height: 1.8;">
         Chào mừng bạn đến với cửa hàng LEGO – nơi dành cho những người yêu thích sự sáng tạo và đam mê lắp ráp! Chúng tôi tự hào là một trong những cửa hàng hàng đầu chuyên cung cấp các sản phẩm LEGO chính hãng tại Việt Nam. Với sứ mệnh mang lại niềm vui và trí tưởng tượng vô tận cho mọi khách hàng, chúng tôi cam kết mang đến những sản phẩm chất lượng nhất.
@@ -1266,6 +1905,7 @@ function createUser(event) {
   let email = inputSignUp[1].value.trim();
   let password = inputSignUp[2].value.trim();
   let passwordAgain = inputSignUp[3].value.trim();
+  let id = userList.length;
   if (!username || !email || !password || !passwordAgain) {
     alert("Vui lòng nhập đủ thông tin đăng ký!");
     return false;
@@ -1284,11 +1924,12 @@ function createUser(event) {
     return false;
   }
   let newUser = {
+    id: id,
     username: username,
-    password: password,
     email: email,
+    address: [],
+    password: password,
     cart: [],
-    id: userList.length + 1,
     dateSignUp: "",
   };
   // kiểm tra trùng tên đăng nhập
@@ -1347,36 +1988,51 @@ function checklogin() {
       headerAccount.forEach((item) => {
         item.style.display = "none";
       });
+
+      let temp1 = document.querySelector(".loginStatus");
+      // temp.forEach((item) => {
+      //   item.style.display = "inline-block";
+      //   const t = document.getElementById("accountLoginName");
+      //   t.innerHTML = `${user.username}`;
+      // });
+      temp1.innerHTML = `
+                <li 
+                  class="header__navbar-item header__navbar-item--strong header__navbar-item--separate accountLogin">${user.username}
+                </li>
+                <li class="header__navbar-item header__navbar-item--strong userLogout">
+                  Đăng xuất
+                </li>`;
       const temp = document.querySelectorAll(".accountLogin");
-      temp.forEach((item) => {
-        item.style.display = "inline-block";
-        const t = document.getElementById("accountLoginName");
-        t.innerHTML = `${user.username}`;
+      const userLogout = document.querySelector(".userLogout");
+      // temp.style.display = "block";
+      userLogout.addEventListener("click", () => {
+        // let userLogin = JSON.parse(localStorage.getItem("userLogin"));
+        // let cartCurrent = JSON.parse(localStorage.getItem("cartCustomer"));
+        // let userCurrent = JSON.parse(localStorage.getItem("user"));
+
+        // // Find the current user in the userCurrent array and update their cart
+        // const currentUserIndex = userCurrent.findIndex(
+        //   (user) =>
+        //     user.username === userLogin.username &&
+        //     user.password === userLogin.password
+        // );
+        // if (currentUserIndex !== -1) {
+        //   userCurrent[currentUserIndex].cart = cartCurrent;
+        //   localStorage.setItem("user", JSON.stringify(userCurrent));
+        // }
+
+        // Remove the userLogin data from localStorage
+        localStorage.removeItem("userLogin");
+
+        // Remove the cartCustomer data from localStorage (if needed)
+        localStorage.removeItem("cartCustomer");
+
+        // Redirect the user to the index.html page
+        window.location.href = "index.html";
       });
     }
   }
 }
-const userLogout = document.querySelectorAll(".userLogout");
-userLogout.forEach((item) => {
-  item.addEventListener("click", () => {
-    //let userLogin = JSON.parse(localStorage.getItem("userLogin"));
-    //let cartCurrent = JSON.parse(localStorage.getItem("cartCustomer"));
-    //let userCurrent = JSON.parse(localStorage.getItem("user"));
-    //console.log(cartCurrent);
-    /*for (let i = 0; i < userCurrent.length; i++) {
-      if (
-        userCurrent[i].username == userLogin.username &&
-        userCurrent[i].password == userLogin.password
-      ) {
-        userCurrent[i].cart = cartCurrent;
-      }
-    }*/
-    //localStorage.setItem("user", JSON.stringify(userCurrent));
-    localStorage.removeItem("userLogin");
-    //localStorage.removeItem("cartCustomer");
-    location.href = "index.html";
-  });
-});
 
 function login(event) {
   event.preventDefault();
@@ -1389,6 +2045,7 @@ function login(event) {
       userLogin.value == userList[i].username &&
       passLogin.value == userList[i].password
     ) {
+      // value Login
       localStorage.setItem("userLogin", JSON.stringify(userList[i]));
 
       alert("Đăng nhập thành công");
@@ -1399,3 +2056,885 @@ function login(event) {
   alert("Tên đăng nhập hoặc mật khẩu không chính xác");
 }
 checklogin();
+const USERLOGIN = JSON.parse(localStorage.getItem("userLogin")) ?? [];
+function updateCartUserInList(id, cartUser) {
+  // Lấy danh sách người dùng từ localStorage
+  let tempUserList = JSON.parse(localStorage.getItem(ListUsers));
+
+  // Tìm chỉ số của người dùng cần cập nhật
+  let index = tempUserList.findIndex((user) => user.id === id);
+
+  // Kiểm tra xem người dùng có tồn tại không
+  if (index !== -1) {
+    // Cập nhật giỏ hàng của người dùng
+    tempUserList[index].cart = cartUser;
+
+    // Lưu lại danh sách người dùng đã cập nhật vào localStorage
+    localStorage.setItem(ListUsers, JSON.stringify(tempUserList));
+  }
+}
+
+function getCartUserInList(id) {
+  // Lấy danh sách người dùng từ localStorage
+  let tempUserList = JSON.parse(localStorage.getItem(ListUsers));
+
+  // Tìm chỉ số của người dùng cần cập nhật
+  let index = tempUserList.findIndex((user) => user.id === id);
+  let cart;
+  // Kiểm tra xem người dùng có tồn tại không
+  if (index !== -1) {
+    // Cập nhật giỏ hàng của người dùng
+    cart = tempUserList[index].cart;
+  } else {
+    cart = [];
+  }
+  return cart;
+}
+
+function updateAddressUserInList(id, address) {
+  // Lấy danh sách người dùng từ localStorage
+  let tempUserList = JSON.parse(localStorage.getItem(ListUsers));
+
+  // Tìm chỉ số của người dùng cần cập nhật
+  let index = tempUserList.findIndex((user) => user.id === id);
+
+  // Kiểm tra xem người dùng có tồn tại không
+  if (index !== -1) {
+    // Cập nhật giỏ hàng của người dùng
+    tempUserList[index].address = address;
+
+    // Lưu lại danh sách người dùng đã cập nhật vào localStorage
+    localStorage.setItem(ListUsers, JSON.stringify(tempUserList));
+  } else {
+    console.error("User not found");
+  }
+}
+
+function getAddressUserInList(id) {
+  // Lấy danh sách người dùng từ localStorage
+  let tempUserList = JSON.parse(localStorage.getItem(ListUsers));
+
+  // Tìm chỉ số của người dùng cần cập nhật
+  let index = tempUserList.findIndex((user) => user.id === id);
+  let address;
+  // Kiểm tra xem người dùng có tồn tại không
+  if (index !== -1) {
+    // Cập nhật giỏ hàng của người dùng
+    address = tempUserList[index].address;
+  } else {
+    console.error("User not found");
+    address = [];
+  }
+  return address;
+}
+
+function deleteAddress(index) {
+  const addresses = getAddressUserInList(USERLOGIN.id);
+
+  // Sử dụng splice để xóa địa chỉ tại vị trí index
+  addresses.splice(index, 1);
+
+  // Cập nhật lại danh sách địa chỉ
+  updateAddressUserInList(USERLOGIN.id, addresses);
+
+  // Thông báo cho người dùng
+  alert("Đã xóa địa chỉ khỏi danh sách!");
+  displayCartPage();
+}
+
+// Phần cart
+function addProductToCart1(productID, quantity) {
+  if (!localStorage.getItem("userLogin")) {
+    alert("Vui lòng đăng nhập để thêm sản phẩm !!!!");
+    productLayout.style.display = "none";
+    return;
+  }
+  let cartArray = getCartUserInList(USERLOGIN.id);
+  let tempList = JSON.parse(localStorage.getItem(listProducts));
+  let productItem = tempList.find((product) => product.code === productID);
+
+  if (!productItem) {
+    alert("Sản phẩm không tồn tại");
+    return;
+  }
+
+  // Kiểm tra số lượng sản phẩm muốn thêm vào giỏ hàng
+  let availableQuantity = productItem.quantity;
+  let totalQuantityInCart =
+    cartArray.find((item) => item.code === productItem.code)?.quantity || 0;
+  let totalQuantity = totalQuantityInCart + parseInt(quantity);
+
+  if (totalQuantity <= availableQuantity) {
+    let existProduct = cartArray.findIndex(
+      (item) => item.code === productItem.code
+    );
+
+    if (existProduct !== -1) {
+      // Cập nhật số lượng nếu sản phẩm đã có trong giỏ
+      cartArray[existProduct].quantity += parseInt(quantity);
+    } else {
+      // Thêm sản phẩm mới vào giỏ
+      cartArray.push({
+        name: productItem.name,
+        code: productItem.code,
+        price: productItem.price,
+        imgSrc: productItem.imgSrc,
+        topic: productItem.topic,
+        quantity: parseInt(quantity),
+      });
+    }
+
+    // Cập nhật giỏ hàng của người dùng trong localStorage
+    updateCartUserInList(USERLOGIN.id, cartArray); // Truyền vào giỏ hàng đã cập nhật
+
+    alert("Thêm sản phẩm thành công");
+    cartList();
+    productLayout.style.display = "none";
+  } else {
+    alert(
+      `Không thể thêm sản phẩm. Số lượng tối đa có thể thêm là ${
+        availableQuantity - totalQuantityInCart
+      }.`
+    );
+  }
+}
+
+function removeFromCart(code) {
+  updateCartUserInList(
+    USERLOGIN.id,
+    getCartUserInList(USERLOGIN.id).filter((item) => item.code !== code)
+  );
+  alert("Sản phẩm đã được xóa khỏi giỏ hàng");
+  cartList();
+}
+
+function deleteAllFromCart() {
+  let cartArray = getCartUserInList(USERLOGIN.id);
+  let length = cartArray.length;
+  if (length == 0) {
+    alert("Giỏ hàng đang trống");
+    return;
+  }
+  updateCartUserInList(USERLOGIN.id, []);
+  alert("Toàn bộ Sản phẩm đã được xóa khỏi giỏ hàng");
+  cartList();
+}
+
+removeAllCart.addEventListener("click", deleteAllFromCart);
+
+function cartList() {
+  let cartList_ = document.querySelector(".header__cart-list");
+  let cartArray = getCartUserInList(USERLOGIN.id);
+  let length = cartArray.length;
+  cartList_.innerHTML = `<div class="cartTittle"><h5>Sản phẩm thêm vào</h5></div>`;
+
+  let header__cartquantity = document.querySelector(".header__cart-quantity");
+  header__cartquantity.textContent = cartArray.length;
+
+  if (length == 0) {
+    cartList_.innerHTML = `<div class="cartTittle"><h5>Giỏ hàng của bạn trống</h5></div>`;
+    return;
+  }
+
+  cartArray.forEach((product) => {
+    cartList_.innerHTML += `<div class="cartItem">
+                          <div class="cart-item-img"><img src="${product.imgSrc}" alt="${product.name}"></div>
+                          <div class="cart-item-name"><strong>Tên:</strong> ${product.name}</div>
+                          <div class="cart-item-price"><strong>Giá:</strong> ${product.price} VNĐ</div>
+                          <div class="cart-item-quantity"><strong>SL:</strong> ${product.quantity}</div>
+                          <i class="cart-item-remove fa-solid fa-x header__cart-remove" data="${product.code}"></i>
+                        </div>`;
+  });
+
+  document.querySelectorAll(".header__cart-remove").forEach((button) => {
+    button.addEventListener("click", function () {
+      let productCode = this.getAttribute("data");
+      removeFromCart(productCode);
+    });
+  });
+
+  // document
+  //   .querySelector(".header__cart-pay")
+  //   .addEventListener("click", function () {
+  //     alert("Thanh toán thành công");
+  //     cart = [];
+  //     localStorage.setItem("cart", JSON.stringify(cart));
+  //     cartList();
+
+  //     // TODO: Thêm đơn hàng vào danh sách đơn hàng
+
+  //     let orderArray = JSON.parse(localStorage.getItem("orderCustomer")) || [];
+  //     let userLogin = JSON.parse(localStorage.getItem("userLogin"));
+
+  //     let order = {
+  //       id: orderArray.length + 1,
+  //       user: userLogin,
+  //       orderBook: cartArray
+  //         .map((item) => {
+  //           let product = JSON.parse(localStorage.getItem(listProducts)).find(
+  //             (product) => product.code === item.idproduct
+  //           );
+  //           return `${product.name} x ${item.quantity}`;
+  //         })
+  //         .join(";"),
+  //       dateOrder: new Intl.DateTimeFormat("vi-VN", {
+  //         day: "2-digit",
+  //         month: "2-digit",
+  //         year: "numeric",
+  //       }).format(new Date()),
+  //       totalPrice: totalPrice,
+  //       status: 0,
+  //     };
+  //     orderArray.push(order);
+  //     localStorage.setItem("orderCustomer", JSON.stringify(orderArray));
+  //   });
+}
+
+cartList();
+
+function updateQuantity() {
+  let quantityInputs = document.querySelectorAll(".inputQuantityCart");
+  let tempList = JSON.parse(localStorage.getItem(listProducts));
+  let cartArray = getCartUserInList(USERLOGIN.id);
+
+  // Lặp qua các ô nhập số lượng
+  quantityInputs.forEach((input, index) => {
+    let productCode = cartArray[index].code;
+    let productItem = tempList.find((product) => product.code === productCode);
+    let availableQuantity = productItem.quantity;
+
+    // Kiểm tra giá trị nhập
+    let value = parseInt(input.value);
+    if (isNaN(value) || value < 1) {
+      alert(
+        `Số lượng sản phẩm "${productItem.name}" phải lớn hơn hoặc bằng 1.`
+      );
+      input.value = 1;
+      input.focus();
+      return;
+    }
+
+    // Cập nhật số lượng trong giỏ hàng
+    if (value <= availableQuantity) {
+      cartArray[index].quantity = value;
+    } else {
+      alert(
+        `Không thể cập nhật sản phẩm "${productItem.name}". Số lượng tối đa có thể thêm là ${availableQuantity}.`
+      );
+    }
+  });
+
+  // Cập nhật giỏ hàng trong localStorage
+  updateCartUserInList(USERLOGIN.id, cartArray);
+
+  displayCartPage(); // Hiển thị lại trang giỏ hàng
+  cartList();
+}
+function deleteItem(code) {
+  updateCartUserInList(
+    USERLOGIN.id,
+    getCartUserInList(USERLOGIN.id).filter((item) => item.code !== code)
+  );
+  alert("Xóa sản phẩm thành công");
+  displayCartPage();
+  cartList();
+}
+
+function displayPaymentPage() {
+  const userLogin = JSON.parse(localStorage.getItem("userLogin"));
+  if (userLogin.cart.length <= 0) {
+    alert("Vui lòng thêm sản phẩm vào giỏ hàng!");
+    window.location.href = "./index.html?sp";
+  }
+  const order = JSON.parse(localStorage.getItem("order"));
+  let s = `
+    <div class="auth-form" style="width:100%;">
+  <div class="auth-form__container">
+    <div class="auth-form__header" style="justify-content: center;">
+      <h3 class="auth-form__heading">Thanh toán online</h3>
+    </div>
+    <div class="auth-form__form">
+
+      <div class="auth-form__group">
+        <label for="cardNumber">Mã số thẻ:</label>
+        <input type="text" id="cardNumber" class="auth-form__input" placeholder="Nhập mã số thẻ" />
+        <span class="form-message"></span>
+      </div>
+      <div class="auth-form__group" style="margin-top:10px">
+        <label for="bankName">Chọn ngân hàng:</label>
+        <input type="text" id="bankName" class="auth-form__input" placeholder="Nhập tên ngân hàng" oninput="suggestBanks()" />
+        <ul id="bank-suggestions" class="suggestions-list"></ul>
+        <span class="form-message"></span>
+      </div>
+      <div class="auth-form__group">
+        <label for="cardHolder">Tên chủ thẻ:</label>
+        <input type="text" id="cardHolder" class="auth-form__input" placeholder="Nhập tên chủ thẻ" />
+        <span class="form-message"></span>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="auth-form__controls" style="display:flex; justify-content:space-between;">
+      <div>
+        <h1>Tổng tiền: <span>${order.totalPrice.toLocaleString(
+          "vi-VN"
+        )}đ</span></h1>
+        <p>Địa chỉ: ${order.address}</p>
+      </div>
+      <button class="btn btn--primary" onclick="submitPayment()">Thanh toán</button>
+    </div>
+  </div>
+</div>
+
+  `;
+  productContainerMain.innerHTML = s;
+}
+const bankList = [
+  "Ngân hàng Vietcombank",
+  "Ngân hàng BIDV",
+  "Ngân hàng VietinBank",
+  "Ngân hàng ACB",
+  "Ngân hàng Techcombank",
+  "Ngân hàng Sacombank",
+  "Ngân hàng MB Bank",
+  "Ngân hàng Agribank",
+];
+function submitPayment() {
+  const order = JSON.parse(localStorage.getItem("order"));
+  order.status = "đã thanh toán";
+  localStorage.setItem("order", JSON.stringify(order));
+  const userLogin = JSON.parse(localStorage.getItem("userLogin"));
+  userLogin.cart = [];
+  localStorage.setItem("userLogin", JSON.stringify(userLogin));
+  alert("Đã thanh toán thành công");
+  displayPaymentPage();
+}
+
+function displayCartPage() {
+  if (!localStorage.getItem("userLogin")) {
+    alert("Vui lòng đăng nhập để xem giỏ hàng !!!!");
+    productLayout.style.display = "none";
+    return;
+  }
+  applyResponsiveStyles();
+  window.addEventListener("resize", applyResponsiveStyles);
+  pageNumber.style.display = "none";
+  let cart = getCartUserInList(USERLOGIN.id);
+  let totalPrice = 0;
+  let s = `
+    <style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: center;
+        padding: 8px;
+    }
+    td{
+      >div{
+          display: flex;
+          justify-content: center;
+        >div{
+          width: 100px;
+          height: 100px;
+          img{
+            width: 100%;
+          }
+        }
+      }
+    }
+    tr {
+      background-color: #fff;
+
+    }
+        td:nth-child(1),
+        th:nth-child(1) {
+          width: 15%;
+        }
+        td:nth-child(2),
+        th:nth-child(2) {
+        div{
+        justify-content: flex-start;
+        }
+          width: 35%;
+        }
+        td:nth-child(3),
+        th:nth-child(3) {
+          width: 15%;
+          input{
+            text-align: center;
+            max-width: 50px;
+          }
+        }
+        td:nth-child(4),
+        th:nth-child(4) {
+          width: 20%;
+          
+        }
+        td:nth-child(5),
+        th:nth-child(5) {
+          width: 20%;
+        }
+</style>
+<div style="border: 2px solid var(--primary-color); border-radius: 10px; padding: 20px; background-color: #ffffff; width: 100%; margin: 0 auto; text-align: left;">
+<h1 style="text-align: center; color: var(--border-color); font-size: 24px; margin-bottom: 20px;">Giỏ hàng của tôi</h1>
+<table>
+    <tr>
+        <th>Hình ảnh</th>
+        <th>Tên sản phẩm</th>
+        <th>Số lượng</th>
+        <th>Giá</th>
+        <th>Hành động</th>
+    </tr>`;
+
+  // Duyệt qua mảng cart để thêm các dòng vào bảng
+  cart.forEach((item, index) => {
+    const itemTotalPrice = item.price * item.quantity; // Tính giá cho từng sản phẩm
+    totalPrice += itemTotalPrice;
+    s += `
+    <tr>
+        <td>
+            <div>
+                <img src="${item.imgSrc}" alt="${
+      item.name
+    }" style="width: 100px; height: 100px;">
+            </div>
+        </td>
+        <td>
+            <div>
+                <h1 style="color: var(--border-color); font-size: 16px; width: 100%;">${
+                  item.name
+                }</h1>
+            </div>
+        </td>
+        <td>
+            <div>
+                <button class="quantity-btn btn-des" onclick="desQuanitityIncart('${
+                  item.code
+                }')">-</button>
+                <input type="number" value="${
+                  item.quantity
+                }" class = "inputQuantityCart" onchange="updateQuantity('${
+      item.code
+    }')" min="1" style="text-align: center; max-width: 50px;">
+    <button class="quantity-btn btn-ins" onclick="insQuanitityIncart('${
+      item.code
+    }')">+</button>
+            </div>
+        </td>
+        <td>
+            <div>
+                <span style="color: var(--border-color)">
+                    ${(item.price * item.quantity).toLocaleString("vi-VN")}đ
+                </span>
+            </div>
+        </td>
+        <td>
+            <div>
+                <img style="cursor:pointer" src="https://img.icons8.com/?size=20&id=8192&format=png&color=000000" alt="Edit">
+                <img onclick="deleteItem('${
+                  item.code
+                }')" style="cursor:pointer" src="https://img.icons8.com/?size=20&id=11767&format=png&color=D72020" alt="Delete">
+            </div>
+        </td>
+    </tr>`;
+  });
+
+  s += `
+</table>
+</div>
+
+  `;
+
+  let addresses = getAddressUserInList(USERLOGIN.id);
+  let addressHTML = "";
+  if (addresses.length > 0) {
+    addresses.forEach(function (address, index) {
+      addressHTML += `
+    <p style="margin-top:5px;margin-bottom:0;">Địa chỉ ${index + 1}:</p>
+    <div style="display: flex; align-items: center; gap: 5px;">
+        <input style="cursor: pointer" type="radio" name="address-buy-product" value="${
+          address.houseNumber
+        }, ${address.ward}, ${address.district}, ${address.city}">
+        <label>${address.houseNumber}, ${address.ward}, ${address.district}, ${
+        address.city
+      }</label>
+        <button onclick="deleteAddress(${index})" style="margin-left: 10px; cursor: pointer; color: red; background: none; border: 1px solid red; font-size: 12px;">Xóa</button>
+    </div>`;
+    });
+  } else {
+    addressHTML += `<p style="text-align: center">Không có địa chỉ có sẵn</p>`;
+  }
+
+  let s1 = `
+    <style>
+      #btnBuy{
+          background-color: var(--primary-color-rgpa);
+          margin-top: 5px;
+          padding: 5px;
+          list-style-type: none;
+          height: 50px;
+          border-radius: 10px;
+          font-size: 20px;
+          font-weight: 700;
+          width: 100%;
+          cursor: pointer;
+          &:hover{
+            background-color: var(--primary-color);
+          }
+      }
+    </style>
+    <div>
+      <div style="border: 2px solid var(--primary-color); border-radius: 10px; padding: 20px; background-color: #ffffff; width: 100%; margin: 0 auto; text-align: left;">
+        <p style="text-align: end;margin:0;color:#857070;cursor:pointer; font-size: 12px; " class="addAddress-btn">Thêm địa chỉ</p>
+        <h1 style="text-align: center; color: var(--border-color); font-size: 18px; margin-bottom: 20px;">Địa chỉ nhận hàng</h1>
+        ${addressHTML}
+      </div>
+      <div style="border: 2px solid var(--primary-color); border-radius: 10px; padding: 20px; background-color: #ffffff; width: 100%; margin: 5px auto; text-align: left;">
+        <h1 style=" display: flex;justify-content: space-between;text-align: center; color: var(--border-color); font-size: 18px; margin-bottom: 20px;">Tạm tính <span style="color: var(--border-color);font-size: 12px;">${totalPrice.toLocaleString(
+          "vi-VN"
+        )}đ</span></h1>
+        <h1 style=" display: flex;justify-content: space-between;text-align: center; color: var(--border-color); font-size: 14px; margin-bottom: 20px;">Thuế VAT <span style="color: var(--border-color);font-size: 10px;">0đ</span></h1>
+        <h1 style="border-top: 1px solid;padding-top:20px; display: flex;justify-content: space-between;text-align: center; color: var(--border-color); font-size: 20px; margin-bottom: 20px;">Tổng tiền <span style="color: var(--border-color);font-size: 16px;">${totalPrice.toLocaleString(
+          "vi-VN"
+        )}đ</span></h1>
+        <div style="border-top: 1px solid;padding-top:20px;">
+          <div style="display: flex;align-items:center; gap:10px">
+            <input style="cursor:pointer" type="radio" id="method-offline" name="payment method" onclick="choiceMethod()" value="offline">
+            <label for="method-offline">Thanh toán khi nhận hàng</label><br>
+          </div>
+          <div style="display: flex;align-items:center; gap:10px;margin-top:5px;">
+            <input style="cursor:pointer" type="radio" id="method-online" name="payment method" onclick="choiceMethod()" value="online">
+            <label for="method-online">Thanh toán online</label><br>
+          </div>
+        </div>
+      </div>
+      <button id="btnBuy" onclick="handleSubmitBuy()">Đặt hàng</button>
+    </div>
+    `;
+
+  const newOrder = {
+    userId: userLogin.id,
+    totalPrice: totalPrice,
+    address: "",
+    status: "Chờ xác nhận",
+    orderDate: new Date().toISOString().slice(0, 10),
+    items: cart,
+  };
+  localStorage.setItem("order", JSON.stringify(newOrder));
+  let s2 = `
+        <div class="auth-form" style="width:100%;">
+          <div class="auth-form__container">
+            <div class="auth-form__header" style="justify-content: center">
+              <h3 class="auth-form__heading">Thêm địa chỉ</h3>
+            </div>
+            <div class="auth-form__form">
+              <label for="houseNumber">Địa chỉ:</label>
+              <div class="auth-form__group">
+                <input
+                  type="text" id="address"
+                  class="auth-form__input--address"
+                  id = "houseNumber"
+                  placeholder="Nhập số nhà, đường"
+                />
+                <div id="houseNumber-alert"></div>
+              </div>
+              <!--  -->
+              <div class = "selected-form__group">
+              <div class="auth-form__group selected-city">
+                <label for="city">Chọn tỉnh/thành:</label>
+                <select id="city">
+                  <option value="">Chọn tỉnh/thành</option>
+                </select>
+                <div id="city-alert"></div>
+              </div>
+              <!--  -->
+              <div class="auth-form__group selected-district">
+                <label for="district">Chọn quận/huyện:</label>
+                <select id="district">
+                  <option value="">Chọn Quận/Huyện</option>
+                </select>
+                <div id="district-alert"></div>
+              </div>
+              <div class="auth-form__group selected-ward">
+                <div class="auth-form__group">
+                  <label for="ward">Chọn phường/Xã:</label>
+                  <select id="ward">
+                    <option value="">Chọn phường/Xã</option>
+                  </select>
+                  <div id="ward-alert"></div>
+                </div>
+              </div>
+              </div>
+            </div>
+            <!-- Footer 01 -->
+            <div class="auth-form__controls">
+              <button class="btn btn--primary" id="save-Address">Thêm</button>
+            </div>
+          </div>
+        </div>
+  `;
+
+  bodytop__left.innerHTML = s1;
+  productContainerMain.innerHTML = s;
+
+  // Chức năng thêm địa chỉ
+  let addAddress = document.querySelectorAll(".addAddress-btn");
+  addAddress.forEach((button) => {
+    button.addEventListener("click", (e) => {
+      e.preventDefault();
+      productLayout.style.display = "block";
+      productContainter.innerHTML = s2;
+      let citySelector = document.getElementById("city");
+      let districtSelector = document.getElementById("district");
+      let wardSelector = document.getElementById("ward");
+      let houseNumber = document.getElementById("address");
+      let saveAddresss = document.getElementById("save-Address");
+      //
+      locations.forEach((location) => {
+        const option = document.createElement("option");
+        option.value = location.city;
+        option.textContent = location.city;
+        citySelector.appendChild(option);
+      });
+      //
+      citySelector.addEventListener("change", () => {
+        districtSelector.innerHTML = '<option value="">Chọn Quận</option>'; // Xóa quận cũ
+        wardSelector.innerHTML =
+          '<option value="">Chọn Phường / Huyện</option>'; // Xóa phường cũ
+
+        const selectedCity = locations.find(
+          (location) => location.city === citySelector.value
+        );
+
+        if (selectedCity && selectedCity.districts) {
+          selectedCity.districts.forEach((district) => {
+            const option = document.createElement("option");
+            option.value = district.district;
+            option.textContent = district.district;
+            districtSelector.appendChild(option);
+          });
+        }
+      });
+
+      // Cập nhật Phường khi chọn Quận
+      districtSelector.addEventListener("change", () => {
+        wardSelector.innerHTML =
+          '<option value="">Chọn Phường / Huyện</option>'; // Xóa phường cũ
+
+        const selectedCity = locations.find(
+          (location) => location.city === citySelector.value
+        );
+        const selectedDistrict = selectedCity
+          ? selectedCity.districts.find(
+              (district) => district.district === districtSelector.value
+            )
+          : null;
+
+        if (selectedDistrict && selectedDistrict.wards) {
+          selectedDistrict.wards.forEach((ward) => {
+            const option = document.createElement("option");
+            option.value = ward;
+            option.textContent = ward;
+            wardSelector.appendChild(option);
+          });
+        }
+      });
+
+      function validateField(field, fieldName, alertElement) {
+        if (!field.value || field.value.trim() === "") {
+          alertElement.textContent = `${fieldName} không được để trống!`;
+          alertElement.classList.add("alert");
+        } else {
+          alertElement.textContent = "";
+          alertElement.classList.remove("alert");
+        }
+      }
+
+      // Thêm sự kiện "blur" cho các trường input và select
+      citySelector.addEventListener("blur", function () {
+        validateField(this, "Thành Phố", document.getElementById("city-alert"));
+      });
+
+      districtSelector.addEventListener("blur", function () {
+        validateField(this, "Quận", document.getElementById("district-alert"));
+      });
+
+      wardSelector.addEventListener("blur", function () {
+        validateField(
+          this,
+          "Phường / Huyện",
+          document.getElementById("ward-alert")
+        );
+      });
+      document.getElementById("address").addEventListener("blur", function () {
+        validateField(
+          this,
+          "Số Nhà",
+          document.getElementById("houseNumber-alert")
+        );
+      });
+      document.getElementById("save-Address").addEventListener("click", () => {
+        let selectedCity = citySelector.value;
+        let selectedDistrict = districtSelector.value;
+        let houseNumber = document.getElementById("address").value;
+        let wardName = document.getElementById("ward").value;
+        let addressTemp = getAddressUserInList(USERLOGIN.id) || [];
+        alert(addressTemp.length);
+        if (addressTemp.length >= 3) {
+          alert("Đã đạt tối đa 3 địa chỉ!");
+          return;
+        }
+        // Kiểm tra nếu tất cả các trường đều có giá trị
+        if (selectedCity && selectedDistrict && houseNumber && wardName) {
+          // Cấu trúc lại địa chỉ theo cú pháp "số nhà, tên đường, quận/huyện, thành phố"
+          addressTemp.push({
+            houseNumber: houseNumber,
+            ward: wardName,
+            district: selectedDistrict,
+            city: selectedCity,
+          });
+
+          // Lưu vào localStorage (giả sử có ID người dùng)
+          updateAddressUserInList(USERLOGIN.id, addressTemp);
+          alert("Đã thêm địa chỉ giao hàng");
+          productLayout.style.display = "none";
+          displayCartPage();
+        } else {
+          alert("Vui lòng điền đầy đủ thông tin.");
+        }
+      });
+    });
+  });
+}
+
+function desQuanitityIncart(code) {
+  let cartArray = getCartUserInList(USERLOGIN.id);
+  let index = cartArray.findIndex((item) => item.code === code);
+  if (index !== -1) {
+    if (cartArray[index].quantity > 1) {
+      cartArray[index].quantity--;
+      updateCartUserInList(USERLOGIN.id, cartArray);
+      displayCartPage();
+      cartList();
+    }
+  }
+}
+
+function insQuanitityIncart(code) {
+  let cartArray = getCartUserInList(USERLOGIN.id);
+  let index = cartArray.findIndex((item) => item.code === code);
+
+  if (index !== -1) {
+    let tempList = JSON.parse(localStorage.getItem(listProducts));
+    let productItem = tempList.find((product) => product.code === code);
+    let availableQuantity = productItem.quantity;
+
+    if (cartArray[index].quantity + 1 <= availableQuantity) {
+      cartArray[index].quantity++;
+      updateCartUserInList(USERLOGIN.id, cartArray);
+      displayCartPage();
+      cartList();
+    } else {
+      alert(
+        `Không thể cập nhật sản phẩm "${productItem.name}". Số lượng tối đa có thể thêm là ${availableQuantity}.`
+      );
+    }
+  }
+}
+
+// Hàm gợi ý ngân hàng
+function suggestBanks() {
+  let input = document.getElementById("bankName");
+  let suggestionsList = document.getElementById("bank-suggestions");
+  let query = input.value.toLowerCase();
+  suggestionsList.innerHTML = "";
+
+  if (query.length > 0) {
+    const filteredBanks = bankList.filter((bank) =>
+      bank.toLowerCase().includes(query)
+    );
+
+    filteredBanks.forEach((bank) => {
+      const li = document.createElement("li");
+      li.style.cursor = "pointer";
+      li.textContent = bank;
+      li.onclick = function () {
+        input.value = bank;
+        suggestionsList.innerHTML = "";
+      };
+      suggestionsList.appendChild(li);
+    });
+  }
+}
+header__cart.addEventListener("click", displayCartPage);
+
+function applyResponsiveStyles() {
+  const mediaQuery = window.matchMedia("(max-width: 1200px)");
+  if (mediaQuery.matches) {
+    bodyTop.style.flexDirection = "column-reverse";
+    bodytop__left.style.width = "100%";
+    bodytop__right.style.width = "100%";
+    bodytop__left.style.display = "block";
+  } else {
+    bodyTop.style.flexDirection = "row-reverse";
+    bodytop__left.style.width = "calc(20% - 5px)";
+    bodytop__right.style.width = "calc(80% - 5px)";
+  }
+}
+
+function choiceMethod() {
+  let methodOffline = document.getElementById("method-offline");
+  let methodOnline = document.getElementById("method-online");
+  let btnBuy = document.getElementById("btnBuy");
+  if (methodOnline.checked) {
+    btnBuy.textContent = "Thanh toán online";
+  } else if (methodOffline.checked) {
+    btnBuy.textContent = "Đặt hàng";
+  }
+}
+
+// Xử lý thanh toán
+function handleSubmitBuy() {
+  let methodOffline = document.getElementById("method-offline");
+  let methodOnline = document.getElementById("method-online");
+  let addressRadios = document.querySelectorAll(
+    'input[name="address-buy-product"]'
+  );
+  let order = JSON.parse(localStorage.getItem("order")) || {};
+  console.log("order", order.address);
+  const selectedAddress = Array.from(addressRadios).find(
+    (radio) => radio.checked
+  )?.value;
+  let numProducts = getCartUserInList(USERLOGIN.id).length;
+  if (numProducts == 0) {
+    alert("Hãy thêm sản phẩm vào giỏ trước nhé!");
+    return;
+  }
+  if (selectedAddress) {
+    order.address = selectedAddress;
+  } else {
+    alert("Chưa chọn địa chỉ");
+    return;
+  }
+
+  if (!methodOffline.checked && !methodOnline.checked) {
+    alert("Vui lòng chọn phương thức thanh toán!");
+    return;
+  } else {
+    if (methodOffline.checked) {
+      localStorage.setItem("order", JSON.stringify(order));
+      const userLogin = JSON.parse(localStorage.getItem("userLogin"));
+      userLogin.cart = [];
+      localStorage.setItem("userLogin", JSON.stringify(userLogin));
+      alert("Đặt hàng thành công!");
+      displayCartPage();
+    }
+    if (methodOnline.checked) {
+      localStorage.setItem("order", JSON.stringify(order));
+      window.location.href = "./index.html?payment";
+    }
+  }
+}
