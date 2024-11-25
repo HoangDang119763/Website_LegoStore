@@ -1311,51 +1311,13 @@ if (window.location.pathname !== "/manage.html") {
         let tempList = JSON.parse(localStorage.getItem(listProducts));
         displayPageProduct(tempList, tempList.length);
         displayProducts(tempList, tempList.length);
-
         break;
       case "lh":
         producttype__name.innerHTML = `<h3>Liên hệ</h3>`;
         displayContactPage();
         break;
-      case "adminwebsitelego///admin":
-        let page = document.querySelector(".page");
-        page.innerHTML = `<div class="header">
-      <h1>Admin Dashboard</h1>
-      <p>Logged in as: John Doe</p>
-    </div>
-
-    <div class="sidebar">
-      <a href="#">User Management</a>
-      <a href="#">Product Management</a>
-      <a href="#">Order Management</a>
-      <a href="#">Business Statistics</a>
-    </div>
-
-    <div class="content">
-      <h2>Welcome to the Admin Dashboard</h2>
-      <p>Here, you can manage the various aspects of your online store.</p>
-
-      <!-- Add content for specific functionality here -->
-      <div id="user-management">
-        <h3>User Management</h3>
-        <!-- Add code for user management functionality -->
-      </div>
-
-      <div id="product-management">
-        <h3>Product Management</h3>
-        <!-- Add code for product management functionality -->
-      </div>
-
-      <div id="order-management">
-        <h3>Order Management</h3>
-        <!-- Add code for order management functionality -->
-      </div>
-
-      <div id="business-statistics">
-        <h3>Business Statistics</h3>
-        <!-- Add code for business statistics functionality -->
-      </div>
-    </div>`;
+      case "payment":
+        displayPaymentPage();
         break;
       default:
         const newUrl = currentPath + "?tc"; // Thêm ?tc vào URL
