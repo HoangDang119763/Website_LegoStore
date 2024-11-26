@@ -96,6 +96,14 @@ function deleteAddress(index) {
   displayCartPage();
 }
 
+function getListOrderUSerByID(id) {
+  let tempOrderList = JSON.parse(localStorage.getItem(listOrders));
+
+  // Tìm chỉ số của người dùng cần cập nhật
+  let orderList = tempOrderList.filter((order) => order.userId === id);
+  return orderList;
+}
+
 // Lấy trạng thái
 function getStatusUserInList(id) {
   let tempUserList = JSON.parse(localStorage.getItem(ListUsers));
@@ -1384,8 +1392,8 @@ if (window.location.pathname !== "/manage.html") {
         {
           userId: 1,
           orderId: 1,
-          orderDate: "2024-10-01",
-          address: [],
+          orderDate: "01/10/2024",
+          address: "",
           items: [
             {
               name: "Siêu Xe Yamaha RIM",
@@ -1411,7 +1419,7 @@ if (window.location.pathname !== "/manage.html") {
           userId: 1,
           orderId: 2,
           orderDate: "2024-10-01",
-          address: [],
+          address: "",
           items: [
             {
               name: "Siêu Xe Yamaha RIM",
@@ -1436,8 +1444,8 @@ if (window.location.pathname !== "/manage.html") {
         {
           userId: 1,
           orderId: 3,
-          orderDate: "2024-10-01",
-          address: [],
+          orderDate: "01/10/2024",
+          address: "",
           items: [
             {
               name: "Siêu Xe Yamaha RIM",
@@ -1968,7 +1976,6 @@ if (window.location.pathname !== "/manage.html") {
 
   function displayProducts(productList, length) {
     productContainerMain.innerHTML = "";
-    // tính vị trí sách bắt đầu để hiển thị trong từng trang
     let beginProduct = (currentPage - 1) * productsPerPage;
     let endProduct = beginProduct + productsPerPage;
     let pageBtn = document.querySelectorAll(".product-btn_page");
@@ -2725,19 +2732,19 @@ if (window.location.pathname !== "/manage.html") {
 
     let addresses = getAddressUserInList(USERLOGIN.id);
     let addressHTML = "";
+    let addressObject;
     if (addresses.length > 0) {
       addresses.forEach(function (address, index) {
         addressHTML += `
     <p style="margin-top:5px;margin-bottom:0;">Địa chỉ ${index + 1}:</p>
     <div style="display: flex; align-items: center; gap: 5px;">
-        <input style="cursor: pointer" type="radio" name="address-buy-product" value="${
-          address.houseNumber
-        }, ${address.ward}, ${address.district}, ${address.city}">
+        <input style="cursor: pointer" type="radio" name="address-buy-product" value="${index}">
         <label>${address.houseNumber}, ${address.ward}, ${address.district}, ${
           address.city
         }</label>
         <button onclick="deleteAddress(${index})" style="margin-left: 10px; cursor: pointer; color: red; background: none; border: 1px solid red; font-size: 12px;">Xóa</button>
     </div>`;
+        addressObject = address;
       });
     } else {
       addressHTML += `<p style="text-align: center">Không có địa chỉ có sẵn</p>`;
@@ -2786,19 +2793,9 @@ if (window.location.pathname !== "/manage.html") {
           </div>
         </div>
       </div>
-      <button id="btnBuy" onclick="handleSubmitBuy()">Đặt hàng</button>
+      <button id="btnBuy" onclick="handleSubmitBuy(${totalPrice})">Đặt hàng</button>
     </div>
     `;
-
-    const newOrder = {
-      userId: userLogin.id,
-      totalPrice: totalPrice,
-      address: "",
-      status: "Chờ xác nhận",
-      orderDate: new Date().toISOString().slice(0, 10),
-      items: cart,
-    };
-    localStorage.setItem("order", JSON.stringify(newOrder));
     let s2 = `
         <div class="auth-form" style="width:100%;">
           <div class="auth-form__container">
@@ -3084,7 +3081,7 @@ if (window.location.pathname !== "/manage.html") {
   }
 
   // Xử lý thanh toán
-  function handleSubmitBuy() {
+  function handleSubmitBuy(totalPrice) {
     let methodOffline = document.getElementById("method-offline");
     let methodOnline = document.getElementById("method-online");
     let addressRadios = document.querySelectorAll(
@@ -3112,11 +3109,25 @@ if (window.location.pathname !== "/manage.html") {
       return;
     } else {
       if (methodOffline.checked) {
-        localStorage.setItem("order", JSON.stringify(order));
-        const userLogin = JSON.parse(localStorage.getItem("userLogin"));
-        userLogin.cart = [];
-        localStorage.setItem("userLogin", JSON.stringify(userLogin));
+        let listOrderTemp = JSON.parse(localStorage.getItem(listOrders));
+        let newOrder = {
+          userId: USERLOGIN.id,
+          orderId: listOrderTemp.length + 1,
+          orderDate: new Intl.DateTimeFormat("vi-VN", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+          }).format(new Date()),
+          address: getAddressUserInList(USERLOGIN.id)[selectedAddress],
+          items: getCartUserInList(USERLOGIN.id),
+          totalPrice: totalPrice,
+          status: "Chờ xác nhận",
+        };
+        listOrderTemp.push(newOrder);
+        localStorage.setItem(listOrders, JSON.stringify(listOrderTemp));
+        updateCartUserInList(USERLOGIN.id, []);
         alert("Đặt hàng thành công!");
+        cartList();
         displayCartPage();
       }
       if (methodOnline.checked) {
@@ -3125,10 +3136,95 @@ if (window.location.pathname !== "/manage.html") {
       }
     }
   }
+
+  // Xem lịch sử đơn hàng
+  function showCustomerOrder() {
+    let contentOrder = document.querySelector(".Customer-order .boxcontent");
+    let orderArray = getListOrderUSerByID(USERLOGIN.id);
+    contentOrder.innerHTML = " ";
+    contentOrder.innerHTML += `
+  <div class="content-order-group">
+      <div class="content-order-info">MÃ ĐƠN HÀNG</div>
+      <div class="content-order-info content-order-product">SẢN PHẨM</div>
+      <div class="content-order-info">NGÀY ĐẶT</div>
+      <div class="content-order-info">TỔNG TIỀN</div>
+      <div class="content-order-info">TRẠNG THÁI</div>
+      <div class="content-order-info">HỦY ĐƠN</div>
+    </div>
+  `;
+    for (let i = 0; i < orderArray.length; i++) {
+      let html = ``;
+      html = `
+      <div class="order-item-group">
+        <div class="order-item">${orderArray[i].orderId}</div>
+        <div class="order-item order-item-info">${
+          orderArray[i].items[0].name
+        }</div>
+        <div class="order-item">${orderArray[i].orderDater}</div>
+        <div class="order-item">${formatTotal(
+          orderArray[i].totalPrice
+        )}&#x20AB;</div>
+        <div class="order-item" style="color: ${orderStatusStyle(
+          orderArray[i].status
+        )};font-weight: bolder;">${orderArray[i].status}</div>
+        <button class="order-item order-cancel" id="${
+          orderArray[i].id
+        }">X</button>
+      </div>
+      `;
+      if (html) contentOrder.innerHTML += html;
+    }
+
+    document.querySelectorAll(".order-cancel").forEach((item) => {
+      item.addEventListener("click", (event) => {
+        removeOrder(event.target.id);
+      });
+    });
+  }
+
+  function orderStatusStyle(status) {
+    switch (status) {
+      case "Chờ xác nhận":
+        return "blue";
+      case "Đã giao":
+        return "green";
+      case "Đã hủy":
+        return "red";
+      default:
+        return "black";
+    }
+  }
+
+  function formatTotal(total) {
+    return new Intl.NumberFormat("vi-VN", {
+      style: "currency",
+      currency: "VND",
+    }).format(total);
+  }
+
+  function orderLayout() {
+    let bodytop = document.querySelector(".bodytop");
+    bodytop.classList.add("truckContainer");
+    bodytop.html = "";
+    let html = `
+  <div class="Customer-order">
+  <h1 class="boxtitle">ĐƠN HÀNG CỦA BẠN</h1>
+  <div class="boxcontent">
+  </div>
+</div>
+  `;
+    bodytop.innerHTML = html;
+    showCustomerOrder();
+    bodytop.classList.remove("truckContainer");
+  }
+  let orderContent = document.querySelectorAll(".header__truck");
+  orderContent.forEach((item) => item.addEventListener("click", orderLayout));
   // Phần ADMIN
 } else {
   var productArray = JSON.parse(localStorage.getItem(listProducts));
   var userList = JSON.parse(localStorage.getItem(ListUsers));
+  const productsPerPageAdmin = 8; // Số sản phẩm trên mỗi trang
+  let currentPageAdmin = 1; // Trang hiện tại
   const inputSignUpAdmin = document.getElementsByClassName(
     "auth-form__inputAdmin"
   );
@@ -3218,78 +3314,6 @@ if (window.location.pathname !== "/manage.html") {
   checkloginAdmin();
   const ADMINLOGIN = JSON.parse(localStorage.getItem("adminLogin")) ?? [];
   // Status = 0 thì chưa đi qua, 1 là đã đi qua và 2 là cuối cùng
-  const listStatus = [
-    { idStatus: 1, nameStatus: "Chờ xác nhận", dateUpdated: "", status: 0 },
-    { idStatus: 2, nameStatus: "Đã xác nhận", dateUpdated: "", status: 0 },
-    { idStatus: 3, nameStatus: "Đã giao", dateUpdated: "", status: 0 },
-    { idStatus: 4, nameStatus: "Đã hủy", dateUpdated: "", status: 0 },
-  ];
-
-  let Order = [];
-
-  Order.push({
-    UserID: 1,
-    OrderID: 1,
-    OrderDate: "2024-10-01",
-    Address: [],
-    Bill: [],
-    TotalMoney: 10000,
-    listStatus: [
-      { idStatus: 1, nameStatus: "Chờ xác nhận", dateUpdated: "", status: 0 },
-      { idStatus: 2, nameStatus: "Đã xác nhận", dateUpdated: "", status: 0 },
-      { idStatus: 3, nameStatus: "Đã giao", dateUpdated: "", status: 0 },
-      { idStatus: 4, nameStatus: "Đã hủy", dateUpdated: "", status: 0 },
-    ],
-  });
-  Order.push({
-    UserID: 1,
-    OrderID: 2,
-    OrderDate: "2024-10-05",
-    Address: [],
-    Bill: [],
-    TotalMoney: 20000,
-    listStatus: [
-      { idStatus: 1, nameStatus: "Chờ xác nhận", dateUpdated: "", status: 0 },
-      { idStatus: 2, nameStatus: "Đã xác nhận", dateUpdated: "", status: 0 },
-      { idStatus: 3, nameStatus: "Đã giao", dateUpdated: "", status: 0 },
-      { idStatus: 4, nameStatus: "Đã hủy", dateUpdated: "", status: 0 },
-    ],
-  });
-  Order.push({
-    UserID: 1,
-    OrderID: 3,
-    OrderDate: "2024-10-07",
-    Address: 1,
-    Bill: [],
-    TotalMoney: 30000,
-    listStatus: [
-      { idStatus: 1, nameStatus: "Chờ xác nhận", dateUpdated: "", status: 0 },
-      { idStatus: 2, nameStatus: "Đã xác nhận", dateUpdated: "", status: 0 },
-      { idStatus: 3, nameStatus: "Đã giao", dateUpdated: "", status: 0 },
-      { idStatus: 4, nameStatus: "Đã hủy", dateUpdated: "", status: 0 },
-    ],
-  });
-  const jsonData_sell = `
-[
-    {
-        "LegoID": "1",
-        "LegoName": "1",
-        "Type": "1",
-        "QuantinySold": 1
-    },
-    {
-        "LegoID": "2",
-        "LegoName": "2",
-        "Type": "2",
-        "QuantinySold": 2
-    },
-    {
-        "LegoID": "3",
-        "LegoName": "3",
-        "Type": "3",
-        "QuantinySold": 4
-    }
-]`;
 
   // Quản lý người dùng
   function create_detail_account(i, userList) {
@@ -3429,11 +3453,7 @@ if (window.location.pathname !== "/manage.html") {
   }
 
   document.getElementById("account-button").addEventListener("click", () => {
-    document.querySelectorAll(".content-admin").forEach((item) => {
-      item.remove();
-    });
-    const section = document.createElement("section");
-    section.className = "content-admin";
+    const section = document.getElementById("content-admin");
     section.innerHTML = `
         <table class="manage_data">
             <thead>
@@ -3447,7 +3467,6 @@ if (window.location.pathname !== "/manage.html") {
         </table>
     `;
 
-    document.getElementById("main").appendChild(section);
     for (i = 0; i < userList.length; i++) {
       const tbody = document.createElement("tbody");
       tbody.id = "user-" + i;
@@ -3767,41 +3786,27 @@ if (window.location.pathname !== "/manage.html") {
 
   // //xuất sản phẩm
   document.getElementById("product-button").addEventListener("click", () => {
-    document.querySelectorAll(".content-admin").forEach((item) => {
-      item.remove();
-    });
-    const section = document.createElement("section");
-    section.className = "content-admin";
+    const section = document.getElementById("content-admin");
+    // section.className = "content-admin";
     section.innerHTML = `
       <div class="product-grid">
           <div id ="product">
           </div>
+          <div class="pagenumber"></div>
       </div>
   `;
     document.getElementById("main").appendChild(section);
-    const container = document.getElementById("product");
-    const quantiny = productArray.length;
-    for (let i = 0; i < quantiny; i++) {
-      const productDiv = document.createElement("div");
-      productDiv.className = "product-data";
-      productDiv.id = "product-" + i;
-      productDiv.innerHTML = `
-          <p><img src="${productArray[i].imgSrc}" alt="Mô tả sản phẩm"></p>
-          <div class ="product-info">
-              <div class="product-info-detail">
-                  <strong>Tên sản phẩm:</strong> ${productArray[i].name}
-              </div>
-              <div class="product-info-detail">
-                  <strong>Mã sản phẩm:</strong> ${productArray[i].code}
-              </div>
-              <div class="product-info-detail">
-                  <strong>Chủ đề:</strong> ${productArray[i].topic}
-              </div>
-          </div>
-      `;
-      container.appendChild(productDiv);
-      create_product_detail(i);
-    }
+    currentPageAdmin = 1;
+    displayProductsAdmin(productArray, productArray.length);
+    displayPageProductAdmin(productArray, productArray.length);
+    // for (let i = 0; i < quantiny; i++) {
+    //   const productDiv = document.createElement("div");
+    //   productDiv.className = "product-data";
+    //   productDiv.id = "product-" + i;
+    //   productDiv.innerHTML = createProductAdmin(productArray[i]);
+    //   container.appendChild(productDiv);
+    //   create_product_detail(i);
+    // }
     const add_button = document.createElement("div");
     add_button.id = "addProduct";
     add_button.innerHTML = `<i class="fa-solid fa-plus"></i>`;
@@ -3810,6 +3815,150 @@ if (window.location.pathname !== "/manage.html") {
       .getElementById("addProduct")
       .addEventListener("click", choose_addProduct);
   });
+
+  function createProductAdmin(product) {
+    return `
+    <p><img src="${product.imgSrc}" alt="Mô tả sản phẩm"></p>
+          <div class ="product-info">
+              <div class="product-info-detail">
+                  <strong>Tên sản phẩm:</strong> ${product.name}
+              </div>
+              <div class="product-info-detail">
+                  <strong>Mã sản phẩm:</strong> ${product.code}
+              </div>
+              <div class="product-info-detail">
+                  <strong>Chủ đề:</strong> ${product.topic}
+              </div>
+          </div>
+  `;
+  }
+
+  function displayProductsAdmin(productArray, length) {
+    const container = document.getElementById("product");
+    container.innerHTML = "";
+    let beginProduct = (currentPageAdmin - 1) * productsPerPageAdmin;
+    let endProduct = beginProduct + productsPerPageAdmin;
+    let pageBtn = document.querySelectorAll(".product-btn_pageAdmin");
+    pageBtn.forEach((button) => {
+      if (button.textContent == currentPageAdmin) {
+        button.style.color = "#fff";
+        button.style.backgroundColor = "var(--primary-color)";
+      } else {
+        button.style.color = "var(--primary-color)";
+        button.style.backgroundColor = "#fff";
+      }
+    });
+    for (let i = beginProduct; i < endProduct; i++) {
+      if (productArray[i] && !productArray[i].isDeleted) {
+        const productDiv = document.createElement("div");
+        container.appendChild(productDiv);
+        productDiv.className = "product-data";
+        productDiv.id = "product-" + i;
+        productDiv.innerHTML = createProductAdmin(productArray[i]);
+
+        create_product_detail(i);
+      }
+    }
+  }
+
+  function displayPageProductAdmin(productList, length) {
+    totalPages = Math.ceil(length / productsPerPageAdmin);
+    pageNumber = document.querySelector(".pagenumber");
+    pageNumber.innerHTML = ""; // Xóa nội dung cũ
+
+    // Chỉ hiển thị nút nếu có hơn 1 trang
+    if (totalPages <= 1) return;
+
+    // Thêm nút "Prev"
+    pageNumber.innerHTML += `<button class="product-btn product-btn_prevAdmin">&lt;</button>`;
+
+    // Hiển thị nút phân trang
+    if (totalPages <= 5) {
+      // Hiển thị tất cả các nút nếu tổng số trang <= 5
+      for (let i = 1; i <= totalPages; i++) {
+        pageNumber.innerHTML += `<button class="product-btn product-btn_pageAdmin" id="page-${i}">${i}</button>`;
+      }
+    } else {
+      // Hiển thị với cấu trúc: < 1 2 ... totalPages-1 totalPages >
+      pageNumber.innerHTML += `<button class="product-btn product-btn_pageAdmin" id="page-1">1</button>`;
+      pageNumber.innerHTML += `<button class="product-btn product-btn_pageAdmin" id="page-2">2</button>`;
+      if (currentPageAdmin > 3 && currentPageAdmin < totalPages - 2) {
+        // Hiển thị dạng: 1 2 ... currentPage ... totalPages-1 totalPages
+        pageNumber.innerHTML += `<span class="ellipsis">...</span>`;
+        pageNumber.innerHTML += `<button class="product-btn product-btn_pageAdmin" id="page-${currentPageAdmin}">${currentPageAdmin}</button>`;
+        pageNumber.innerHTML += `<span class="ellipsis">...</span>`;
+      } else if (currentPageAdmin <= 3) {
+        // Nếu đang ở đầu: 1 2 3 ... totalPages-1 totalPages
+        pageNumber.innerHTML += `<button class="product-btn product-btn_pageAdmin" id="page-3">3</button>`;
+        pageNumber.innerHTML += `<span class="ellipsis">...</span>`;
+      } else {
+        // Nếu đang ở cuối: 1 2 ... totalPages-2 totalPages-1 totalPages
+        pageNumber.innerHTML += `<span class="ellipsis">...</span>`;
+        pageNumber.innerHTML += `<button class="product-btn product-btn_pageAdmin" id="page-${
+          totalPages - 2
+        }">${totalPages - 2}</button>`;
+      }
+      pageNumber.innerHTML += `<button class="product-btn product-btn_pageAdmin" id="page-${
+        totalPages - 1
+      }">${totalPages - 1}</button>`;
+      pageNumber.innerHTML += `<button class="product-btn product-btn_pageAdmin" id="page-${totalPages}">${totalPages}</button>`;
+    }
+
+    // Thêm nút "Next"
+    pageNumber.innerHTML += `<button class="product-btn product-btn_nextAdmin">&gt;</button>`;
+
+    // Xử lý sự kiện
+    updatePageButtonStylesAdmin();
+    handlePageButtonEventsAdmin(productList, length);
+  }
+
+  function updatePageButtonStylesAdmin() {
+    let pageBtn = document.querySelectorAll(".product-btn_pageAdmin");
+    pageBtn.forEach((button) => {
+      if (parseInt(button.textContent) === currentPageAdmin) {
+        button.style.color = "#fff";
+        button.style.backgroundColor = "var(--primary-color)";
+      } else {
+        button.style.color = "var(--primary-color)";
+        button.style.backgroundColor = "#fff";
+      }
+    });
+  }
+
+  function handlePageButtonEventsAdmin(productList, length) {
+    let pageBtn = document.querySelectorAll(".product-btn_pageAdmin");
+    let prevBtn = document.querySelector(".product-btn_prevAdmin");
+    let nextBtn = document.querySelector(".product-btn_nextAdmin");
+
+    // Xử lý sự kiện click cho từng nút trang
+    pageBtn.forEach((button) => {
+      button.addEventListener("click", () => {
+        currentPageAdmin = parseInt(button.textContent);
+        displayProductsAdmin(productList, length);
+        displayPageProductAdmin(productList, length); // Cập nhật giao diện nút
+      });
+    });
+
+    // Xử lý nút "Prev"
+    prevBtn.addEventListener("click", (event) => {
+      event.preventDefault();
+      if (currentPageAdmin > 1) {
+        currentPageAdmin--;
+        displayProductsAdmin(productList, length);
+        displayPageProductAdmin(productList, length); // Cập nhật giao diện nút
+      }
+    });
+
+    // Xử lý nút "Next"
+    nextBtn.addEventListener("click", (event) => {
+      event.preventDefault();
+      if (currentPageAdmin < totalPages) {
+        currentPageAdmin++;
+        displayProductsAdmin(productList, length);
+        displayPageProductAdmin(productList, length); // Cập nhật giao diện nút
+      }
+    });
+  }
 
   //thêm, xóa, chỉnh sửa sản phẩm
   function choose_addProduct() {
@@ -3925,9 +4074,6 @@ if (window.location.pathname !== "/manage.html") {
       } else if (document.addInput.ten.value == "") {
         alert("Bạn chưa nhập tên");
         document.getElementById("idten").focus();
-      } else if (document.addInput.ma.value == "") {
-        alert("Bạn chưa nhập mã");
-        document.getElementById("idma").focus();
       } else if (document.addInput.gia.value == "") {
         alert("Bạn chưa nhập giá");
         document.getElementById("idgia").focus();
