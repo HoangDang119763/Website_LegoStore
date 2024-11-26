@@ -3,64 +3,83 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Dashboard</title>
-    <style>
-      /* CSS styling for the admin dashboard */
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-      }
-
-      .header {
-        background-color: #333;
-        color: #fff;
-        padding: 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-
-      .sidebar {
-        background-color: #f1f1f1;
-        padding: 20px;
-        height: calc(100vh - 80px);
-        width: 200px;
-        float: left;
-      }
-
-      .sidebar a {
-        display: block;
-        color: #333;
-        text-decoration: none;
-        padding: 10px;
-      }
-
-      .sidebar a:hover {
-        background-color: #ddd;
-      }
-
-      .content {
-        margin-left: 220px;
-        padding: 20px;
-      }
-    </style>
+    <title>Lego Store</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+      integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="./assets/css/base.css" />
+    <link rel="stylesheet" href="./assets/css/main.css" />
+    <link
+      rel="stylesheet"
+      href="./assets/fonts/fontawesome-free-6.6.0-web/css/all.min.css"
+    />
   </head>
   <body>
-    <div class="header">
+    <div class="header-admin">
       <h1>Admin Dashboard</h1>
-      <p>Logged in as: John Doe</p>
+      <div class="admin-info"></div>
     </div>
+    <div id="manage-body">
+      <div class="sidebar-admin">
+        <a href="#" id="account-button">Quản lý tài khoản</a>
+        <a href="#" id="product-button">Quản lý sản phẩm</a>
+        <a href="#" id="order-button">Quản lý đơn hàng</a>
+        <a href="#" id="sell-button">Thống kê</a>
+      </div>
 
-    <div class="sidebar">
-      <a href="#" id="account-button">Quản lý tài khoản</a>
-      <a href="#">Quản lý sản phẩm</a>
-      <a href="#">Quản lý đơn hàng</a>
-      <a href="#">Thống kê</a>
+      <main id="main">
+        <div id="content-admin"></div>
+      </main>
     </div>
+    <div class="modal" id="myModalLoginAdmin">
+      <div class="modal__overlayAdmin"></div>
+      <div class="modal__body">
+        <!-- Authen form Login-->
+        <div class="auth-form formAdmin">
+          <div class="auth-form__container">
+            <!-- Header -->
+            <div class="auth-form__header">
+              <h3 class="auth-form__heading">Đăng nhập</h3>
+            </div>
+            <!-- Body 01 -->
+            <div class="auth-form__form">
+              <label for="input-username_login">Tài Khoản</label>
+              <div class="auth-form__group">
+                <input
+                  type="text"
+                  class="auth-form__inputAdmin"
+                  placeholder="Tên đăng nhập"
+                />
+              </div>
+              <!--  -->
+              <div class="auth-form__group">
+                <label for="password">Mật Khẩu</label>
+                <input
+                  type="password"
+                  class="auth-form__inputAdmin"
+                  placeholder="Mật khẩu"
+                />
+              </div>
+              <!--  -->
+            </div>
 
-    <div id="content"></div>
-
+            <!-- Footer 01 -->
+            <div class="auth-form__controls">
+              <button class="btn btn--primary" id="login-formAdmin">
+                Đăng nhập
+              </button>
+            </div>
+          </div>
+          <!-- Footer 02 -->
+        </div>
+        <!--  -->
+      </div>
+      <!--  -->
+    </div>
     <script src="./assets/javascript/main.js"></script>
   </body>
 </html>

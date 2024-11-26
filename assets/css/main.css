@@ -910,7 +910,22 @@
   border-radius: 2px;
 }
 
+.auth-form__inputAdmin {
+  width: 100%;
+  height: 40px;
+  margin-top: 3px;
+  padding: 0 12px;
+  font-size: 1.4rem;
+  border: solid 1px var(--border-color);
+  border-radius: 2px;
+}
+
 .auth-form__input:focus {
+  border-color: #888;
+  outline: none;
+}
+
+.auth-form__inputAdmin:focus {
   border-color: #888;
   outline: none;
 }
@@ -1102,6 +1117,11 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .form-message {
+  font-size: 1.4 rem;
+  color: red;
+}
+
+.form-messageAdmin {
   font-size: 1.4 rem;
   color: red;
 }
@@ -1332,5 +1352,537 @@ input[type="number"]::-webkit-outer-spin-button {
   font-size: 1.8rem;
   text-align: center;
   margin: 0;
+  cursor: pointer;
+}
+
+/* Phần Admin */
+
+.header-admin {
+  background-color: rgb(14, 111, 175);
+  color: #fff;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 120px;
+  font-size: 16px;
+}
+
+.admin-info {
+  display: inline-block;
+}
+
+.sidebar-admin {
+  background-color: #f1f1f1;
+  padding: 20px;
+  height: calc(100vh - 80px);
+  width: 200px;
+  float: left;
+  font-size: 16px;
+}
+
+.sidebar-admin a {
+  display: block;
+  color: #333;
+  text-decoration: none;
+  padding: 10px;
+}
+
+.sidebar-admin a:hover {
+  background-color: #ddd;
+}
+
+#manage-list {
+  display: inline-table;
+  width: calc(10% - 10px);
+  height: 120px;
+  float: left;
+  font-size: 20px;
+  font-family: "Times New Roman";
+  background-color: #8fe0ec;
+  margin: 6px 5px;
+}
+#manage-list button {
+  display: block;
+  width: 100%;
+  height: 30px;
+  padding: 5px;
+  text-decoration: none;
+  color: black;
+  background-color: #8fe0ec;
+  border: none;
+  text-align: left;
+}
+#manage-list button:hover {
+  cursor: pointer;
+  background-color: #217d89;
+}
+#product {
+  font-size: 18px;
+  width: 100%;
+  text-align: center;
+  font-family: "Time New Roman";
+  display: flex;
+  flex-direction: row;
+  flex-flow: row wrap;
+}
+#product p {
+  margin: 0px;
+}
+#product img {
+  height: 250px;
+  width: 100%;
+}
+.product-data {
+  float: left;
+  margin: 10px;
+  background-color: #ccc;
+  text-decoration: none;
+  border: solid 1px #3e3e3e;
+  filter: brightness(100%);
+  width: calc(17% - 10px);
+}
+.product-data p {
+  height: 250px;
+  width: 100%;
+}
+.product-data:hover {
+  cursor: pointer;
+  filter: brightness(50%);
+}
+#sell div {
+  font-size: 30px;
+  margin: 20px 100px;
+  font-family: "Times New Roman";
+}
+#order-filter {
+  display: block;
+  font-size: 12px;
+  margin-left: calc(50% - 300px);
+  margin-right: 200px;
+  margin-bottom: 10px;
+}
+#order-filter div {
+  display: inline-table;
+  font-size: 20px;
+  font-family: "Times New Roman";
+  margin: 0px 5px;
+}
+#order-filter input {
+  display: inline-table;
+}
+#order-filter select {
+  float: right;
+  display: inline-table;
+  margin: 5px;
+}
+#order-detail {
+  position: fixed;
+  z-index: 20;
+  width: 600px;
+  height: 800px;
+  top: 60px;
+  left: calc(50% - 350px);
+  font-size: 16px;
+  background-color: #f7f7f7;
+  border-radius: 20px;
+  font-family: "Time New Roman";
+  padding: 20px 40px;
+}
+#order-detail p {
+  margin-left: 160px;
+  font-size: 25px;
+}
+.manage_data {
+  text-align: center;
+  font-size: 20px;
+  font-family: "Time New Roman";
+  width: 90%;
+}
+.manage_data thead {
+  background-color: #8fe0ec;
+}
+.manage_data tbody > tr {
+}
+.manage_data tbody > tr:hover {
+  cursor: pointer;
+  background-color: greenyellow;
+}
+.manage_data td {
+  border: solid 2px;
+  height: 30px;
+}
+.data {
+  font-family: "Time New Roman";
+  margin: 10px 0px;
+}
+#addProduct {
+  display: inline-block;
+  position: sticky;
+  z-index: 100;
+  bottom: 5%;
+  left: 90%;
+  width: 90px;
+  height: 90px;
+  background-color: #8fe0ec;
+  text-align: center;
+  padding: 25px;
+  font-size: 40px;
+  border-radius: 100%;
+  color: rgb(103, 30, 219);
+  filter: brightness(100%);
+  pointer-events: all;
+}
+#addProduct:hover {
+  cursor: pointer;
+  background-color: #004e64;
+  color: #f5f5f5;
+}
+button {
+  background-color: #f7f7f7;
+}
+button:hover {
+  cursor: pointer;
+  background-color: #666;
+}
+#change-infor,
+#delete,
+#add-infor {
+  display: inline-block;
+  border-radius: 5px;
+  border-color: rgba(0, 0, 0, 0.2);
+  font-size: 14px;
+  height: 35px;
+}
+
+#delete {
+  display: inline-block;
+  margin-left: 10px;
+}
+#change-infor:hover,
+#delete:hover,
+#add-infor:hover {
+  cursor: pointer;
+}
+#product-detail,
+#add-product-input {
+  position: fixed;
+  z-index: 20;
+  width: 550px;
+
+  top: 20px;
+  left: calc(50% - 275px);
+  font-size: 20px;
+  background-color: #f7f7f7;
+  border-radius: 20px;
+  font-family: "Time New Roman";
+  padding-left: 60px;
+}
+#product-detail input,
+#add-product-input input,
+#add-product-input select {
+  display: block;
+  border-radius: 5px;
+  border-color: rgba(0, 0, 0, 0.2);
+  height: 35px;
+  font-size: 20px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  width: 80%;
+}
+
+#edit-space {
+  display: flex;
+  align-items: space-between;
+}
+#add-product-input div {
+  font-size: 30px;
+  margin: 30px 0px;
+  padding-left: calc(50% - 130px);
+}
+#product-detail img {
+  width: 300px;
+  height: 300px;
+  margin: 10px 65px;
+  border: solid 1px rgba(0, 0, 0, 0.2);
+}
+#content {
+  min-height: 800px;
+}
+#content b {
+  position: absolute;
+  font-size: 30px;
+  font-family: "Times New Roman";
+  margin: 20px 50px;
+}
+#search_date {
+  display: inline-block;
+}
+.product-info {
+  display: block;
+  border: none;
+}
+.product-info-detail {
+  display: block;
+  margin: 10px;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  font-weight: 500;
+}
+#manage-body {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+}
+#main {
+  display: inline-table;
+  width: calc(90% - 10px);
+  float: left;
+  margin: 5px;
+}
+.product-grid {
+  display: inline-block;
+  width: 100%;
+}
+
+.accountLogin {
+  display: inline-block;
+}
+.accountLogin:hover {
+}
+.accountLogin:hover > button {
+  display: block;
+}
+#adminLogin:hover {
+}
+#adminLogin:hover > button {
+  display: block;
+}
+.userLogout {
+  display: inline-block;
+  border: none;
+  border-radius: 5px;
+  margin-left: 0px;
+}
+
+#confirmModal {
+  display: none; /* Ẩn modal mặc định */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.modal-content {
+  background-color: #fff;
+  margin: 15% auto;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  text-align: center;
+}
+#confirmBtn {
+  background-color: #4caf50;
+  color: white;
+  margin: 20px;
+  border: none;
+  border-radius: 5px;
+  width: 60px;
+  height: 30px;
+}
+
+#cancelBtn {
+  background-color: #f44336;
+  color: white;
+  margin: 20px;
+  border: none;
+  border-radius: 5px;
+  width: 60px;
+  height: 30px;
+}
+.screen-bright {
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.remove-img {
+  border: none;
+}
+
+.customer-info {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  font-family: "Time New Roman";
+}
+.content-customer {
+  width: calc(50% - 60px);
+  background-color: rgb(230, 230, 230);
+  border-radius: 5px;
+  margin: 10px 20px;
+  border: solid 1px rgb(204, 204, 204);
+}
+.box-tittle {
+  color: #666;
+  padding: 10px;
+  background-color: #ccc;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border: 1px #ccc solid;
+  font-size: 21px;
+  margin: 0px;
+}
+.box-content {
+  min-height: 250px;
+  display: block;
+  border: 1px #ccc solid;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.customer-group {
+  font-size: 21px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 10px;
+}
+.customer-group div {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+.customer-input {
+  width: 80%;
+  height: 30px;
+  padding: 0 12px;
+  font-size: 16px;
+  border: 1px solid #8888;
+  border-radius: 12px;
+  outline: none;
+}
+.payment {
+  font-size: 21px;
+  margin: 30px 10px;
+}
+.content-cart {
+  width: 97vw;
+  margin: 20px auto;
+  margin-bottom: 100px;
+  font-family: "Time New Roman";
+}
+
+.content-cart-group {
+  width: 100%;
+  background-color: #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.4);
+  height: 5vh;
+}
+.content-cart-info {
+  width: 15%;
+  padding: 8px;
+  text-align: center;
+  font-size: 25px;
+}
+.cart--item {
+  width: 15%;
+  padding: 8px;
+  text-align: center;
+  font-size: 25px;
+}
+.cart-item-group {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+}
+.cart--price {
+  font-size: clamp(0.8rem, calc(1.1vw+1vh), 1.4rem);
+  font-weight: bolder;
+}
+.submit-order {
+  background-image: linear-gradient(#4ab0bb, #4ab0bb);
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  margin: 50px;
+  font-size: 16px;
+  border: none;
+}
+
+.submit-order:hover {
+  cursor: pointer;
+  filter: brightness(50%);
+}
+
+#account-detail {
+  width: 30%;
+  height: 600px;
+  font-size: 20px;
+  background-color: #f7f7f7;
+  border-radius: 20px;
+  font-family: "Time New Roman";
+  padding-left: 60px;
+  margin: 5% auto;
+}
+.form-detail {
+  width: 100%;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
+}
+.form-detail-content {
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+}
+.form-detail-content input {
+  display: block;
+  border-radius: 5px;
+  border-color: rgba(0, 0, 0, 0.2);
+  height: 35px;
+  font-size: 20px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  width: 80%;
+}
+
+#myModalLoginAdmin {
+  display: block;
+}
+
+.modal__overlayAdmin {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+}
+.formAdmin {
+  border: 1px solid black;
+}
+
+#admin-logout {
+  text-align: right;
+}
+
+#admin-logout:hover {
+  color: #ffffffb3;
   cursor: pointer;
 }
