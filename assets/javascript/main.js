@@ -1392,79 +1392,71 @@ if (!window.location.pathname.endsWith("manage.html")) {
         {
           userId: 1,
           orderId: 1,
-          orderDate: "01/10/2024",
-          address: "",
+          orderDate: "29/11/2024",
+          address: {
+            houseNumber: "270/6",
+            ward: "Phường 2",
+            district: "Phú Nhuận",
+            city: "Hồ Chí Minh",
+          },
           items: [
             {
-              name: "Siêu Xe Yamaha RIM",
-              code: "LR0014",
-              price: 1390000,
-              imgSrc: "./assets/img/lego-technic/technic-14.png",
-              topic: "Technic",
-              quantiny: 3,
+              name: "Naruto - 01",
+              code: "LM0001",
+              price: 30000,
+              imgSrc: "./assets/img/lego-minifigure/mini-01.png",
+              topic: "Naruto",
+              quantity: 1,
             },
             {
-              name: "Siêu Xe Ducati",
-              code: "LR0015",
-              price: 1500000,
-              imgSrc: "./assets/img/lego-technic/technic-15.png",
-              topic: "Technic",
-              quantiny: 4,
+              name: "Naruto - 02",
+              code: "LM0002",
+              price: 25000,
+              imgSrc: "./assets/img/lego-minifigure/mini-02.png",
+              topic: "Naruto",
+              quantity: 1,
+            },
+            {
+              name: "Minato - 03",
+              code: "LM0003",
+              price: 29500,
+              imgSrc: "./assets/img/lego-minifigure/mini-03.png",
+              topic: "Naruto",
+              quantity: 1,
             },
           ],
-          totalPrice: 10000,
+          totalPrice: 84500,
           status: "Đã giao",
         },
         {
           userId: 1,
           orderId: 2,
-          orderDate: "2024-10-01",
-          address: "",
+          orderDate: "29/11/2024",
+          address: {
+            houseNumber: "270/6",
+            ward: "Phường 2",
+            district: "Phú Nhuận",
+            city: "Hồ Chí Minh",
+          },
           items: [
             {
-              name: "Siêu Xe Yamaha RIM",
-              code: "LR0014",
-              price: 1390000,
-              imgSrc: "./assets/img/lego-technic/technic-14.png",
-              topic: "Technic",
-              quantiny: 3,
+              name: "AWM - 07",
+              code: "MO0007",
+              price: 1929000,
+              imgSrc: "./assets/img/lego-moc/moc-07.png",
+              topic: "Army",
+              quantity: 1,
             },
             {
-              name: "Siêu Xe Ducati",
-              code: "LR0015",
-              price: 1500000,
-              imgSrc: "./assets/img/lego-technic/technic-15.png",
-              topic: "Technic",
-              quantiny: 4,
+              name: "AWM - 08",
+              code: "MO0008",
+              price: 1879000,
+              imgSrc: "./assets/img/lego-moc/moc-08.png",
+              topic: "Army",
+              quantity: 1,
             },
           ],
-          totalPrice: 10000,
-          status: "Đã giao",
-        },
-        {
-          userId: 1,
-          orderId: 3,
-          orderDate: "01/10/2024",
-          address: "",
-          items: [
-            {
-              name: "Siêu Xe Yamaha RIM",
-              code: "LR0014",
-              price: 1390000,
-              imgSrc: "./assets/img/lego-technic/technic-14.png",
-              topic: "Technic",
-              quantiny: 3,
-            },
-            {
-              name: "Siêu Xe Ducati",
-              code: "LR0015",
-              price: 1500000,
-              imgSrc: "./assets/img/lego-technic/technic-15.png",
-              topic: "Technic",
-              quantiny: 4,
-            },
-          ],
-          totalPrice: 10000,
+          totalPrice: 3808000,
           status: "Đã giao",
         },
       ];
@@ -2716,10 +2708,9 @@ if (!window.location.pathname.endsWith("manage.html")) {
         </td>
         <td>
             <div>
-                <img style="cursor:pointer" src="https://img.icons8.com/?size=20&id=8192&format=png&color=000000" alt="Edit">
                 <img onclick="deleteItem('${
                   item.code
-                }')" style="cursor:pointer" src="https://img.icons8.com/?size=20&id=11767&format=png&color=D72020" alt="Delete">
+                }')" style="cursor:pointer" src="./assets/img/bin.png" alt="Delete">
             </div>
         </td>
     </tr>`;
