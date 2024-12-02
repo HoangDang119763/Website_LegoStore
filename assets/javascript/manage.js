@@ -222,8 +222,7 @@ function checkloginAdmin() {
     <div class="admin-info"></div>`;
     headerAdmin.style.display = "flex";
     let adminInfor = document.querySelector(".admin-info");
-    adminInfor.innerHTML = `<p id="admin-name">Tên tài khoản quản trị: ${user.username}</p>
-        <p id="admin-email">Email: ${user.email}</p>
+    adminInfor.innerHTML = `
         <p id="admin-logout">Đăng xuất </p>`;
     let adminLogout = document.querySelector("#admin-logout");
     let manageBody = document.querySelector("#manage-body");
@@ -234,7 +233,24 @@ function checkloginAdmin() {
         <a href="#" id="sell-button">Thống kê</a>
       </div>
       <main id="main">
-        <div id="content-admin"></div>
+        <div id="content-admin">
+        <div style="border: 2px solid var(--primary-color); border-radius: 10px; padding: 20px; background-color: #ffffff; width: 100%; margin: 0 auto; text-align: left;">
+      <h1 style="text-align: center; color: var(--border-color); font-size: 24px; margin-bottom: 20px;">TRANG QUẢN LÝ WEBSITE BÁN LEGO</h1>
+
+      <div style="display: flex; align-items: center; margin-bottom: 15px; color: var(--border-color-1)">
+        <i class="fa-solid fa-user" style="font-size: 20px; margin-right: 10px;"></i>
+        <p style="margin: 0; font-size: 16px; color: #00695c;">
+          <strong>Tên tài khoản quản trị:</strong> ${user.username}
+        </p>
+      </div>
+
+      <div style="display: flex; align-items: center; margin-bottom: 15px;">
+        <i class="fa-solid fa-envelope" style="font-size: 20px; margin-right: 10px; color: var(--border-color-1)"></i>
+        <p style="margin: 0; font-size: 16px; color: #00695c;">
+          <strong>Email:</strong> ${user.email}
+        </p>
+      </div>
+    </div></div>
       </main>`;
     document
       .getElementById("account-button")
@@ -302,8 +318,7 @@ function loginAdmin(event) {
     <div class="admin-info"></div>`;
     headerAdmin.style.display = "flex";
     let adminInfor = document.querySelector(".admin-info");
-    adminInfor.innerHTML = `<p id="admin-name">Tên tài khoản quản trị: ${user.username}</p>
-        <p id="admin-email">Email: ${user.email}</p>
+    adminInfor.innerHTML = `
         <p id="admin-logout">Đăng xuất </p>`;
     let adminLogout = document.querySelector("#admin-logout");
     let manageBody = document.querySelector("#manage-body");
@@ -314,7 +329,24 @@ function loginAdmin(event) {
         <a href="#" id="sell-button">Thống kê</a>
       </div>
       <main id="main">
-        <div id="content-admin"></div>
+        <div id="content-admin">
+        <div style="border: 2px solid var(--primary-color); border-radius: 10px; padding: 20px; background-color: #ffffff; width: 100%; margin: 0 auto; text-align: left;">
+      <h1 style="text-align: center; color: var(--border-color); font-size: 24px; margin-bottom: 20px;">TRANG QUẢN LÝ WEBSITE BÁN LEGO</h1>
+
+      <div style="display: flex; align-items: center; margin-bottom: 15px; color: var(--border-color-1)">
+        <i class="fa-solid fa-user" style="font-size: 20px; margin-right: 10px;"></i>
+        <p style="margin: 0; font-size: 16px; color: #00695c;">
+          <strong>Tên tài khoản quản trị:</strong> ${user.username}
+        </p>
+      </div>
+
+      <div style="display: flex; align-items: center; margin-bottom: 15px;">
+        <i class="fa-solid fa-envelope" style="font-size: 20px; margin-right: 10px; color: var(--border-color-1)"></i>
+        <p style="margin: 0; font-size: 16px; color: #00695c;">
+          <strong>Email:</strong> ${user.email}
+        </p>
+      </div>
+    </div></div>
       </main>`;
     document
       .getElementById("account-button")
@@ -494,6 +526,7 @@ function displayPageAccountManagement() {
                   </tr>
               </thead>
           </table>
+          <div id="addAccount"><i class="fa-solid fa-plus"></i></div>
       `;
 
   for (i = 0; i < userList.length; i++) {
@@ -510,6 +543,82 @@ function displayPageAccountManagement() {
     document.querySelector(".manage_data").appendChild(tbody);
     create_detail_account(i, userList);
   }
+  //mở form thêm acc
+  document.getElementById("addAccount").addEventListener("click", () => {
+    const userDiv = document.createElement("div");
+    userDiv.className = "screen-bright";
+    userDiv.innerHTML = `
+            <div id="account-detail">
+                <p class="exit" style="display: inline-block; float: right; margin-top:0%">
+                    <button style="border: none; border-radius: 0px 18px 0px 0px; font-size: 16px; padding: 10px;">
+                        <i class="fa-regular fa-x"></i>
+                    </button>
+                </p>
+                <h2 style="padding-top:40px">Thêm tài khoản</h2>
+                <section>
+                    <form name="account-form" id="account-create" class="form-detail">
+                        <div class="form-detail-content">
+                            <div><strong>Tên đăng nhập</strong></div>
+                            <input type="text" name="aUsername" id ="aUsername" placeholder="">
+                            <span class="form-messageAdmin"></span>
+                        </div>
+
+                        <div class="form-detail-content">
+                            <div><strong>Mật khẩu</strong></div>
+                            <input type="password" name="aPassword" id ="aPassword" placeholder="">
+                            <span class="form-messageAdmin"></span>
+                        </div>
+
+                        <div class="form-detail-content">
+                            <div><strong>Nhập lại mật khẩu</strong></div>
+                            <input type="password" name="aRePassword" id ="aRePassword" placeholder="">
+                            <span class="form-messageAdmin"></span>
+                        </div>
+
+                        <div class="form-detail-content">
+                            <div><strong>Email</strong></div>
+                            <input type="text" name="aEmail" id ="aEmail" placeholder="">
+                            <span class="form-messageAdmin"></span>
+                        </div>
+
+                        <div class="form-detail-content">
+                            <strong>Vai trò</strong>: 
+                            <select id="aRole">
+                                <option value="0">Quản trị</option>
+                                <option value="1">Nhân viên</option>
+                                <option value="2">Khách hàng</option>
+                            </select>
+                        </div>
+
+                        <div class="form-detail-content">
+                            <input type="submit" value="Thêm">
+                        </div>
+                
+                    </form>
+                </section>
+            </div>
+        `;
+    document.body.appendChild(userDiv);
+
+    let aUsernameInput = document.getElementById("aUsername");
+    let aPasswordInput = document.getElementById("aPassword");
+    let aRePasswordInput = document.getElementById("aRePassword");
+    let aEmailInput = document.getElementById("aEmail");
+    aPasswordInput.addEventListener("blur", checkInputFromCreateAccount);
+    aEmailInput.addEventListener("blur", checkInputFromCreateAccount);
+    aUsernameInput.addEventListener("blur", checkInputFromCreateAccount);
+    aRePasswordInput.addEventListener("blur", checkInputFromCreateAccount);
+    ///đóng account form
+    // detail_exit1();
+    detail_exit2();
+    ////add account
+    document
+      .getElementById("account-create")
+      .addEventListener("submit", (e) => {
+        e.preventDefault();
+        create_account(document.getElementById("account-create"));
+      });
+  });
 }
 
 // Phần quản lý sản phẩm
@@ -552,6 +661,19 @@ function checkprice(s) {
   }
   return 1;
 }
+
+function checkquantity(s) {
+  // Kiểm tra xem s có phải là một số và lớn hơn 0
+  const num = Number(s);
+
+  // Kiểm tra điều kiện: là số và lớn hơn 0
+  if (!isNaN(num) && num > 0) {
+    return 1; // Hợp lệ
+  }
+
+  return 0; // Không hợp lệ
+}
+
 ///set mã sản phẩm
 function setCode(pcode) {
   let i = productArray.length - 1;
@@ -602,7 +724,7 @@ function create_product_detail(temp) {
     productDIV.className = "screen-bright";
     productDIV.innerHTML = `
         <div id="product-detail">
-            <button class="exit" style="font-size: 16px; position: absolute; top: 0px; right: 0px; border: none; border-radius: 0px 18px 0px 0px; padding: 10px;">
+            <button class="exit" style="font-size: 14px; position: absolute; top: 0px; right: 0px; border: none; border-radius: 0px 18px 0px 0px; padding: 10px;">
                 <i class="fa-regular fa-x"></i>
             </button>
             <div>
@@ -638,6 +760,11 @@ function create_product_detail(temp) {
 
                     <label>
                         <p>Danh mục: ${setDanhmuc(productArray[temp])}</p>
+                    </label> 
+                    <label>
+                        <p>Số lượng trong kho: ${
+                          productArray[temp].quantity
+                        }</p>
                     </label> 
                     <div id="edit-space">
                       <button type="submit" value="Thay đổi thông tin" id="change-infor">Thay đổi thông tin</button>
@@ -1019,6 +1146,11 @@ function choose_addProduct() {
                 Chọn ảnh
                 <input type="file" accept="image/*" id="anh">
             </label>
+
+            <label>
+                Số lượng
+                <input type="text" placeholder="Số lượng" name="soluong" id="idsoluong">
+            </label>
             
             <input type="submit" value="Thêm sản phẩm" id="add-infor">
         </form>
@@ -1027,7 +1159,7 @@ function choose_addProduct() {
   document.body.appendChild(ADD);
   document.getElementById("add-infor").style.width = "300px";
   //đóng thẻ thêm sản phẩm
-  detail_exit1();
+  // detail_exit1();
   detail_exit2();
   //thêm lựa chọn cho chủ đề sau khi chọn danh mục
   document.getElementById("iddanhmuc").addEventListener("change", () => {
@@ -1090,6 +1222,9 @@ function choose_addProduct() {
     } else if (document.addInput.gia.value == "") {
       alert("Bạn chưa nhập giá");
       document.getElementById("idgia").focus();
+    } else if (document.addInput.soluong.value == "") {
+      alert("Bạn chưa số lượng muốn bán");
+      document.getElementById("idsoluong").focus();
     } else {
       if (checkname(document.addInput.ten.value) == 0) {
         alert("Tên bạn nhập đã tồn tại");
@@ -1098,6 +1233,9 @@ function choose_addProduct() {
         if (checkprice(document.addInput.gia.value) == 0) {
           alert("Giá tiền phải là số");
           document.getElementById("idgia").focus();
+        } else if (checkquantity(document.addInput.soluong.value) == 0) {
+          alert("Số lượng muốn bán phải là số và lớn hơn 0");
+          document.getElementById("idsoluong").focus();
         } else {
           let temp_product = {
             name: document.addInput.ten.value,
@@ -1266,18 +1404,20 @@ function order_sort_address() {
 }
 
 //tạo chi tiết order
+//tạo chi tiết order
 function create_order_detail(i) {
   document.getElementById("ord-" + i).addEventListener("click", () => {
+    let temp = JSON.parse(localStorage.getItem(listOrders));
     const orderdate = new Intl.DateTimeFormat("vi-VN", {
       day: "2-digit",
       month: "2-digit",
       year: "numeric",
-    }).format(new Date(formatDate(Order[i].orderDate)));
+    }).format(new Date(formatDate(temp[i].orderDate)));
     //mở chi tiết order
     const ordDiv = document.createElement("div");
     let a = ``;
-    for (let j = 0; j < Order[i].items.length; j++) {
-      a += `<div>${Order[i].items[j].name} x ${Order[i].items[j].quantity} - ${Order[i].items[j].price}VNĐ/1</div>`;
+    for (let j = 0; j < temp[i].items.length; j++) {
+      a += `<div>${temp[i].items[j].name} x ${temp[i].items[j].quantity} - ${temp[i].items[j].price}VNĐ/1</div>`;
     }
     ordDiv.className = "screen-bright";
     ordDiv.innerHTML = `
@@ -1286,28 +1426,58 @@ function create_order_detail(i) {
                   <i class="fa-regular fa-x"></i>
               </button>
               <p><b>Chi tiết đơn hàng</b></p><br>
-              <div class="data"><b>OrderID: </b>${Order[i].orderId}</div>
-              <div class="data"><b>UserID: </b>${Order[i].userId}</div>           
+              <div class="data"><b>OrderID: </b>${temp[i].orderId}</div>
+              <div class="data"><b>UserID: </b>${temp[i].userId}</div>           
               <div class="data"><b>Date: </b>${orderdate}</div>
              
-              <div class="data"> <b>Address: </b>${Order[i].address.houseNumber}, ${Order[i].address.ward}, ${Order[i].address.district}, ${Order[i].address.city}.</div>
+              <div class="data"> <b>Address: </b>${temp[i].address.houseNumber}, ${temp[i].address.ward}, ${temp[i].address.district}, ${temp[i].address.city}.</div>
+              <div class="data"> <b>Payment Method: </b>${temp[i].paymentMethod}</div>
               <div>
               <b>Status:</b>
               <select class="data" id="order-status">
-                <option value="1">Chờ xác nhận</option>
-                <option value="2">Đã xác nhận</option>
-                <option value="3">Đã giao</option>
-                <option value="4">Đã hủy</option>
               </select>
               </div>
               <b>Infor:</b>
               <div class="data">${a}</div>
               
-              <div class="data"><b>Total Money: </b>${Order[i].totalPrice}</div>
+              <div class="data"><b>Total Money: </b>${temp[i].totalPrice}</div>
               
           </div<
           `;
     document.body.appendChild(ordDiv);
+    //
+    // thêm thay đổi cho status
+    switch (getIdStatus(Order[i].status)) {
+      case 1: {
+        document.getElementById("order-status").innerHTML = `
+                <option value="1">Chờ xác nhận</option>
+                <option value="2">Đã xác nhận</option>
+
+                <option value="4">Đã hủy</option>
+                `;
+        break;
+      }
+      case 2: {
+        document.getElementById("order-status").innerHTML = `
+                <option value="2">Đã xác nhận</option>
+                <option value="3">Đã giao</option>
+                <option value="4">Đã hủy</option>
+                `;
+        break;
+      }
+      case 3: {
+        document.getElementById("order-status").innerHTML = `
+                  <option value="3">Đã giao</option>
+                  `;
+        break;
+      }
+      case 4: {
+        document.getElementById("order-status").innerHTML = `
+                  <option value="4">Đã hủy</option>
+                  `;
+        break;
+      }
+    }
     document.getElementById("order-status").value = getIdStatus(
       Order[i].status
     );
@@ -1322,17 +1492,138 @@ function create_order_detail(i) {
         parseInt(document.getElementById("order-status").value)
       );
       localStorage.setItem(listOrders, JSON.stringify(Order));
+      subQuantityProductInOrderInListProducts(Order[i]);
       document.getElementById("ord-" + i).innerHTML = `
           <td>${Order[i].orderId}</td>
           <td>${Order[i].userId}</td>
+          <td>${Order[i].orderDate}</td>
           <td>${Order[i].address.houseNumber}, ${Order[i].address.ward}, ${Order[i].address.district}, ${Order[i].address.city}.</td>
-          <td>${Order[i].address}</td>
           <td>${Order[i].totalPrice}</td>
           <td>${Order[i].status}</td>
       `;
     });
   });
 }
+
+function checkInputFromCreateAccount(event) {
+  let inputElement = event.target.value.trim();
+  let pass = document.getElementById("aPassword").value;
+  let errorElement =
+    event.target.parentElement.querySelector(".form-messageAdmin");
+
+  if (
+    event.target.id === "aUsername" &&
+    inputElement.length < 6 &&
+    inputElement.length != 0
+  ) {
+    errorElement.innerHTML = "Tài khoản phải có ít nhất 6 kí tự.";
+  } else if (
+    event.target.id === "aPassword" &&
+    inputElement.length < 6 &&
+    inputElement.length != 0
+  ) {
+    errorElement.innerHTML = "Mật khẩu phải có ít nhất 6 kí tự.";
+  } else if (event.target.id === "aRePassword" && inputElement != pass) {
+    errorElement.innerHTML = "Mật khẩu không trùng khớp";
+  } else if (
+    event.target.id === "aEmail" &&
+    !validateEmail(inputElement) &&
+    inputElement.length != 0
+  ) {
+    errorElement.innerHTML = "Địa chỉ email không hợp lệ.";
+  } else {
+    errorElement.innerHTML = "";
+  }
+}
+function create_account(form) {
+  if (form.aUsername.value.length < 6) {
+    alert("Thêm thất bại! Tên đăng nhập phải có ít nhất 6 kí tự.");
+    return false;
+  }
+
+  if (form.aPassword.value.length < 6) {
+    alert("Thêm thất bại! Mật khẩu phải có ít nhất 6 kí tự.");
+    return false;
+  }
+
+  if (form.aPassword.value != form.aRePassword.value) {
+    alert("Thêm thất bại! Mật khẩu nhập lại không trùng khớp");
+    return false;
+  }
+
+  if (!validateEmail(form.aEmail.value)) {
+    alert("Thêm thất bại! Địa chỉ email không hợp lệ.");
+    return false;
+  }
+  let temp = {
+    id: userList.length,
+    username: document.getElementById("aUsername").value,
+    email: document.getElementById("aEmail").value,
+    address: [],
+    password: document.getElementById("aPassword").value,
+    cart: [],
+    dateSignUp: new Intl.DateTimeFormat("vi-VN", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    }).format(new Date(formatDate("" + new Date()))),
+    status: 1,
+    role: parseInt(document.getElementById("aRole").value),
+  };
+  // let temp = {
+  //   address: [],
+  //   cart: [],
+  //   dateSignUp: new Intl.DateTimeFormat("vi-VN", {
+  //     day: "2-digit",
+  //     month: "2-digit",
+  //     year: "numeric",
+  //   }).format(new Date(formatDate("" + new Date()))),
+  //   email: document.getElementById("aEmail").value,
+  //   id: userList.length,
+  //   password: document.getElementById("aPassword").value,
+  //   role: document.getElementById("aRole").value,
+  //   status: 1,
+  //   username: document.getElementById("aUsername").value,
+  // };
+
+  userList.push(temp);
+  alert("Thêm thành công");
+  document.querySelector(".screen-bright").remove();
+  localStorage.setItem(ListUsers, JSON.stringify(userList));
+}
+
+function subQuantityProductById(productId, num) {
+  let tempProducts = JSON.parse(localStorage.getItem(listProducts));
+  let index = tempProducts.findIndex((product) => product.code === productId);
+
+  if (index !== -1) {
+    // Kiểm tra xem số lượng có đủ để trừ không
+    if (tempProducts[index].quantity >= num) {
+      tempProducts[index].quantity -= num;
+      localStorage.setItem(listProducts, JSON.stringify(tempProducts));
+    } else {
+      console.warn(`Không đủ số lượng sản phẩm ${productId} để trừ.`);
+    }
+  } else {
+    console.warn(`Sản phẩm với ID ${productId} không được tìm thấy.`);
+  }
+}
+
+function subQuantityProductInOrderInListProducts(orderS) {
+  alert(orderS);
+  // Kiểm tra trạng thái đơn hàng
+  if (orderS.status === "Đã giao") {
+    // Duyệt qua từng item trong đơn hàng
+    orderS.items.forEach((item) => {
+      alert(item.quantity);
+      // Tích lũy số lượng cần trừ cho mỗi sản phẩm
+      subQuantityProductById(item.code, item.quantity);
+    });
+  }
+
+  // Thực hiện việc trừ số lượng cho từng sản phẩm trong quantityMap
+}
+
 //xuất thông tin
 function displayPagepOrderManament() {
   ////thêm phần head của order table
@@ -1589,6 +1880,7 @@ function create_statistic_pro(i, orders, quantitySell) {
     for (let k = 0; k < orders[j].items.length; k++) {
       if (orders[j].items[k].code == quantitySell[i].code) {
         //////////
+        let temp = JSON.parse(localStorage.getItem(listOrders));
         document
           .getElementById("sellOrd-" + j)
           .addEventListener("click", () => {
@@ -1596,25 +1888,27 @@ function create_statistic_pro(i, orders, quantitySell) {
               day: "2-digit",
               month: "2-digit",
               year: "numeric",
-            }).format(new Date(formatDate(orders[j].orderDate)));
+            }).format(new Date(formatDate(temp[j].orderDate)));
 
             let a = ``;
-            for (let q = 0; q < orders[j].items.length; q++) {
-              a += `<div>${orders[j].items[q].name} x ${orders[j].items[q].quantity} - ${orders[j].items[q].price}VNĐ/1</div>`;
+
+            for (let q = 0; q < temp[j].items.length; q++) {
+              a += `<div>${temp[j].items[q].name} x ${temp[j].items[q].quantity} - ${temp[j].items[q].price}VNĐ/1</div>`;
             }
             if (document.getElementById("sshow-" + j).innerHTML == "") {
               document.getElementById("sshow-" + j).innerHTML = `
                       <div class="stat-order">
                         <div class="data-stat"><b>Chi tiết đơn hàng</b></div>
-                        <div class="data-stat"><b>OrderID: </b>${orders[j].orderId}</div>
-                        <div class="data-stat"><b>UserID: </b>${orders[j].userId}</div>
+                        <div class="data-stat"><b>OrderID: </b>${temp[j].orderId}</div>
+                        <div class="data-stat"><b>UserID: </b>${temp[j].userId}</div>
                         
                         <div class="data-stat"><b>Date: </b>${orderdate}</div>
-                        <div class="data-stat"><b>Address: </b>${Order[j].address.houseNumber}, ${Order[j].address.ward}, ${Order[j].address.district}, ${Order[j].address.city}.</div>
-                        <div class="data-stat"><b>Status: </b>${orders[j].status}</div>
+                        <div class="data-stat" ><b>Address: </b>${temp[j].address.houseNumber}, ${temp[j].address.ward}, ${temp[j].address.district}, ${temp[j].address.city}.</div>
+                        <div class="data-stat" ><b>Payment Method: </b>${temp[j].paymentMethod}</div>
+                        <div class="data-stat"><b>Status: </b>${temp[j].status}</div>
                         <div class="data-stat"><b>Infor</b></div>
                         <div class="data-stat">${a}</div>
-                        <div class="data-stat"><b>Total Money: </b>${orders[j].totalPrice}</div>
+                        <div class="data-stat"><b>Total Money: </b>${temp[j].totalPrice}</div>
                       </div>
                 `;
             } else {
@@ -1652,30 +1946,32 @@ function create_statistic_cus(i, orders, userorder) {
   for (let j = 0; j < orders.length; j++) {
     if (orders[j].userId == userorder[i].id) {
       //////////
+      let temp = JSON.parse(localStorage.getItem(listOrders));
       document.getElementById("cusOrd-" + j).addEventListener("click", () => {
         const orderdate = new Intl.DateTimeFormat("vi-VN", {
           day: "2-digit",
           month: "2-digit",
           year: "numeric",
-        }).format(new Date(formatDate(orders[j].orderDate)));
+        }).format(new Date(formatDate(temp[j].orderDate)));
 
         let a = ``;
-        for (let k = 0; k < orders[j].items.length; k++) {
-          a += `<div>${orders[j].items[k].name} x ${orders[j].items[k].quantity} - ${orders[j].items[k].price}VNĐ/1</div>`;
+        for (let k = 0; k < temp[j].items.length; k++) {
+          a += `<div>${temp[j].items[k].name} x ${temp[j].items[k].quantity} - ${temp[j].items[k].price}VNĐ/1</div>`;
         }
         if (document.getElementById("show-" + j).innerHTML == "") {
           document.getElementById("show-" + j).innerHTML = `
                 <div stlye="margin-left: 100px">
                   <div class="stat-order">
                         <div class="data-stat"><b>Chi tiết đơn hàng</b></div>
-                        <div class="data-stat"><b>OrderID: </b>${orders[j].orderId}</div>
-                        <div class="data-stat"><b>UserID: </b>${orders[j].userId}</div>
+                        <div class="data-stat"><b>OrderID: </b>${temp[j].orderId}</div>
+                        <div class="data-stat"><b>UserID: </b>${temp[j].userId}</div>
                         <div class="data-stat"><b>Date: </b>${orderdate}</div>
-                        <div class="data-stat"><b>Address: </b>${Order[i].address.houseNumber}, ${Order[i].address.ward}, ${Order[i].address.district}, ${Order[i].address.city}.</div>
-                        <div class="data-stat"><b>Status: </b>${orders[j].status}</div>
+                        <div class="data-stat"><b>Address: </b>${temp[i].address.houseNumber}, ${temp[i].address.ward}, ${temp[i].address.district}, ${temp[i].address.city}.</div>
+                        <div class="data-stat"><b>Payment Method: </b>${temp[i].paymentMethod}</div>
+                        <div class="data-stat"><b>Status: </b>${temp[j].status}</div>
                         <div class="data-stat"><b>Infor</b></div>
                         <div class="data-stat">${a}</div>
-                        <div class="data-stat"><b>Total Money: </b>${orders[j].totalPrice}</div>
+                        <div class="data-stat"><b>Total Money: </b>${temp[j].totalPrice}</div>
                   </div>
                 </div>
             `;

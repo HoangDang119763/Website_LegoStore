@@ -45,6 +45,78 @@ function updateCartUserInList(id, cartUser) {
   }
 }
 
+function numQuantitySoldInListOrder(productID) {
+  // Lấy danh sách đơn hàng từ localStorage
+  let tempOrderList = JSON.parse(localStorage.getItem(listOrders));
+
+  // Biến để lưu tổng số lượng
+  let totalQuantity = 0;
+
+  // Kiểm tra nếu tempOrderList không phải là null và là một mảng
+  tempOrderList.forEach((order) => {
+    // Kiểm tra trạng thái đơn hàng
+    if (order.status === "Đã xác nhận") {
+      // Duyệt qua từng item trong đơn hàng
+      order.items.forEach((item) => {
+        // Kiểm tra mã sản phẩm
+        if (item.code === productID) {
+          // Cộng dồn số lượng
+          totalQuantity += item.quantity;
+        }
+      });
+    }
+  });
+
+  return totalQuantity; // Trả về tổng số lượng
+}
+
+function getItemsUserByOrderId(orderId) {
+  let tempOrderList = JSON.parse(localStorage.getItem(listOrders));
+  let index = tempOrderList.findIndex((order) => order.orderId == orderId);
+  let cart;
+  // Kiểm tra xem người dùng có tồn tại không
+  if (index !== -1) {
+    // Cập nhật giỏ hàng của người dùng
+    cart = tempOrderList[index].items;
+  } else {
+    cart = [];
+  }
+  return cart;
+}
+
+function getOrderInList(orderId) {
+  let tempOrderList = JSON.parse(localStorage.getItem(listOrders));
+  let index = tempOrderList.findIndex((order) => order.orderId == orderId);
+  let order;
+  // Kiểm tra xem người dùng có tồn tại không
+  if (index !== -1) {
+    // Cập nhật giỏ hàng của người dùng
+    order = tempOrderList[index];
+  } else {
+    order = null;
+  }
+  return order;
+}
+
+function updateStatusOrderInList(id, status) {
+  // Lấy danh sách người dùng từ localStorage
+  let tempOrderList = JSON.parse(localStorage.getItem(listOrders));
+
+  // Tìm chỉ số của người dùng cần cập nhật
+  let index = tempOrderList.findIndex((order) => order.orderId == id);
+
+  // Kiểm tra xem người dùng có tồn tại không
+  if (index !== -1) {
+    // Cập nhật giỏ hàng của người dùng
+    tempOrderList[index].status = status;
+
+    // Lưu lại danh sách người dùng đã cập nhật vào localStorage
+    localStorage.setItem(listOrders, JSON.stringify(tempOrderList));
+  } else {
+    console.error("Order not found");
+  }
+}
+
 function updateAddressUserInList(id, address) {
   // Lấy danh sách người dùng từ localStorage
   let tempUserList = JSON.parse(localStorage.getItem(ListUsers));
@@ -860,7 +932,7 @@ if (!window.location.pathname.endsWith("manage.html")) {
           price: 30000,
           imgSrc: "./assets/img/lego-minifigure/mini-01.png",
           topic: "Naruto",
-          quantity: 100,
+          quantity: 99,
         },
         {
           name: "Naruto - 02",
@@ -868,7 +940,7 @@ if (!window.location.pathname.endsWith("manage.html")) {
           price: 25000,
           imgSrc: "./assets/img/lego-minifigure/mini-02.png",
           topic: "Naruto",
-          quantity: 100,
+          quantity: 99,
         },
         {
           name: "Minato - 03",
@@ -876,7 +948,7 @@ if (!window.location.pathname.endsWith("manage.html")) {
           price: 29500,
           imgSrc: "./assets/img/lego-minifigure/mini-03.png",
           topic: "Naruto",
-          quantity: 100,
+          quantity: 99,
         },
         {
           name: "Sasuke - 04",
@@ -1036,7 +1108,7 @@ if (!window.location.pathname.endsWith("manage.html")) {
           price: 1929000,
           imgSrc: "./assets/img/lego-moc/moc-07.png",
           topic: "Army",
-          quantity: 100,
+          quantity: 99,
         },
         {
           name: "AWM - 08",
@@ -1044,7 +1116,7 @@ if (!window.location.pathname.endsWith("manage.html")) {
           price: 1879000,
           imgSrc: "./assets/img/lego-moc/moc-08.png",
           topic: "Army",
-          quantity: 100,
+          quantity: 99,
         },
         {
           name: "K-98",
@@ -1389,76 +1461,78 @@ if (!window.location.pathname.endsWith("manage.html")) {
   function createOrders() {
     if (localStorage.getItem(listOrders) === null) {
       const orders = [
-        {
-          userId: 1,
-          orderId: 1,
-          orderDate: "29/11/2024",
-          address: {
-            houseNumber: "270/6",
-            ward: "Phường 2",
-            district: "Phú Nhuận",
-            city: "Hồ Chí Minh",
-          },
-          items: [
-            {
-              name: "Naruto - 01",
-              code: "LM0001",
-              price: 30000,
-              imgSrc: "./assets/img/lego-minifigure/mini-01.png",
-              topic: "Naruto",
-              quantity: 1,
-            },
-            {
-              name: "Naruto - 02",
-              code: "LM0002",
-              price: 25000,
-              imgSrc: "./assets/img/lego-minifigure/mini-02.png",
-              topic: "Naruto",
-              quantity: 1,
-            },
-            {
-              name: "Minato - 03",
-              code: "LM0003",
-              price: 29500,
-              imgSrc: "./assets/img/lego-minifigure/mini-03.png",
-              topic: "Naruto",
-              quantity: 1,
-            },
-          ],
-          totalPrice: 84500,
-          status: "Đã giao",
-        },
-        {
-          userId: 1,
-          orderId: 2,
-          orderDate: "29/11/2024",
-          address: {
-            houseNumber: "270/6",
-            ward: "Phường 2",
-            district: "Phú Nhuận",
-            city: "Hồ Chí Minh",
-          },
-          items: [
-            {
-              name: "AWM - 07",
-              code: "MO0007",
-              price: 1929000,
-              imgSrc: "./assets/img/lego-moc/moc-07.png",
-              topic: "Army",
-              quantity: 1,
-            },
-            {
-              name: "AWM - 08",
-              code: "MO0008",
-              price: 1879000,
-              imgSrc: "./assets/img/lego-moc/moc-08.png",
-              topic: "Army",
-              quantity: 1,
-            },
-          ],
-          totalPrice: 3808000,
-          status: "Đã giao",
-        },
+        // {
+        //   userId: 1,
+        //   orderId: 1,
+        //   orderDate: "29/11/2024",
+        //   address: {
+        //     houseNumber: "270/6",
+        //     ward: "Phường 2",
+        //     district: "Phú Nhuận",
+        //     city: "Hồ Chí Minh",
+        //   },
+        //   paymentMethod: "Thanh toán khi nhận hàng",
+        //   items: [
+        //     {
+        //       name: "Naruto - 01",
+        //       code: "LM0001",
+        //       price: 30000,
+        //       imgSrc: "./assets/img/lego-minifigure/mini-01.png",
+        //       topic: "Naruto",
+        //       quantity: 1,
+        //     },
+        //     {
+        //       name: "Naruto - 02",
+        //       code: "LM0002",
+        //       price: 25000,
+        //       imgSrc: "./assets/img/lego-minifigure/mini-02.png",
+        //       topic: "Naruto",
+        //       quantity: 1,
+        //     },
+        //     {
+        //       name: "Minato - 03",
+        //       code: "LM0003",
+        //       price: 29500,
+        //       imgSrc: "./assets/img/lego-minifigure/mini-03.png",
+        //       topic: "Naruto",
+        //       quantity: 1,
+        //     },
+        //   ],
+        //   totalPrice: 84500,
+        //   status: "Đã giao",
+        // },
+        // {
+        //   userId: 1,
+        //   orderId: 2,
+        //   orderDate: "29/11/2024",
+        //   address: {
+        //     houseNumber: "270/6",
+        //     ward: "Phường 2",
+        //     district: "Phú Nhuận",
+        //     city: "Hồ Chí Minh",
+        //   },
+        //   paymentMethod: "Thanh toán Online",
+        //   items: [
+        //     {
+        //       name: "AWM - 07",
+        //       code: "MO0007",
+        //       price: 1929000,
+        //       imgSrc: "./assets/img/lego-moc/moc-07.png",
+        //       topic: "Army",
+        //       quantity: 1,
+        //     },
+        //     {
+        //       name: "AWM - 08",
+        //       code: "MO0008",
+        //       price: 1879000,
+        //       imgSrc: "./assets/img/lego-moc/moc-08.png",
+        //       topic: "Army",
+        //       quantity: 1,
+        //     },
+        //   ],
+        //   totalPrice: 3808000,
+        //   status: "Đã giao",
+        // },
       ];
       localStorage.setItem(listOrders, JSON.stringify(orders));
     }
@@ -1571,9 +1645,6 @@ if (!window.location.pathname.endsWith("manage.html")) {
       case "lh":
         producttype__name.innerHTML = `<h3>Liên hệ</h3>`;
         displayContactPage();
-        break;
-      case "payment":
-        displayPaymentPage();
         break;
       default:
         const newUrl = currentPath + "?tc"; // Thêm ?tc vào URL
@@ -2113,6 +2184,12 @@ if (!window.location.pathname.endsWith("manage.html")) {
     btn.addEventListener("click", () => {
       modalRegister.style.display = "none";
       modalLogin.style.display = "none";
+      document.querySelectorAll(".form-message").forEach((item) => {
+        item.innerHTML = "";
+      });
+      document.querySelectorAll(".auth-form__input").forEach((item) => {
+        item.value = ""; // Đặt giá trị của từng ô nhập liệu thành rỗng
+      });
     });
   });
 
@@ -2172,8 +2249,24 @@ if (!window.location.pathname.endsWith("manage.html")) {
     .addEventListener("click", createUser);
   document.getElementById("login-form").addEventListener("click", login);
 
-  function createUser(event) {
-    event.preventDefault();
+  // Thêm sự kiện lắng nghe cho modal
+  document
+    .getElementById("myModalLogin")
+    .addEventListener("keypress", (event) => {
+      if (event.key === "Enter") {
+        login(); // Gọi hàm đăng nhập khi nhấn Enter
+      }
+    });
+
+  document
+    .getElementById("myModalRegister")
+    .addEventListener("keypress", (event) => {
+      if (event.key === "Enter") {
+        createUser(); // Gọi hàm đăng nhập khi nhấn Enter
+      }
+    });
+
+  function createUser() {
     userList = JSON.parse(localStorage.getItem(ListUsers));
     let username = inputSignUp[0].value.trim();
     let email = inputSignUp[1].value.trim();
@@ -2268,9 +2361,7 @@ if (!window.location.pathname.endsWith("manage.html")) {
     }
   }
 
-  function login(event) {
-    event.preventDefault();
-
+  function login() {
     const userLoginValue = userLogin.value.trim();
     const passLoginValue = passLogin.value.trim();
     const userList = JSON.parse(localStorage.getItem(ListUsers)) || [];
@@ -2331,7 +2422,9 @@ if (!window.location.pathname.endsWith("manage.html")) {
     }
 
     // Kiểm tra số lượng sản phẩm muốn thêm vào giỏ hàng
-    let availableQuantity = productItem.quantity;
+    let availableQuantity =
+      productItem.quantity - numQuantitySoldInListOrder(productID);
+    alert(availableQuantity);
     let totalQuantityInCart =
       cartArray.find((item) => item.code === productItem.code)?.quantity || 0;
     let totalQuantity = totalQuantityInCart + parseInt(quantity);
@@ -2427,42 +2520,6 @@ if (!window.location.pathname.endsWith("manage.html")) {
         removeFromCart(productCode);
       });
     });
-
-    // document
-    //   .querySelector(".header__cart-pay")
-    //   .addEventListener("click", function () {
-    //     alert("Thanh toán thành công");
-    //     cart = [];
-    //     localStorage.setItem("cart", JSON.stringify(cart));
-    //     cartList();
-
-    //     // TODO: Thêm đơn hàng vào danh sách đơn hàng
-
-    //     let orderArray = JSON.parse(localStorage.getItem("orderCustomer")) || [];
-    //     let userLogin = JSON.parse(localStorage.getItem("userLogin"));
-
-    //     let order = {
-    //       id: orderArray.length + 1,
-    //       user: userLogin,
-    //       orderBook: cartArray
-    //         .map((item) => {
-    //           let product = JSON.parse(localStorage.getItem(listProducts)).find(
-    //             (product) => product.code === item.idproduct
-    //           );
-    //           return `${product.name} x ${item.quantity}`;
-    //         })
-    //         .join(";"),
-    //       dateOrder: new Intl.DateTimeFormat("vi-VN", {
-    //         day: "2-digit",
-    //         month: "2-digit",
-    //         year: "numeric",
-    //       }).format(new Date()),
-    //       totalPrice: totalPrice,
-    //       status: 0,
-    //     };
-    //     orderArray.push(order);
-    //     localStorage.setItem("orderCustomer", JSON.stringify(orderArray));
-    //   });
   }
 
   function updateQuantity() {
@@ -2476,7 +2533,8 @@ if (!window.location.pathname.endsWith("manage.html")) {
       let productItem = tempList.find(
         (product) => product.code === productCode
       );
-      let availableQuantity = productItem.quantity;
+      let availableQuantity =
+        productItem.quantity - numQuantitySoldInListOrder(productCode);
 
       // Kiểm tra giá trị nhập
       let value = parseInt(input.value);
@@ -2516,54 +2574,96 @@ if (!window.location.pathname.endsWith("manage.html")) {
   }
 
   function displayPaymentPage() {
-    const userLogin = JSON.parse(localStorage.getItem("userLogin"));
-    if (userLogin.cart.length <= 0) {
-      alert("Vui lòng thêm sản phẩm vào giỏ hàng!");
-      window.location.href = "./index.html?sp";
-    }
-    const order = JSON.parse(localStorage.getItem("order"));
     let s = `
     <div class="auth-form" style="width:100%;">
-  <div class="auth-form__container">
-    <div class="auth-form__header" style="justify-content: center;">
-      <h3 class="auth-form__heading">Thanh toán online</h3>
-    </div>
-    <div class="auth-form__form">
+        <div class="auth-form__container">
+            <div class="auth-form__header" style="justify-content: center;">
+                <h3 class="auth-form__heading">Thanh toán online</h3>
+            </div>
+            <div class="auth-form__form">
+                <div class="auth-form__group">
+                    <label for="cardNumber">Mã số thẻ:</label>
+                    <input type="text" id="cardNumber" class="auth-form__input" placeholder="Nhập mã số thẻ" />
+                    <span class="form-message"></span>
+                </div>
+                <div class="auth-form__group" style="margin-top:10px">
+                    <label for="bankName">Chọn ngân hàng:</label>
+                    <input type="text" id="bankName" class="auth-form__input" placeholder="Nhập tên ngân hàng" oninput="suggestBanks()" />
+                    <span class="form-message"></span>
+                    <ul id="bank-suggestions" class="suggestions-list"></ul>
+                </div>
+                <div class="auth-form__group">
+                    <label for="cardHolder">Tên chủ thẻ:</label>
+                    <input type="text" id="cardHolder" class="auth-form__input" placeholder="Nhập tên chủ thẻ" />
+                    <span class="form-message"></span>
+                </div>
+            </div>
 
-      <div class="auth-form__group">
-        <label for="cardNumber">Mã số thẻ:</label>
-        <input type="text" id="cardNumber" class="auth-form__input" placeholder="Nhập mã số thẻ" />
-        <span class="form-message"></span>
-      </div>
-      <div class="auth-form__group" style="margin-top:10px">
-        <label for="bankName">Chọn ngân hàng:</label>
-        <input type="text" id="bankName" class="auth-form__input" placeholder="Nhập tên ngân hàng" oninput="suggestBanks()" />
-        <ul id="bank-suggestions" class="suggestions-list"></ul>
-        <span class="form-message"></span>
-      </div>
-      <div class="auth-form__group">
-        <label for="cardHolder">Tên chủ thẻ:</label>
-        <input type="text" id="cardHolder" class="auth-form__input" placeholder="Nhập tên chủ thẻ" />
-        <span class="form-message"></span>
-      </div>
+            <!-- Footer -->
+            <div class="auth-form__controls" style="display:flex; justify-content:space-between;">
+                <button class="btn btn--primary" id = "submitPaymentBtn">Thanh toán</button>
+            </div>
+        </div>
     </div>
-
-    <!-- Footer -->
-    <div class="auth-form__controls" style="display:flex; justify-content:space-between;">
-      <div>
-        <h1>Tổng tiền: <span>${order.totalPrice.toLocaleString(
-          "vi-VN"
-        )}đ</span></h1>
-        <p>Địa chỉ: ${order.address}</p>
-      </div>
-      <button class="btn btn--primary" onclick="submitPayment()">Thanh toán</button>
-    </div>
-  </div>
-  </div>
-
-  `;
+    `;
     productContainerMain.innerHTML = s;
+
+    // Gán sự kiện blur cho các input
+    document
+      .getElementById("cardNumber")
+      .addEventListener("blur", validateInput);
+    document.getElementById("bankName").addEventListener("blur", validateInput);
+    document
+      .getElementById("cardHolder")
+      .addEventListener("blur", validateInput);
   }
+
+  // Hàm để xác thực và hiển thị thông báo nếu không hợp lệ
+  function validateInput(event) {
+    const input = event.target;
+    const value = input.value.trim();
+    const messageElement = input.nextElementSibling; // Phần tử form-message
+
+    // Kiểm tra mã số thẻ
+    if (input.id === "cardNumber") {
+      if (value === "" || !/^\d{16}$/.test(value)) {
+        messageElement.textContent = "Mã số thẻ không hợp lệ (16 chữ số).";
+      } else {
+        messageElement.textContent = ""; // Xóa thông báo nếu hợp lệ
+      }
+    }
+
+    // Kiểm tra tên ngân hàng
+    if (input.id === "bankName") {
+      if (value === "") {
+        messageElement.textContent = "Tên ngân hàng không được để trống.";
+      } else {
+        messageElement.textContent = ""; // Xóa thông báo nếu hợp lệ
+      }
+    }
+
+    // Kiểm tra tên chủ thẻ
+    if (input.id === "cardHolder") {
+      if (value === "") {
+        messageElement.textContent = "Tên chủ thẻ không được để trống.";
+      } else {
+        messageElement.textContent = ""; // Xóa thông báo nếu hợp lệ
+      }
+    }
+  }
+
+  // Hàm để xác thực tất cả các trường nhập liệu khi nhấn nút thanh toán
+  function validateInputs() {
+    let isValid = true;
+
+    // Gọi hàm validateInput cho từng trường
+    document.querySelectorAll(".auth-form__input").forEach((input) => {
+      validateInput({ target: input }); // Gọi validateInput cho từng input
+    });
+
+    return isValid; // Trả về true nếu tất cả input hợp lệ
+  }
+
   const bankList = [
     "Ngân hàng Vietcombank",
     "Ngân hàng BIDV",
@@ -2574,16 +2674,6 @@ if (!window.location.pathname.endsWith("manage.html")) {
     "Ngân hàng MB Bank",
     "Ngân hàng Agribank",
   ];
-  function submitPayment() {
-    const order = JSON.parse(localStorage.getItem("order"));
-    order.status = "đã thanh toán";
-    localStorage.setItem("order", JSON.stringify(order));
-    const userLogin = JSON.parse(localStorage.getItem("userLogin"));
-    userLogin.cart = [];
-    localStorage.setItem("userLogin", JSON.stringify(userLogin));
-    alert("Đã thanh toán thành công");
-    displayPaymentPage();
-  }
 
   function displayCartPage() {
     if (!localStorage.getItem("userLogin")) {
@@ -2591,6 +2681,9 @@ if (!window.location.pathname.endsWith("manage.html")) {
       productLayout.style.display = "none";
       return;
     }
+    bodytop__left.style.display = "block";
+    bodytop__left.style.width = "calc(20% - 5px)";
+    bodytop__right.style.width = "calc(80% - 5px)";
     applyResponsiveStyles();
     window.addEventListener("resize", applyResponsiveStyles);
     pageNumber.style.display = "none";
@@ -2841,6 +2934,7 @@ if (!window.location.pathname.endsWith("manage.html")) {
 
     bodytop__left.innerHTML = s1;
     productContainerMain.innerHTML = s;
+    producttype__name.innerHTML = `<h3>Giỏ hàng</h3>`;
 
     // Chức năng thêm địa chỉ
     let addAddress = document.querySelectorAll(".addAddress-btn");
@@ -2852,8 +2946,6 @@ if (!window.location.pathname.endsWith("manage.html")) {
         let citySelector = document.getElementById("city");
         let districtSelector = document.getElementById("district");
         let wardSelector = document.getElementById("ward");
-        let houseNumber = document.getElementById("address");
-        let saveAddresss = document.getElementById("save-Address");
         //
         locations.forEach((location) => {
           const option = document.createElement("option");
@@ -3020,8 +3112,8 @@ if (!window.location.pathname.endsWith("manage.html")) {
     if (isValid) {
       if (index !== -1) {
         let productItem = tempList.find((product) => product.code === code);
-
-        let availableQuantity = productItem.quantity;
+        let availableQuantity =
+          productItem.quantity - numQuantitySoldInListOrder(code);
 
         if (cartArray[index].quantity + 1 <= availableQuantity) {
           cartArray[index].quantity++;
@@ -3042,23 +3134,36 @@ if (!window.location.pathname.endsWith("manage.html")) {
     let input = document.getElementById("bankName");
     let suggestionsList = document.getElementById("bank-suggestions");
     let query = input.value.toLowerCase();
-    suggestionsList.innerHTML = "";
+    suggestionsList.innerHTML = ""; // Clear previous suggestions
 
     if (query.length > 0) {
+      // Lọc danh sách ngân hàng dựa trên input
       const filteredBanks = bankList.filter((bank) =>
         bank.toLowerCase().includes(query)
       );
 
+      // Hiển thị gợi ý
       filteredBanks.forEach((bank) => {
         const li = document.createElement("li");
-        li.style.cursor = "pointer";
+        li.style.cursor = "pointer"; // Hiển thị con trỏ chuột
         li.textContent = bank;
+
+        // Gán sự kiện onclick cho mỗi gợi ý
         li.onclick = function () {
-          input.value = bank;
-          suggestionsList.innerHTML = "";
+          input.value = bank; // Điền giá trị ngân hàng vào input
+          suggestionsList.innerHTML = ""; // Xóa gợi ý sau khi chọn
         };
+
+        // Thêm phần tử li vào danh sách gợi ý
         suggestionsList.appendChild(li);
       });
+
+      // Nếu không có gợi ý nào, có thể hiển thị thông báo
+      if (filteredBanks.length === 0) {
+        const noResult = document.createElement("li");
+        noResult.textContent = "Không tìm thấy ngân hàng nào.";
+        suggestionsList.appendChild(noResult);
+      }
     }
   }
   header__cart.addEventListener("click", displayCartPage);
@@ -3069,11 +3174,15 @@ if (!window.location.pathname.endsWith("manage.html")) {
       bodyTop.style.flexDirection = "column-reverse";
       bodytop__left.style.width = "100%";
       bodytop__right.style.width = "100%";
-      bodytop__left.style.display = "block";
     } else {
       bodyTop.style.flexDirection = "row-reverse";
-      bodytop__left.style.width = "calc(20% - 5px)";
-      bodytop__right.style.width = "calc(80% - 5px)";
+      if (producttype__name.textContent == "Giỏ hàng") {
+        bodytop__left.style.width = "calc(20% - 5px)";
+        bodytop__right.style.width = "calc(80% - 5px)";
+      } else if (producttype__name.textContent == "Giỏ hàng") {
+        bodytop__left.style.display = "none";
+        bodytop__right.style.width = "100%";
+      }
     }
   }
 
@@ -3095,8 +3204,6 @@ if (!window.location.pathname.endsWith("manage.html")) {
     let addressRadios = document.querySelectorAll(
       'input[name="address-buy-product"]'
     );
-    let order = JSON.parse(localStorage.getItem("order")) || {};
-    console.log("order", order.address);
     const selectedAddress = Array.from(addressRadios).find(
       (radio) => radio.checked
     )?.value;
@@ -3129,31 +3236,35 @@ if (!window.location.pathname.endsWith("manage.html")) {
           alert("Vui lòng chọn phương thức thanh toán!");
           return;
         } else {
+          let listOrderTemp = JSON.parse(localStorage.getItem(listOrders));
+          let newOrder = {
+            userId: USERLOGIN.id,
+            orderId: listOrderTemp.length + 1,
+            orderDate: new Intl.DateTimeFormat("vi-VN", {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+            }).format(new Date()),
+            address: getAddressUserInList(USERLOGIN.id)[selectedAddress],
+            paymentMethod: "",
+            items: getCartUserInList(USERLOGIN.id),
+            totalPrice: totalPrice,
+            status: "Chờ xác nhận",
+          };
           if (methodOffline.checked) {
-            let listOrderTemp = JSON.parse(localStorage.getItem(listOrders));
-            let newOrder = {
-              userId: USERLOGIN.id,
-              orderId: listOrderTemp.length + 1,
-              orderDate: new Intl.DateTimeFormat("vi-VN", {
-                day: "2-digit",
-                month: "2-digit",
-                year: "numeric",
-              }).format(new Date()),
-              address: getAddressUserInList(USERLOGIN.id)[selectedAddress],
-              items: getCartUserInList(USERLOGIN.id),
-              totalPrice: totalPrice,
-              status: "Chờ xác nhận",
-            };
-            listOrderTemp.push(newOrder);
-            localStorage.setItem(listOrders, JSON.stringify(listOrderTemp));
-            updateCartUserInList(USERLOGIN.id, []);
-            alert("Đặt hàng thành công!");
-            cartList();
+            newOrder.paymentMethod = "Thanh toán khi nhận hàng";
             displayCartPage();
-          }
-          if (methodOnline.checked) {
-            localStorage.setItem("order", JSON.stringify(order));
-            window.location.href = "./index.html?payment";
+            showCheckOrderModal(newOrder);
+          } else if (methodOnline.checked) {
+            displayPaymentPage();
+            document
+              .getElementById("submitPaymentBtn")
+              .addEventListener("click", () => {
+                if (validateInputs) {
+                  newOrder.paymentMethod = "Thanh toán Online";
+                  showCheckOrderModal(newOrder);
+                }
+              });
           }
         }
       } else {
@@ -3163,49 +3274,199 @@ if (!window.location.pathname.endsWith("manage.html")) {
     }
   }
 
+  function showOrderModal(button) {
+    // Tính toán tổng giá trị của đơn hàng từ cartArray
+    let tempOrder = getOrderInList(button.id);
+    //           <p><strong>Order ID:</strong> ${orderId}</p>
+    let orderDetailsHTML = `
+        <div>
+          <p><strong>Order ID:</strong> ${tempOrder.orderId}</p>
+          <p><strong>User ID:</strong> ${tempOrder.userId}</p>
+          <p><strong>Phương thức thanh toán:</strong> ${tempOrder.paymentMethod}</p>
+    
+        </div>
+        <table class="orderModalTable">
+            <thead>
+                <tr>
+                  <th>Sản phẩm</th>
+                  <th>Số lượng</th>
+                  <th>Đơn giá</th>
+                  <th>Tổng giá</th>
+                </tr>
+            </thead>
+            <tbody>
+    `;
+    let Array = tempOrder.items;
+    // Tạo danh sách các sản phẩm trong giỏ hàng
+    Array.forEach((item) => {
+      let itemTotal = item.price * item.quantity;
+
+      orderDetailsHTML += `
+        <tr>
+          <td>${item.name}</td>
+          <td>${item.quantity}</td>
+          <td>${item.price.toLocaleString("vi-VN")}</td>
+          <td>${itemTotal.toLocaleString("vi-VN")}</td>
+        </tr>
+      `;
+    });
+
+    // Thêm tổng giá trị vào chi tiết đơn hàng
+    orderDetailsHTML += `
+    </tbody>
+  </table>
+  <p style="font-weight: bold; margin-top: 10px;">
+    Tổng giá: ${tempOrder.totalPrice.toLocaleString("vi-VN")}
+  </p>
+            <!-- Nút hủy đơn(trong truck)-->
+          <button
+            id="removeBtn"
+            onclick="removeOrder(${tempOrder.orderId})">
+          >
+            Hủy đơn
+          </button>
+  `;
+
+    // Cập nhật nội dung modal
+    document.getElementById("orderDetails").innerHTML = orderDetailsHTML;
+
+    // Hiển thị modal
+    document.getElementById("orderModal").style.display = "block";
+
+    if (tempOrder.status == "Chờ xác nhận" || tempOrder.status == "Đã xác nhận")
+      removeBtn.style.display = "inline-block";
+    else {
+      removeBtn.style.display = "none"; // Ẩn nút hủy đơn
+    }
+  }
+
+  function showCheckOrderModal(cart) {
+    // Tính toán tổng giá trị của đơn hàng từ cartArray
+    //           <p><strong>Order ID:</strong> ${orderId}</p>
+    document.getElementById("orderModal").style.display = "block";
+    let orderDetailsHTML = `
+        <div>
+          <p><strong>Order ID:</strong> ${cart.orderId}</p>
+          <p><strong>User ID:</strong> ${cart.userId}</p>
+          <p><strong>Phương thức thanh toán:</strong> ${cart.paymentMethod}</p>
+    
+        </div>
+        <table class="orderModalTable">
+            <thead>
+                <tr>
+                  <th>Sản phẩm</th>
+                  <th>Số lượng</th>
+                  <th>Đơn giá</th>
+                  <th>Tổng giá</th>
+                </tr>
+            </thead>
+            <tbody>
+    `;
+    let Array = cart.items;
+    // Tạo danh sách các sản phẩm trong giỏ hàng
+    Array.forEach((item) => {
+      let itemTotal = item.price * item.quantity;
+
+      orderDetailsHTML += `
+        <tr>
+          <td>${item.name}</td>
+          <td>${item.quantity}</td>
+          <td>${item.price.toLocaleString("vi-VN")}</td>
+          <td>${itemTotal.toLocaleString("vi-VN")}</td>
+        </tr>
+      `;
+    });
+
+    // Thêm tổng giá trị vào chi tiết đơn hàng
+    orderDetailsHTML += `
+    </tbody>
+  </table>
+  <p style="font-weight: bold; margin-top: 10px;">
+    Tổng giá: ${cart.totalPrice.toLocaleString("vi-VN")}
+  </p>
+            <!-- Nút hủy đơn(trong truck)-->
+          <!-- Nút xác nhận(trong giỏ hàng) -->
+          <button id="confirmBtn">
+            Xác nhận mua hàng
+          </button>
+  `;
+
+    // Cập nhật nội dung modal
+    document.getElementById("orderDetails").innerHTML = orderDetailsHTML;
+    document
+      .getElementById("confirmBtn")
+      .addEventListener("click", () => confirmOrder(cart));
+  }
+
+  function removeOrder(orderId) {
+    let tempOrder = getOrderInList(orderId);
+    if (
+      tempOrder.status == "Chờ xác nhận" ||
+      tempOrder.status == "Đã xác nhận"
+    ) {
+      // Cần hỏi trước khi hủy
+      alert("Đã hủy đơn hàng thành công");
+      updateStatusOrderInList(orderId, "Đã hủy");
+      orderLayout();
+      closeModal();
+    }
+  }
+
+  // Hàm đóng Modal
+  function closeModal() {
+    document.getElementById("orderModal").style.display = "none";
+  }
+
+  // Hàm xác nhận mua hàng
+  function confirmOrder(newOrder) {
+    let listOrderTemp = JSON.parse(localStorage.getItem(listOrders));
+    listOrderTemp.push(newOrder);
+    localStorage.setItem(listOrders, JSON.stringify(listOrderTemp));
+    updateCartUserInList(USERLOGIN.id, []);
+    alert("Đặt hàng thành công!");
+    cartList();
+    displayCartPage();
+    // Đóng modal
+    closeModal();
+  }
+
   // Xem lịch sử đơn hàng
   function showCustomerOrder() {
     let contentOrder = document.querySelector(".Customer-order .boxcontent");
     let orderArray = getListOrderUSerByID(USERLOGIN.id);
     contentOrder.innerHTML = " ";
     contentOrder.innerHTML += `
-  <div class="content-order-group">
-      <div class="content-order-info">MÃ ĐƠN HÀNG</div>
-      <div class="content-order-info content-order-product">SẢN PHẨM</div>
-      <div class="content-order-info">NGÀY ĐẶT</div>
-      <div class="content-order-info">TỔNG TIỀN</div>
-      <div class="content-order-info">TRẠNG THÁI</div>
-      <div class="content-order-info">HỦY ĐƠN</div>
-    </div>
-  `;
+        <div class="content-order-group">
+          <div class="content-order-info">MÃ ĐƠN HÀNG</div>
+          <div class="content-order-info content-order-product">SẢN PHẨM</div>
+          <div class="content-order-info">NGÀY ĐẶT</div>
+          <div class="content-order-info">TỔNG TIỀN</div>
+          <div class="content-order-info">TRẠNG THÁI</div>
+          <div class="content-order-info">CHI TIẾT</div>
+        </div>
+      `;
     for (let i = 0; i < orderArray.length; i++) {
       let html = ``;
       html = `
-      <div class="order-item-group">
-        <div class="order-item">${orderArray[i].orderId}</div>
-        <div class="order-item order-item-info">${
-          orderArray[i].items[0].name
-        }</div>
-        <div class="order-item">${orderArray[i].orderDater}</div>
-        <div class="order-item">${formatTotal(
-          orderArray[i].totalPrice
-        )}&#x20AB;</div>
-        <div class="order-item" style="color: ${orderStatusStyle(
-          orderArray[i].status
-        )};font-weight: bolder;">${orderArray[i].status}</div>
-        <button class="order-item order-cancel" id="${
-          orderArray[i].id
-        }">X</button>
-      </div>
-      `;
+          <div class="order-item-group">
+            <div class="order-item id">${orderArray[i].orderId}</div>
+            <div class="order-item order-item-info">${
+              orderArray[i].items[0].name
+            }</div>
+            <div class="order-item">${orderArray[i].orderDate}</div>
+            <div class="order-item">${formatTotal(
+              orderArray[i].totalPrice
+            )}</div>
+            <div class="order-item" style="color: ${orderStatusStyle(
+              orderArray[i].status
+            )};font-weight: bolder;">${orderArray[i].status}</div>
+            <button class="order-item orderModal" id = "${
+              orderArray[i].orderId
+            }" onclick="showOrderModal(this)">Chi Tiết</button>
+          </div>
+        `;
       if (html) contentOrder.innerHTML += html;
     }
-
-    document.querySelectorAll(".order-cancel").forEach((item) => {
-      item.addEventListener("click", (event) => {
-        removeOrder(event.target.id);
-      });
-    });
   }
 
   function orderStatusStyle(status) {
@@ -3216,6 +3477,8 @@ if (!window.location.pathname.endsWith("manage.html")) {
         return "green";
       case "Đã hủy":
         return "red";
+      case "Đã xác nhận":
+        return "#004e64";
       default:
         return "black";
     }
@@ -3229,952 +3492,28 @@ if (!window.location.pathname.endsWith("manage.html")) {
   }
 
   function orderLayout() {
-    let bodytop = document.querySelector(".bodytop");
-    bodytop.classList.add("truckContainer");
-    bodytop.html = "";
+    if (!localStorage.getItem("userLogin")) {
+      alert("Vui lòng đăng nhập để xem lịch sử mua hàng !!!!");
+      productLayout.style.display = "none";
+      return;
+    }
+    bodytop__right.style.width = "100%";
+    pageNumber.style.display = "none";
+    bodytop__left.style.display = "none";
     let html = `
   <div class="Customer-order">
-  <h1 class="boxtitle">ĐƠN HÀNG CỦA BẠN</h1>
   <div class="boxcontent">
   </div>
   </div>
   `;
-    bodytop.innerHTML = html;
+    producttype__name.innerHTML = `<h3>Lịch sử mua hàng</h3>`;
+    productContainerMain.innerHTML = html;
+    // bodytop.innerHTML = html;
     showCustomerOrder();
-    bodytop.classList.remove("truckContainer");
   }
   let orderContent = document.querySelectorAll(".header__truck");
   orderContent.forEach((item) => item.addEventListener("click", orderLayout));
 
   // Phần ADMIN
 } else {
-  var productArray = JSON.parse(localStorage.getItem(listProducts));
-  var userList = JSON.parse(localStorage.getItem(ListUsers));
-  const productsPerPageAdmin = 8; // Số sản phẩm trên mỗi trang
-  let currentPageAdmin = 1; // Trang hiện tại
-  const inputSignUpAdmin = document.getElementsByClassName(
-    "auth-form__inputAdmin"
-  );
-
-  const adminLogin = inputSignUpAdmin[0];
-  const adminPasswordLogin = inputSignUpAdmin[1];
-
-  document
-    .getElementById("login-formAdmin")
-    .addEventListener("click", loginAdmin);
-  function checkloginAdmin() {
-    const userLoginData = localStorage.getItem("adminLogin");
-
-    if (userLoginData) {
-      const user = JSON.parse(userLoginData);
-
-      // Kiểm tra trạng thái tài khoản
-      if (user.status === 0) {
-        alert("Tài khoản đã bị vô hiệu hóa !!!");
-        // Có thể thêm điều hướng đến trang đăng nhập ở đây
-        return;
-      }
-      let modalAdmin = document.getElementById("myModalLoginAdmin");
-      modalAdmin.style.display = "none";
-      let adminInfor = document.querySelector(".admin-info");
-      adminInfor.innerHTML = `<p id="admin-name">Tên tài khoản quản trị: ${user.username}</p>
-        <p id="admin-email">Email: ${user.email}</p>
-        <p id="admin-logout">Đăng xuất </p>`;
-      let adminLogout = document.querySelector("#admin-logout");
-      adminLogout.addEventListener("click", () => {
-        localStorage.removeItem("adminLogin");
-        alert("Đăng xuất thành công!");
-        location.href = "manage.html"; // Điều hướng đến trang chính
-      });
-    } else {
-    }
-  }
-
-  function loginAdmin(event) {
-    event.preventDefault();
-
-    const adminLoginValue = adminLogin.value.trim();
-    const adminPasswordLoginValue = adminPasswordLogin.value.trim();
-    const userList = JSON.parse(localStorage.getItem(ListUsers)) || [];
-
-    // Kiểm tra thông tin đăng nhập
-    if (!adminLoginValue || !adminPasswordLoginValue) {
-      alert("Vui lòng nhập tên đăng nhập và mật khẩu.");
-      return false;
-    }
-
-    // Tìm kiếm người dùng
-    const user = userList.find((user) => user.username === adminLoginValue);
-
-    if (!user) {
-      alert("Tên đăng nhập hoặc mật khẩu không chính xác.");
-      return false;
-    }
-
-    // Kiểm tra mật khẩu
-    if (user.password !== adminPasswordLoginValue) {
-      alert("Tên đăng nhập hoặc mật khẩu không chính xác.");
-      return false;
-    }
-
-    // Kiểm tra trạng thái tài khoản
-    if (user.status === 0) {
-      alert("Tài khoản đã bị vô hiệu hóa !!!");
-      return false;
-    }
-
-    // Đăng nhập thành công
-    localStorage.setItem("adminLogin", JSON.stringify(user));
-
-    if (user.role === 0) {
-      alert("Truy cập trang quản trị!");
-      let modalAdmin = document.getElementById("myModalLoginAdmin");
-      modalAdmin.style.display = "none";
-      return true;
-    } else {
-      alert("Đăng nhập thất bại");
-
-      return false;
-    }
-
-    return true;
-  }
-  checkloginAdmin();
-  const ADMINLOGIN = JSON.parse(localStorage.getItem("adminLogin")) ?? [];
-  // Status = 0 thì chưa đi qua, 1 là đã đi qua và 2 là cuối cùng
-
-  // Quản lý người dùng
-  function create_detail_account(i, userList) {
-    document.getElementById("user-" + i).addEventListener("click", () => {
-      const userDiv = document.createElement("div");
-      userDiv.className = "screen-bright";
-      userDiv.innerHTML = `
-            <div id="account-detail">
-                <p class="exit" style="display: inline-block; float: right; margin-top:0%">
-                    <button style="border: none; border-radius: 0px 18px 0px 0px; font-size: 16px; padding: 10px;">
-                        <i class="fa-regular fa-x"></i>
-                    </button>
-                </p>
-                <h2 style="padding-top:40px">Tài khoản</h2>
-                <section>
-                    <form name="account-form" id="account-edit" class="form-detail">
-                        <div class="form-detail-content">
-                            <div style = "margin-bottom: 10px;"><strong>ID: </strong> ${userList[i].id}</div>
-                        </div>
-
-                        <div class="form-detail-content">
-                            <div style = "margin-bottom: 10px;"><strong>Tên đăng nhập: </strong> ${userList[i].username}</div>
-                        </div>
-
-                        <div class="form-detail-content">
-                            <div><strong>Mật khẩu</strong></div>
-                            <input type="text" name="aPassword" id ="aPassword" placeholder="${userList[i].password}">
-                            <span style = "margin-bottom: 5px;" class="form-messageAdmin"></span>
-                        </div>
-
-                        <div class="form-detail-content">
-                            <div><strong>Email</strong></div>
-                            <input type="text" name="aEmail" id ="aEmail" placeholder="${userList[i].email}">
-                            <span class="form-messageAdmin"></span>
-                        </div>
-
-                        <div class="form-detail-content">
-                            <strong>Trạng thái</strong>: 
-                            <select id="aLock">
-                                <option value="1">Kích hoạt</option>
-                                <option value="0">Tạm khóa</option>
-                            </select>
-                        </div>
-
-                        <div class="form-detail-content">
-                            <div style="margin:10px 0px"><strong>Ngày tạo:</strong> ${userList[i].dateSignUp}</div>
-                        </div>
-
-                        <div class="form-detail-content">
-                            <input type="submit" value="Thay đổi">
-                        </div>
-                
-                    </form>
-                </section>
-            </div>
-        `;
-      document.body.appendChild(userDiv);
-      if (userList[i].status === 1) {
-        document.getElementById("aLock").value = 1;
-      } else {
-        document.getElementById("aLock").value = 0;
-      }
-
-      let aPasswordInput = document.getElementById("aPassword");
-      let aEmailInput = document.getElementById("aEmail");
-      aPasswordInput.addEventListener("blur", checkInputFromEditAccount);
-      aEmailInput.addEventListener("blur", checkInputFromEditAccount);
-      ///đóng account form
-      detail_exit1();
-      detail_exit2();
-      ////
-      /////thay đổi thông tin account
-      let form = document.getElementById("account-edit");
-      document
-        .getElementById("account-edit")
-        .addEventListener("submit", (e) => {
-          e.preventDefault();
-          edit_account(form, i);
-        });
-    });
-  }
-
-  function checkInputFromEditAccount(event) {
-    let inputElement = event.target.value.trim();
-    let errorElement =
-      event.target.parentElement.querySelector(".form-messageAdmin");
-
-    if (
-      event.target.id === "aPassword" &&
-      inputElement.length < 6 &&
-      inputElement.length != 0
-    ) {
-      errorElement.innerHTML = "Mật khẩu phải có ít nhất 6 kí tự.";
-    } else if (
-      event.target.id === "aEmail" &&
-      !validateEmail(inputElement) &&
-      inputElement.length != 0
-    ) {
-      errorElement.innerHTML = "Địa chỉ email không hợp lệ.";
-    } else {
-      errorElement.innerHTML = "";
-    }
-  }
-
-  function edit_account(form, i) {
-    if (form.aPassword.value == "") {
-      form.aPassword.value = getPasswordUserInList(i);
-    } else {
-      if (form.aPassword.value.length < 6) {
-        alert("Thay đổi thất bại! Mật khẩu phải có ít nhất 6 kí tự.");
-        return false;
-      } else {
-        userList[i].password = form.aPassword.value;
-      }
-    }
-
-    if (form.aEmail.value == "") {
-      form.aEmail.value = getEmailUserInList(i);
-    } else {
-      if (!validateEmail(form.aEmail.value)) {
-        alert("Thay đổi thất bại! Địa chỉ email không hợp lệ.");
-        return false;
-      } else {
-        userList[i].email = form.aEmail.value;
-      }
-    }
-
-    userList[i].status = parseInt(form.aLock.value);
-    let check = JSON.parse(localStorage.getItem("userLogin"));
-    if (check && check.id === userList[i].id && userList[i].status == 0) {
-      // Nếu có, xóa dữ liệu đó khỏi localStorage
-      localStorage.removeItem("userLogin");
-    }
-    alert("Thay đổi thành công");
-    document.querySelector(".screen-bright").remove();
-    localStorage.setItem(ListUsers, JSON.stringify(userList));
-  }
-
-  document.getElementById("account-button").addEventListener("click", () => {
-    const section = document.getElementById("content-admin");
-    section.innerHTML = `
-        <table class="manage_data">
-            <thead>
-                <tr>
-                    <td>User ID</td>
-                    <td>User Name</td>
-                    <td>Total Spent</td>
-                    <td>Join Date</td>
-                </tr>
-            </thead>
-        </table>
-    `;
-
-    for (i = 0; i < userList.length; i++) {
-      const tbody = document.createElement("tbody");
-      tbody.id = "user-" + i;
-      tbody.innerHTML = `
-            <tr>
-                <td>${userList[i].id}</td>
-                <td>${userList[i].username}</td>
-                <td>0</td>
-                <td>${userList[i].dateSignUp}</td>
-            </tr>
-        `;
-      document.querySelector(".manage_data").appendChild(tbody);
-      create_detail_account(i, userList);
-    }
-  });
-
-  // Phần quản lý sản phẩm
-  //hàm lấy link ảnh
-  function imglink(img, imageInput) {
-    let file = imageInput.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        img.src = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    }
-    return img.src;
-  }
-
-  ///kiểm tra tên nhập vào có hợp lệ khônng
-  function checkname(s) {
-    for (let j = 0; j < productArray.length; j++) {
-      if (s == productArray[j].name) return 0;
-    }
-    return 1;
-  }
-
-  //kiểm tra giá tiền nhập vào có phải số không
-  function checkprice(s) {
-    let temp = new String(s);
-    for (let j = 0; j < s.length; j++) {
-      if (temp[j] < "0" || temp[j] > "9") return 0;
-    }
-    return 1;
-  }
-  ///set mã sản phẩm
-  function setCode(pcode) {
-    let i = productArray.length - 1;
-    while (i >= 0 && productArray[i].code.substr(0, 2) != pcode) {
-      i--;
-    }
-    if (i < 0) {
-      return pcode + "0001";
-    } else {
-      let temp;
-      try {
-        temp = (parseInt(productArray[i].code.substr(2, 4)) + 1).toString();
-        while (temp.length < 4) {
-          temp = "0" + temp;
-        }
-      } catch {
-        alert("Lỗi không thể tạo mã sản phẩm");
-      }
-      return pcode + temp;
-    }
-  }
-  //set danh muc
-  function setDanhmuc(productArray) {
-    switch (productArray.code.substr(0, 2)) {
-      case "LM": {
-        return "Lego Minifigure";
-        break;
-      }
-      case "MO": {
-        return "Lego Moc";
-        break;
-      }
-      case "LR": {
-        return "Lego chính hãng";
-        break;
-      }
-      case "LP": {
-        return "Phụ kiện Lego";
-        break;
-      }
-    }
-  }
-
-  //tạo chi tiết sản phẩm
-  function create_product_detail(temp) {
-    document.getElementById("product-" + temp).addEventListener("click", () => {
-      const productDIV = document.createElement("div");
-      productDIV.className = "screen-bright";
-      productDIV.innerHTML = `
-        <div id="product-detail">
-            <button class="exit" style="font-size: 16px; position: absolute; top: 0px; right: 0px; border: none; border-radius: 0px 18px 0px 0px; padding: 10px;">
-                <i class="fa-regular fa-x"></i>
-            </button>
-            <div>
-                <form name="changes" id="thaydoi">
-                    
-                    <img src="${
-                      productArray[temp].imgSrc
-                    }" alt="Mô tả sản phẩm" id="thayanh"> 
-                    <button class="remove-img"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
-                    <input type="file" accept="image/*" id="canh" value="Chọn ảnh">
-                    <label>
-                        Tên sản phẩm:
-                        <input type="text" name="cten" placeholder="${
-                          productArray[temp].name
-                        }">
-                    </label> 
-
-                    <label>
-                        Giá tiền: 
-                        <input type="text" name="cgia" placeholder="${
-                          productArray[temp].price
-                        }">
-                    </label>
-
-                    <label>
-                        Chủ đề: 
-                        <select id="product-detail-topic"></select>
-                    </label>
-
-                    <label>
-                        <p>Mã sản phẩm: ${productArray[temp].code}</p>
-                    </label>
-
-                    <label>
-                        <p>Danh mục: ${setDanhmuc(productArray[temp])}</p>
-                    </label> 
-                    <div id="edit-space">
-                      <button type="submit" value="Thay đổi thông tin" id="change-infor">Thay đổi thông tin</button>
-                      <button id="delete">Xóa sản phẩm</button>
-                    </div>                   
-                </form>    
-                <div id="confirmModal">
-                    <div class="modal-content">
-                        <p>Xác nhận xóa sản phẩm</p>
-                        <button id="confirmBtn">Ok</button>
-                        <button id="cancelBtn">Hủy</button>
-                    </div> 
-                </div>         
-            </div>
-        `;
-      document.body.appendChild(productDIV);
-      switch (productArray[temp].code.substr(0, 2)) {
-        case "LM": {
-          document.getElementById("product-detail-topic").innerHTML = `
-                    <option value="Naruto">Naruto</option>
-                    <option value="Dragon Ball">Dragon Ball</option>
-                    <option value="Kimetsu No Yaiba">Kimetsu No Yaiba</option>
-                    <option value="Marvel">Marvel</option>
-                `;
-          break;
-        }
-        case "MO": {
-          document.getElementById("product-detail-topic").innerHTML = `
-                    <option value="Army">Army</option>
-                    <option value="Technic">Technic</option>
-                `;
-          break;
-        }
-        case "LR": {
-          document.getElementById("product-detail-topic").innerHTML = `
-                    <option value="Technic">Technic</option>
-                    <option value="Ninjago">Ninjago</option>
-                `;
-          break;
-        }
-        default: {
-          document.getElementById("product-detail-topic").innerHTML = `
-              <option value="Technic">Technic</option>
-              <option value="Food/Tool">Food/Tool</option>
-              <option value="Weapon">Weapon</option>
-          `;
-          break;
-        }
-      }
-      document.getElementById("product-detail-topic").value =
-        productArray[temp].topic;
-      //đóng chi tiết sản phẩm
-      // Tự động đóng modal khi click ngoài modal
-      detail_exit1();
-      detail_exit2();
-
-      //thay ảnh
-      const cimageInput = document.getElementById("canh");
-      let cimg = document.createElement("img");
-      document
-        .getElementById("canh")
-        .addEventListener("change", function (event) {
-          const file = event.target.files[0]; // Lấy file ảnh đầu tiên mà người dùng chọn
-          if (file) {
-            const reader = new FileReader();
-
-            // Khi FileReader đã đọc xong ảnh
-            reader.onload = function (e) {
-              // Đặt link ảnh vào thẻ img để hiển thị
-              document.getElementById("thayanh").src = e.target.result;
-              cimg.src = e.target.result;
-            };
-
-            // Đọc file ảnh dưới dạng data URL (base64)
-            reader.readAsDataURL(file);
-          }
-        });
-
-      //xóa ảnh
-      const imgdelete = document.querySelectorAll(".remove-img");
-      imgdelete.forEach((item) => {
-        item.addEventListener("click", (e) => {
-          e.preventDefault();
-          document.getElementById("thayanh").src = "./assets/img/blank_img.png";
-          cimg.src = "./assets/img/blank_img.png";
-        });
-      });
-
-      ////thay đổi thông tin
-      document.getElementById("thaydoi").addEventListener("submit", (event) => {
-        event.preventDefault();
-        let count = 0;
-        if (document.changes.cten.value != "") {
-          if (checkname(document.changes.cten.value)) {
-            count++;
-          } else {
-            alert("Tên bạn nhập không hợp lệ");
-            document.changes.cten.focus();
-          }
-        } else {
-          count++;
-        }
-
-        if (document.changes.cgia.value != "") {
-          if (checkprice(document.changes.cgia.value) != 1) {
-            alert("Giá tiền phải là số");
-            document.changes.cgia.focus();
-          } else {
-            count++;
-          }
-        } else {
-          count++;
-        }
-        if (count == 2) {
-          if (cimg.src != "") productArray[temp].imgSrc = cimg.src;
-          if (document.changes.cgia.value != "")
-            productArray[temp].price = document.changes.cgia.value;
-          if (document.changes.cten.value != "")
-            productArray[temp].name = document.changes.cten.value;
-          productArray[temp].topic = document.getElementById(
-            "product-detail-topic"
-          ).value;
-          alert("thay đổi thành công");
-          document.getElementById("product-" + temp).innerHTML = `
-                        <p><img src="${productArray[temp].imgSrc}" alt="Mô tả sản phẩm"></p>
-                        <div class ="product-info">
-                            <div class="product-info-detail">
-                                <strong>Tên sản phẩm:</strong> ${productArray[temp].name}
-                            </div>
-                            <div class="product-info-detail">
-                                <strong>Mã sản phẩm:</strong> ${productArray[temp].code}
-                            </div>
-                            <div class="product-info-detail">
-                                <strong>Chủ đề:</strong> ${productArray[temp].topic}
-                            </div>
-                        </div>
-                    `;
-          document.querySelector(".screen-bright").remove();
-          localStorage.setItem(listProducts, JSON.stringify(productArray));
-        }
-      });
-      //
-      ///xóa sản phẩm
-      document.getElementById("delete").addEventListener("click", (event) => {
-        event.preventDefault();
-        document.getElementById("confirmModal").style.display = "block";
-      });
-      document.getElementById("confirmBtn").addEventListener("click", () => {
-        alert("Xóa thành công");
-        for (let j = temp; j < productArray.length - 1; j++) {
-          [productArray[j], productArray[j + 1]] = [
-            productArray[j + 1],
-            productArray[j],
-          ];
-          // document.getElementById("product-" + j).innerHTML = `
-          //       <p><img src="${productArray[j].imgSrc}" alt="Mô tả sản phẩm"></p>
-          //           <div class ="product-info">
-          //               <div class="product-info-detail">
-          //                   <strong>Tên sản phẩm:</strong> ${productArray[j].name}
-          //               </div>
-          //               <div class="product-info-detail">
-          //                   <strong>Mã sản phẩm:</strong> ${productArray[j].code}
-          //               </div>
-          //               <div class="product-info-detail">
-          //                   <strong>Chủ đề:</strong> ${productArray[j].topic}
-          //               </div>
-          //           </div>
-          //   `;
-        }
-        let delete_element = productArray.length - 1;
-        // document.getElementById("product-" + delete_element).remove();
-        document.getElementById("confirmModal").style.display = "none";
-        document.getElementById("product-detail").remove();
-        document.getElementById("addProduct").style.pointerEvents = "all";
-        productArray.splice(delete_element, 1);
-        localStorage.setItem(listProducts, JSON.stringify(productArray));
-
-        document.querySelector(".screen-bright").remove();
-      });
-      document.getElementById("cancelBtn").addEventListener("click", () => {
-        document.getElementById("confirmModal").style.display = "none";
-      });
-    });
-  }
-
-  // //xuất sản phẩm
-  document.getElementById("product-button").addEventListener("click", () => {
-    const section = document.getElementById("content-admin");
-    // section.className = "content-admin";
-    section.innerHTML = `
-      <div class="product-grid">
-          <div id ="product">
-          </div>
-          <div class="pagenumber"></div>
-      </div>
-  `;
-    document.getElementById("main").appendChild(section);
-    currentPageAdmin = 1;
-    displayProductsAdmin(productArray, productArray.length);
-    displayPageProductAdmin(productArray, productArray.length);
-    // for (let i = 0; i < quantiny; i++) {
-    //   const productDiv = document.createElement("div");
-    //   productDiv.className = "product-data";
-    //   productDiv.id = "product-" + i;
-    //   productDiv.innerHTML = createProductAdmin(productArray[i]);
-    //   container.appendChild(productDiv);
-    //   create_product_detail(i);
-    // }
-    const add_button = document.createElement("div");
-    add_button.id = "addProduct";
-    add_button.innerHTML = `<i class="fa-solid fa-plus"></i>`;
-    section.appendChild(add_button);
-    document
-      .getElementById("addProduct")
-      .addEventListener("click", choose_addProduct);
-  });
-
-  function createProductAdmin(product) {
-    return `
-    <p><img src="${product.imgSrc}" alt="Mô tả sản phẩm"></p>
-          <div class ="product-info">
-              <div class="product-info-detail">
-                  <strong>Tên sản phẩm:</strong> ${product.name}
-              </div>
-              <div class="product-info-detail">
-                  <strong>Mã sản phẩm:</strong> ${product.code}
-              </div>
-              <div class="product-info-detail">
-                  <strong>Chủ đề:</strong> ${product.topic}
-              </div>
-          </div>
-  `;
-  }
-
-  function displayProductsAdmin(productArray, length) {
-    const container = document.getElementById("product");
-    container.innerHTML = "";
-    let beginProduct = (currentPageAdmin - 1) * productsPerPageAdmin;
-    let endProduct = beginProduct + productsPerPageAdmin;
-    let pageBtn = document.querySelectorAll(".product-btn_pageAdmin");
-    pageBtn.forEach((button) => {
-      if (button.textContent == currentPageAdmin) {
-        button.style.color = "#fff";
-        button.style.backgroundColor = "var(--primary-color)";
-      } else {
-        button.style.color = "var(--primary-color)";
-        button.style.backgroundColor = "#fff";
-      }
-    });
-    for (let i = beginProduct; i < endProduct; i++) {
-      if (productArray[i] && !productArray[i].isDeleted) {
-        const productDiv = document.createElement("div");
-        container.appendChild(productDiv);
-        productDiv.className = "product-data";
-        productDiv.id = "product-" + i;
-        productDiv.innerHTML = createProductAdmin(productArray[i]);
-
-        create_product_detail(i);
-      }
-    }
-  }
-
-  function displayPageProductAdmin(productList, length) {
-    totalPages = Math.ceil(length / productsPerPageAdmin);
-    pageNumber = document.querySelector(".pagenumber");
-    pageNumber.innerHTML = ""; // Xóa nội dung cũ
-
-    // Chỉ hiển thị nút nếu có hơn 1 trang
-    if (totalPages <= 1) return;
-
-    // Thêm nút "Prev"
-    pageNumber.innerHTML += `<button class="product-btn product-btn_prevAdmin">&lt;</button>`;
-
-    // Hiển thị nút phân trang
-    if (totalPages <= 5) {
-      // Hiển thị tất cả các nút nếu tổng số trang <= 5
-      for (let i = 1; i <= totalPages; i++) {
-        pageNumber.innerHTML += `<button class="product-btn product-btn_pageAdmin" id="page-${i}">${i}</button>`;
-      }
-    } else {
-      // Hiển thị với cấu trúc: < 1 2 ... totalPages-1 totalPages >
-      pageNumber.innerHTML += `<button class="product-btn product-btn_pageAdmin" id="page-1">1</button>`;
-      pageNumber.innerHTML += `<button class="product-btn product-btn_pageAdmin" id="page-2">2</button>`;
-      if (currentPageAdmin > 3 && currentPageAdmin < totalPages - 2) {
-        // Hiển thị dạng: 1 2 ... currentPage ... totalPages-1 totalPages
-        pageNumber.innerHTML += `<span class="ellipsis">...</span>`;
-        pageNumber.innerHTML += `<button class="product-btn product-btn_pageAdmin" id="page-${currentPageAdmin}">${currentPageAdmin}</button>`;
-        pageNumber.innerHTML += `<span class="ellipsis">...</span>`;
-      } else if (currentPageAdmin <= 3) {
-        // Nếu đang ở đầu: 1 2 3 ... totalPages-1 totalPages
-        pageNumber.innerHTML += `<button class="product-btn product-btn_pageAdmin" id="page-3">3</button>`;
-        pageNumber.innerHTML += `<span class="ellipsis">...</span>`;
-      } else {
-        // Nếu đang ở cuối: 1 2 ... totalPages-2 totalPages-1 totalPages
-        pageNumber.innerHTML += `<span class="ellipsis">...</span>`;
-        pageNumber.innerHTML += `<button class="product-btn product-btn_pageAdmin" id="page-${
-          totalPages - 2
-        }">${totalPages - 2}</button>`;
-      }
-      pageNumber.innerHTML += `<button class="product-btn product-btn_pageAdmin" id="page-${
-        totalPages - 1
-      }">${totalPages - 1}</button>`;
-      pageNumber.innerHTML += `<button class="product-btn product-btn_pageAdmin" id="page-${totalPages}">${totalPages}</button>`;
-    }
-
-    // Thêm nút "Next"
-    pageNumber.innerHTML += `<button class="product-btn product-btn_nextAdmin">&gt;</button>`;
-
-    // Xử lý sự kiện
-    updatePageButtonStylesAdmin();
-    handlePageButtonEventsAdmin(productList, length);
-  }
-
-  function updatePageButtonStylesAdmin() {
-    let pageBtn = document.querySelectorAll(".product-btn_pageAdmin");
-    pageBtn.forEach((button) => {
-      if (parseInt(button.textContent) === currentPageAdmin) {
-        button.style.color = "#fff";
-        button.style.backgroundColor = "var(--primary-color)";
-      } else {
-        button.style.color = "var(--primary-color)";
-        button.style.backgroundColor = "#fff";
-      }
-    });
-  }
-
-  function handlePageButtonEventsAdmin(productList, length) {
-    let pageBtn = document.querySelectorAll(".product-btn_pageAdmin");
-    let prevBtn = document.querySelector(".product-btn_prevAdmin");
-    let nextBtn = document.querySelector(".product-btn_nextAdmin");
-
-    // Xử lý sự kiện click cho từng nút trang
-    pageBtn.forEach((button) => {
-      button.addEventListener("click", () => {
-        currentPageAdmin = parseInt(button.textContent);
-        displayProductsAdmin(productList, length);
-        displayPageProductAdmin(productList, length); // Cập nhật giao diện nút
-      });
-    });
-
-    // Xử lý nút "Prev"
-    prevBtn.addEventListener("click", (event) => {
-      event.preventDefault();
-      if (currentPageAdmin > 1) {
-        currentPageAdmin--;
-        displayProductsAdmin(productList, length);
-        displayPageProductAdmin(productList, length); // Cập nhật giao diện nút
-      }
-    });
-
-    // Xử lý nút "Next"
-    nextBtn.addEventListener("click", (event) => {
-      event.preventDefault();
-      if (currentPageAdmin < totalPages) {
-        currentPageAdmin++;
-        displayProductsAdmin(productList, length);
-        displayPageProductAdmin(productList, length); // Cập nhật giao diện nút
-      }
-    });
-  }
-
-  //thêm, xóa, chỉnh sửa sản phẩm
-  function choose_addProduct() {
-    //mở thẻ thêm sản phẩm
-    const ADD = document.createElement("div");
-    ADD.className = "screen-bright";
-    ADD.innerHTML = `
-    <div id="add-product-input">
-        <form name="addInput"  id= "adp">
-            <button class="exit" style="font-size: 16px; position: absolute; top: 0px; right: 0px; border: none; border-radius: 0px 18px 0px 0px; padding: 10px;">
-                <i class="fa-regular fa-x"></i>
-            </button>
-            <div><b>Thêm sản phẩm</b></div>
-            <label>
-                Tên sản phẩm
-                <input type="text" placeholder="Tên sản phẩm" name="ten" id="idten">            
-            </label>
-
-            <label>
-                Giá
-                <input type="text" placeholder="Giá" name="gia" id="idgia">
-            </label>
-
-            <label>
-                Danh mục
-                <select placeholder="Danh mục" name="danhmuc" id="iddanhmuc">
-                    <option value="LM" selected>Lego Minifigure</option>
-                    <option value="MO">Lego MOC</option>
-                    <option value="LR">Lego chính hãng</option>
-                    <option value="LP">Phụ kiện Lego</option>
-                </select>
-            </label>
-            
-            <label>
-                Chủ đề
-                <select placeholder="Chủ đề" name="chude" id="idchude">
-                    <option value="Naruto" selected>Naruto</option>
-                    <option value="Dragon Ball">Dragon Ball</option>
-                    <option value="Kimetsu No Yaiba">Kimetsu No Yaiba</option>
-                    <option value="Marvel">Marvel</option>
-                </select>
-            </label>
-            
-            <label>
-                Chọn ảnh
-                <input type="file" accept="image/*" id="anh">
-            </label>
-            
-            <input type="submit" value="Thêm sản phẩm" id="add-infor">
-        </form>
-    </div>
-    `;
-    document.body.appendChild(ADD);
-    document.getElementById("add-infor").style.width = "300px";
-    //đóng thẻ thêm sản phẩm
-    detail_exit1();
-    detail_exit2();
-    //thêm lựa chọn cho chủ đề sau khi chọn danh mục
-    document.getElementById("iddanhmuc").addEventListener("change", () => {
-      let addchude = ``;
-      switch (iddanhmuc.value) {
-        case "LM": {
-          addchude = `
-                    <option value="Naruto">Naruto</option>
-                    <option value="Dragon Ball">Dragon Ball</option>
-                    <option value="Kimetsu No Yaiba">Kimetsu No Yaiba</option>
-                    <option value="Marvel">Marvel</option>
-                `;
-          break;
-        }
-        case "MO": {
-          addchude = `
-                    <option value="Army">Army</option>
-                    <option value="Technic">Technic</option>
-                `;
-          break;
-        }
-        case "LR": {
-          addchude = `
-                    <option value="Technic">Technic</option>
-                    <option value="Ninjago">Ninjago</option>
-                `;
-          break;
-        }
-        default: {
-          addchude = `
-              <option value="Technic">Technic</option>
-              <option value="Food/Tool">Food/Tool</option>
-              <option value="Weapon">Weapon</option>
-          `;
-          break;
-        }
-      }
-      document.getElementById("idchude").innerHTML = addchude;
-    });
-    //
-
-    //
-    //lấy đường link của ảnh
-    const imageInput = document.getElementById("anh");
-    let img = document.createElement("img");
-    imageInput.addEventListener("change", () => {
-      img.src = imglink(img, imageInput);
-    });
-    //
-    //bắt đầu thêm sản phẩm khi người dùng submit
-    document.getElementById("adp").addEventListener("submit", (e) => {
-      e.preventDefault();
-      ///////////////////////////
-      if (img.src == "") {
-        alert("Bạn chưa chọn ảnh");
-        document.getElementById("anh").focus();
-      } else if (document.addInput.ten.value == "") {
-        alert("Bạn chưa nhập tên");
-        document.getElementById("idten").focus();
-      } else if (document.addInput.gia.value == "") {
-        alert("Bạn chưa nhập giá");
-        document.getElementById("idgia").focus();
-      } else {
-        if (checkname(document.addInput.ten.value) == 0) {
-          alert("Tên bạn nhập đã tồn tại");
-          document.getElementById("idten").focus();
-        } else {
-          if (checkprice(document.addInput.gia.value) == 0) {
-            alert("Giá tiền phải là số");
-            document.getElementById("idgia").focus();
-          } else {
-            let temp_product = {
-              name: document.addInput.ten.value,
-              code: document.addInput.ma.value,
-              price: document.addInput.gia.value,
-              imgSrc: img.src,
-              topic: idchude.value,
-            };
-
-            temp_product.code = setCode(document.addInput.danhmuc.value);
-            productArray.push(temp_product);
-            localStorage.setItem(listProducts, JSON.stringify(productArray));
-            let temp = productArray.length - 1;
-            ///////////////////////////
-            alert("thêm thành công");
-            //
-            let container = document.getElementById("product");
-            let productDiv = document.createElement("div");
-            productDiv.className = "product-data";
-            productDiv.id = "product-" + temp;
-            productDiv.innerHTML = `
-                        <p><img src="${productArray[temp].imgSrc}" alt="Mô tả sản phẩm"></p>
-                        <div class ="product-info">
-                            <div class="product-info-detail">
-                                <strong>Tên sản phẩm:</strong> ${productArray[temp].name}
-                            </div>
-                            <div class="product-info-detail">
-                                <strong>Mã sản phẩm:</strong> ${productArray[temp].code}
-                            </div>
-                            <div class="product-info-detail">
-                                <strong>Chủ đề:</strong> ${productArray[temp].topic}
-                            </div>
-                        </div>
-                    `;
-
-            container.appendChild(productDiv);
-            //mở chi tiết sản phẩm
-            create_product_detail(temp);
-            //
-            document.querySelector(".screen-bright").remove();
-          }
-        }
-      }
-    });
-  }
-  // Phần quản lý đơn hàng
-
-  // Phần thống kê
-
-  // tool
-  function detail_exit1() {
-    window.addEventListener("click", (event) => {
-      const screenBright = document.querySelector(".screen-bright");
-      if (event.target === screenBright) {
-        screenBright.remove();
-      }
-    });
-  }
-
-  function detail_exit2() {
-    document.querySelector(".exit").addEventListener("click", () => {
-      document.querySelector(".screen-bright").remove();
-    });
-  }
 }

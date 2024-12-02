@@ -1165,6 +1165,13 @@ input[type="number"]::-webkit-outer-spin-button {
   .auth-form__controls {
     margin-top: 25px;
   }
+
+  .content-order-group .content-order-info {
+    font-size: 1rem;
+    padding: 0.9rem;
+    height: 40px;
+    text-align: center;
+  }
 }
 
 @media only screen and (max-width: 600px) {
@@ -1249,6 +1256,18 @@ input[type="number"]::-webkit-outer-spin-button {
   .content-detail {
     font-size: 1.4rem;
     padding: 10px;
+  }
+
+  .content-order-info,
+  .order-item {
+    flex: 1 1 100%; /* Chiếm toàn bộ chiều rộng trên màn hình nhỏ */
+    margin: 5px 0; /* Thêm khoảng cách giữa các mục */
+  }
+  .content-order-group .content-order-info {
+    font-size: 1.2rem;
+    padding: 0.8rem;
+    height: 50px;
+    text-align: center;
   }
 }
 
@@ -1507,7 +1526,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 .manage_data tbody > tr:hover {
   cursor: pointer;
-  background-color: greenyellow;
+  background-color: var(--primary-color-rgpa);
 }
 .manage_data td {
   border: solid 2px;
@@ -1594,7 +1613,7 @@ button:hover {
 
 #edit-space {
   display: flex;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 #add-product-input div {
   font-size: 30px;
@@ -1602,8 +1621,8 @@ button:hover {
   padding-left: calc(50% - 130px);
 }
 #product-detail img {
-  width: 300px;
-  height: 300px;
+  width: 250px;
+  height: 250px;
   margin: 10px 65px;
   border: solid 1px rgba(0, 0, 0, 0.2);
 }
@@ -1686,14 +1705,34 @@ button:hover {
   width: 400px;
   text-align: center;
 }
+
+#removeBtn {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#removeBtn:hover {
+  background-color: darkred;
+}
+
 #confirmBtn {
   background-color: #4caf50;
   color: white;
-  margin: 20px;
+  margin: 20px auto;
   border: none;
   border-radius: 5px;
-  width: 60px;
-  height: 30px;
+  width: 150px;
+  height: 40px;
+}
+
+#confirmBtn:hover {
+  background-color: var(--primary-color);
+  color: white;
 }
 
 #cancelBtn {
@@ -1881,6 +1920,9 @@ button:hover {
 
 #admin-logout {
   text-align: right;
+  background-color: var(--button-primary-color);
+  border: 2px solid var(--border-color-1);
+  padding: 10px;
 }
 
 #admin-logout:hover {
@@ -1911,43 +1953,53 @@ button:hover {
 }
 
 .content-order-group {
-  width: 100%;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-top: 1px solid rgba(0, 0, 0, 0.4);
-  height: 6vh;
+  background-color: #f0f0f0; /* Màu nền cho tiêu đề */
+  padding: 10px 0; /* Padding cho tiêu đề */
+  border-bottom: 2px solid #ccc; /* Đường viền dưới tiêu đề */
+  color: var(--primary-color-rgpa);
 }
+
 .content-order-info {
-  width: 17.5%;
-  padding: 8px;
-  text-align: center;
-  font-size: 15px;
-  border: solid 0.8px black;
-  background-color: #ccc;
-  border-radius: 5px;
+  flex: 1; /* Cột chiếm không gian đều */
+  padding: 12px; /* Thêm padding cho ô */
+  height: 50px;
+  text-align: center; /* Căn giữa văn bản */
+  font-size: 1.4rem; /* Tăng kích thước chữ cho dễ đọc */
+  font-weight: bold; /* Làm đậm văn bản tiêu đề */
+  background-color: var(--primary-color); /* Màu nền cho tiêu đề */
+  border: 1px solid #ccc; /* Đường viền cho từng ô */
+  border-radius: 5px; /* Làm tròn góc cho tiêu đề */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng cho tiêu đề */
 }
 
 .order-item-group {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 10px 0; /* Thêm khoảng cách giữa các đơn hàng */
+  padding: 10px; /* Thêm padding cho hàng đơn hàng */
   border: 1px solid rgba(0, 0, 0, 0.4);
-  border-radius: 30px;
-  margin: 20px;
+  border-radius: 10px; /* Làm tròn góc cho hàng */
+  background-color: #fff; /* Màu nền cho hàng đơn hàng */
 }
+
 .order-item {
-  width: 17.5%;
-  padding: 8px;
-  text-align: center;
+  flex: 1; /* Cột chiếm không gian đều */
+  padding: 8px; /* Thêm padding cho ô */
+  text-align: center; /* Căn giữa văn bản */
+  font-size: 1.4rem;
 }
+
 .order-item-info {
-  width: 30%;
-  text-align: left;
+  flex: 1.5; /* Cột thông tin sản phẩm chiếm không gian nhiều hơn */
+  text-align: left; /* Căn trái cho thông tin sản phẩm */
 }
+
 .content-order-product {
-  width: 30%;
+  width: 20%;
   text-align: center;
 }
 
@@ -2000,4 +2052,108 @@ button:hover {
 .data-stat {
   margin: 7px 0px;
   padding: 0px 10px;
+  line-height: 2.6rem;
+}
+
+#orderDetails li {
+  list-style-type: none;
+  text-indent: -50px;
+}
+
+#orderModal {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: none;
+}
+
+.orderModal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#orderDetails li {
+  list-style-type: none;
+  text-indent: -50px;
+}
+
+#removeBtn {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#removeBtn:hover {
+  background-color: darkred;
+}
+
+.orderModalTable {
+  border-collapse: collapse; /* Đảm bảo không có khoảng cách giữa các đường biên */
+  width: 100%;
+  text-align: left;
+  border: 1px solid #000; /* Đường biên của bảng */
+  border-spacing: 0; /* Tương đương với cellspacing: 0 */
+}
+
+.orderModalTable th,
+.orderModalTable td {
+  padding: 10px; /* Tương đương với cellpadding: 10px */
+  border: 1px solid #ccc; /* Đường biên cho th và td */
+}
+
+.orderModalTable th {
+  background-color: #f2f2f2; /* Màu nền cho tiêu đề cột */
+  font-weight: bold;
+}
+
+#addAccount {
+  display: inline-block;
+  position: sticky;
+  z-index: 100;
+  top: 85%;
+  left: 90%;
+  width: 90px;
+  height: 90px;
+  background-color: #8fe0ec;
+  text-align: center;
+  padding: 25px;
+  font-size: 40px;
+  border-radius: 100%;
+  color: rgb(103, 30, 219);
+  filter: brightness(100%);
+  pointer-events: all;
+}
+#addAccount:hover {
+  cursor: pointer;
+  background-color: #004e64;
+  color: #f5f5f5;
+}
+#content-admin {
+  min-height: 850px;
 }
