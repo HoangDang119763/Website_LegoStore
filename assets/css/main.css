@@ -2157,3 +2157,24 @@ button:hover {
 #content-admin {
   min-height: 850px;
 }
+
+#account-detail-user {
+  max-width: 500px; /* Giới hạn chiều rộng tối đa */
+  overflow-wrap: break-word; /* Ghi lại các từ nếu cần */
+  word-wrap: break-word; /* Giúp ngắt từ nếu quá dài */
+  width: 30%;
+  height: 500px;
+  min-height: 400px;
+  font-size: 20px;
+  background-color: #f7f7f7;
+  border-radius: 20px;
+  font-family: "Time New Roman";
+  padding-left: 60px;
+  margin: 5% auto;
+}
+
+.form-detail-contentU {
+  text-align: left;
+  width: 100%;
+  line-height: 1.8rem;
+}

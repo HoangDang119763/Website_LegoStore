@@ -1769,7 +1769,15 @@ function statistic_load(start, end) {
         k++;
       }
       if (k == quantitySell.length) {
-        quantitySell.push(orders[i].items[j]);
+        let temp = {
+          name: orders[i].items[j].name,
+          code: orders[i].items[j].code,
+          price: orders[i].items[j].price,
+          imgSrc: orders[i].items[j].imgSrc,
+          topic: orders[i].items[j].topic,
+          quantity: orders[i].items[j].quantity,
+        };
+        quantitySell.push(temp);
       } else {
         quantitySell[k].quantity += orders[i].items[j].quantity;
       }
@@ -1982,20 +1990,6 @@ function create_statistic_cus(i, orders, userorder) {
     }
   }
 }
-function detail_exit1() {
-  window.addEventListener("click", (event) => {
-    const screenBright = document.querySelector(".screen-bright");
-    if (event.target === screenBright) {
-      screenBright.remove();
-    }
-  });
-}
-
-function detail_exit2() {
-  document.querySelector(".exit").addEventListener("click", () => {
-    document.querySelector(".screen-bright").remove();
-  });
-}
 // tool
 function detail_exit1() {
   window.addEventListener("click", (event) => {
@@ -2009,5 +2003,14 @@ function detail_exit1() {
 function detail_exit2() {
   document.querySelector(".exit").addEventListener("click", () => {
     document.querySelector(".screen-bright").remove();
+  });
+}
+
+function block_exit1() {
+  window.addEventListener("click", (event) => {
+    const screenBright = document.querySelector(".screen-bright");
+    if (event.target === screenBright) {
+      alert("hello");
+    }
   });
 }

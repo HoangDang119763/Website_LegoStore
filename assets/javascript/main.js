@@ -11,6 +11,20 @@ function validateUser(user) {
   return regex.test(user);
 }
 
+function getUserById(id) {
+  let tempUserList = JSON.parse(localStorage.getItem(ListUsers));
+  let index = tempUserList.findIndex((user) => user.id === id);
+  let user;
+  // Kiểm tra xem người dùng có tồn tại không
+  if (index !== -1) {
+    // Cập nhật giỏ hàng của người dùng
+    user = tempUserList[index];
+  } else {
+    user = [];
+  }
+  return user;
+}
+
 function getCartUserInList(id) {
   // Lấy danh sách người dùng từ localStorage
   let tempUserList = JSON.parse(localStorage.getItem(ListUsers));
@@ -55,7 +69,7 @@ function numQuantitySoldInListOrder(productID) {
   // Kiểm tra nếu tempOrderList không phải là null và là một mảng
   tempOrderList.forEach((order) => {
     // Kiểm tra trạng thái đơn hàng
-    if (order.status === "Đã xác nhận") {
+    if (order.status === "Đã xác nhận" || order.status === "Chờ xác nhận") {
       // Duyệt qua từng item trong đơn hàng
       order.items.forEach((item) => {
         // Kiểm tra mã sản phẩm
@@ -1458,6 +1472,43 @@ if (!window.location.pathname.endsWith("manage.html")) {
     }
   }
 
+  function renderProductCategories() {
+    const productCatogrey = JSON.parse(
+      localStorage.getItem(listProductCatogrey)
+    );
+    const menuList = document.querySelector(".topmenu__info-option");
+
+    productCatogrey.forEach((category) => {
+      const categoryItem = document.createElement("li");
+      categoryItem.className =
+        "topmenu__info-option-item topmenu__info-option-item-select";
+
+      categoryItem.innerHTML = `
+            <a href="" class="topmenu__info-option-item-link">
+                ${category.brandname}
+                <i class="fa-solid fa-chevron-right"></i>
+            </a>
+            <ul class="topmenu__info-option-1">
+                ${category.subcategories
+                  .map(
+                    (sub) => `
+                    <li class="topmenu__info-option-item-1">
+                        <a href="" class="topmenu__info-option-item-link-1">${sub.name}</a>
+                    </li>
+                `
+                  )
+                  .join("")}
+            </ul>
+        `;
+
+      menuList.appendChild(categoryItem);
+    });
+
+    // document.querySelector(".topmenu__info-option").appendChild(menuList); // Hoặc chèn vào phần tử cụ thể nếu cần
+  }
+
+  // Gọi hàm để render HTML
+
   function createOrders() {
     if (localStorage.getItem(listOrders) === null) {
       const orders = [
@@ -1830,6 +1881,7 @@ if (!window.location.pathname.endsWith("manage.html")) {
   }
 
   createProductCatogrey();
+  renderProductCategories();
   verticalMenu();
   createProducts();
   createUsers();
@@ -1917,7 +1969,6 @@ if (!window.location.pathname.endsWith("manage.html")) {
       console.log("Không có sản phẩm theo yêu cầu");
       return;
     } else {
-      alert(product.id); // Hiển thị ID của sản phẩm
       producttype__name.innerHTML = `<h3>${product.textContent}</h3>`;
       productContainerMain.style.display = "flex";
       pageNumber.style.display = "block";
@@ -2424,7 +2475,6 @@ if (!window.location.pathname.endsWith("manage.html")) {
     // Kiểm tra số lượng sản phẩm muốn thêm vào giỏ hàng
     let availableQuantity =
       productItem.quantity - numQuantitySoldInListOrder(productID);
-    alert(availableQuantity);
     let totalQuantityInCart =
       cartArray.find((item) => item.code === productItem.code)?.quantity || 0;
     let totalQuantity = totalQuantityInCart + parseInt(quantity);
@@ -3513,6 +3563,78 @@ if (!window.location.pathname.endsWith("manage.html")) {
   }
   let orderContent = document.querySelectorAll(".header__truck");
   orderContent.forEach((item) => item.addEventListener("click", orderLayout));
+
+  //thông tin tài khoản
+  const accountLoginButton = document.querySelector(".accountLogin");
+  accountLoginButton.addEventListener("click", () => {
+    const info = getUserById(USERLOGIN.id);
+    let addressaccount;
+    if (info.address.length == 0) {
+      addressaccount = "Chưa cập nhật";
+    } else {
+      addressaccount =
+        info.address[0].houseNumber +
+        ", " +
+        info.address[0].ward +
+        ", " +
+        info.address[0].district +
+        ", " +
+        info.address[0].city;
+    }
+    const userDiv = document.createElement("div");
+    userDiv.className = "screen-bright";
+    userDiv.innerHTML = `
+      <div id="account-detail-user">
+                <p class="exit" style="display: inline-block; float: right; margin-top:0%">
+                    <button style="border: none; border-radius: 0px 18px 0px 0px; font-size: 16px; padding: 10px;">
+                        <i class="fa-regular fa-x"></i>
+                    </button>
+                </p>
+                <h2 style="padding-top:40px">Tài khoản</h2>
+                <section>
+                    <div class="form-detail">
+                        <div class="form-detail-contentU" style="margin: 5px 0px">
+                            <div style = "margin-bottom: 10px;"><strong>Tên đăng nhập: </strong> ${info.username}</div>
+                        </div>
+
+                        <div class="form-detail-contentU" style="margin: 5px 0px">
+                            <div><strong>Email: </strong>${info.email}</div>
+                        </div>
+
+                        <div class="form-detail-contentU" style="margin: 5px 0px">
+                            <div style="margin:10px 0px"><strong>Địa chỉ: </strong> ${addressaccount}</div>
+                        </div>
+
+                        <div class="form-detail-contentU" style="margin: 5px 0px">
+                            <div style="margin:10px 0px"><strong>Ngày tạo:</strong> ${info.dateSignUp}</div>
+                        </div>
+
+                        <div class="form-detail-contentU" style="margin: 5px 0px">
+                            <div style="margin:10px 0px"><strong>Vai trò:</strong> Khách hàng</div>
+                        </div>
+
+                    </div>
+                </section>
+            </div>
+    `;
+    document.body.appendChild(userDiv);
+    detail_exit1();
+    detail_exit2();
+  });
+  function detail_exit1() {
+    window.addEventListener("click", (event) => {
+      const screenBright = document.querySelector(".screen-bright");
+      if (event.target === screenBright) {
+        screenBright.remove();
+      }
+    });
+  }
+
+  function detail_exit2() {
+    document.querySelector(".exit").addEventListener("click", () => {
+      document.querySelector(".screen-bright").remove();
+    });
+  }
 
   // Phần ADMIN
 } else {
